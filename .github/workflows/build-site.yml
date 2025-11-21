@@ -1,0 +1,35 @@
+name: Build and Package Site
+
+on:
+  push: # This runs the robot every time you save a change
+    branches:
+      - main 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Gets your code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Sets up the tools
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # Step 3: Installs from your "shopping list"
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Runs the build (makes the final files)
+      - name: Build Project
+        run: npm run build 
+
+      # Step 5: Packages the final files for you
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-site-files # The name of your download
+          path: dist/ # The folder with the final files
