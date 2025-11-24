@@ -497,19 +497,18 @@ const App = () => {
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <Pill>Focused, time‑boxed, expert interventions</Pill>
+            <Pill>YOUR GROWTH OS HEALTH CHECK</Pill>
             <h1 className="mt-6 text-4xl sm:text-6xl font-black tracking-tight leading-[1.05] text-slate-900">
-              Precision Diagnosis. Engineered Growth.{" "}
+              Isolate Your Core Marketing Constraints.{" "}
               <span
                 className="text-transparent bg-clip-text"
                 style={{ backgroundImage: `linear-gradient(90deg, ${PALETTE.teal}, ${PALETTE.gold})` }}
               >
-                Stop Guessing, Start Assembling.
+                Deploy Your Optimized Operating Model.
               </span>
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-slate-700 max-w-3xl">
-              The single, 8–10 week sprint that quantifies your CAC leaks, accelerates CLV growth, and blueprints your
-              execution strategy.
+              A structured diagnostic engagement that delivers objective, data-backed ratings across 16 critical Marketing and Growth capabilities and a precise roadmap to maximize budget efficiency and marginal ROI.
             </p>
           </MotionDiv>
         </div>
