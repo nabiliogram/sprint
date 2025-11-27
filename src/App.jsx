@@ -22,6 +22,12 @@ const PALETTE = {
     gray: "#111827",
 };
 
+const CARD_ACCENTS = [
+    { text: "text-teal-600", line: "bg-teal-500/70" },
+    { text: "text-amber-600", line: "bg-amber-500/70" },
+    { text: "text-slate-700", line: "bg-slate-500/50" }
+];
+
 const fadeIn = {
     hidden: { opacity: 0, y: 24 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -546,29 +552,47 @@ const App = () => {
       </section>
 
       {/* CHALLENGE (Standard content) */}
-      <section id="challenge" className="py-20">
+      <section id="challenge" className="py-20 bg-[#F8FAFC]">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
           overline="Identifying High-Value Levers"
           title="Precision growth requires rigorous, practitioner-led strategy"
           kicker="We define the highest-leverage growth opportunities—and quantify precisely where the next dollar delivers maximum marginal ROI."
         />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6">
-          {OPPORTUNITY_CARDS.map((b, i) => (
-            <MotionDiv
-              key={i}
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-            >
-              <Card className="p-6 h-full">
-                <div className="text-xs uppercase tracking-wider text-slate-500">Opportunity {i + 1}</div> 
-                <h3 className="mt-2 text-xl font-bold text-slate-900">{b.title}</h3>
-                <p className="mt-3 text-slate-700" dangerouslySetInnerHTML={{ __html: b.copy }} />
-              </Card>
-            </MotionDiv>
-          ))}
+       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6">
+          {OPPORTUNITY_CARDS.map((o,l)=>{
+            const accent = CARD_ACCENTS[l];
+            return (
+              <MotionDiv
+                key={l}
+                variants={fadeIn}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                transition={{ delay: l * 0.1 }}
+              >
+                <div className="relative rounded-xl overflow-hidden bg-white shadow-md transition hover:shadow-lg">
+                    {/* ACCENT LINE at the top (The colored bar) */}
+                    <div className={`absolute top-0 left-0 w-full h-2 ${accent.line}`}></div> 
+                    
+                    <div className="p-6 pt-8 h-full">
+                        {/* Stylized Opportunity Text */}
+                        <div className={`text-sm font-extrabold ${accent.text} uppercase tracking-widest`}>
+                            Opportunity {l + 1}
+                        </div>
+                        
+                        {/* Title (Larger font, bold) */}
+                        <h3 className="mt-2 text-2xl font-bold text-slate-900">
+                            {o.title}
+                        </h3>
+                        
+                        {/* Copy (with strong tag retained) */}
+                        <p className="mt-3 text-slate-700" dangerouslySetInnerHTML={{ __html: o.copy }} />
+                    </div>
+                </div>
+              </MotionDiv>
+            )
+          })}
         </div>
       </section>
 
