@@ -27,9 +27,9 @@ jobs:
       - name: Build Project
         run: npm run build 
 
-      # Step 5: Packages the final files for you
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
+      # Step 5: DEPLOY the 'dist' folder to the gh-pages branch
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: static-site-files # The name of your download
-          path: dist/ # The folder with the final files
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Tells the action to publish the folder created by Vite
