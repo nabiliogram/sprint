@@ -505,7 +505,7 @@ const App = () => {
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <Pill>YOUR GROWTH OS HEALTH CHECK</Pill>
+            <Pill>YOUR GROWTH & MARKETING HEALTH CHECK</Pill>
             <h1 className="mt-6 text-4xl sm:text-6xl font-black tracking-tight leading-[1.05] text-slate-900">
               Isolate Your Core Marketing Constraints.{" "}
               <span
