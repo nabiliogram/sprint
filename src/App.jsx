@@ -408,10 +408,7 @@ const App = () => {
   return (
     // FIX: Capped the maximum width to 1000px for large screens (md:max-w-5xl is approx 64rem or 1024px)
 <div 
-  className="min-h-screen bg-white text-slate-900 font-sans mx-auto max-w-full md:max-w-5xl"
-  style={{ 
-    background: `radial-gradient(1500px at 15% 50%, ${PALETTE.teal}08, ${PALETTE.gold}08, #FFFFFF) !important` 
-  }}
+  className="min-h-screen text-slate-900 font-sans mx-auto max-w-full md:max-w-5xl"
 >
       {/* NAV */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
