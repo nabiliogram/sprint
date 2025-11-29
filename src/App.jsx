@@ -173,7 +173,7 @@ const getInitials = (name = "") =>
 // --- 3. REUSABLE COMPONENTS (Memoized for efficiency) ---
  
 const Pill = ({ children }) => (
-  <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600 shadow-sm">
+  <span className="inline-flex items-center rounded-full border border-slate-200 bg-gradient-to-r from-teal-50 to-amber-50 px-3 py-1 text-xs font-medium text-slate-900 shadow-sm">
     {children}
   </span>
 );
