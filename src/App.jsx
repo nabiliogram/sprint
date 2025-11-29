@@ -56,7 +56,7 @@ const OPPORTUNITY_CARDS = [
     },
 ];
 
-const PROMINENT_OVERLINE_CLASS = "bg-gradient-to-r from-teal-50 to-amber-50 border border-slate-200 text-slate-900";
+const PROMINENT_OVERLINE_CLASS = "bg-gradient-to-r from-teal-50 to-amber-50 border border-slate-200 text-slate-900 px-3";
 const DANIEL_PHOTO_URL = "https://www.haschemie.com/sprint/danielhead.jpg";
 const NABIL_PHOTO_URL = "https://www.haschemie.com/sprint/nabilhead.jpeg";
 const LINKEDIN_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png";
