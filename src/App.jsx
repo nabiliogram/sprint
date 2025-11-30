@@ -611,7 +611,7 @@ const App = () => {
           title="The Growth Assembly Blueprint"
           kicker="A single 8–10 week diagnostic & strategy sprint engineered for predictable outcomes."
         />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
               phase: "Assess",
@@ -797,7 +797,7 @@ const App = () => {
           </div>
 
           {/* SME Grid */}
-          <div className="mt-8 grid grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {SMES.map((m, i) => (
               <Card key={i} className="p-5 flex flex-col justify-between">
                 <div>
