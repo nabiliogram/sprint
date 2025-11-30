@@ -415,11 +415,11 @@ const App = () => {
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div
-              className="h-8 w-8 rounded-xl"
-              // FIX: Removed trailing backslash for clean JSX/Babel compilation
-              style={{ background: `linear-gradient(135deg, ${PALETTE.teal}, ${PALETTE.gold})` }}
-            />
+            <img
+  src={LOGO_SA_URL}
+  alt="Sprint Assembly SA Logo"
+  className="h-8 w-8 object-contain"
+/>
             <span className="tracking-tight text-lg">
   <span className="font-extrabold">Sprint</span>
   <span className="font-light text-slate-500"> Assembly</span> {/* Added text-slate-500 for lighter color, adjust as needed */}
