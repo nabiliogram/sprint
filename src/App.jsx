@@ -576,8 +576,9 @@ const App = () => {
                 whileInView="show"
                 viewport={{ once: true }}
                 transition={{ delay: l * 0.1 }}
+                className="h-full"
               >
-                <div className="relative rounded-xl overflow-hidden bg-white shadow-md transition hover:shadow-lg">
+                <div className="relative rounded-xl overflow-hidden bg-white shadow-md transition hover:shadow-lg h-full">
                     {/* ACCENT LINE at the top (The colored bar) */}
                     <div className={`absolute top-0 left-0 w-full h-2 ${accent.line}`}></div> 
                     
