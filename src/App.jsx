@@ -56,6 +56,7 @@ const OPPORTUNITY_CARDS = [
     },
 ];
 
+const LOGO_SA_URL = "https://haschemie.com/sprint/logo.png";
 const PROMINENT_OVERLINE_CLASS = "bg-gradient-to-r from-teal-50 to-amber-50 border border-slate-200 text-slate-900 px-3";
 const DANIEL_PHOTO_URL = "https://www.haschemie.com/sprint/danielhead.jpg";
 const NABIL_PHOTO_URL = "https://www.haschemie.com/sprint/nabilhead.jpeg";
@@ -419,7 +420,10 @@ const App = () => {
               // FIX: Removed trailing backslash for clean JSX/Babel compilation
               style={{ background: `linear-gradient(135deg, ${PALETTE.teal}, ${PALETTE.gold})` }}
             />
-            <span className="font-extrabold tracking-tight text-lg">Sprint Assembly</span>
+            <span className="tracking-tight text-lg">
+  <span className="font-extrabold">Sprint</span>
+  <span className="font-light text-slate-500"> Assembly</span> {/* Added text-slate-500 for lighter color, adjust as needed */}
+</span>
           </div>
           
           {/* Desktop Navigation */}
@@ -830,6 +834,7 @@ const App = () => {
         </div>
       </LazyLoadSection>
 
+    
       {/* CTA (Lazy Loaded) */}
       <LazyLoadSection id="cta" className="py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -853,10 +858,11 @@ const App = () => {
       <footer className="py-10 border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div
-              className="h-7 w-7 rounded-lg"
-              style={{ background: `linear-gradient(135deg, ${PALETTE.teal}, ${PALETTE.gold})` }}
-            />
+           <img
+  src={LOGO_SA_URL} // <-- Uses the new constant
+  alt="Sprint Assembly SA Logo"
+  className="h-8 w-8 object-contain" // Ensures the logo scales correctly
+/>
             <span className="font-semibold">Sprint Assembly</span>
           </div>
           <div className="text-sm text-slate-500">
