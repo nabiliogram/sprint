@@ -57,7 +57,7 @@ const OPPORTUNITY_CARDS = [
 ];
 
 const LOGO_SA_URL = "https://haschemie.com/sprint/logo.png";
-const PROMINENT_OVERLINE_CLASS = "bg-gradient-to-r from-teal-50 to-amber-50 border border-slate-200 text-slate-900 px-3";
+const PROMINENT_OVERLINE_CLASS = "inline-flex items-center rounded-full border border-slate-200 bg-gradient-to-r from-teal-50 to-amber-50 px-3 py-1 text-xs font-medium text-slate-900 shadow-sm";
 const DANIEL_PHOTO_URL = "https://www.haschemie.com/sprint/danielhead.jpg";
 const NABIL_PHOTO_URL = "https://www.haschemie.com/sprint/nabilhead.jpeg";
 const LINKEDIN_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png";
@@ -245,7 +245,7 @@ const SectionTitle = memo(({ overline, title, kicker, overlineBgClass = "" }) =>
         <div className="max-w-5xl mx-auto">
           {overline && (
             <div className="tracking-widest uppercase text-xs sm:text-sm font-semibold mb-3">
-              <span className={`inline-block px-3 py-1 rounded-full text-slate-900 ${overlineBgClass}`}>
+              <span className={overlineBgClass}>
                 {overline}
               </span>
             </div>
