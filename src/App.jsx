@@ -401,7 +401,7 @@ const App = () => {
 
 
   // Define the background class for prominent overlines
-  const PROMINENT_OVERLINE_CLASS = "bg-amber-200/50 text-slate-900"; 
+  const PROMINENT_OVERLINE_CLASS = "inline-flex items-center rounded-full border border-slate-200 bg-gradient-to-r from-teal-50 to-amber-50 px-3 py-1 text-xs font-medium text-slate-900 shadow-sm";
   
   // Check if motion is available before using it
   const MotionDiv = motion ? motion.div : 'div';
