@@ -701,11 +701,10 @@ const App = () => {
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
           overline="Specialized Practitioners"
           title="The Assembly Team"
-          kicker="Founders lead the engagement and assemble SMEs as needed."
         />
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-12 space-y-8">
           
-          <div className="relative max-w-4xl mx-auto px-6 pt-8 pb-4">
+          <div className="relative max-w-4xl mx-auto px-6 pt-4 pb-4">
             <div className="absolute -top-1 -left-0 sm:left-4 text-5xl text-slate-300/80 select-none" aria-hidden>
               "
             </div>
@@ -793,7 +792,7 @@ const App = () => {
             <div className="tracking-widest uppercase text-xs font-semibold text-slate-500">Specialist Network</div>
             <h4 className="mt-1 text-2xl font-extrabold">Subject Matter Experts (As‑Needed)</h4>
             <p className="mt-2 text-slate-600 text-sm max-w-3xl mx-auto">
-              Founders lead; SMEs plug in for depth and speed across data, media, lifecycle, and technology.
+              SMEs plug in for depth and speed across data, media, lifecycle, and technology.
             </p>
           </div>
 
