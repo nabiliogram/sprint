@@ -565,7 +565,7 @@ const App = () => {
           title="Precision growth requires rigorous, practitioner-led strategy"
           kicker="We define the highest-leverage growth opportunities—and quantify precisely where the next dollar delivers maximum marginal ROI."
         />
-       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6">
+       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6 items-stretch">
           {OPPORTUNITY_CARDS.map((o,l)=>{
             const accent = CARD_ACCENTS[l];
             return (
