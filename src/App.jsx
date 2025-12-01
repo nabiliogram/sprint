@@ -332,7 +332,7 @@ const DeliverablesSectionContent = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           transition={{ delay: DELIVERABLES_DATA.delay }}
-          className="grid md:grid-cols-2 gap-8 items-center" // Grid for image and text, centered vertically
+          className="grid md:grid-cols-2 gap-8 items-start" // Grid for image and text, centered vertically
         >
           {/* Image Column */}
           <div className="order-2 md:order-1 flex justify-center md:justify-start"> {/* Order changed for mobile-first, image on left on desktop */}
@@ -779,7 +779,7 @@ const App = () => {
           </div>
 
           {/* SME Grid */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             {SMES.map((m, i) => (
               <Card key={i} className="p-5 flex flex-col justify-between">
                 <div>
