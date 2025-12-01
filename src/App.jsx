@@ -668,14 +668,29 @@ const App = () => {
       </LazyLoadSection>
 
       {/* COMBINED DELIVERABLES / QUANTIFIED PROOF (Lazy Loaded) */}
-      <LazyLoadSection id="deliverables" className="bg-white border-y border-slate-200">
-        <SectionTitle
-          overlineBgClass={PROMINENT_OVERLINE_CLASS}
-          overline="Final Assembly"
-          title="Your Blueprint for Quantified Growth & Action"
-        />
-        <DeliverablesSectionContent />
-      </LazyLoadSection>
+      <LazyLoadSection 
+          id="deliverables" 
+          className="relative border-y border-slate-200 overflow-hidden" // Removed bg-white
+      >
+        {/* BACKGROUND GRADIENT LAYER (REPLICATED FROM HERO SECTION) */}
+        <div className="absolute inset-0 -z-10" aria-hidden>
+          <div
+            className="h-full w-full"
+            style={{
+              // Replicating the Hero's exact background gradient style
+              background: `radial-gradient(1200px 520px at 20% -20%, ${PALETTE.teal}20, transparent), radial-gradient(1200px 520px at 80% 0%, ${PALETTE.gold}22, transparent)`
+            }}
+          />
+        </div>
+        
+        {/* Original Content Wrapper */}
+        <SectionTitle
+          overlineBgClass={PROMINENT_OVERLINE_CLASS}
+          overline="Final Assembly"
+          title="Your Blueprint for Quantified Growth & Action"
+        />
+        <DeliverablesSectionContent />
+      </LazyLoadSection>
 
       {/* TEAM (Lazy Loaded) */}
       <LazyLoadSection id="team">
