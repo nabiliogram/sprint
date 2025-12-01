@@ -335,11 +335,11 @@ const DeliverablesSectionContent = () => {
           className="grid md:grid-cols-2 gap-8 items-start" // Grid for image and text, centered vertically
         >
           {/* Image Column */}
-          <div className="order-2 md:order-1 flex justify-center md:justify-start h-full self-stretch">
+          <div className="order-2 md:order-1">
             <img
               src={DELIVERABLES_DATA.imageUrl}
               alt="Combined Deliverables Report Mockup"
-              className="w-full max-w-md h-full object-contain rounded-xl shadow-2xl transition duration-500 hover:scale-[1.03]"
+              className="w-full object-contain rounded-xl shadow-2xl transition duration-500 hover:scale-[1.03]"
               onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/700x400/f1f5f9/94a3b8?text=Image+Not+Found"; }}
             />
           </div>
