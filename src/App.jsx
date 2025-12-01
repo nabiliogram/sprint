@@ -335,7 +335,7 @@ const DeliverablesSectionContent = () => {
           className="grid md:grid-cols-2 gap-8 items-start" // Grid for image and text, centered vertically
         >
           {/* Image Column */}
-          <div className="order-2 md:order-1 flex justify-center md:justify-start"> {/* Order changed for mobile-first, image on left on desktop */}
+          <div className="order-2 md:order-1 flex justify-center md:justify-start items-start">
             <img
               src={DELIVERABLES_DATA.imageUrl}
               alt="Combined Deliverables Report Mockup"
