@@ -317,7 +317,7 @@ const DeliverablesSectionContent = () => {
     // New combined data for Deliverables section
     const DELIVERABLES_DATA = {
       imageUrl: "https://haschemie.com/sprint/fa.png", // <--- REPLACE with your actual combined image URL
-      combinedCopy: "Our comprehensive deliverables include a <strong>Growth Assembly Blueprint</strong> with detailed findings, core strategy, and validated recommendations; a <strong>Gap Analysis & Financial Quantification</strong> report linking problems to prioritized, sized outcomes with uplift potential; and a <strong>Prioritized Execution Roadmap</strong> providing a detailed 6-month plan with actionable next steps.",
+      combinedCopy: "Our core output is the <strong>Growth Assembly Blueprint</strong> — a clear, evidence-driven plan that shows exactly where to focus and why. It brings together our deepest analysis, validated insights, and a precise roadmap designed for immediate impact. You’ll receive a comprehensive view of what’s working, what’s not, and the opportunities worth chasing, supported by a <strong>Gap Analysis & Financial Quantification</strong> that ties each problem to its potential uplift. The Blueprint then translates these insights into a prioritized, <strong>6-month execution plan</strong> with concrete, actionable next steps—giving your team clarity, alignment, and a confident path forward.",
       delay: 0.1, // Still useful for the overall animation
     };
     
@@ -673,7 +673,6 @@ const App = () => {
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
           overline="Final Assembly"
           title="Your Blueprint for Quantified Growth & Action"
-          kicker="Our comprehensive deliverables provide the definitive analysis, validated insights, and a precise roadmap for immediate impact."
         />
         <DeliverablesSectionContent />
       </LazyLoadSection>
