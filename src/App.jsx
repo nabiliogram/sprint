@@ -314,58 +314,41 @@ const LazyLoadSection = ({ children, id, className = "" }) => {
 const DeliverablesSectionContent = () => {
 
     // Finalized copy and image URLs
-    const DELIVERABLES_DATA = [
-      {
-        title: "The Growth Assembly Blueprint",
-        copy: "Comprehensive blueprint covering detailed findings, core strategy, and validated recommendations.",
-        imageUrl: "https://haschemie.com/sprint/mock3.png", 
-        delay: 0.1,
-      },
-      {
-        title: "Gap Analysis & Financial Quantification",
-        copy: "Analysis of uplift potential and financial impact, linking problems to prioritized, sized outcomes.",
-        imageUrl: "https://haschemie.com/sprint/mock2.png",
-        delay: 0.2,
-      },
-      {
-        title: "Prioritized Execution Roadmap",
-        copy: "Detailed 6‑month work plan, broken down into prioritized, actionable next steps.",
-        imageUrl: "https://haschemie.com/sprint/mock1.png", 
-        delay: 0.3,
-      },
-    ];
+    // New combined data for Deliverables section
+    const DELIVERABLES_DATA = {
+      imageUrl: "https://haschemie.com/sprint/fa.png", // <--- REPLACE with your actual combined image URL
+      combinedCopy: "Our comprehensive deliverables include a <strong>Growth Assembly Blueprint</strong> with detailed findings, core strategy, and validated recommendations; a <strong>Gap Analysis & Financial Quantification</strong> report linking problems to prioritized, sized outcomes with uplift potential; and a <strong>Prioritized Execution Roadmap</strong> providing a detailed 6-month plan with actionable next steps.",
+      delay: 0.1, // Still useful for the overall animation
+    };
     
     // Check if motion is available before using it
     const MotionDiv = motion ? motion.div : 'div';
 
     return (
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
-        <div className="grid md:grid-cols-3 gap-8">
-          {DELIVERABLES_DATA.map((item, i) => (
-            <MotionDiv
-              key={i}
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: item.delay }}
-              className="flex flex-col items-center text-center"
-            >
-              <div className="relative w-full max-w-[320px] h-[360px] mx-auto mb-6">
-                 <img
-                    src={item.imageUrl}
-                    alt={`${item.title} Report Mockup`}
-                    className="w-full h-full object-contain rounded-xl shadow-2xl transition duration-500 hover:scale-[1.03]"
-                    onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/300x350/f1f5f9/94a3b8?text=Image+Not+Found"; }}
-                  />
-              </div>
-              <div className="px-4">
-                <h4 className="mt-2 text-xl font-extrabold">{item.title}</h4>
-                <p className="mt-2 text-slate-700">{item.copy}</p>
-              </div>
-            </MotionDiv>
-          ))}
-        </div>
+        <MotionDiv
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ delay: DELIVERABLES_DATA.delay }}
+          className="grid md:grid-cols-2 gap-8 items-center" // Grid for image and text, centered vertically
+        >
+          {/* Image Column */}
+          <div className="order-2 md:order-1 flex justify-center md:justify-start"> {/* Order changed for mobile-first, image on left on desktop */}
+            <img
+              src={DELIVERABLES_DATA.imageUrl}
+              alt="Combined Deliverables Report Mockup"
+              className="w-full max-w-md h-auto object-contain rounded-xl shadow-2xl transition duration-500 hover:scale-[1.03]"
+              onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/700x400/f1f5f9/94a3b8?text=Image+Not+Found"; }}
+            />
+          </div>
+
+          {/* Text Column */}
+          <div className="order-1 md:order-2 text-center md:text-left"> {/* Order changed for mobile-first, text on right on desktop */}
+            <p className="mt-3 text-lg sm:text-xl text-slate-700" dangerouslySetInnerHTML={{ __html: DELIVERABLES_DATA.combinedCopy }} />
+          </div>
+        </MotionDiv>
         
         <div className="mx-auto max-w-4xl mt-12">
           <Card className="p-6 text-center">
