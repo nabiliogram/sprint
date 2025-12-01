@@ -317,7 +317,7 @@ const DeliverablesSectionContent = () => {
     // New combined data for Deliverables section
     const DELIVERABLES_DATA = {
       imageUrl: "https://haschemie.com/sprint/fa.png", // <--- REPLACE with your actual combined image URL
-      combinedCopy: "Our core output is the <strong>Growth Assembly Blueprint</strong> — a clear, evidence-driven plan that shows exactly where to focus and why. It brings together our deepest analysis, validated insights, and a precise roadmap designed for immediate impact. You’ll receive a comprehensive view of what’s working, what’s not, and the opportunities worth chasing, supported by a <strong>Gap Analysis & Financial Quantification</strong> that ties each problem to its potential uplift. The Blueprint then translates these insights into a prioritized, <strong>6-month execution plan</strong> with concrete, actionable next steps—giving your team clarity, alignment, and a confident path forward.",
+      combinedCopy: "Our core output is the Growth Assembly Blueprint — a clear, evidence-driven plan that shows exactly where to focus and why. It distills deep analysis, validated insights, and a roadmap built for immediate impact. You’ll see what’s working, what’s not, and which opportunities matter most, backed by a Gap Analysis & Financial Quantification linking issues to uplift potential. The Blueprint then converts these insights into a prioritized 6-month execution plan with concrete next steps—giving your team clarity, alignment, and a confident path forward.",
       delay: 0.1, // Still useful for the overall animation
     };
     
