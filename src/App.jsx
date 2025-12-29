@@ -732,7 +732,7 @@ const App = () => {
                 {/* LinkedIn Link for Nabil */}
                 <div className="mt-4 flex justify-end">
                   <a 
-                    href="#"
+                    href="https://www.linkedin.com/in/haschemie/"
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center justify-center h-8 px-2 rounded-lg bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition"
@@ -766,7 +766,7 @@ const App = () => {
                 {/* LinkedIn Link for Daniel */}
                 <div className="mt-4 flex justify-end">
                   <a 
-                    href="#"
+                    href="https://www.linkedin.com/in/danielbesquin/"
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center justify-center h-8 px-2 rounded-lg bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition"
