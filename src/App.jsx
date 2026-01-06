@@ -492,14 +492,14 @@ const App = () => {
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <Pill>YOUR GROWTH & MARKETING HEALTH CHECK</Pill>
+            <Pill>THE AGENTIC STRATEGY SPRINT</Pill>
             <h1 className="mt-6 text-4xl sm:text-6xl font-black tracking-tight leading-[1.05] text-slate-900">
-              Isolate Your Core Marketing Constraints.{" "}
+              Fix the Marketing Foundation.{" "}
               <span
                 className="text-transparent bg-clip-text"
                 style={{ backgroundImage: `linear-gradient(90deg, ${PALETTE.teal}, ${PALETTE.gold})` }}
               >
-                Deploy Your Optimized Operating Model.
+                Automate the Growth Engine.
               </span>
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-slate-700 max-w-3xl">
