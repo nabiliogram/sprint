@@ -503,7 +503,7 @@ const App = () => {
               </span>
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-slate-700 max-w-3xl">
-              A structured diagnostic engagement that delivers objective, data-backed ratings across 16 critical Marketing and Growth capabilities and a precise roadmap to maximize budget efficiency and marginal ROI.
+              Most growth strategies are limited by manual execution and fragmented data. We run high-velocity diagnostics to isolate your core constraints and optimize your operating model. Once your foundation is high-performing, we deploy Agentic Workflows to capture non-linear scale.
             </p>
           </MotionDiv>
         </div>
