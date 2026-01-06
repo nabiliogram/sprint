@@ -545,8 +545,8 @@ const App = () => {
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
           overline="Identifying High-Value Levers"
-          title="Strategic growth starts with a clean foundation and ends with smarter automation."
-          kicker="We define the highest-leverage growth opportunities—and show you exactly where your next dollar delivers the most profit."
+          title="Smarter strategy. Scalable results."
+          kicker="Our diagnostic finds the biggest constraints in your marketing engine and defines a precise path to maximizing ROI by fixing your core logic and introducing high-efficiency automation."
         />
        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6 items-stretch">
           {OPPORTUNITY_CARDS.map((o,l)=>{
