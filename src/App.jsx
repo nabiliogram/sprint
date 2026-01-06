@@ -551,6 +551,7 @@ const App = () => {
        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6 items-stretch">
           {OPPORTUNITY_CARDS.map((o,l)=>{
             const accent = CARD_ACCENTS[l];
+            const stepLabels = ["Build the Base", "Maximize Profit", "Automate Scale"];
             return (
               <MotionDiv
                 key={l}
@@ -568,7 +569,7 @@ const App = () => {
                     <div className="p-6 pt-8 h-full">
                         {/* Stylized Opportunity Text */}
                         <div className={`text-sm font-extrabold ${accent.text} uppercase tracking-widest`}>
-                            Opportunity {l + 1}
+                            Step {l + 1}: {stepLabels[l]}
                         </div>
                         
                         {/* Title (Larger font, bold) */}
