@@ -492,7 +492,7 @@ const App = () => {
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <Pill>THE AGENTIC STRATEGY SPRINT</Pill>
+            <Pill>THE AGENTIC TRANSFORMATION SPRINT</Pill>
             <h1 className="mt-6 text-4xl sm:text-6xl font-black tracking-tight leading-[1.05] text-slate-900">
               Fix the Marketing Foundation.{" "}
               <span
