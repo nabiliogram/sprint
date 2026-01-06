@@ -43,16 +43,16 @@ const NAV_LINKS = [
 
 const OPPORTUNITY_CARDS = [
     {
-        title: "Accelerate LTV & Retention",
-        copy: "Maximize customer value by closing the loop on retention. We diagnose unoptimized lifecycle messaging and segmentation failures to <strong>fix systemic friction points</strong> that are currently under-monetizing your existing base.",
+        title: "Maximize Customer Lifetime Value",
+        copy: "We find the gaps in how you communicate with and retain your customers. By fixing your messaging and strategy first, we can set up <strong>automated systems</strong> that keep customers coming back—growing your revenue without increasing your acquisition costs.",
     },
     {
-        title: "Unlock Marginal ROI Efficiency",
-        copy: "Current budget allocation is often constrained by averaged data. We provide the clear framework needed to confidently <strong>shift spending and maximize the return</strong> on every incremental marketing dollar.",
+        title: "Capture Marginal ROI Efficiency",
+        copy: "Stop making budget decisions based on averaged data. We provide the framework to identify exactly where your next dollar delivers the most profit, allowing you to <strong>shift spending in real-time</strong> toward your highest-performing channels.",
     },
     {
-        title: "AI/Automation Readiness",
-        copy: "Competitive adoption of AI requires a refined operating model and scalable technical architecture. We audit your MarTech stack and <strong>blueprint your AI readiness</strong> to accelerate performance gains.",
+        title: "Deploy Agentic Workflows",
+        copy: "To move at modern speeds, your team must move beyond manual execution. We audit your tech stack to <strong>integrate intelligent agents</strong> that handle high-volume marketing tasks, freeing your team to focus on high-level strategy and brand direction.",
     },
 ];
 
@@ -545,8 +545,8 @@ const App = () => {
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
           overline="Identifying High-Value Levers"
-          title="Precision growth requires rigorous, practitioner-led strategy"
-          kicker="We define the highest-leverage growth opportunities—and quantify precisely where the next dollar delivers maximum marginal ROI."
+          title="Strategic growth starts with a clean foundation and ends with smarter automation."
+          kicker="We define the highest-leverage growth opportunities—and show you exactly where your next dollar delivers the most profit."
         />
        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6 items-stretch">
           {OPPORTUNITY_CARDS.map((o,l)=>{
