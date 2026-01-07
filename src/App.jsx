@@ -105,7 +105,7 @@ const SMES = [
     },
 ];
 
-// --- UPDATED 15-POINT ROADMAP DATA WITH DESCRIPTIONS ---
+// --- ROADMAP DATA WITH DESCRIPTIONS ---
 const scorecard = [
     {
         pillar: "BUILD THE BASE",
@@ -512,7 +512,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* ROADMAP / SCORECARD SECTION - UPDATED FOR ALIGNMENT AND DESCRIPTIONS */}
+      {/* ROADMAP / SCORECARD SECTION - VERTICAL STACKED VERSION */}
       <LazyLoadSection id="scorecard">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
@@ -520,13 +520,20 @@ const App = () => {
           title="The Agentic Growth Roadmap"
           kicker="Objective, data‑backed ratings across 15 critical capabilities, organized by your journey to automated scale."
         />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {/* max-w-3xl ensures text width is optimal for reading vertical blocks */}
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 gap-12 items-stretch">
           {scorecard.map((col, i) => (
-            <div key={i} className="flex flex-col h-full bg-slate-50/50 rounded-3xl border border-slate-200 p-6 shadow-sm">
-              <h4 className="text-xl font-extrabold uppercase tracking-widest mb-6" style={{ color: i === 0 ? "#00A3B3" : i === 1 ? "#B8860B" : "#2C3E50" }}>
-                {col.pillar}
-              </h4>
-              <div className="space-y-4">
+            <div key={i} className="flex flex-col h-full bg-slate-50/50 rounded-3xl border border-slate-200 p-8 shadow-sm">
+              <div className="flex items-center gap-4 mb-6">
+                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-400">
+                   0{i + 1}
+                 </span>
+                 <h4 className="text-xl font-extrabold uppercase tracking-widest" style={{ color: i === 0 ? "#00A3B3" : i === 1 ? "#B8860B" : "#2C3E50" }}>
+                   {col.pillar}
+                 </h4>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-4">
                 {col.items.map((it, idx) => (
                   <div 
                     key={idx} 
@@ -538,7 +545,7 @@ const App = () => {
                       </span>
                       <Badge status={it.status} />
                     </div>
-                    <p className="text-slate-500 text-xs sm:text-sm leading-relaxed mt-1">
+                    <p className="text-slate-500 text-sm leading-relaxed mt-1">
                       {it.desc}
                     </p>
                   </div>
