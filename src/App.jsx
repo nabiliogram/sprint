@@ -110,31 +110,31 @@ const scorecard = [
     {
         pillar: "BUILD THE BASE",
         items: [
-            { label: "Validate Value Proposition", status: "Yellow", desc: "Confirm your fundamental offering resonates with target customers through in-market testing." },
-            { label: "Sync ICP & Revenue", status: "Red", desc: "Align your Ideal Customer Profile definition with actual high-value revenue sources to focus efforts." },
-            { label: "Clean Data Hygiene", status: "Yellow", desc: "Ensure your CRM and marketing data is accurate, complete, standardized, and de-duplicated." },
-            { label: "Audit Funnel Leakage", status: "Red", desc: "Identify and fix specific stages in the customer journey where qualified prospects drop off." },
-            { label: "Verify Attribution Rigor", status: "Yellow", desc: "Implement reliable tracking models to truly understand which touchpoints drive conversions." },
+            { label: "Validate Value Proposition", status: "Yellow", desc: "Confirm offering resonates with target customers through testing." },
+            { label: "Sync ICP & Revenue", status: "Red", desc: "Align customer profiles with actual high-value revenue sources." },
+            { label: "Clean Data Hygiene", status: "Yellow", desc: "Ensure CRM data is accurate, complete, and standardized." },
+            { label: "Audit Funnel Leakage", status: "Red", desc: "Fix journey stages where qualified prospects drop off." },
+            { label: "Verify Attribution Rigor", status: "Yellow", desc: "Implement tracking to understand channel contribution." },
         ],
     },
     {
         pillar: "MAXIMIZE PROFIT",
         items: [
-            { label: "Optimize Marginal ROI", status: "Yellow", desc: "Focus incremental spending only on channels that provide the best additional return on investment." },
-            { label: "Balance Omnichannel Health", status: "Green", desc: "Maintain consistent messaging, branding, and performance across all active marketing channels." },
-            { label: "Scale Creative Velocity", status: "Yellow", desc: "Increase the volume and speed of ad creative production and testing to combat ad fatigue." },
-            { label: "Refine CRO Strategy", status: "Yellow", desc: "Continuously improve website and landing page conversion rates through structured A/B testing." },
-            { label: "Accelerate Speed-to-Market", status: "Red", desc: "Reduce internal friction to launch campaigns and new initiatives faster than competitors." },
+            { label: "Optimize Marginal ROI", status: "Yellow", desc: "Focus incremental spend on the best additional returns." },
+            { label: "Balance Omnichannel", status: "Green", desc: "Maintain branding and performance across all active channels." },
+            { label: "Scale Creative Velocity", status: "Yellow", desc: "Increase production speed to combat creative ad fatigue." },
+            { label: "Refine CRO Strategy", status: "Yellow", desc: "Improve conversion rates through structured A/B testing." },
+            { label: "Accelerate Speed-to-Market", status: "Red", desc: "Reduce friction to launch new initiatives faster." },
         ],
     },
     {
         pillar: "AUTOMATE SCALE",
         items: [
-            { label: "Integrate MarTech Stack", status: "Yellow", desc: "Ensure seamless, bi-directional data flow and connectivity between all your marketing tools." },
-            { label: "Deploy Workflow Automation", status: "Red", desc: "Reduce manual labor by automating repetitive marketing processes, nurture sequences, and tasks." },
-            { label: "Build First-Party Data", status: "Yellow", desc: "Collect and own audience data directly to reduce reliance on third-party cookies and platforms." },
-            { label: "Install Real-Time Analytics", status: "Yellow", desc: "Implement live dashboards for immediate visibility into campaign performance and issues." },
-            { label: "Set HITL Governance", status: "Green", desc: "Establish Human-In-The-Loop oversight protocols for AI and automated decision-making systems." },
+            { label: "Integrate MarTech Stack", status: "Yellow", desc: "Ensure seamless data flow between all marketing tools." },
+            { label: "Workflow Automation", status: "Red", desc: "Automate repetitive processes and nurture sequences." },
+            { label: "Build First-Party Data", status: "Yellow", desc: "Collect data directly to reduce reliance on third parties." },
+            { label: "Real-Time Analytics", status: "Yellow", desc: "Install dashboards for immediate performance visibility." },
+            { label: "HITL Governance", status: "Green", desc: "Set human oversight protocols for AI systems." },
         ],
     },
 ];
@@ -165,7 +165,7 @@ const Badge = ({ status }) => {
   };
   return (
     <span
-      className={`inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-[11px] font-bold shrink-0 ${
+      className={`inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-[10px] font-bold shrink-0 ${
         map[status] || "bg-slate-100 text-slate-800 border-slate-200"
       }`}
       style={{ height: 'fit-content' }}
@@ -512,7 +512,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* ROADMAP / SCORECARD SECTION - VERTICAL STACKED VERSION */}
+      {/* ROADMAP / SCORECARD SECTION - COMPACT TWO-COLUMN VERSION */}
       <LazyLoadSection id="scorecard">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
@@ -520,32 +520,33 @@ const App = () => {
           title="The Agentic Growth Roadmap"
           kicker="Objective, data‑backed ratings across 15 critical capabilities, organized by your journey to automated scale."
         />
-        {/* max-w-3xl ensures text width is optimal for reading vertical blocks */}
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 gap-12 items-stretch">
+        {/* Expanded max-w to accommodate two columns within each phase */}
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-12 flex flex-col gap-10">
           {scorecard.map((col, i) => (
-            <div key={i} className="flex flex-col h-full bg-slate-50/50 rounded-3xl border border-slate-200 p-8 shadow-sm">
-              <div className="flex items-center gap-4 mb-6">
-                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-400">
+            <div key={i} className="flex flex-col bg-slate-50/50 rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-sm">
+              <div className="flex items-center gap-3 mb-5">
+                 <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white border border-slate-200 text-[10px] font-bold text-slate-400">
                    0{i + 1}
                  </span>
-                 <h4 className="text-xl font-extrabold uppercase tracking-widest" style={{ color: i === 0 ? "#00A3B3" : i === 1 ? "#B8860B" : "#2C3E50" }}>
+                 <h4 className="text-lg font-extrabold uppercase tracking-widest" style={{ color: i === 0 ? "#00A3B3" : i === 1 ? "#B8860B" : "#2C3E50" }}>
                    {col.pillar}
                  </h4>
               </div>
               
-              <div className="grid grid-cols-1 gap-4">
+              {/* Internal Grid: 2 columns on desktop to optimize vertical space */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 {col.items.map((it, idx) => (
                   <div 
                     key={idx} 
-                    className="flex flex-col gap-2 p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-200 group"
+                    className="flex flex-col gap-1.5 p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-200 group"
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="text-slate-900 font-bold text-base leading-tight group-hover:text-slate-700 transition-colors">
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="text-slate-900 font-bold text-[14px] leading-snug group-hover:text-slate-700 transition-colors">
                         {it.label}
                       </span>
                       <Badge status={it.status} />
                     </div>
-                    <p className="text-slate-500 text-sm leading-relaxed mt-1">
+                    <p className="text-slate-500 text-[12px] leading-relaxed">
                       {it.desc}
                     </p>
                   </div>
