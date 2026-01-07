@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo, memo } from 'react';
+import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { motion } from 'framer-motion';
 import { 
     ResponsiveContainer, 
@@ -36,23 +36,23 @@ const fadeIn = {
 const NAV_LINKS = [
     { href: "#challenge", label: "Opportunity" },
     { href: "#blueprint", label: "Blueprint" },
-    { href: "#scorecard", label: "Scorecard" },
+    { href: "#scorecard", label: "Roadmap" }, // Updated label for clarity
     { href: "#deliverables", label: "Deliverables" },
     { href: "#team", label: "Team" },
 ];
 
 const OPPORTUNITY_CARDS = [
     {
-        title: "Maximize Customer Lifetime Value",
-        copy: "We find the gaps in how you communicate with and retain your customers. By fixing your messaging and strategy first, we can set up <strong>automated systems</strong> that keep customers coming back—growing your revenue without increasing your acquisition costs.",
+        title: "Increase Customer Value",
+        copy: "We start by finding the gaps in how you communicate with and keep your customers. By fixing your messaging and strategy first, we create a stable foundation for growing revenue from your existing base without increasing costs.",
     },
     {
-        title: "Capture Marginal ROI Efficiency",
-        copy: "Stop making budget decisions based on averaged data. We provide the framework to identify exactly where your next dollar delivers the most profit, allowing you to <strong>shift spending in real-time</strong> toward your highest-performing channels.",
+        title: "Spend Your Budget Where It Works",
+        copy: "Once the foundation is solid, we move to your budget. We provide the clarity you need to stop wasting spend on low-performing channels and confidently move your budget toward the specific areas driving the highest real profit.",
     },
     {
-        title: "Deploy Agentic Workflows",
-        copy: "To move at modern speeds, your team must move beyond manual execution. We audit your tech stack to <strong>integrate intelligent agents</strong> that handle high-volume marketing tasks, freeing your team to focus on high-level strategy and brand direction.",
+        title: "Scale Faster with Automation",
+        copy: "Finally, we scale your growth without adding manual work. We audit your tools and set up smarter workflows to handle the heavy lifting, freeing your team to focus on high-level strategy instead of repetitive tasks.",
     },
 ];
 
@@ -63,33 +63,16 @@ const NABIL_PHOTO_URL = "https://www.haschemie.com/sprint/nabilhead.jpeg";
 const LINKEDIN_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png";
 
 const EXPERIENCE_LOGOS = [
-    {
-        alt: "Google",
-        src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-    },
-    {
-        alt: "Meta",
-        src: "https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg",
-    },
-    {
-        alt: "YouTube",
-        src: "https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg",
-    },
-    {
-        alt: "BCG",
-        src: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg",
-    },
-    {
-        alt: "P&G",
-        src: "https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg",
-    },
+    { alt: "Google", src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+    { alt: "Meta", src: "https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" },
+    { alt: "YouTube", src: "https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" },
+    { alt: "BCG", src: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" },
+    { alt: "P&G", src: "https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" },
 ];
 
 const TEAM_OVERVIEW = `The Sprint Assembly was founded on the belief that great consulting should be fast, focused, and delivered by operators who've done the work themselves. We're not career consultants—we're senior marketers who've built, scaled, and optimized growth engines at startups and enterprises alike.`;
 const NABIL_BIO = `Nabil is a seasoned growth and marketing strategist who blends the rigor of big tech with the curiosity of a builder. As a founding member of Google’s EMEA headquarters, he spent nearly two decades shaping how Google and its clients approached marketing, growth, and customer engagement across Europe, Latin America, and the U.S. He led teams through new market launches, built scalable acquisition systems, and connected data to performance. More recently, he’s worked hands-on as an independent consultant to help startups modernize their marketing and turn promising experiments into repeatable growth. Nabil believes in keeping strategy simple, execution fast, and measurement clear so companies can grow with confidence.`;
-const DANIEL_BIO = `Daniel is a practical growth leader with roots in both brand and data. He began his career at Procter & Gamble, where he learned the discipline of consumer insight and the power of clear messaging. At Google, he deepened his expertise in acquisition and measurement. In startups, he built small, fast teams that moved from idea to impact. And at BCG, he guided senior leaders on what to do next—and how to track success.
-
-Today, Daniel leads short, focused projects that align teams, define simple success metrics, and install the right tools to test ideas weekly and double down on what works. Fluent in English and Spanish, Daniel works across the U.S. and Latin America.`;
+const DANIEL_BIO = `Daniel is a practical growth leader with roots in both brand and data. He began his career at Procter & Gamble, where he learned the discipline of consumer insight and the power of clear messaging. At Google, he deepened his expertise in acquisition and measurement. In startups, he built small, fast teams that moved from idea to impact. And at BCG, he guided senior leaders on what to do next—and how to track success. Today, Daniel leads short, focused projects that align teams, define simple success metrics, and install the right tools to test ideas weekly and double down on what works. Fluent in English and Spanish, Daniel works across the U.S. and Latin America.`;
 
 const SMES = [
     {
@@ -122,41 +105,36 @@ const SMES = [
     },
 ];
 
+// --- UPDATED 15-POINT ROADMAP DATA ---
 const scorecard = [
     {
-        pillar: "I. Growth Engine",
+        pillar: "Step 1: Build the Base",
         items: [
-            { label: "Marketing–Sales Alignment Logic", status: "Yellow" },
-            { label: "End‑to‑End LTV Funnel Flow", status: "Red" },
-            { label: "Customer Segmentation Rigor", status: "Yellow" },
-            { label: "Strategic Positioning Clarity", "status": "Green" },
+            { label: "Validate Value Proposition", status: "Yellow" },
+            { label: "Sync ICP & Revenue", status: "Red" },
+            { label: "Clean Data Hygiene", status: "Yellow" },
+            { label: "Audit Funnel Leakage", status: "Red" },
+            { label: "Verify Attribution Rigor", status: "Yellow" },
         ],
     },
     {
-        pillar: "II. Performance Media",
+        pillar: "Step 2: Maximize Profit",
         items: [
-            { label: "Cross‑Channel ROI Clarity / Attribution", status: "Yellow" },
-            { label: "Marginal CAC Efficiency", status: "Red" },
-            { label: "Creative Velocity & Burnout", status: "Yellow" },
-            { label: "Paid/Organic Mix Health", status: "Green" },
+            { label: "Optimize Marginal ROI", status: "Yellow" },
+            { label: "Balance Omnichannel Health", status: "Green" },
+            { label: "Scale Creative Velocity", status: "Yellow" },
+            { label: "Refine CRO Strategy", status: "Yellow" },
+            { label: "Accelerate Speed-to-Market", status: "Red" },
         ],
     },
     {
-        pillar: "III. Technology & Data",
+        pillar: "Step 3: Automate Scale",
         items: [
-            { label: "MarTech Stack Redundancy / Cost", status: "Yellow" },
-            { label: "AI / Automation Readiness", status: "Yellow" },
-            { label: "Data Integrity & Reporting Hygiene", status: "Red" },
-            { label: "Omnichannel Tracking (O2O)", status: "Green" },
-        ],
-    },
-    {
-        pillar: "IV. Operating Cadence",
-        items: [
-            { label: "Agile Marketing Process Maturity", status: "Yellow" },
-            { label: "OKR Alignment & Accountability", status: "Yellow" },
-            { label: "Agency / Partner Alignment", status: "Red" },
-            { label: "Team Structure & Gaps", status: "Green" },
+            { label: "Integrate MarTech Stack", status: "Yellow" },
+            { label: "Deploy Workflow Automation", status: "Red" },
+            { label: "Build First-Party Data", status: "Yellow" },
+            { label: "Install Real-Time Analytics", status: "Yellow" },
+            { label: "Set HITL Governance", status: "Green" },
         ],
     },
 ];
@@ -171,7 +149,7 @@ const getInitials = (name = "") =>
     .map((s) => s[0] ? s[0].toUpperCase() : undefined) 
     .join("") || "SA";
 
-// --- 3. REUSABLE COMPONENTS (Memoized for efficiency) ---
+// --- 3. REUSABLE COMPONENTS ---
  
 const Pill = ({ children }) => (
   <span className="inline-flex items-center rounded-full border border-slate-200 bg-gradient-to-r from-teal-50 to-amber-50 px-3 py-1 text-xs font-medium text-slate-900 shadow-sm">
@@ -215,11 +193,9 @@ const PhotoAvatar = ({ src, name, size = 80 }) => (
     alt={`${name} photo`}
     className="rounded-full object-cover shrink-0 ring-2 ring-slate-200"
     style={{ height: `${size}px`, width: `${size}px` }}
-    // Fallback to text initials if image fails to load
     onError={(e) => { 
         e.target.onerror = null; 
-        e.target.style.display = 'none'; // Hide broken image
-        // Create a fallback initials container right where the image was
+        e.target.style.display = 'none';
         const fallback = document.createElement('div');
         fallback.className = `rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center font-semibold text-slate-800 ring-2 ring-slate-200 shrink-0`;
         fallback.style.height = `${size}px`;
@@ -231,11 +207,8 @@ const PhotoAvatar = ({ src, name, size = 80 }) => (
 );
  
 const SectionTitle = memo(({ overline, title, kicker, overlineBgClass = "" }) => {
-    // Check if motion is available before using it
-    const MotionDiv = motion ? motion.div : 'div';
-
     return (
-      <MotionDiv
+      <motion.div
         variants={fadeIn}
         initial="hidden"
         whileInView="show"
@@ -255,11 +228,11 @@ const SectionTitle = memo(({ overline, title, kicker, overlineBgClass = "" }) =>
           </h2>
           {kicker && <p className="mt-4 text-base sm:text-lg text-slate-600">{kicker}</p>}
         </div>
-      </MotionDiv>
+      </motion.div>
     );
 });
 
-// --- 4. PERFORMANCE OPTIMIZATION (Intersection Observer Hook) ---
+// --- 4. PERFORMANCE OPTIMIZATION ---
  
 const useSectionVisibility = (options = { threshold: 0.1, rootMargin: '100px 0px' }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -299,9 +272,6 @@ const LazyLoadSection = ({ children, id, className = "" }) => {
     </div>
   ), []);
   
-  // Check if motion is available before using it
-  const MotionSection = motion ? motion.section : 'section';
-
   return (
     <section id={id} ref={ref} className={`py-20 ${className}`}>
       {isVisible ? children : <Placeholder />}
@@ -312,43 +282,35 @@ const LazyLoadSection = ({ children, id, className = "" }) => {
 // --- 5. MAIN APPLICATION COMPONENTS ---
  
 const DeliverablesSectionContent = () => {
-
-    // Finalized copy and image URLs
-    // New combined data for Deliverables section
-    const DELIVERABLES_DATA = {
-      imageUrl: "https://haschemie.com/sprint/fa.png", // <--- REPLACE with your actual combined image URL
-      combinedCopy: "Our core output is the Growth Assembly Blueprint — a clear, evidence-driven plan that shows exactly where to focus and why. It distills deep analysis, validated insights, and a roadmap built for immediate impact. You’ll see what’s working, what’s not, and which opportunities matter most, backed by a Gap Analysis & Financial Quantification linking issues to uplift potential. The Blueprint then converts these insights into a prioritized 6-month execution plan with concrete next steps—giving your team clarity, alignment, and a confident path forward.",
-      delay: 0.1, // Still useful for the overall animation
-    };
+    const DELIVERABLES_DATA = {
+      imageUrl: "https://haschemie.com/sprint/fa.png",
+      combinedCopy: "Our core output is the Growth Assembly Blueprint — a clear, evidence-driven plan that shows exactly where to focus and why. It distills deep analysis, validated insights, and a roadmap built for immediate impact. You’ll see what’s working, what’s not, and which opportunities matter most, backed by a Gap Analysis & Financial Quantification linking issues to uplift potential. The Blueprint then converts these insights into a prioritized 6-month execution plan with concrete next steps—giving your team clarity, alignment, and a confident path forward.",
+      delay: 0.1,
+    };
     
-    // Check if motion is available before using it
-    const MotionDiv = motion ? motion.div : 'div';
-
     return (
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
-        <MotionDiv
-          variants={fadeIn}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ delay: DELIVERABLES_DATA.delay }}
-          className="grid md:grid-cols-2 gap-8 items-start" // Grid for image and text, centered vertically
-        >
-          {/* Image Column */}
-          <div className="order-2 md:order-1 flex justify-center md:justify-start items-start h-full">
-            <img
-              src={DELIVERABLES_DATA.imageUrl}
-              alt="Combined Deliverables Report Mockup"
-              className="w-full max-w-md h-full object-contain rounded-xl shadow-2xl transition duration-500 hover:scale-[1.03]"
-              onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/700x400/f1f5f9/94a3b8?text=Image+Not+Found"; }}
-            />
-          </div>
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ delay: DELIVERABLES_DATA.delay }}
+          className="grid md:grid-cols-2 gap-8 items-start"
+        >
+          <div className="order-2 md:order-1 flex justify-center md:justify-start items-start h-full">
+            <img
+              src={DELIVERABLES_DATA.imageUrl}
+              alt="Combined Deliverables Report Mockup"
+              className="w-full max-w-md h-full object-contain rounded-xl shadow-2xl transition duration-500 hover:scale-[1.03]"
+              onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/700x400/f1f5f9/94a3b8?text=Image+Not+Found"; }}
+            />
+          </div>
 
-          {/* Text Column */}
-          <div className="order-1 md:order-2 text-center md:text-left"> {/* Order changed for mobile-first, text on right on desktop */}
-            <p className="text-lg sm:text-xl text-slate-700" dangerouslySetInnerHTML={{ __html: DELIVERABLES_DATA.combinedCopy }} />
-          </div>
-        </MotionDiv>
+          <div className="order-1 md:order-2 text-center md:text-left">
+            <p className="text-lg sm:text-xl text-slate-700" dangerouslySetInnerHTML={{ __html: DELIVERABLES_DATA.combinedCopy }} />
+          </div>
+        </motion.div>
         
         <div className="mx-auto max-w-4xl mt-12">
           <Card className="p-6 text-center">
@@ -369,7 +331,6 @@ const App = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    // Optionally control body scroll when menu is open
     if (!isMenuOpen) {
         document.body.classList.add('overflow-hidden');
     } else {
@@ -382,34 +343,19 @@ const App = () => {
     document.body.classList.remove('overflow-hidden');
   };
 
-
-  // Define the background class for prominent overlines
-  const PROMINENT_OVERLINE_CLASS = "inline-flex items-center rounded-full border border-slate-200 bg-gradient-to-r from-teal-50 to-amber-50 px-3 py-1 text-xs font-medium text-slate-900 shadow-sm";
-  
-  // Check if motion is available before using it
-  const MotionDiv = motion ? motion.div : 'div';
-
   return (
-    // FIX: Capped the maximum width to 1000px for large screens (md:max-w-5xl is approx 64rem or 1024px)
-<div 
-  className="min-h-screen text-slate-900 font-sans mx-auto max-w-full md:max-w-5xl"
->
+    <div className="min-h-screen text-slate-900 font-sans mx-auto max-w-full md:max-w-5xl">
       {/* NAV */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <img
-  src={LOGO_SA_URL}
-  alt="Sprint Assembly SA Logo"
-  className="h-8 w-8 object-contain"
-/>
+            <img src={LOGO_SA_URL} alt="Sprint Assembly Logo" className="h-8 w-8 object-contain" />
             <span className="tracking-tight text-lg">
-  <span className="font-extrabold">Sprint</span>
-  <span className="font-light text-slate-500"> Assembly</span> {/* Added text-slate-500 for lighter color, adjust as needed */}
-</span>
+                <span className="font-extrabold">Sprint</span>
+                <span className="font-light text-slate-500"> Assembly</span>
+            </span>
           </div>
           
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
             {NAV_LINKS.map(link => (
               <a key={link.href} href={link.href} className="hover:text-slate-900">
@@ -418,29 +364,17 @@ const App = () => {
             ))}
           </nav>
           
-          {/* Mobile Menu Button & CTA */}
           <div className="flex items-center gap-3">
-            <a
-              href="#cta"
-              className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-3.5 py-1.5 text-sm font-semibold shadow-sm hover:shadow transition"
-            >
+            <a href="#cta" className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-3.5 py-1.5 text-sm font-semibold shadow-sm hover:shadow transition">
               Book a call
             </a>
             
-            {/* Hamburger Button (Visible on Mobile/Tablet) */}
-            <button 
-              onClick={toggleMenu} 
-              className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition"
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
-            >
+            <button onClick={toggleMenu} className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition">
               {isMenuOpen ? (
-                // Close Icon (X)
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                // Menu Icon (Hamburger)
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -449,77 +383,55 @@ const App = () => {
           </div>
         </div>
         
-        {/* Mobile Menu Dropdown (Visible when isMenuOpen is true) */}
         {isMenuOpen && (
-          <MotionDiv
-            id="mobile-menu"
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
             className="md:hidden bg-white border-t border-slate-200 shadow-md absolute w-full z-30"
           >
             <nav className="flex flex-col p-4 space-y-2 text-base">
               {NAV_LINKS.map(link => (
-                <a 
-                  key={link.href} 
-                  href={link.href} 
-                  onClick={handleLinkClick} // Close menu on click
-                  className="py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition"
-                >
+                <a key={link.href} href={link.href} onClick={handleLinkClick} className="py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 transition">
                   {link.label}
-                  </a>
+                </a>
               ))}
             </nav>
-          </MotionDiv>
+          </motion.div>
         )}
       </header>
 
-      {/* HERO (Static content - must be fast) */}
+      {/* HERO */}
       <section className="relative">
         <div className="absolute inset-0 -z-10" aria-hidden>
           <div
             className="h-[520px] w-full"
-            style={{
-              background: `radial-gradient(1200px 520px at 20% -20%, ${PALETTE.teal}20, transparent), radial-gradient(1200px 520px at 80% 0%, ${PALETTE.gold}22, transparent)`
-            }}
+            style={{ background: `radial-gradient(1200px 520px at 20% -20%, ${PALETTE.teal}20, transparent), radial-gradient(1200px 520px at 80% 0%, ${PALETTE.gold}22, transparent)` }}
           />
         </div>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-12">
-          <MotionDiv
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="max-w-4xl"
-          >
-            <Pill>THE AGENTIC TRANSFORMATION SPRINT</Pill>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-4xl">
+            <Pill>THE GROWTH & AUTOMATION SPRINT</Pill>
             <h1 className="mt-6 text-4xl sm:text-6xl font-black tracking-tight leading-[1.05] text-slate-900">
-              Fix the Marketing Foundation.{" "}
-              <span
-                className="text-transparent bg-clip-text"
-                style={{ backgroundImage: `linear-gradient(90deg, ${PALETTE.teal}, ${PALETTE.gold})` }}
-              >
-                Automate the Growth Engine.
+              Fix the Foundation.{" "}
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: `linear-gradient(90deg, ${PALETTE.teal}, ${PALETTE.gold})` }}>
+                Automate the Scale.
               </span>
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-slate-700 max-w-3xl">
-              Most growth strategies are limited by manual execution and fragmented data. We run high-velocity diagnostics to isolate your core constraints and optimize your operating model. Once your foundation is high-performing, we deploy Agentic Workflows to capture non-linear scale.
+              We identify your highest-leverage growth opportunities and show you exactly where your next marketing dollar will deliver the most profit, helping you grow faster without adding manual work.
             </p>
-          </MotionDiv>
+          </motion.div>
         </div>
       </section>
 
-      {/* CONDENSED INTRO (Static content - must be fast) */}
+      {/* CONDENSED INTRO */}
       <section className="py-16 bg-white border-t border-slate-200">
         <div className="mx-auto max-w-5xl px-6">
           <div className="relative">
-            <div className="absolute -top-6 -left-2 text-5xl text-slate-200 select-none" aria-hidden>
-              "
-            </div>
+            <div className="absolute -top-6 -left-2 text-5xl text-slate-200 select-none" aria-hidden>"</div>
             <p className="text-left text-2xl sm:text-3xl font-semibold text-slate-700 leading-relaxed tracking-tight">
-              We’re a network of senior growth and marketing operators who plug into your business for short,
-              high‑impact sprints. We assemble the right experts, diagnose precisely, and deliver measurable outcomes —
-              fast. Structured like a consultancy, operated like a startup.
+              {TEAM_OVERVIEW}
             </p>
             <span className="mt-6 inline-block text-xs font-medium tracking-[0.24em] uppercase text-slate-400">
               Growth and Marketing Experience from:
@@ -527,12 +439,7 @@ const App = () => {
             <div className="mt-6 flex flex-wrap items-center gap-6 md:gap-10">
               {EXPERIENCE_LOGOS.map((logo) => (
                 <div key={logo.alt} className="flex items-center justify-center">
-                  <img
-                    src={logo.src}
-                    alt={`${logo.alt} logo`}
-                    onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/100x40/f1f5f9/94a3b8?text=Logo"; }}
-                    className="h-6 sm:h-7 md:h-7 w-auto object-contain opacity-80" 
-                  />
+                  <img src={logo.src} alt={`${logo.alt} logo`} className="h-6 sm:h-7 w-auto object-contain opacity-80" />
                 </div>
               ))}
             </div>
@@ -540,12 +447,12 @@ const App = () => {
         </div>
       </section>
 
-      {/* CHALLENGE (Standard content) */}
+      {/* CHALLENGE */}
       <section id="challenge" className="py-20 bg-[#F8FAFC]">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
           overline="Identifying High-Value Levers"
-          title="Smarter strategy. Scalable results."
+          title="Where to pull for the most growth."
           kicker="Our diagnostic finds the biggest constraints in your marketing engine and defines a precise path to maximizing ROI by fixing your core logic and introducing high-efficiency automation."
         />
        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid md:grid-cols-3 gap-6 items-stretch">
@@ -553,7 +460,7 @@ const App = () => {
             const accent = CARD_ACCENTS[l];
             const stepLabels = ["Build the Base", "Maximize Profit", "Automate Scale"];
             return (
-              <MotionDiv
+              <motion.div
                 key={l}
                 variants={fadeIn}
                 initial="hidden"
@@ -563,31 +470,22 @@ const App = () => {
                 className="h-full"
               >
                 <div className="relative rounded-xl overflow-hidden bg-white shadow-md transition hover:shadow-lg h-full">
-                    {/* ACCENT LINE at the top (The colored bar) */}
                     <div className={`absolute top-0 left-0 w-full h-2 ${accent.line}`}></div> 
-                    
                     <div className="p-6 pt-8 h-full">
-                        {/* Stylized Opportunity Text */}
                         <div className={`text-sm font-extrabold ${accent.text} uppercase tracking-widest`}>
                             Step {l + 1}: {stepLabels[l]}
                         </div>
-                        
-                        {/* Title (Larger font, bold) */}
-                        <h3 className="mt-2 text-2xl font-bold text-slate-900">
-                            {o.title}
-                        </h3>
-                        
-                        {/* Copy (with strong tag retained) */}
+                        <h3 className="mt-2 text-2xl font-bold text-slate-900">{o.title}</h3>
                         <p className="mt-3 text-slate-700" dangerouslySetInnerHTML={{ __html: o.copy }} />
                     </div>
                 </div>
-              </MotionDiv>
+              </motion.div>
             )
           })}
         </div>
       </section>
 
-      {/* BLUEPRINT (Standard content) */}
+      {/* BLUEPRINT */}
       <section id="blueprint" className="py-20 bg-white border-y border-slate-200">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
@@ -597,68 +495,40 @@ const App = () => {
         />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            {
-              phase: "Assess",
-              weeks: "Weeks 1–2",
-              desc: "Rapid data transfer, stakeholder alignment, current‑state score‑carding. Initiates the Opportunity Map.",
-            },
-            {
-              phase: "Diagnose",
-              weeks: "Weeks 3–4",
-              desc: "Pinpoint the single largest constraint and validate financial impact (CAC/CLV modeling).",
-            },
-            {
-              phase: "Optimize",
-              weeks: "Weeks 5–8",
-              desc: "Design the optimal solution (the Blueprint) and prioritize high‑leverage actions; sets up Test & Learn loops.",
-            },
-            {
-              phase: "Plan",
-              weeks: "Weeks 9–10",
-              desc: "Finalize roadmap, quantify ROI, and secure executive buy‑in. Establish change management & execution cadence.",
-            },
+            { phase: "Assess", weeks: "Weeks 1–2", desc: "Rapid data transfer, stakeholder alignment, current‑state score‑carding." },
+            { phase: "Diagnose", weeks: "Weeks 3–4", desc: "Pinpoint the single largest constraint and validate financial impact." },
+            { phase: "Optimize", weeks: "Weeks 5–8", desc: "Design the optimal solution and prioritize high‑leverage actions." },
+            { phase: "Plan", weeks: "Weeks 9–10", desc: "Finalize roadmap, quantify ROI, and secure executive buy‑in." },
           ].map((p, i) => (
-            <MotionDiv
-              key={i}
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-            >
+            <motion.div key={i} variants={fadeIn} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <Card className="p-6 h-full">
                 <div className="text-xs uppercase tracking-wider text-slate-500">{p.weeks}</div>
-                <h3
-                  className="mt-2 text-2xl font-extrabold"
-                  style={{ color: i % 2 === 0 ? PALETTE.teal : PALETTE.gold }}
-                >
-                  {p.phase}
-                </h3>
+                <h3 className="mt-2 text-2xl font-extrabold" style={{ color: i % 2 === 0 ? PALETTE.teal : PALETTE.gold }}>{p.phase}</h3>
                 <p className="mt-3 text-slate-700">{p.desc}</p>
               </Card>
-            </MotionDiv>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* SCORECARD (Lazy Loaded - First section that typically goes below the fold) */}
+      {/* ROADMAP / SCORECARD */}
       <LazyLoadSection id="scorecard">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
           overline="Diagnosis & Quantification"
-          title="The Growth OS Scorecard"
-          kicker="Objective, data‑backed ratings across 16 critical capabilities, pinpointing systemic risks and immediate corrective actions."
+          title="The Agentic Growth Roadmap"
+          kicker="Objective, data‑backed ratings across 15 critical capabilities, organized by your journey to automated scale."
         />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           {scorecard.map((col, i) => (
             <Card key={i} className="p-6">
-              <h4 className="text-lg font-bold text-slate-900">{col.pillar}</h4>
+              <h4 className="text-lg font-extrabold uppercase tracking-wider" style={{ color: i === 0 ? PALETTE.teal : i === 1 ? PALETTE.gold : PALETTE.subInk }}>
+                {col.pillar}
+              </h4>
               <div className="mt-4 space-y-3">
                 {col.items.map((it, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start justify-between gap-4 p-3 rounded-xl border border-slate-200 bg-white"
-                  >
-                    <span className="text-slate-700">{it.label}</span>
+                  <div key={idx} className="flex items-center justify-between gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm">
+                    <span className="text-slate-800 font-semibold text-sm">{it.label}</span>
                     <Badge status={it.status} />
                   </div>
                 ))}
@@ -668,163 +538,74 @@ const App = () => {
         </div>
       </LazyLoadSection>
 
-      {/* COMBINED DELIVERABLES / QUANTIFIED PROOF (Lazy Loaded) */}
-      <LazyLoadSection 
-          id="deliverables" 
-          className="relative border-y border-slate-200 overflow-hidden" // Removed bg-white
-      >
-        {/* BACKGROUND GRADIENT LAYER (REPLICATED FROM HERO SECTION) */}
+      {/* DELIVERABLES */}
+      <LazyLoadSection id="deliverables" className="relative border-y border-slate-200 overflow-hidden">
         <div className="absolute inset-0 -z-10" aria-hidden>
-          <div
-            className="h-full w-full"
-            style={{
-              // Replicating the Hero's exact background gradient style
-              background: `radial-gradient(1200px 520px at 20% -20%, ${PALETTE.teal}20, transparent), radial-gradient(1200px 520px at 80% 0%, ${PALETTE.gold}22, transparent)`
-            }}
-          />
+          <div className="h-full w-full" style={{ background: `radial-gradient(1200px 520px at 20% -20%, ${PALETTE.teal}20, transparent), radial-gradient(1200px 520px at 80% 0%, ${PALETTE.gold}22, transparent)` }} />
         </div>
-        
-        {/* Original Content Wrapper */}
-        <SectionTitle
-          overlineBgClass={PROMINENT_OVERLINE_CLASS}
-          overline="Final Assembly"
-          title="Your Blueprint for Quantified Growth & Action"
-        />
-        <DeliverablesSectionContent />
-      </LazyLoadSection>
+        <SectionTitle overlineBgClass={PROMINENT_OVERLINE_CLASS} overline="Final Assembly" title="Your Blueprint for Quantified Growth & Action" />
+        <DeliverablesSectionContent />
+      </LazyLoadSection>
 
-      {/* TEAM (Lazy Loaded) */}
+      {/* TEAM */}
       <LazyLoadSection id="team">
-        <SectionTitle
-          overlineBgClass={PROMINENT_OVERLINE_CLASS}
-          overline="Specialized Practitioners"
-          title="The Assembly Team"
-        />
+        <SectionTitle overlineBgClass={PROMINENT_OVERLINE_CLASS} overline="Specialized Practitioners" title="The Assembly Team" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-12 space-y-8">
-          
-          <div className="relative max-w-4xl mx-auto px-6 pt-4 pb-4">
-            <div className="absolute -top-1 -left-0 sm:left-4 text-5xl text-slate-300/80 select-none" aria-hidden>
-              "
-            </div>
-            <p className="text-center text-xl sm:text-2xl font-semibold text-slate-700 leading-relaxed tracking-tight">
-              {TEAM_OVERVIEW}
-            </p>
-          </div>
-
-          {/* Founders Row */}
           <Card className="p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-              
-              {/* Nabil Haschemie Card */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-4">
                     <PhotoAvatar name="Nabil Haschemie" src={NABIL_PHOTO_URL} size={64} />
                     <div>
-                      <div className="text-xs uppercase tracking-wider text-slate-500">
-                        Co‑founder & Senior Growth Operator
-                      </div>
+                      <div className="text-xs uppercase tracking-wider text-slate-500">Co‑founder</div>
                       <div className="mt-0.5 text-xl font-extrabold text-teal-600">Nabil Haschemie</div>
                     </div>
                   </div>
                   <p className="mt-4 text-sm text-slate-700">{NABIL_BIO}</p>
                 </div>
-                
-                {/* LinkedIn Link for Nabil */}
                 <div className="mt-4 flex justify-end">
-                  <a 
-                    href="https://www.linkedin.com/in/haschemie/"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center h-8 px-2 rounded-lg bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition"
-                    title={`Connect with Nabil on LinkedIn`}
-                  >
-                    <img 
-                      src={LINKEDIN_ICON_URL}
-                      alt="LinkedIn Icon"
-                      className="h-4 object-contain w-auto" 
-                      onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/20x20/c1c7d0/334155?text=LI"; }}
-                    />
+                  <a href="https://www.linkedin.com/in/haschemie/" target="_blank" rel="noopener noreferrer">
+                    <img src={LINKEDIN_ICON_URL} alt="LinkedIn" className="h-4 w-auto" />
                   </a>
                 </div>
               </div>
 
-              {/* Daniel Besquin Card */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-4">
                     <PhotoAvatar name="Daniel Besquin" src={DANIEL_PHOTO_URL} size={64} />
                     <div>
-                      <div className="text-xs uppercase tracking-wider text-slate-500">
-                        Co‑founder & Senior Growth Operator
-                      </div>
+                      <div className="text-xs uppercase tracking-wider text-slate-500">Co‑founder</div>
                       <div className="mt-0.5 text-xl font-extrabold text-amber-600">Daniel Besquin</div>
                     </div>
                   </div>
                   <p className="mt-4 text-sm text-slate-700">{DANIEL_BIO}</p>
                 </div>
-
-                {/* LinkedIn Link for Daniel */}
                 <div className="mt-4 flex justify-end">
-                  <a 
-                    href="https://www.linkedin.com/in/danielbesquin/"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center h-8 px-2 rounded-lg bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition"
-                    title={`Connect with Daniel on LinkedIn`}
-                  >
-                    <img 
-                      src={LINKEDIN_ICON_URL}
-                      alt="LinkedIn Icon"
-                      className="h-4 object-contain w-auto" 
-                      onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/20x20/c1c7d0/334155?text=LI"; }} 
-                    />
+                  <a href="https://www.linkedin.com/in/danielbesquin/" target="_blank" rel="noopener noreferrer">
+                    <img src={LINKEDIN_ICON_URL} alt="LinkedIn" className="h-4 w-auto" />
                   </a>
                 </div>
               </div>
             </div>
           </Card>
 
-          {/* SME Network */}
           <div className="text-center">
             <div className="tracking-widest uppercase text-xs font-semibold text-slate-500">Specialist Network</div>
-            <h4 className="mt-1 text-2xl font-extrabold">Subject Matter Experts (As‑Needed)</h4>
-            <p className="mt-2 text-slate-600 text-sm max-w-3xl mx-auto">
-              SMEs plug in for depth and speed across data, media, lifecycle, and technology.
-            </p>
+            <h4 className="mt-1 text-2xl font-extrabold">Subject Matter Experts</h4>
           </div>
 
-          {/* SME Grid */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             {SMES.map((m, i) => (
               <Card key={i} className="p-5 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-start gap-4">
-                    <Avatar name={m.name} size={56} gradient={m.gradient} />
-                    <div>
-                      <div className="text-base font-bold text-slate-900">{m.name}</div>
-                      <div className="text-xs uppercase tracking-wider text-slate-500">{m.title}</div>
-                      <p className="mt-2 text-sm text-slate-700">{m.expertise}</p>
-                    </div>
+                <div className="flex items-start gap-4">
+                  <Avatar name={m.name} size={56} gradient={m.gradient} />
+                  <div>
+                    <div className="text-base font-bold text-slate-900">{m.name}</div>
+                    <div className="text-xs uppercase tracking-wider text-slate-500">{m.title}</div>
+                    <p className="mt-2 text-sm text-slate-700">{m.expertise}</p>
                   </div>
-                </div>
-                
-                {/* LinkedIn Link for SME */}
-                <div className="mt-4 flex justify-end">
-                  <a 
-                    href={m.linkedin}
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center h-8 px-2 rounded-lg bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition"
-                    title={`Connect with ${m.name} on LinkedIn`}
-                  >
-                    <img 
-                      src={LINKEDIN_ICON_URL}
-                      alt="LinkedIn Icon"
-                      className="h-4 object-contain w-auto" 
-                      onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/20x20/c1c7d0/334155?text=LI"; }} 
-                    />
-                  </a>
                 </div>
               </Card>
             ))}
@@ -832,45 +613,29 @@ const App = () => {
         </div>
       </LazyLoadSection>
 
-    
-      {/* CTA (Lazy Loaded) */}
       <LazyLoadSection id="cta" className="py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Card className="p-8 text-center">
             <h3 className="text-3xl sm:text-4xl font-extrabold">Ready to De‑Risk Your Next Investment?</h3>
-            <p className="mt-3 text-slate-700">
-              30‑minute scoping session to validate fit, discuss required data access, and confirm the 48‑Hour Kick‑Off
-              timeline.
-            </p>
-            <a
-              href="#"
-              className="mt-6 inline-flex items-center rounded-2xl bg-slate-900 text-white px-6 py-3 text-base font-semibold shadow hover:opacity-90 transition"
-            >
+            <p className="mt-3 text-slate-700">30‑minute scoping session to validate fit and timeline.</p>
+            <a href="#" className="mt-6 inline-flex items-center rounded-2xl bg-slate-900 text-white px-6 py-3 font-semibold shadow hover:opacity-90 transition">
               Book a Free Initiation Call
             </a>
           </Card>
         </div>
       </LazyLoadSection>
 
-      {/* FOOTER */}
       <footer className="py-10 border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-           <img
-  src={LOGO_SA_URL} // <-- Uses the new constant
-  alt="Sprint Assembly SA Logo"
-  className="h-8 w-8 object-contain" // Ensures the logo scales correctly
-/>
+            <img src={LOGO_SA_URL} alt="Logo" className="h-8 w-8" />
             <span className="font-semibold">Sprint Assembly</span>
           </div>
-          <div className="text-sm text-slate-500">
-            © {new Date().getFullYear()} Sprint Assembly. All rights reserved.
-          </div>
+          <div className="text-sm text-slate-500">© {new Date().getFullYear()} Sprint Assembly. All rights reserved.</div>
         </div>
       </footer>
     </div>
   );
 }
 
-// Render the application
 export default App;
