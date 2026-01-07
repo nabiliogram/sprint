@@ -35,9 +35,9 @@ const fadeIn = {
 
 const NAV_LINKS = [
     { href: "#challenge", label: "Opportunity" },
-    { href: "#blueprint", label: "Blueprint" },
     { href: "#scorecard", label: "Roadmap" },
     { href: "#deliverables", label: "Deliverables" },
+    { href: "#blueprint", label: "Blueprint" }, // Updated order in Nav
     { href: "#team", label: "Team" },
 ];
 
@@ -105,7 +105,7 @@ const SMES = [
     },
 ];
 
-// --- ROADMAP DATA WITH DESCRIPTIONS ---
+// --- ROADMAP DATA ---
 const scorecard = [
     {
         pillar: "BUILD THE BASE",
@@ -486,33 +486,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* BLUEPRINT */}
-      <section id="blueprint" className="py-20 bg-white border-y border-slate-200">
-        <SectionTitle
-          overlineBgClass={PROMINENT_OVERLINE_CLASS}
-          overline="Our Blueprint"
-          title="The Growth Assembly Blueprint"
-          kicker="A single 8–10 week diagnostic & strategy sprint engineered for predictable outcomes."
-        />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { phase: "Assess", weeks: "Weeks 1–2", desc: "Rapid data transfer, stakeholder alignment, current‑state score‑carding." },
-            { phase: "Diagnose", weeks: "Weeks 3–4", desc: "Pinpoint the single largest constraint and validate financial impact." },
-            { phase: "Optimize", weeks: "Weeks 5–8", desc: "Design the optimal solution and prioritize high‑leverage actions." },
-            { phase: "Plan", weeks: "Weeks 9–10", desc: "Finalize roadmap, quantify ROI, and secure executive buy‑in." },
-          ].map((p, i) => (
-            <motion.div key={i} variants={fadeIn} initial="hidden" whileInView="show" viewport={{ once: true }}>
-              <Card className="p-6 h-full">
-                <div className="text-xs uppercase tracking-wider text-slate-500">{p.weeks}</div>
-                <h3 className="mt-2 text-2xl font-extrabold" style={{ color: i % 2 === 0 ? PALETTE.teal : PALETTE.gold }}>{p.phase}</h3>
-                <p className="mt-3 text-slate-700">{p.desc}</p>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ROADMAP / SCORECARD SECTION - COMPACT TWO-COLUMN VERSION */}
+      {/* ROADMAP / SCORECARD SECTION (COMPACT TWO-COLUMN) */}
       <LazyLoadSection id="scorecard">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
@@ -520,7 +494,6 @@ const App = () => {
           title="The Agentic Growth Roadmap"
           kicker="Objective, data‑backed ratings across 15 critical capabilities, organized by your journey to automated scale."
         />
-        {/* Expanded max-w to accommodate two columns within each phase */}
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-12 flex flex-col gap-10">
           {scorecard.map((col, i) => (
             <div key={i} className="flex flex-col bg-slate-50/50 rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-sm">
@@ -532,8 +505,6 @@ const App = () => {
                    {col.pillar}
                  </h4>
               </div>
-              
-              {/* Internal Grid: 2 columns on desktop to optimize vertical space */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 {col.items.map((it, idx) => (
                   <div 
@@ -557,7 +528,7 @@ const App = () => {
         </div>
       </LazyLoadSection>
 
-      {/* DELIVERABLES */}
+      {/* FINAL ASSEMBLY (DELIVERABLES) */}
       <LazyLoadSection id="deliverables" className="relative border-y border-slate-200 overflow-hidden">
         <div className="absolute inset-0 -z-10" aria-hidden>
           <div className="h-full w-full" style={{ background: `radial-gradient(1200px 520px at 20% -20%, ${PALETTE.teal}20, transparent), radial-gradient(1200px 520px at 80% 0%, ${PALETTE.gold}22, transparent)` }} />
@@ -565,6 +536,32 @@ const App = () => {
         <SectionTitle overlineBgClass={PROMINENT_OVERLINE_CLASS} overline="Final Assembly" title="Your Blueprint for Quantified Growth & Action" />
         <DeliverablesSectionContent />
       </LazyLoadSection>
+
+      {/* BLUEPRINT (MOVED TO UNDERNEATH FINAL ASSEMBLY) */}
+      <section id="blueprint" className="py-20 bg-white border-b border-slate-200">
+        <SectionTitle
+          overlineBgClass={PROMINENT_OVERLINE_CLASS}
+          overline="Our Blueprint"
+          title="The Growth Assembly Blueprint"
+          kicker="A single 8–10 week diagnostic & strategy sprint engineered for predictable outcomes."
+        />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { phase: "Assess", weeks: "Weeks 1–2", desc: "Rapid data transfer, stakeholder alignment, current‑state score‑carding." },
+            { phase: "Diagnose", weeks: "Weeks 3–4", desc: "Pinpoint the single largest constraint and validate financial impact." },
+            { phase: "Optimize", weeks: "Weeks 5–8", desc: "Design the optimal solution and prioritize high‑leverage actions." },
+            { phase: "Plan", weeks: "Weeks 9–10", desc: "Finalize roadmap, quantify ROI, and secure executive buy‑in." },
+          ].map((p, i) => (
+            <motion.div key={i} variants={fadeIn} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <Card className="p-6 h-full">
+                <div className="text-xs uppercase tracking-wider text-slate-500">{p.weeks}</div>
+                <h3 className="mt-2 text-2xl font-extrabold" style={{ color: i % 2 === 0 ? PALETTE.teal : PALETTE.gold }}>{p.phase}</h3>
+                <p className="mt-3 text-slate-700">{p.desc}</p>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* TEAM */}
       <LazyLoadSection id="team">
