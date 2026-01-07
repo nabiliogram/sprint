@@ -36,7 +36,7 @@ const fadeIn = {
 const NAV_LINKS = [
     { href: "#challenge", label: "Opportunity" },
     { href: "#blueprint", label: "Blueprint" },
-    { href: "#scorecard", label: "Roadmap" }, // Updated label for clarity
+    { href: "#scorecard", label: "Roadmap" },
     { href: "#deliverables", label: "Deliverables" },
     { href: "#team", label: "Team" },
 ];
@@ -105,36 +105,36 @@ const SMES = [
     },
 ];
 
-// --- UPDATED 15-POINT ROADMAP DATA ---
+// --- UPDATED 15-POINT ROADMAP DATA WITH DESCRIPTIONS ---
 const scorecard = [
     {
-        pillar: "Step 1: Build the Base",
+        pillar: "BUILD THE BASE",
         items: [
-            { label: "Validate Value Proposition", status: "Yellow" },
-            { label: "Sync ICP & Revenue", status: "Red" },
-            { label: "Clean Data Hygiene", status: "Yellow" },
-            { label: "Audit Funnel Leakage", status: "Red" },
-            { label: "Verify Attribution Rigor", status: "Yellow" },
+            { label: "Validate Value Proposition", status: "Yellow", desc: "Confirm your fundamental offering resonates with target customers through in-market testing." },
+            { label: "Sync ICP & Revenue", status: "Red", desc: "Align your Ideal Customer Profile definition with actual high-value revenue sources to focus efforts." },
+            { label: "Clean Data Hygiene", status: "Yellow", desc: "Ensure your CRM and marketing data is accurate, complete, standardized, and de-duplicated." },
+            { label: "Audit Funnel Leakage", status: "Red", desc: "Identify and fix specific stages in the customer journey where qualified prospects drop off." },
+            { label: "Verify Attribution Rigor", status: "Yellow", desc: "Implement reliable tracking models to truly understand which touchpoints drive conversions." },
         ],
     },
     {
-        pillar: "Step 2: Maximize Profit",
+        pillar: "MAXIMIZE PROFIT",
         items: [
-            { label: "Optimize Marginal ROI", status: "Yellow" },
-            { label: "Balance Omnichannel Health", status: "Green" },
-            { label: "Scale Creative Velocity", status: "Yellow" },
-            { label: "Refine CRO Strategy", status: "Yellow" },
-            { label: "Accelerate Speed-to-Market", status: "Red" },
+            { label: "Optimize Marginal ROI", status: "Yellow", desc: "Focus incremental spending only on channels that provide the best additional return on investment." },
+            { label: "Balance Omnichannel Health", status: "Green", desc: "Maintain consistent messaging, branding, and performance across all active marketing channels." },
+            { label: "Scale Creative Velocity", status: "Yellow", desc: "Increase the volume and speed of ad creative production and testing to combat ad fatigue." },
+            { label: "Refine CRO Strategy", status: "Yellow", desc: "Continuously improve website and landing page conversion rates through structured A/B testing." },
+            { label: "Accelerate Speed-to-Market", status: "Red", desc: "Reduce internal friction to launch campaigns and new initiatives faster than competitors." },
         ],
     },
     {
-        pillar: "Step 3: Automate Scale",
+        pillar: "AUTOMATE SCALE",
         items: [
-            { label: "Integrate MarTech Stack", status: "Yellow" },
-            { label: "Deploy Workflow Automation", status: "Red" },
-            { label: "Build First-Party Data", status: "Yellow" },
-            { label: "Install Real-Time Analytics", status: "Yellow" },
-            { label: "Set HITL Governance", status: "Green" },
+            { label: "Integrate MarTech Stack", status: "Yellow", desc: "Ensure seamless, bi-directional data flow and connectivity between all your marketing tools." },
+            { label: "Deploy Workflow Automation", status: "Red", desc: "Reduce manual labor by automating repetitive marketing processes, nurture sequences, and tasks." },
+            { label: "Build First-Party Data", status: "Yellow", desc: "Collect and own audience data directly to reduce reliance on third-party cookies and platforms." },
+            { label: "Install Real-Time Analytics", status: "Yellow", desc: "Implement live dashboards for immediate visibility into campaign performance and issues." },
+            { label: "Set HITL Governance", status: "Green", desc: "Establish Human-In-The-Loop oversight protocols for AI and automated decision-making systems." },
         ],
     },
 ];
@@ -159,15 +159,16 @@ const Pill = ({ children }) => (
  
 const Badge = ({ status }) => {
   const map = {
-    Red: "bg-red-100 text-red-800 border-red-200",
-    Yellow: "bg-amber-100 text-amber-900 border-amber-200",
-    Green: "bg-emerald-100 text-emerald-900 border-emerald-200",
+    Red: "bg-red-100 text-red-700 border-red-200",
+    Yellow: "bg-amber-100 text-amber-700 border-amber-200",
+    Green: "bg-emerald-100 text-emerald-700 border-emerald-200",
   };
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold ${
+      className={`inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-[11px] font-bold shrink-0 ${
         map[status] || "bg-slate-100 text-slate-800 border-slate-200"
       }`}
+      style={{ height: 'fit-content' }}
     >
       {status}
     </span>
@@ -511,7 +512,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* ROADMAP / SCORECARD */}
+      {/* ROADMAP / SCORECARD SECTION - UPDATED FOR ALIGNMENT AND DESCRIPTIONS */}
       <LazyLoadSection id="scorecard">
         <SectionTitle
           overlineBgClass={PROMINENT_OVERLINE_CLASS}
@@ -519,21 +520,31 @@ const App = () => {
           title="The Agentic Growth Roadmap"
           kicker="Objective, data‑backed ratings across 15 critical capabilities, organized by your journey to automated scale."
         />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {scorecard.map((col, i) => (
-            <Card key={i} className="p-6">
-              <h4 className="text-lg font-extrabold uppercase tracking-wider" style={{ color: i === 0 ? PALETTE.teal : i === 1 ? PALETTE.gold : PALETTE.subInk }}>
+            <div key={i} className="flex flex-col h-full bg-slate-50/50 rounded-3xl border border-slate-200 p-6 shadow-sm">
+              <h4 className="text-xl font-extrabold uppercase tracking-widest mb-6" style={{ color: i === 0 ? "#00A3B3" : i === 1 ? "#B8860B" : "#2C3E50" }}>
                 {col.pillar}
               </h4>
-              <div className="mt-4 space-y-3">
+              <div className="space-y-4">
                 {col.items.map((it, idx) => (
-                  <div key={idx} className="flex items-center justify-between gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm">
-                    <span className="text-slate-800 font-semibold text-sm">{it.label}</span>
-                    <Badge status={it.status} />
+                  <div 
+                    key={idx} 
+                    className="flex flex-col gap-2 p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-200 group"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="text-slate-900 font-bold text-base leading-tight group-hover:text-slate-700 transition-colors">
+                        {it.label}
+                      </span>
+                      <Badge status={it.status} />
+                    </div>
+                    <p className="text-slate-500 text-xs sm:text-sm leading-relaxed mt-1">
+                      {it.desc}
+                    </p>
                   </div>
                 ))}
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </LazyLoadSection>
