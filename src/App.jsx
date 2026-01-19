@@ -197,7 +197,7 @@ const INDUSTRY_BENCH = {
   ecommerce: { growth: 0.095, labor: 0.18, media: 0.2, agency: 0.45 },
   saas: { growth: 0.075, labor: 0.28, media: 0.15, agency: 0.4 },
   professional: { growth: 0.03, labor: 0.3, media: 0.1, agency: 0.35 },
-  finserve: { growth: 0.05, blue: 0.22, media: 0.18, agency: 0.5 },
+  finserve: { growth: 0.05, labor: 0.22, media: 0.18, agency: 0.5 },
   cpg: { growth: 0.04, labor: 0.15, media: 0.22, agency: 0.35 },
   healthcare: { growth: 0.055, labor: 0.2, media: 0.12, agency: 0.4 },
 };
@@ -390,6 +390,7 @@ export default function App() {
       </header>
 
       <main>
+        {/* Grounded Hero Section */}
         <section 
           className="relative overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32"
           style={{ 
@@ -419,6 +420,7 @@ export default function App() {
               <Btn href="#calculator" variant="ghost">Calculate Upside</Btn>
             </div>
 
+            {/* Torn Paper Section */}
             <div className="mt-20 relative isolate">
               <div className="absolute inset-0 translate-y-3 blur-md opacity-20 bg-neutral-900" style={{ clipPath: PAPER_CLIP }} />
               <div className="relative bg-white px-8 pt-20 pb-12 md:px-12 md:pt-24 md:pb-16 shadow-2xl flex flex-col justify-center min-h-[200px] md:min-h-[280px]" style={{ clipPath: PAPER_CLIP, backgroundImage: PAPER_TEXTURE }}>
@@ -538,6 +540,7 @@ export default function App() {
              </p>
              
              <div className="flex flex-col lg:flex-row items-stretch gap-6">
+               {/* Primary CTA */}
                <Btn 
                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Sprint Assembly - Intro")}`}
                  className="lg:w-1/3"
@@ -545,14 +548,15 @@ export default function App() {
                  Contact via Email
                </Btn>
 
-               <div className="flex-1 flex items-center justify-between p-5 rounded-sm bg-white/50 border border-neutral-200 shadow-sm transition-all group hover:border-neutral-300">
-                 <div className="text-lg md:text-xl font-bold text-neutral-950 font-mono select-all tracking-tight">
+               {/* Refined Email Display Card */}
+               <div className="flex-1 flex flex-col sm:flex-row items-center justify-between p-5 gap-4 rounded-sm bg-white/50 border border-neutral-200 shadow-sm transition-all group hover:border-neutral-300 text-center sm:text-left">
+                 <div className="text-lg md:text-xl font-bold text-neutral-950 tracking-wider break-all leading-tight">
                    {CONTACT_EMAIL}
                  </div>
                  
                  <button 
                    onClick={copyEmail}
-                   className="flex items-center gap-2 px-4 py-2 rounded-sm text-[10px] font-black uppercase tracking-widest transition-all"
+                   className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-sm text-[10px] font-black uppercase tracking-widest transition-all shrink-0"
                    style={{ 
                      background: copied ? THEME.cta : "transparent", 
                      color: copied ? "white" : THEME.cta,
