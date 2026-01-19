@@ -55,7 +55,7 @@ const Section = ({
   children,
 }) => (
   <section id={id} className="relative border-t border-neutral-200/50">
-    <Wrap className="pt-12 pb-20 sm:pt-16 sm:pb-24">
+    <Wrap className="pt-3 pb-20 sm:pt-4 sm:pb-24">
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       {title ? (
         <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-normal md:leading-tight">
@@ -234,7 +234,7 @@ function ValueCalculator() {
       <style>{`input.calc-range{-webkit-appearance:none;width:100%;background:transparent}input.calc-range::-webkit-slider-runnable-track{height:6px;background:#f3f4f6;border-radius:999px}input.calc-range::-webkit-slider-thumb{-webkit-appearance:none;height:20px;width:20px;border-radius:999px;background:#111827;margin-top:-7px;border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.15)}`}</style>
       
       <div className="max-w-4xl px-2">
-        <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12">
+        <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12 italic">
           Transitioning to autonomous systems requires understanding your current opportunity space. Applying benchmarks from{" "}
           <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noreferrer" className="text-neutral-900 hover:text-emerald-700 transition-colors">McKinsey</a>,{" "}
           <a href="https://www.gartner.com/en/articles/ai-is-coming-for-inefficiency" target="_blank" rel="noreferrer" className="text-neutral-900 hover:text-emerald-700 transition-colors">Gartner</a>, and{" "}
@@ -295,8 +295,9 @@ function ValueCalculator() {
                 onClick={() => setShowMethodology(!showMethodology)}
                 className={cx(
                   "p-2 rounded-full transition-colors shrink-0",
-                  showMethodology ? "bg-neutral-900 text-white shadow-md" : "text-neutral-400 hover:text-neutral-950 hover:bg-neutral-200/50"
+                  showMethodology ? "bg-neutral-900 text-white shadow-md" : "hover:bg-neutral-200/50"
                 )}
+                style={{ color: showMethodology ? 'white' : THEME.cta }}
                 title="View methodology"
               >
                 {Icon.help("h-5 w-5")}
@@ -327,23 +328,31 @@ function ValueCalculator() {
 }
 
 const RoadmapStepCard = ({ title, sub, areas, outcome }) => (
-  <article className="relative rounded-[32px] bg-white p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 flex flex-col h-full w-full">
-    <h3 className="text-2xl font-bold tracking-tight text-neutral-950 leading-normal md:leading-tight">{title}</h3>
-    <p className="mt-3 text-neutral-600 leading-relaxed font-medium flex-grow">{sub}</p>
-    <div className="mt-8">
-      <div className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-4">Focus Areas</div>
-      <div className="flex flex-col gap-4">
-        {areas.map(a => (
-          <div key={a} className="flex items-start gap-3 text-sm text-neutral-800 text-left">
-            <div className="mt-1 text-neutral-500/60 shrink-0">{roadmapAreaIcon(a)("h-4 w-4")}</div>
-            <span className="font-medium">{a}</span>
-          </div>
-        ))}
+  <article className="relative rounded-[32px] bg-white p-6 md:p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 flex flex-col h-full w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+      <div className="space-y-4">
+        <h3 className="text-2xl font-bold tracking-tight text-neutral-950 leading-tight">{title}</h3>
+        <p className="text-neutral-600 leading-relaxed font-medium">{sub}</p>
+      </div>
+      <div>
+        <div className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-4 h-4">Focus Areas</div>
+        <div className="flex flex-col gap-3">
+          {areas.map(a => (
+            <div key={a} className="flex items-start gap-3 text-sm text-neutral-800 text-left">
+              {/* Changed icon color to THEME.cta */}
+              <div className="mt-1 shrink-0" style={{ color: THEME.cta }}>{roadmapAreaIcon(a)("h-4 w-4")}</div>
+              <span className="font-medium">{a}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-    <div className="mt-8 pt-6 border-t border-black/[0.05] flex items-center gap-3">
+    
+    <div className="mt-6 pt-5 border-t border-black/[0.05] flex items-center gap-3">
        <div className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
-       <p className="text-sm font-bold text-neutral-800 text-left"><span className="text-neutral-400 font-medium">Outcome:</span> {outcome}</p>
+       <p className="text-sm font-bold text-neutral-800 text-left">
+         <span className="text-neutral-400 font-medium">Outcome:</span> {outcome}
+       </p>
     </div>
   </article>
 );
@@ -470,13 +479,14 @@ export default function App() {
              </p>
            </div>
            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-             {OPPORTUNITY.map(o => (
-               <div key={o.tag} className="bg-white/60 p-8 rounded-3xl ring-1 ring-black/5 flex flex-col">
+             {OPPORTUNITY.map((o, idx) => (
+               <div key={o.tag} className="bg-white p-8 rounded-3xl ring-1 ring-black/5 flex flex-col h-full">
                  <div className="flex justify-between items-start mb-6">
-                   <div className="px-3 py-1 bg-neutral-950 text-white text-[10px] font-black tracking-widest">{o.tag}</div>
-                   <div className="text-neutral-300">{o.icon("h-8 w-8")}</div>
+                   <div className="px-3 py-1 bg-neutral-950 text-white text-[10px] font-black tracking-widest">STEP {idx + 1}</div>
+                   {/* Changed icon color to THEME.cta */}
+                   <div style={{ color: THEME.cta }}>{o.icon("h-8 w-8")}</div>
                  </div>
-                 <h3 className="text-2xl font-bold mb-4 leading-tight">{o.headline}</h3>
+                 <h3 className="text-2xl font-bold mb-4 leading-tight lg:min-h-[3.5rem]">{o.headline}</h3>
                  <p className="text-neutral-600 leading-relaxed text-sm md:text-base">{o.body}</p>
                </div>
              ))}
@@ -494,23 +504,19 @@ export default function App() {
              </p>
            </div>
 
-           {/* Updated Process Roadmap: Solid cards, no tracks on Mobile */}
-           <div className="relative mt-8 lg:mt-16">
-             {/* Horizontal track ONLY on Desktop */}
-             <div className="hidden lg:block absolute top-7 left-[10%] right-[10%] h-px bg-neutral-200 z-0" />
-
-             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-8 relative z-10">
-               {ROADMAP.map(r => (
-                 <div key={r.step} className="flex flex-col items-start lg:items-center h-full">
-                   {/* Number Marker ONLY on Desktop */}
-                   <div className="hidden lg:flex mb-10 justify-center w-full">
-                      <div className="h-14 w-14 rounded-2xl bg-white shadow-lg ring-1 ring-black/10 flex items-center justify-center font-black text-lg z-10 shrink-0">0{r.step}</div>
-                   </div>
-                   {/* Solid Roadmap Card */}
-                   <RoadmapStepCard {...r} />
+           <div className="relative mt-8 space-y-8">
+             <div className="hidden md:block absolute left-10 top-0 bottom-0 w-px bg-neutral-200 z-0" />
+             
+             {ROADMAP.map(r => (
+               <div key={r.step} className="grid grid-cols-1 md:grid-cols-[80px_1fr] gap-8 relative z-10 items-start">
+                 {/* Number Marker */}
+                 <div className="hidden md:flex justify-center">
+                    <div className="h-14 w-14 rounded-2xl bg-white shadow-lg ring-1 ring-black/10 flex items-center justify-center font-black text-lg shrink-0">0{r.step}</div>
                  </div>
-               ))}
-             </div>
+                 {/* Card */}
+                 <RoadmapStepCard {...r} />
+               </div>
+             ))}
            </div>
         </Section>
 
@@ -537,7 +543,7 @@ export default function App() {
                  li: "https://www.linkedin.com/in/danielbesquin/" 
                }
              ].map(p => (
-               <div key={p.name} className="relative bg-white/70 p-8 rounded-[40px] ring-1 ring-black/5 flex flex-col gap-6 shadow-sm hover:shadow-md transition-shadow">
+               <div key={p.name} className="relative bg-white p-8 rounded-[40px] ring-1 ring-black/5 flex flex-col gap-6 shadow-sm">
                  <div className="flex items-center gap-6">
                     <img src={p.img} alt={p.name} className="h-20 w-20 rounded-3xl object-cover shadow-lg" />
                     <div>
