@@ -130,6 +130,7 @@ const Icon = {
   chevronDown: (p) => <Svg p={p}><path d="m6 9 6 6 6-6" /></Svg>,
   copy: (p) => <Svg p={p}><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></Svg>,
   check: (p) => <Svg p={p}><path d="M20 6 9 17l-5-5" /></Svg>,
+  help: (p) => <Svg p={p}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></Svg>,
 };
 
 // Data
@@ -217,6 +218,7 @@ function ValueCalculator() {
   const [hc, setHc] = useState(15);
   const [media, setMedia] = useState(100_000);
   const [agency, setAgency] = useState(15_000);
+  const [showMethodology, setShowMethodology] = useState(false);
 
   const compactFmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 1, notation: "compact" });
   const b = INDUSTRY_BENCH[industry] || INDUSTRY_BENCH.general;
@@ -234,15 +236,15 @@ function ValueCalculator() {
       <div className="max-w-4xl px-2">
         <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12">
           Transitioning to autonomous systems requires understanding your current opportunity space. Applying benchmarks from{" "}
-          <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noreferrer" className="text-neutral-900 font-bold hover:text-emerald-700 transition-colors">McKinsey</a>,{" "}
-          <a href="https://www.gartner.com/en/articles/ai-is-coming-for-inefficiency" target="_blank" rel="noreferrer" className="text-neutral-900 font-bold hover:text-emerald-700 transition-colors">Gartner</a>, and{" "}
-          <a href="https://www.nielsen.com/insights/2025/google-mmm-case-study/" target="_blank" rel="noreferrer" className="text-neutral-900 font-bold hover:text-emerald-700 transition-colors">Nielsen</a>,{" "}
+          <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noreferrer" className="text-neutral-900 hover:text-emerald-700 transition-colors">McKinsey</a>,{" "}
+          <a href="https://www.gartner.com/en/articles/ai-is-coming-for-inefficiency" target="_blank" rel="noreferrer" className="text-neutral-900 hover:text-emerald-700 transition-colors">Gartner</a>, and{" "}
+          <a href="https://www.nielsen.com/insights/2025/google-mmm-case-study/" target="_blank" rel="noreferrer" className="text-neutral-900 hover:text-emerald-700 transition-colors">Nielsen</a>,{" "}
           this simulator estimates gains from agentic workflows. It bridges the gap between AI hype and financial reality, visualizing potential scale for your unique model.
         </p>
       </div>
 
-      <div className="rounded-[40px] bg-white/90 ring-1 ring-black/5 shadow-2xl overflow-hidden backdrop-blur-xl">
-        <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="rounded-[40px] bg-white ring-1 ring-black/5 shadow-2xl overflow-hidden transition-all">
+        <div className="grid grid-cols-1 md:grid-cols-2 relative">
           <div className="p-8 md:p-12 space-y-8 border-b md:border-b-0 md:border-r border-neutral-100">
             <div className="flex flex-col gap-3 mb-8">
               <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">Industry Vertical</label>
@@ -282,11 +284,25 @@ function ValueCalculator() {
             ))}
           </div>
           
-          <div className="p-6 sm:p-8 md:p-12 bg-neutral-50/50 flex flex-col justify-center">
-            <div className="text-center md:text-left mb-8 sm:mb-10">
-              <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-400">Projected Annual Upside</div>
-              <div className="mt-2 text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-neutral-950">{compactFmt.format(total)}</div>
+          <div className="p-6 sm:p-8 md:p-12 bg-neutral-50/50 flex flex-col justify-center relative">
+            <div className="flex justify-between items-start mb-8 sm:mb-10">
+              <div className="text-center md:text-left flex-grow">
+                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-400">Projected Annual Upside</div>
+                <div className="mt-2 text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-neutral-950">{compactFmt.format(total)}</div>
+              </div>
+              
+              <button 
+                onClick={() => setShowMethodology(!showMethodology)}
+                className={cx(
+                  "p-2 rounded-full transition-colors shrink-0",
+                  showMethodology ? "bg-neutral-900 text-white shadow-md" : "text-neutral-400 hover:text-neutral-950 hover:bg-neutral-200/50"
+                )}
+                title="View methodology"
+              >
+                {Icon.help("h-5 w-5")}
+              </button>
             </div>
+
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <Metric label="Growth Op" value={"+" + compactFmt.format(growthVal)} note="Top-line Lift" />
               <Metric label="Efficiency" value={"+" + compactFmt.format(laborVal)} note="Capacity Saved" />
@@ -295,14 +311,23 @@ function ValueCalculator() {
             </div>
           </div>
         </div>
+
+        {/* Methodology Content (Disclosed) */}
+        {showMethodology && (
+          <div className="border-t border-neutral-100 bg-neutral-50/80 p-8 md:p-10 animate-in fade-in slide-in-from-top-4 duration-300">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-3">Simulator Logic</h4>
+            <p className="text-sm leading-relaxed text-neutral-600 font-medium">
+              This engine applies validated benchmarks to your specific operating model: McKinsey (+6.5% revenue lift via AI customer journeys), Gartner (20% labor capacity reclaim through administrative automation), and Nielsen (+17% media performance lift). Structural rationalization assumes a 40% reduction in external execution fees by shifting manual work to internal autonomous agents.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-const RoadmapStepCard = ({ step, title, sub, areas, outcome }) => (
-  <article className="relative rounded-[32px] bg-white/30 backdrop-blur-2xl p-8 shadow-xl shadow-black/5 ring-1 ring-white/40 border border-black/[0.03] shadow-[inset_0px_1px_1px_rgba(255,255,255,0.8)] flex flex-col h-full w-full">
-    <div className="lg:hidden text-xs font-black tracking-[0.2em] text-neutral-400 mb-2">STEP {step}</div>
+const RoadmapStepCard = ({ title, sub, areas, outcome }) => (
+  <article className="relative rounded-[32px] bg-white p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 flex flex-col h-full w-full">
     <h3 className="text-2xl font-bold tracking-tight text-neutral-950 leading-normal md:leading-tight">{title}</h3>
     <p className="mt-3 text-neutral-600 leading-relaxed font-medium flex-grow">{sub}</p>
     <div className="mt-8">
@@ -469,20 +494,19 @@ export default function App() {
              </p>
            </div>
 
-           {/* Process Roadmap with Horizontal Desktop Layout */}
-           <div className="relative mt-16">
-             {/* Timeline track: Horizontal on Desktop, Vertical on Mobile */}
+           {/* Updated Process Roadmap: Solid cards, no tracks on Mobile */}
+           <div className="relative mt-8 lg:mt-16">
+             {/* Horizontal track ONLY on Desktop */}
              <div className="hidden lg:block absolute top-7 left-[10%] right-[10%] h-px bg-neutral-200 z-0" />
-             <div className="lg:hidden absolute left-5 top-0 bottom-0 w-px bg-neutral-200 z-0" />
 
-             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 relative z-10">
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-8 relative z-10">
                {ROADMAP.map(r => (
                  <div key={r.step} className="flex flex-col items-start lg:items-center h-full">
-                   {/* Number Marker */}
-                   <div className="mb-6 lg:mb-10 flex lg:justify-center w-full">
-                      <div className="h-10 w-10 lg:h-14 lg:w-14 rounded-2xl bg-white shadow-lg ring-1 ring-black/10 flex items-center justify-center font-black text-sm lg:text-lg z-10 shrink-0">0{r.step}</div>
+                   {/* Number Marker ONLY on Desktop */}
+                   <div className="hidden lg:flex mb-10 justify-center w-full">
+                      <div className="h-14 w-14 rounded-2xl bg-white shadow-lg ring-1 ring-black/10 flex items-center justify-center font-black text-lg z-10 shrink-0">0{r.step}</div>
                    </div>
-                   {/* Card */}
+                   {/* Solid Roadmap Card */}
                    <RoadmapStepCard {...r} />
                  </div>
                ))}
@@ -557,9 +581,9 @@ export default function App() {
                  Contact via Email
                </Btn>
 
-               {/* Refined Email Display Card */}
+               {/* Clean Spelled-out Email Display */}
                <div className="flex-1 flex flex-col sm:flex-row items-center justify-between p-5 gap-4 rounded-sm bg-white/50 border border-neutral-200 shadow-sm transition-all group hover:border-neutral-300 text-center sm:text-left">
-                 <div className="text-lg md:text-xl font-bold text-neutral-950 tracking-wider break-all leading-tight">
+                 <div className="text-lg md:text-xl font-bold text-neutral-950 tracking-wider break-all leading-tight font-sans">
                    {CONTACT_EMAIL}
                  </div>
                  
