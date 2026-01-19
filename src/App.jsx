@@ -159,7 +159,7 @@ const ROADMAP = [
     step: 1, 
     title: "Diagnostic Sprint", 
     sub: "We audit your channels and data to identify operational constraints. This roadmap ensures capital is focused strictly on the highest-return automation opportunities.", 
-    areas: ["Marketing and measurement maturity", "Budget allocation and channel ROI", "Customer lifecycle friction", "AI readiness audit"], 
+    areas: ["Marketing measurement maturity", "Budget allocation and channel ROI", "Customer lifecycle friction", "AI readiness audit"], 
     outcome: "A clear, prioritized view of where change will drive the highest return." 
   },
   { 
@@ -301,24 +301,24 @@ function ValueCalculator() {
 }
 
 const RoadmapStepCard = ({ step, title, sub, areas, outcome }) => (
-  <article className="relative rounded-[32px] bg-white/30 backdrop-blur-2xl p-8 shadow-xl shadow-black/5 ring-1 ring-white/40 border border-black/[0.03] shadow-[inset_0px_1px_1px_rgba(255,255,255,0.8)] hover:shadow-2xl hover:bg-white/40 transition-all duration-500 group">
+  <article className="relative rounded-[32px] bg-white/30 backdrop-blur-2xl p-8 shadow-xl shadow-black/5 ring-1 ring-white/40 border border-black/[0.03] shadow-[inset_0px_1px_1px_rgba(255,255,255,0.8)] flex flex-col h-full w-full">
     <div className="lg:hidden text-xs font-black tracking-[0.2em] text-neutral-400 mb-2">STEP {step}</div>
     <h3 className="text-2xl font-bold tracking-tight text-neutral-950 leading-normal md:leading-tight">{title}</h3>
-    <p className="mt-3 text-neutral-600 leading-relaxed font-medium">{sub}</p>
+    <p className="mt-3 text-neutral-600 leading-relaxed font-medium flex-grow">{sub}</p>
     <div className="mt-8">
       <div className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-4">Focus Areas</div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4">
         {areas.map(a => (
-          <div key={a} className="flex items-start gap-3 text-sm text-neutral-800">
-            <div className="mt-1 text-neutral-500/60 group-hover:text-emerald-600 transition-colors">{roadmapAreaIcon(a)("h-4 w-4")}</div>
+          <div key={a} className="flex items-start gap-3 text-sm text-neutral-800 text-left">
+            <div className="mt-1 text-neutral-500/60 shrink-0">{roadmapAreaIcon(a)("h-4 w-4")}</div>
             <span className="font-medium">{a}</span>
           </div>
         ))}
       </div>
     </div>
     <div className="mt-8 pt-6 border-t border-black/[0.05] flex items-center gap-3">
-       <div className="h-2 w-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
-       <p className="text-sm font-bold text-neutral-800"><span className="text-neutral-400 font-medium">Outcome:</span> {outcome}</p>
+       <div className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+       <p className="text-sm font-bold text-neutral-800 text-left"><span className="text-neutral-400 font-medium">Outcome:</span> {outcome}</p>
     </div>
   </article>
 );
@@ -468,16 +468,25 @@ export default function App() {
                Modernization begins with a diagnostic sprint to audit efforts and resolve infrastructure gaps. Once your data foundation is solid, we transition manual workflows into autonomous systems. This systematic shift allows your business to realize the efficiency gains and ROI potential identified in the upside estimator.
              </p>
            </div>
-           <div className="space-y-8 relative">
-             <div className="hidden lg:block absolute left-10 top-0 bottom-0 w-px bg-neutral-200" />
-             {ROADMAP.map(r => (
-               <div key={r.step} className="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-8 items-start">
-                 <div className="hidden lg:flex h-20 items-center justify-center relative z-10">
-                    <div className="h-14 w-14 rounded-2xl bg-white shadow-lg ring-1 ring-black/10 flex items-center justify-center font-black text-lg">0{r.step}</div>
+
+           {/* Process Roadmap with Horizontal Desktop Layout */}
+           <div className="relative mt-16">
+             {/* Timeline track: Horizontal on Desktop, Vertical on Mobile */}
+             <div className="hidden lg:block absolute top-7 left-[10%] right-[10%] h-px bg-neutral-200 z-0" />
+             <div className="lg:hidden absolute left-5 top-0 bottom-0 w-px bg-neutral-200 z-0" />
+
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 relative z-10">
+               {ROADMAP.map(r => (
+                 <div key={r.step} className="flex flex-col items-start lg:items-center h-full">
+                   {/* Number Marker */}
+                   <div className="mb-6 lg:mb-10 flex lg:justify-center w-full">
+                      <div className="h-10 w-10 lg:h-14 lg:w-14 rounded-2xl bg-white shadow-lg ring-1 ring-black/10 flex items-center justify-center font-black text-sm lg:text-lg z-10 shrink-0">0{r.step}</div>
+                   </div>
+                   {/* Card */}
+                   <RoadmapStepCard {...r} />
                  </div>
-                 <RoadmapStepCard {...r} />
-               </div>
-             ))}
+               ))}
+             </div>
            </div>
         </Section>
 
@@ -500,7 +509,7 @@ export default function App() {
                  name: "Daniel Besquin", 
                  role: "Co-founder", 
                  img: "https://haschemie.com/sprint/danielhead.jpg", 
-                 bio: "Daniel is a pragmatic growth leader with experience across brand, data, and execution. He began his career at Procter & Gamble, where he developed a strong foundation in consumer insight and disciplined messaging. At Google, he deepened his expertise in acquisition and measurement. In startups, he built lean teams that moved quickly from idea to impact. And at BCG, he advised senior leaders on priorities and performance tracking. Today, Daniel leads focused engagements that align teams, define simple success metrics, and install tools to test and scale what works. Fluent in English and Spanish, he works across the U.S. and Latin America.",
+                 bio: "Daniel is a practical growth leader with experience across brand, data, and execution. He began his career at Procter & Gamble, where he developed a strong foundation in consumer insight and disciplined messaging. At Google, he deepened his expertise in acquisition and measurement. In startups, he built lean teams that moved quickly from idea to impact. And at BCG, he advised senior leaders on priorities and performance tracking. Today, Daniel leads focused engagements that align teams, define simple success metrics, and install tools to test and scale what works. Fluent in English and Spanish, he works across the U.S. and Latin America.",
                  li: "https://www.linkedin.com/in/danielbesquin/" 
                }
              ].map(p => (
