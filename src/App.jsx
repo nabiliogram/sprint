@@ -493,7 +493,7 @@ export default function App() {
            </div>
         </Section>
 
-        <Section id="calculator" eyebrow="IMPACT" title="Marketing Upside Estimator">
+        <Section id="calculator" eyebrow="IMPACT" title="Marketing Upside Simulator">
           <ValueCalculator />
         </Section>
 
