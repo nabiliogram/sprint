@@ -215,7 +215,8 @@ const ValueCalculator = () => {
   return (
     <div className="w-full">
       <style>{`input.calc-range{-webkit-appearance:none;width:100%;background:transparent}input.calc-range::-webkit-slider-runnable-track{height:4px;background:#f3f4f6;border-radius:999px}input.calc-range::-webkit-slider-thumb{-webkit-appearance:none;height:18px;width:18px;border-radius:999px;background:#111827;margin-top:-7px;border:3px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.12)}`}</style>
-      <div className="max-w-full mb-8">
+      {/* UPDATED: sub-header width adjusted on desktop to 95% */}
+      <div className="mb-8 lg:w-[95%]">
         <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
           Get a high-level view of your modernization opportunity. By applying validated performance data to your current model, this simulator offers a directional estimate of how autonomous workflows can impact your bottom line. It serves as an initial look at the scale available before moving into a granular Diagnostic Sprint.
         </p>
@@ -468,10 +469,11 @@ export default function App() {
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center gap-10 mt-12 border-t border-black/[0.05] pt-8">
+            {/* Quote + Logos Section */}
+            <div className="hidden lg:flex items-center gap-10 mt-12 border-t border-black/[0.05] pt-8 lg:w-[90%] lg:mx-auto">
               <div className="flex-[2.4]">
-                 <p className="text-xl md:text-2xl italic font-serif leading-relaxed text-neutral-800 text-justify">
-                   "Sprint Assembly is led by senior operators who’ve built and scaled growth across global enterprises. We work in focused sprints to transition your marketing from manual execution to autonomous scale."
+                 <p className="text-xl md:text-2xl italic font-serif leading-relaxed text-neutral-500 text-justify">
+                   "Sprint Assembly is led by senior operators who’ve scaled growth across global enterprises. We work in focused sprints to move your marketing from manual execution to autonomous scale."
                  </p>
               </div>
               <div className="w-px h-32 self-center opacity-30" style={{ background: THEME.cta }} />
@@ -483,7 +485,7 @@ export default function App() {
 
             <div className="lg:hidden mt-12 border-t border-black/[0.05] pt-8">
               <div className="space-y-6">
-                 <p className="text-xl italic font-serif leading-relaxed text-neutral-800 text-center px-2">
+                 <p className="text-xl italic font-serif leading-relaxed text-neutral-500 text-center px-2">
                    "Sprint Assembly is led by senior operators who’ve built and scaled growth across global enterprises. We work in focused sprints to transition your marketing from manual execution to autonomous scale."
                  </p>
                  
@@ -503,7 +505,8 @@ export default function App() {
         </section>
 
         <Section id="opportunity" eyebrow="Business Impact" title="The Opportunity">
-           <div className="mb-8">
+           {/* UPDATED: sub-header width adjusted on desktop to 95% */}
+           <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12 italic">
                You can’t scale through manual effort alone. We help you transition to an autonomous system that targets the three essentials of modern performance: reclaiming team bandwidth, making the entire customer journey more responsive to data, and improving your bottom line through systematic orchestration.
              </p>
@@ -527,7 +530,8 @@ export default function App() {
         </Section>
 
         <Section id="roadmap" eyebrow="Process" title="How We Modernize You">
-           <div className="mb-8">
+           {/* UPDATED: sub-header width adjusted on desktop to 95% */}
+           <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
                We begin every partnership with a Diagnostic Sprint to map where your performance is leaking and find your biggest wins. Next, we fill operational gaps with rigorous Performance Standards to capture an immediate lift in return on spend. This foundation allows us to transition you to Autonomous Orchestration by building the systems that maximize your bottom line through intelligent scale.
              </p>
@@ -569,7 +573,8 @@ export default function App() {
         </Section>
 
         <Section id="team" eyebrow="Team" title="Built by Operators">
-           <div className="mb-8">
+           {/* UPDATED: sub-header width adjusted on desktop to 95% */}
+           <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
                Sprint Assembly is led by growth veterans who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.
              </p>
@@ -620,7 +625,6 @@ export default function App() {
                Modernizing your growth engine begins with a conversation. We’re available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to autonomous scale. We’ll provide an objective assessment of your modernization potential to help you determine the most effective next step for your growth.
              </p>
              <div className="flex flex-col lg:flex-row items-stretch gap-6">
-               {/* UPDATED: Custom style to match Nav Button format exactly */}
                <a 
                  href={`mailto:${CONTACT_EMAIL}?subject=Sprint%20Assembly%20Intro`} 
                  className="lg:w-1/3 inline-flex items-center justify-center rounded-sm px-6 py-2.5 text-white hover:brightness-110 transition-all shadow-sm font-bold" 
