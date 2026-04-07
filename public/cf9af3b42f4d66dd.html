@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>SA Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafafa; scroll-behavior: smooth; }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-track { scrollbar-width: none; -ms-overflow-style: none; }
+  </style>
+</head>
+<body class="min-h-screen text-neutral-900" style="background-image: radial-gradient(1100px circle at 12% -12%, rgba(184,240,237,0.55), transparent 55%), radial-gradient(900px circle at 92% 18%, rgba(255,237,184,0.28), transparent 60%), linear-gradient(180deg, rgba(244,252,251,0.95), rgba(255,250,236,0.78) 48%, rgba(255,250,236,0.78) 48%, rgba(255,255,255,1) 100%)">
+
+  <!-- PREVIEW BANNER -->
+  <div style="background: #1a1a2e; color: white; padding: 12px 24px; text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; position: sticky; top: 0; z-index: 100;">
+    PREVIEW BUILD — cf9af3b42f4d66dd — Not indexed by search engines
+  </div>
+
+  <!-- HEADER -->
+  <header class="sticky top-[41px] z-50 bg-white/70 backdrop-blur-xl border-b border-neutral-200/50">
+    <div class="mx-auto w-[92%] sm:w-[88%] lg:w-[85%] max-w-[950px] py-5 sm:py-6">
+      <div class="flex items-center justify-between gap-10">
+        <a href="#" class="flex items-center gap-4 group flex-shrink-0">
+          <img src="https://haschemie.com/sprint/logo.png" alt="Sprint Assembly" class="h-9 w-9 rounded-xl shadow-sm" />
+          <span class="font-bold tracking-tight text-lg">Sprint Assembly</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-500/80">
+          <a href="#carousel" class="hover:text-neutral-950 transition-colors">Insights</a>
+          <a href="#opportunity" class="hover:text-neutral-950 transition-colors">Opportunity</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (condensed) -->
+  <section class="relative overflow-hidden pt-12 pb-16">
+    <div class="mx-auto w-[92%] sm:w-[88%] lg:w-[85%] max-w-[950px]">
+      <div class="text-[11px] tracking-[0.28em] uppercase font-bold text-neutral-500/80">The New Standard of Performance</div>
+      <h1 class="mt-8 font-black tracking-tight leading-[1.1] text-neutral-950 text-5xl xl:text-6xl">
+        <span class="block">From Manual Marketing to</span>
+        <span class="block w-fit bg-black text-white px-4 py-1 mt-2">Autonomous Growth</span>
+      </h1>
+      <p class="mt-10 text-lg text-neutral-600 max-w-2xl font-medium leading-relaxed">
+        We replace manual marketing with autonomous systems. By aligning data, creative, and media into an automated engine, we remove operational bottlenecks and deliver growth that adapts to performance in real-time.
+      </p>
+
+      <!-- Quote + Logos -->
+      <div class="flex items-center gap-10 mt-12 border-t border-black/[0.05] pt-8 w-[90%] mx-auto">
+        <div class="flex-[2.4]">
+          <p class="text-xl italic font-serif leading-relaxed text-neutral-500 text-justify">
+            "Sprint Assembly is led by senior operators who've scaled growth across global enterprises. We work in focused sprints to move your marketing from manual execution to autonomous scale."
+          </p>
+        </div>
+        <div class="w-px h-32 self-center opacity-30" style="background: #afb975"></div>
+        <div class="flex-1">
+          <div class="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400 mb-2 text-left">Experience across:</div>
+          <div class="grid grid-cols-3 gap-y-6 gap-x-8 items-center justify-items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="h-7 w-auto object-contain grayscale opacity-60" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta" class="h-6 w-auto object-contain grayscale opacity-60" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" class="h-7 w-auto object-contain grayscale opacity-60" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" alt="BCG" class="h-6 w-auto object-contain grayscale opacity-60" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" alt="P&G" class="h-6 w-auto object-contain grayscale opacity-60" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINKEDIN CAROUSEL -->
+  <section id="carousel" class="relative border-t border-neutral-200/50">
+    <div class="mx-auto w-[92%] sm:w-[88%] lg:w-[85%] max-w-[950px] pt-3 pb-20 sm:pt-4 sm:pb-24">
+      <div class="text-[11px] tracking-[0.28em] uppercase font-bold text-neutral-500/80">Insights</div>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
+        <span class="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
+          Latest from LinkedIn
+        </span>
+      </h2>
+      <div class="mt-6 relative">
+        <!-- Nav buttons -->
+        <button onclick="document.getElementById('track').scrollBy({left:-424,behavior:'smooth'})" id="btn-left"
+          class="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all hover:shadow-xl hover:scale-105"
+          style="color: #afb975; opacity: 0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button onclick="document.getElementById('track').scrollBy({left:424,behavior:'smooth'})" id="btn-right"
+          class="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all hover:shadow-xl hover:scale-105"
+          style="color: #afb975;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+
+        <!-- Carousel track -->
+        <div id="track" class="carousel-track flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-2 px-2" style="-webkit-overflow-scrolling: touch;">
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7447285866982445056" height="500" width="100%" frameborder="0" allowfullscreen title="Post 1" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7444818888808296448" height="500" width="100%" frameborder="0" allowfullscreen title="Post 2" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7444184565851713536" height="500" width="100%" frameborder="0" allowfullscreen title="Post 3" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7441624814752141312" height="500" width="100%" frameborder="0" allowfullscreen title="Post 4" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7440389396551401472" height="500" width="100%" frameborder="0" allowfullscreen title="Post 5" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7440153299925786624" height="500" width="100%" frameborder="0" allowfullscreen title="Post 6" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7439391088374669312" height="500" width="100%" frameborder="0" allowfullscreen title="Post 7" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438736734290333696" height="500" width="100%" frameborder="0" allowfullscreen title="Post 8" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438318777794068481" height="500" width="100%" frameborder="0" allowfullscreen title="Post 9" style="border:none;overflow:hidden"></iframe>
+          </div>
+          <div class="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438316307147591681" height="500" width="100%" frameborder="0" allowfullscreen title="Post 10" style="border:none;overflow:hidden"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPPORTUNITY (placeholder to show context) -->
+  <section id="opportunity" class="relative border-t border-neutral-200/50">
+    <div class="mx-auto w-[92%] sm:w-[88%] lg:w-[85%] max-w-[950px] pt-3 pb-20 sm:pt-4 sm:pb-24">
+      <div class="text-[11px] tracking-[0.28em] uppercase font-bold text-neutral-500/80">Business Impact</div>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
+        <span class="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">The Opportunity</span>
+      </h2>
+      <div class="mt-6">
+        <p class="text-lg leading-relaxed text-neutral-600 font-medium italic">
+          You can't scale through manual effort alone. We help you transition to an autonomous system...
+        </p>
+        <p class="mt-4 text-neutral-400 text-sm">[Rest of Opportunity section continues on live site]</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Scroll button visibility
+    const track = document.getElementById('track');
+    const btnL = document.getElementById('btn-left');
+    const btnR = document.getElementById('btn-right');
+    function updateBtns() {
+      btnL.style.opacity = track.scrollLeft > 10 ? '1' : '0';
+      btnL.style.pointerEvents = track.scrollLeft > 10 ? 'auto' : 'none';
+      const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
+      btnR.style.opacity = atEnd ? '0' : '1';
+      btnR.style.pointerEvents = atEnd ? 'none' : 'auto';
+    }
+    track.addEventListener('scroll', updateBtns);
+    updateBtns();
+  </script>
+</body>
+</html>

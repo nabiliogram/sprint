@@ -22,6 +22,22 @@ const NAV = [
   ["Team", "#team"],
 ];
 
+// LinkedIn Post Embeds (max 10, newest first)
+// To add: paste the post URL and change /feed/ to /embed/feed/
+const MAX_LINKEDIN_POSTS = 10;
+const LINKEDIN_POSTS = [
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7447285866982445056",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444818888808296448",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444184565851713536",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7441624814752141312",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440389396551401472",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440153299925786624",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7439391088374669312",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438736734290333696",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438318777794068481",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438316307147591681",
+].slice(0, MAX_LINKEDIN_POSTS);
+
 const HERO_LOGOS = [
   ["Google", "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"],
   ["Meta", "https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg"],
@@ -197,6 +213,127 @@ const Metric = ({ label, value, note }) => (
     <div className="mt-0.5 text-[8px] sm:text-[9px] uppercase font-bold tracking-[0.15em] text-neutral-400 leading-tight">{note}</div>
   </div>
 );
+
+// LinkedIn Carousel Component
+const LinkedInCarousel = () => {
+  const scrollRef = React.useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  useEffect(() => {
+    // Load LinkedIn embed script
+    if (LINKEDIN_POSTS.length > 0 && !document.querySelector('script[src*="linkedin.com/badges"]')) {
+      const script = document.createElement("script");
+      script.src = "https://platform.linkedin.com/badges/js/profile.js";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  // Re-process embeds when posts change
+  useEffect(() => {
+    if (LINKEDIN_POSTS.length > 0 && window.IN && window.IN.parse) {
+      window.IN.parse();
+    }
+  }, []);
+
+  const updateScrollButtons = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  };
+
+  const scroll = (direction) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardWidth = 400;
+    el.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+    setTimeout(updateScrollButtons, 350);
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener("scroll", updateScrollButtons);
+      updateScrollButtons();
+      return () => el.removeEventListener("scroll", updateScrollButtons);
+    }
+  }, []);
+
+  if (LINKEDIN_POSTS.length === 0) return null;
+
+  return (
+    <section className="relative border-t border-neutral-200/50">
+      <Wrap className="pt-3 pb-20 sm:pt-4 sm:pb-24">
+        <Eyebrow>Insights</Eyebrow>
+        <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
+          <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
+            Latest from LinkedIn
+          </span>
+        </h2>
+        <div className="mt-6 relative">
+          {/* Scroll buttons */}
+          {LINKEDIN_POSTS.length > 1 && (
+            <>
+              <button
+                onClick={() => scroll(-1)}
+                className={cx(
+                  "absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all",
+                  canScrollLeft ? "opacity-100 hover:shadow-xl hover:scale-105" : "opacity-0 pointer-events-none"
+                )}
+                style={{ color: THEME.cta }}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                onClick={() => scroll(1)}
+                className={cx(
+                  "absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all",
+                  canScrollRight ? "opacity-100 hover:shadow-xl hover:scale-105" : "opacity-0 pointer-events-none"
+                )}
+                style={{ color: THEME.cta }}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </>
+          )}
+
+          {/* Carousel track */}
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-2 px-2"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
+          >
+            <style>{`.li-carousel-track::-webkit-scrollbar{display:none}`}</style>
+            {LINKEDIN_POSTS.map((url, i) => (
+              <div
+                key={i}
+                className="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden"
+              >
+                <iframe
+                  src={url}
+                  height="500"
+                  width="100%"
+                  frameBorder="0"
+                  allowFullScreen
+                  title={`LinkedIn Post ${i + 1}`}
+                  className="w-full"
+                  style={{ border: "none", overflow: "hidden" }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </Wrap>
+    </section>
+  );
+};
 
 // 6. Logic Components
 const ValueCalculator = () => {
@@ -503,6 +640,8 @@ export default function App() {
             </div>
           </Wrap>
         </section>
+
+        <LinkedInCarousel />
 
         <Section id="opportunity" eyebrow="Business Impact" title="The Opportunity">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
