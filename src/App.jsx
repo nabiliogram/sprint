@@ -22,20 +22,21 @@ const NAV = [
   ["Team", "#team"],
 ];
 
-// LinkedIn Post Embeds (max 10, newest first)
-// To add: paste the post URL and change /feed/ to /embed/feed/
+// LinkedIn Posts (max 10, newest first)
+// To add a new post: add an object with { url, title, snippet, date, bg }
+// bg: null for white, or e.g. "rgba(184,240,237,0.18)" for teal, "rgba(255,237,184,0.22)" for amber
 const MAX_LINKEDIN_POSTS = 10;
 const LINKEDIN_POSTS = [
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7447285866982445056",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444818888808296448",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444184565851713536",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7441624814752141312",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440389396551401472",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440153299925786624",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7439391088374669312",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438736734290333696",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438318777794068481",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438316307147591681",
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7447285866982445056", title: "Ads now appear in 25.5% of Google AI Overview results", snippet: "Up from 5.17% a year ago. A 394% increase. And here's the part most teams haven't registered: you can't opt in or out. Your ads may already be running inside AI-generated answers...", date: "Mar 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7444818888808296448", title: "ChatGPT just started running ads. Here's what $60 CPM actually means.", snippet: "Criteo became the first programmatic platform to open ChatGPT ad inventory — giving 17,000 advertisers access to a channel that didn't exist last month. The price: $60 CPM. Three times Meta...", date: "Mar 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7444184565851713536", title: "88% of teams use AI, but only a third scale results", snippet: "Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural...", date: "Mar 2026", bg: "rgba(184,240,237,0.18)" },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7441624814752141312", title: "The most important marketing role doesn't exist yet", snippet: "AI agents are absorbing the tactical execution layer of marketing ops — research, scheduling, sequencing, reporting. Companies running agentic workflows report 44% higher productivity and 37% cost reductions...", date: "Feb 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7440389396551401472", title: "The personalisation that used to require a team of five", snippet: "One B2B software company built a system where AI monitors every closed-lost deal and — 90 days later — automatically launches a full multi-channel re-engagement sequence. Zero manual work...", date: "Feb 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7440153299925786624", title: "AI didn't replace support agents. It rewired the economics.", snippet: "Klarna's AI now handles two-thirds of all customer chats — equivalent to 700 human agents — and saved $40M last year. AI interactions cost $0.25–0.50 while human agents cost $3–6...", date: "Feb 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7439391088374669312", title: "The content teams winning aren't writing more. They're systemising.", snippet: "AI-generated content is now the floor. Nearly every marketing team is using it. But the teams actually getting results — organic traffic up 40% in six months — aren't just using AI...", date: "Feb 2026", bg: "rgba(255,237,184,0.22)" },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7438736734290333696", title: "Search is no longer your most reliable discovery channel", snippet: "Google AI Overviews now answer queries directly — organic click-through has dropped 65% for those results. And AI-native advertising just opened up, at pricing far above what most paid search budgets are built around...", date: "Jan 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7438318777794068481", title: "AI is working. Your C-suite just can't see it yet.", snippet: "GenAI is genuinely improving team efficiency — faster execution, lower production costs, more output with the same headcount. The challenge isn't the technology. It's the proof...", date: "Jan 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7438316307147591681", title: "Your enterprise software is getting an agent layer. This year.", snippet: "Gartner's March 2026 forecast: 40% of enterprise applications will integrate task-specific AI agents by end of this year, up from under 5% in 2025. Your CRM, marketing automation, and analytics tools are about to change...", date: "Jan 2026", bg: null },
 ].slice(0, MAX_LINKEDIN_POSTS);
 
 const HERO_LOGOS = [
@@ -214,29 +215,11 @@ const Metric = ({ label, value, note }) => (
   </div>
 );
 
-// LinkedIn Carousel Component
+// LinkedIn Carousel Component — Option B: Custom branded cards
 const LinkedInCarousel = () => {
   const scrollRef = React.useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-
-  useEffect(() => {
-    // Load LinkedIn embed script
-    if (LINKEDIN_POSTS.length > 0 && !document.querySelector('script[src*="linkedin.com/badges"]')) {
-      const script = document.createElement("script");
-      script.src = "https://platform.linkedin.com/badges/js/profile.js";
-      script.async = true;
-      script.defer = true;
-      document.body.appendChild(script);
-    }
-  }, []);
-
-  // Re-process embeds when posts change
-  useEffect(() => {
-    if (LINKEDIN_POSTS.length > 0 && window.IN && window.IN.parse) {
-      window.IN.parse();
-    }
-  }, []);
 
   const updateScrollButtons = () => {
     const el = scrollRef.current;
@@ -248,8 +231,7 @@ const LinkedInCarousel = () => {
   const scroll = (direction) => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = 400;
-    el.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+    el.scrollBy({ left: direction * 356, behavior: "smooth" });
     setTimeout(updateScrollButtons, 350);
   };
 
@@ -270,7 +252,7 @@ const LinkedInCarousel = () => {
         <Eyebrow>Insights</Eyebrow>
         <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
           <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
-            Latest from LinkedIn
+            Latest
           </span>
         </h2>
         <div className="mt-6 relative">
@@ -307,26 +289,30 @@ const LinkedInCarousel = () => {
           {/* Carousel track */}
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-2 px-2"
+            className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 -mx-1 px-1"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
           >
-            <style>{`.li-carousel-track::-webkit-scrollbar{display:none}`}</style>
-            {LINKEDIN_POSTS.map((url, i) => (
-              <div
+            {LINKEDIN_POSTS.map((post, i) => (
+              <a
                 key={i}
-                className="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden"
+                href={post.url}
+                target="_blank"
+                rel="noreferrer"
+                className="snap-start shrink-0 w-[300px] sm:w-[320px] rounded-2xl ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all flex flex-col group"
+                style={{ textDecoration: "none", background: post.bg || "white" }}
               >
-                <iframe
-                  src={url}
-                  height="500"
-                  width="100%"
-                  frameBorder="0"
-                  allowFullScreen
-                  title={`LinkedIn Post ${i + 1}`}
-                  className="w-full"
-                  style={{ border: "none", overflow: "hidden" }}
-                />
-              </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center justify-end mb-4">
+                    <img src="https://haschemie.com/assets/linkedin-logo.png" className="h-4 w-auto opacity-30 group-hover:opacity-60 transition-opacity" alt="LinkedIn" />
+                  </div>
+                  <p className="font-bold text-[15px] text-neutral-950 leading-snug mb-3">{post.title}</p>
+                  <p className="text-sm text-neutral-500 leading-relaxed flex-1">{post.snippet}</p>
+                  <div className={cx("mt-5 pt-4 flex items-center justify-between", post.bg ? "border-t border-black/[0.06]" : "border-t border-neutral-100")}>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">{post.date}</span>
+                    <span className="text-[11px] font-black uppercase tracking-widest transition-colors group-hover:text-neutral-950" style={{ color: THEME.cta }}>Read post →</span>
+                  </div>
+                </div>
+              </a>
             ))}
           </div>
         </div>
