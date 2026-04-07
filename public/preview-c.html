@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Option C — Thumbnail Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .fade-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+      background: linear-gradient(to bottom, transparent, white);
+      pointer-events: none; z-index: 10;
+    }
+    .post-card { cursor: pointer; }
+    .post-card:hover .overlay { opacity: 1; }
+    .overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.04);
+      opacity: 0; transition: opacity 0.2s; border-radius: 1rem; z-index: 5;
+    }
+  </style>
+</head>
+<body class="min-h-screen" style="background-image: radial-gradient(1100px circle at 12% -12%, rgba(184,240,237,0.55), transparent 55%), radial-gradient(900px circle at 92% 18%, rgba(255,237,184,0.28), transparent 60%), linear-gradient(180deg, rgba(244,252,251,0.95), rgba(255,250,236,0.78) 48%, rgba(255,255,255,1) 100%)">
+
+  <div style="background:#1a1a2e;color:white;padding:12px 24px;text-align:center;font-size:13px;font-weight:700;letter-spacing:0.05em;">
+    OPTION C — Thumbnail grid (more posts visible, editorial feel)
+  </div>
+
+  <section class="border-t border-neutral-200/50">
+    <div class="mx-auto w-[88%] max-w-[950px] pt-4 pb-24">
+      <div class="text-[11px] tracking-[0.28em] uppercase font-bold text-neutral-500/80">Insights</div>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950">
+        <span class="bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10 inline-block">Latest from LinkedIn</span>
+      </h2>
+
+      <div class="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7447285866982445056" target="_blank"
+          class="post-card relative rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col" style="text-decoration:none">
+          <div class="overlay"></div>
+          <div class="relative" style="height:220px;overflow:hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7447285866982445056" width="100%" height="500" frameborder="0" style="border:none;margin-top:-2px;pointer-events:none" title="Post 1"></iframe>
+            <div class="fade-bottom"></div>
+          </div>
+          <div class="px-4 py-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Mar 2025</span>
+            <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-3.5 w-auto opacity-50" alt="LinkedIn" />
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444818888808296448" target="_blank"
+          class="post-card relative rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col" style="text-decoration:none">
+          <div class="overlay"></div>
+          <div class="relative" style="height:220px;overflow:hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7444818888808296448" width="100%" height="500" frameborder="0" style="border:none;margin-top:-2px;pointer-events:none" title="Post 2"></iframe>
+            <div class="fade-bottom"></div>
+          </div>
+          <div class="px-4 py-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Feb 2025</span>
+            <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-3.5 w-auto opacity-50" alt="LinkedIn" />
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444184565851713536" target="_blank"
+          class="post-card relative rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col" style="text-decoration:none">
+          <div class="overlay"></div>
+          <div class="relative" style="height:220px;overflow:hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7444184565851713536" width="100%" height="500" frameborder="0" style="border:none;margin-top:-2px;pointer-events:none" title="Post 3"></iframe>
+            <div class="fade-bottom"></div>
+          </div>
+          <div class="px-4 py-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Feb 2025</span>
+            <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-3.5 w-auto opacity-50" alt="LinkedIn" />
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7441624814752141312" target="_blank"
+          class="post-card relative rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col" style="text-decoration:none">
+          <div class="overlay"></div>
+          <div class="relative" style="height:220px;overflow:hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7441624814752141312" width="100%" height="500" frameborder="0" style="border:none;margin-top:-2px;pointer-events:none" title="Post 4"></iframe>
+            <div class="fade-bottom"></div>
+          </div>
+          <div class="px-4 py-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Jan 2025</span>
+            <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-3.5 w-auto opacity-50" alt="LinkedIn" />
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7440389396551401472" target="_blank"
+          class="post-card relative rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col" style="text-decoration:none">
+          <div class="overlay"></div>
+          <div class="relative" style="height:220px;overflow:hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7440389396551401472" width="100%" height="500" frameborder="0" style="border:none;margin-top:-2px;pointer-events:none" title="Post 5"></iframe>
+            <div class="fade-bottom"></div>
+          </div>
+          <div class="px-4 py-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Jan 2025</span>
+            <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-3.5 w-auto opacity-50" alt="LinkedIn" />
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7440153299925786624" target="_blank"
+          class="post-card relative rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col" style="text-decoration:none">
+          <div class="overlay"></div>
+          <div class="relative" style="height:220px;overflow:hidden">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7440153299925786624" width="100%" height="500" frameborder="0" style="border:none;margin-top:-2px;pointer-events:none" title="Post 6"></iframe>
+            <div class="fade-bottom"></div>
+          </div>
+          <div class="px-4 py-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Jan 2025</span>
+            <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-3.5 w-auto opacity-50" alt="LinkedIn" />
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+</body>
+</html>

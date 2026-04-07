@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Option B — Custom Branded Cards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .carousel-track { scrollbar-width: none; -ms-overflow-style: none; }
+    .carousel-track::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="min-h-screen" style="background-image: radial-gradient(1100px circle at 12% -12%, rgba(184,240,237,0.55), transparent 55%), radial-gradient(900px circle at 92% 18%, rgba(255,237,184,0.28), transparent 60%), linear-gradient(180deg, rgba(244,252,251,0.95), rgba(255,250,236,0.78) 48%, rgba(255,255,255,1) 100%)">
+
+  <div style="background:#1a1a2e;color:white;padding:12px 24px;text-align:center;font-size:13px;font-weight:700;letter-spacing:0.05em;">
+    OPTION B — Custom branded cards (no iframes, full design control)
+  </div>
+
+  <section class="border-t border-neutral-200/50">
+    <div class="mx-auto w-[88%] max-w-[950px] pt-4 pb-24">
+      <div class="text-[11px] tracking-[0.28em] uppercase font-bold text-neutral-500/80">Insights</div>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950">
+        <span class="bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10 inline-block">Latest from LinkedIn</span>
+      </h2>
+
+      <div class="mt-8 relative">
+        <button onclick="document.getElementById('track-b').scrollBy({left:-380,behavior:'smooth'})" id="btn-l"
+          class="absolute -left-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center opacity-0 transition-all" style="color:#afb975">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button onclick="document.getElementById('track-b').scrollBy({left:380,behavior:'smooth'})" id="btn-r"
+          class="absolute -right-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all" style="color:#afb975">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+
+        <div id="track-b" class="carousel-track flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2">
+
+          <!-- Card 1 -->
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7447285866982445056" target="_blank"
+            class="snap-start shrink-0 w-[320px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-shadow flex flex-col no-underline group" style="text-decoration:none">
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center gap-3 mb-5">
+                <img src="https://haschemie.com/sprint/logo.png" class="h-10 w-10 rounded-xl shadow-sm" alt="Sprint Assembly" />
+                <div>
+                  <div class="font-bold text-sm text-neutral-900">Sprint Assembly</div>
+                  <div class="text-[11px] text-neutral-400 font-medium">Performance Marketing</div>
+                </div>
+                <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-4 w-auto ml-auto opacity-40 group-hover:opacity-70 transition-opacity" alt="LinkedIn" />
+              </div>
+              <p class="text-sm text-neutral-700 leading-relaxed flex-1 font-medium">
+                "Most brands are running paid media the way it was set up three years ago. The channel mix has shifted. The attribution models are broken. And the agency is still reporting on last-click ROAS. Here's what a modern performance stack actually looks like in 2025..."
+              </p>
+              <div class="mt-5 pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Mar 2025</span>
+                <span class="text-[11px] font-black uppercase tracking-widest group-hover:underline" style="color:#afb975">Read post →</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 2 -->
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444818888808296448" target="_blank"
+            class="snap-start shrink-0 w-[320px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-shadow flex flex-col no-underline group" style="text-decoration:none">
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center gap-3 mb-5">
+                <img src="https://haschemie.com/sprint/logo.png" class="h-10 w-10 rounded-xl shadow-sm" alt="Sprint Assembly" />
+                <div>
+                  <div class="font-bold text-sm text-neutral-900">Sprint Assembly</div>
+                  <div class="text-[11px] text-neutral-400 font-medium">Performance Marketing</div>
+                </div>
+                <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-4 w-auto ml-auto opacity-40 group-hover:opacity-70 transition-opacity" alt="LinkedIn" />
+              </div>
+              <p class="text-sm text-neutral-700 leading-relaxed flex-1 font-medium">
+                "The brands winning right now aren't spending more — they're spending smarter. Autonomous budget optimization isn't a future concept. It's available today. And the gap between companies using it and those that aren't is widening every quarter."
+              </p>
+              <div class="mt-5 pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Feb 2025</span>
+                <span class="text-[11px] font-black uppercase tracking-widest group-hover:underline" style="color:#afb975">Read post →</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 3 — with accent colour background variant -->
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444184565851713536" target="_blank"
+            class="snap-start shrink-0 w-[320px] rounded-2xl ring-1 ring-black/5 shadow-sm hover:shadow-md transition-shadow flex flex-col no-underline group" style="text-decoration:none; background: rgba(184,240,237,0.18)">
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center gap-3 mb-5">
+                <img src="https://haschemie.com/sprint/logo.png" class="h-10 w-10 rounded-xl shadow-sm" alt="Sprint Assembly" />
+                <div>
+                  <div class="font-bold text-sm text-neutral-900">Sprint Assembly</div>
+                  <div class="text-[11px] text-neutral-400 font-medium">Performance Marketing</div>
+                </div>
+                <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-4 w-auto ml-auto opacity-40 group-hover:opacity-70 transition-opacity" alt="LinkedIn" />
+              </div>
+              <p class="text-sm text-neutral-700 leading-relaxed flex-1 font-medium">
+                "We ran a Diagnostic Sprint with a $40M DTC brand last month. Within 6 weeks we identified $2.1M in recoverable annual spend — just from fixing measurement. No new tools. No new budget. Just better data."
+              </p>
+              <div class="mt-5 pt-4 border-t border-black/[0.06] flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Feb 2025</span>
+                <span class="text-[11px] font-black uppercase tracking-widest group-hover:underline" style="color:#afb975">Read post →</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 4 -->
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7441624814752141312" target="_blank"
+            class="snap-start shrink-0 w-[320px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-shadow flex flex-col no-underline group" style="text-decoration:none">
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center gap-3 mb-5">
+                <img src="https://haschemie.com/sprint/logo.png" class="h-10 w-10 rounded-xl shadow-sm" alt="Sprint Assembly" />
+                <div>
+                  <div class="font-bold text-sm text-neutral-900">Sprint Assembly</div>
+                  <div class="text-[11px] text-neutral-400 font-medium">Performance Marketing</div>
+                </div>
+                <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-4 w-auto ml-auto opacity-40 group-hover:opacity-70 transition-opacity" alt="LinkedIn" />
+              </div>
+              <p class="text-sm text-neutral-700 leading-relaxed flex-1 font-medium">
+                "There's a reason most marketing teams feel like they're running faster to stay in place. The operating model hasn't changed but the environment has. Manual processes can't keep pace with real-time signal. Here's how the transition to autonomous systems actually works."
+              </p>
+              <div class="mt-5 pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Jan 2025</span>
+                <span class="text-[11px] font-black uppercase tracking-widest group-hover:underline" style="color:#afb975">Read post →</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 5 -->
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7440389396551401472" target="_blank"
+            class="snap-start shrink-0 w-[320px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition-shadow flex flex-col no-underline group" style="text-decoration:none">
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center gap-3 mb-5">
+                <img src="https://haschemie.com/sprint/logo.png" class="h-10 w-10 rounded-xl shadow-sm" alt="Sprint Assembly" />
+                <div>
+                  <div class="font-bold text-sm text-neutral-900">Sprint Assembly</div>
+                  <div class="text-[11px] text-neutral-400 font-medium">Performance Marketing</div>
+                </div>
+                <img src="https://haschemie.com/assets/linkedin-logo.png" class="h-4 w-auto ml-auto opacity-40 group-hover:opacity-70 transition-opacity" alt="LinkedIn" />
+              </div>
+              <p class="text-sm text-neutral-700 leading-relaxed flex-1 font-medium">
+                "Creative is now the most important targeting lever in paid social. iOS changes gutted behavioural signals. What's left is the ad itself. Teams that build systematic creative testing into their operating model will out-perform on media efficiency alone."
+              </p>
+              <div class="mt-5 pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Jan 2025</span>
+                <span class="text-[11px] font-black uppercase tracking-widest group-hover:underline" style="color:#afb975">Read post →</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <p class="mt-6 text-xs text-neutral-400 font-medium">Note: Card text is sample content. In production, you paste the actual post text when adding each post URL in Cowork.</p>
+    </div>
+  </section>
+
+  <script>
+    const track = document.getElementById('track-b');
+    const btnL = document.getElementById('btn-l');
+    const btnR = document.getElementById('btn-r');
+    function update() {
+      btnL.style.opacity = track.scrollLeft > 10 ? '1' : '0';
+      btnR.style.opacity = track.scrollLeft < track.scrollWidth - track.clientWidth - 10 ? '1' : '0';
+    }
+    track.addEventListener('scroll', update);
+    update();
+  </script>
+</body>
+</html>
