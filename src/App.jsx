@@ -246,8 +246,9 @@ const LinkedInCarousel = () => {
   if (LINKEDIN_POSTS.length === 0) return null;
 
   return (
-    <section className="relative border-t border-neutral-200/50">
+    <section className="relative border-t border-neutral-200/50 border-b border-b-neutral-200/50">
       <Wrap className="pt-3 pb-20 sm:pt-4 sm:pb-24">
+        <div style={{ borderLeft: "3px solid #afb975", paddingLeft: "28px" }}>
         <Eyebrow>Insights</Eyebrow>
         <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
           <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
@@ -297,8 +298,8 @@ const LinkedInCarousel = () => {
                 href={post.url}
                 target="_blank"
                 rel="noreferrer"
-                className="snap-start shrink-0 w-[300px] sm:w-[320px] rounded-2xl ring-1 ring-black/5 shadow-sm hover:shadow-md transition-all flex flex-col group"
-                style={{ textDecoration: "none", background: post.bg || "white" }}
+                className="snap-start shrink-0 w-[300px] sm:w-[320px] rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col group"
+                style={{ textDecoration: "none", background: post.bg || "#f7f8f2", border: "1px solid rgba(175,185,117,0.28)" }}
               >
                 <div className="p-6 flex-1 flex flex-col">
                   <div className="flex items-center justify-end mb-4">
@@ -306,7 +307,7 @@ const LinkedInCarousel = () => {
                   </div>
                   <p className="font-bold text-[15px] text-neutral-950 leading-snug mb-3">{post.title}</p>
                   <p className="text-sm text-neutral-500 leading-relaxed flex-1">{post.snippet}</p>
-                  <div className={cx("mt-5 pt-4 flex items-center justify-between", post.bg ? "border-t border-black/[0.06]" : "border-t border-neutral-100")}>
+                  <div className={cx("mt-5 pt-4 flex items-center justify-between", post.bg ? "border-t border-black/[0.06]" : "border-t border-[rgba(175,185,117,0.25)]")}>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">{post.date}</span>
                     <span className="text-[11px] font-black uppercase tracking-widest transition-colors group-hover:text-neutral-950" style={{ color: THEME.cta }}>Read post →</span>
                   </div>
@@ -314,6 +315,7 @@ const LinkedInCarousel = () => {
               </a>
             ))}
           </div>
+        </div>
         </div>
       </Wrap>
     </section>
