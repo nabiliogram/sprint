@@ -519,8 +519,8 @@ export default function App() {
           border-color: ${THEME.cta};
           z-index: 20;
         }
-        .roadmap-connector-v { width: 1px; background: ${THEME.cta}; opacity: 0.2; }
-        .roadmap-connector-h { height: 1px; background: ${THEME.cta}; opacity: 0.2; }
+        .roadmap-connector-v { width: 3px; background: ${THEME.cta}; opacity: 0.85; border-radius: 2px; }
+        .roadmap-connector-h { height: 3px; background: ${THEME.cta}; opacity: 0.85; border-radius: 2px; }
       `}</style>
 
       <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-neutral-200/50">
