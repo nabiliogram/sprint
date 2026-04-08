@@ -255,37 +255,37 @@ const LinkedInCarousel = () => {
             Latest
           </span>
         </h2>
-        <div className="mt-6 relative">
-          {/* Scroll buttons */}
-          {LINKEDIN_POSTS.length > 1 && (
-            <>
-              <button
-                onClick={() => scroll(-1)}
-                className={cx(
-                  "absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full shadow-md flex items-center justify-center transition-all",
-                  canScrollLeft ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-0 pointer-events-none"
-                )}
-                style={{ background: THEME.cta, color: "white" }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="m15 18-6-6 6-6" />
-                </svg>
-              </button>
-              <button
-                onClick={() => scroll(1)}
-                className={cx(
-                  "absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full shadow-md flex items-center justify-center transition-all",
-                  canScrollRight ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-0 pointer-events-none"
-                )}
-                style={{ background: THEME.cta, color: "white" }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </button>
-            </>
-          )}
+        {/* Arrows row — top right above carousel */}
+        {LINKEDIN_POSTS.length > 1 && (
+          <div className="flex justify-end gap-2 mt-6 mb-3">
+            <button
+              onClick={() => scroll(-1)}
+              className={cx(
+                "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
+                canScrollLeft ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
+              )}
+              style={{ background: THEME.cta, color: "white" }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              onClick={() => scroll(1)}
+              className={cx(
+                "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
+                canScrollRight ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
+              )}
+              style={{ background: THEME.cta, color: "white" }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        )}
 
+        <div className="relative">
           {/* Carousel track */}
           <div
             ref={scrollRef}
@@ -660,7 +660,19 @@ export default function App() {
                </button>
              </div>
            )}
-           {showCalc && <ValueCalculator />}
+           {showCalc && (
+             <>
+               <ValueCalculator />
+               <div className="flex justify-end mt-4">
+                 <button
+                   onClick={() => setShowCalc(false)}
+                   className="text-xs font-semibold text-neutral-400 hover:text-neutral-600 transition-colors"
+                 >
+                   Hide simulator ↑
+                 </button>
+               </div>
+             </>
+           )}
         </Section>
 
         <Section id="roadmap" eyebrow="Process" title="How We Modernize You">
