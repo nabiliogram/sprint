@@ -17,7 +17,6 @@ const LOGO_URL = "https://haschemie.com/sprint/logo.png";
 
 const NAV = [
   ["Opportunity", "#opportunity"],
-  ["Simulator", "#calculator"],
   ["Process", "#roadmap"],
   ["Team", "#team"],
 ];
@@ -376,9 +375,9 @@ const ValueCalculator = () => {
           </div>
           <div className="p-6 md:p-10 bg-neutral-50/50 flex flex-col justify-center relative">
             <div className="flex justify-between items-start mb-6">
-              <div className="text-center md:text-left flex-grow">
-                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-400">Annual Upside</div>
-                <div className="mt-1 text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-neutral-950">{compactFmt.format(total)}</div>
+              <div className="text-center flex-grow">
+                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-400">Estimated Annual Upside</div>
+                <div className="mt-1 text-4xl sm:text-5xl font-black tracking-tight text-neutral-950">{compactFmt.format(total)}</div>
               </div>
               <button onClick={() => setShowMethodology(!showMethodology)} className={cx("p-2 rounded-full transition-colors shrink-0", showMethodology ? "bg-neutral-900 text-white shadow-md" : "hover:bg-neutral-200/50")} style={{ color: showMethodology ? 'white' : THEME.cta }}>
                 {Icon.help("h-5 w-5")}
@@ -587,7 +586,6 @@ export default function App() {
                 </p>
                 <div className="mt-12 flex flex-col sm:flex-row gap-4 sm:items-center">
                   <Btn href="#opportunity" className="w-full sm:w-auto">See the Opportunity</Btn>
-                  <Btn href="#calculator" variant="ghost" className="w-full sm:w-auto">Calculate Upside</Btn>
                 </div>
               </div>
             </div>
@@ -648,10 +646,7 @@ export default function App() {
                </div>
              ))}
            </div>
-        </Section>
-
-        <Section id="calculator" eyebrow="POTENTIAL" title="Growth Potential Simulator">
-          <ValueCalculator />
+           <ValueCalculator />
         </Section>
 
         <Section id="roadmap" eyebrow="Process" title="How We Modernize You">
