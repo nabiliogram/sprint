@@ -338,7 +338,7 @@ const ValueCalculator = () => {
     <div className="w-full">
       <style>{`input.calc-range{-webkit-appearance:none;width:100%;background:transparent}input.calc-range::-webkit-slider-runnable-track{height:4px;background:#f3f4f6;border-radius:999px}input.calc-range::-webkit-slider-thumb{-webkit-appearance:none;height:18px;width:18px;border-radius:999px;background:#111827;margin-top:-7px;border:3px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.12)}`}</style>
       {/* UPDATED: sub-header width adjusted on desktop to 95% */}
-      <div className="mb-8 lg:w-[95%]">
+      <div className="mt-12 mb-8 lg:w-[95%]">
         <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
           Get a high-level view of your modernization opportunity. By applying validated performance data to your current model, this simulator offers a directional estimate of how autonomous workflows can impact your bottom line. It serves as an initial look at the scale available before moving into a granular Diagnostic Sprint.
         </p>
@@ -377,7 +377,7 @@ const ValueCalculator = () => {
             <div className="flex justify-between items-start mb-6">
               <div className="text-center flex-grow">
                 <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-400">Estimated Annual Upside</div>
-                <div className="mt-1 text-4xl sm:text-5xl font-black tracking-tight text-neutral-950">{compactFmt.format(total)}</div>
+                <div className="mt-1 text-3xl sm:text-4xl font-black tracking-tight text-neutral-950">{compactFmt.format(total)}</div>
               </div>
               <button onClick={() => setShowMethodology(!showMethodology)} className={cx("p-2 rounded-full transition-colors shrink-0", showMethodology ? "bg-neutral-900 text-white shadow-md" : "hover:bg-neutral-200/50")} style={{ color: showMethodology ? 'white' : THEME.cta }}>
                 {Icon.help("h-5 w-5")}
