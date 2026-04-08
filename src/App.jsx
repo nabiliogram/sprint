@@ -464,6 +464,7 @@ const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default"
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showCalc, setShowCalc] = useState(false);
 
   const copyEmail = () => {
     const el = document.createElement('textarea');
@@ -646,7 +647,18 @@ export default function App() {
                </div>
              ))}
            </div>
-           <ValueCalculator />
+           {!showCalc && (
+             <div className="mt-8">
+               <button
+                 onClick={() => setShowCalc(true)}
+                 className="inline-flex items-center gap-2 px-6 py-3 rounded-sm font-bold text-white transition-all hover:brightness-110 shadow-sm"
+                 style={{ background: THEME.cta }}
+               >
+                 Calculate your upside ↓
+               </button>
+             </div>
+           )}
+           {showCalc && <ValueCalculator />}
         </Section>
 
         <Section id="roadmap" eyebrow="Process" title="How We Modernize You">
