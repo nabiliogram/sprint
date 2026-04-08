@@ -3,7 +3,8 @@ name: Build and Package Site
 on:
   push: # This runs the robot every time you save a change
     branches:
-      - main 
+      - main
+  workflow_dispatch: # Also allows manual triggering from GitHub Actions UI
 
 jobs:
   build:
