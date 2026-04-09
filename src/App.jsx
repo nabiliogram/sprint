@@ -250,7 +250,7 @@ const LinkedInCarousel = () => {
       <Wrap className="pt-3 pb-10 sm:pt-4 sm:pb-12">
         <div style={{ borderLeft: "3px solid #afb975", paddingLeft: "28px" }}>
         <Eyebrow>Insights</Eyebrow>
-        <div className="mt-1 flex flex-nowrap items-center justify-between">
+        <div className="mt-4 flex flex-nowrap items-center justify-between">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-none">
             <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
               Latest
