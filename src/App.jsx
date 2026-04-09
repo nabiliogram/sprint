@@ -246,46 +246,46 @@ const LinkedInCarousel = () => {
   if (LINKEDIN_POSTS.length === 0) return null;
 
   return (
-    <section className="relative border-t border-b" style={{ background: "#faf4e8", borderColor: "#ede4cc" }}>
-      <Wrap className="pt-3 pb-20 sm:pt-4 sm:pb-24">
+    <section className="relative border-t border-b" style={{ background: "#efe5cc", borderColor: "#e2d6b5" }}>
+      <Wrap className="pt-3 pb-10 sm:pt-4 sm:pb-12">
         <div style={{ borderLeft: "3px solid #afb975", paddingLeft: "28px" }}>
         <Eyebrow>Insights</Eyebrow>
-        <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
-          <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
-            Latest
-          </span>
-        </h2>
-        {/* Arrows row — top right above carousel */}
-        {LINKEDIN_POSTS.length > 1 && (
-          <div className="flex justify-end gap-2 mt-6 mb-3">
-            <button
-              onClick={() => scroll(-1)}
-              className={cx(
-                "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
-                canScrollLeft ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
-              )}
-              style={{ background: THEME.cta, color: "white" }}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                <path d="m15 18-6-6 6-6" />
-              </svg>
-            </button>
-            <button
-              onClick={() => scroll(1)}
-              className={cx(
-                "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
-                canScrollRight ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
-              )}
-              style={{ background: THEME.cta, color: "white" }}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                <path d="m9 18 6-6-6-6" />
-              </svg>
-            </button>
-          </div>
-        )}
-
-        <div className="relative">
+        <div className="mt-1 flex flex-nowrap items-center justify-between">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-none">
+            <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
+              Latest
+            </span>
+          </h2>
+          {LINKEDIN_POSTS.length > 1 && (
+            <div className="flex items-center gap-2 shrink-0 ml-4">
+              <button
+                onClick={() => scroll(-1)}
+                className={cx(
+                  "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
+                  canScrollLeft ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
+                )}
+                style={{ background: THEME.cta, color: "white" }}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                onClick={() => scroll(1)}
+                className={cx(
+                  "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
+                  canScrollRight ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
+                )}
+                style={{ background: THEME.cta, color: "white" }}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="mt-3 relative">
           {/* Carousel track */}
           <div
             ref={scrollRef}
