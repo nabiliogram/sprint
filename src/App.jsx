@@ -21,20 +21,21 @@ const NAV = [
   ["Team", "#team"],
 ];
 
-// LinkedIn Post Embeds (max 10, newest first)
-// To add: paste the post URL and change /feed/ to /embed/feed/
+// LinkedIn Posts (max 10, newest first)
+// To add a new post: add an object with { url, title, snippet, date, bg }
+// bg: null for white, or e.g. "rgba(184,240,237,0.18)" for teal, "rgba(255,237,184,0.22)" for amber
 const MAX_LINKEDIN_POSTS = 10;
 const LINKEDIN_POSTS = [
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7450229020891385856",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7447285866982445056",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444818888808296448",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444184565851713536",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7441624814752141312",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440389396551401472",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440153299925786624",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7439391088374669312",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438736734290333696",
-  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438318777794068481",
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7450229020891385856", title: "MCP just crossed 97 million installs. The agent plumbing war is over.", snippet: "Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot, and Salesforce have all standardised on it. MCP is the plumbing that finally makes AI agents production-ready across the martech stack...", date: "Apr 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7447285866982445056", title: "Ads now appear in 25.5% of Google AI Overview results", snippet: "Up from 5.17% a year ago. A 394% increase. And here's the part most teams haven't registered: you can't opt in or out. Your ads may already be running inside AI-generated answers...", date: "Mar 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7444818888808296448", title: "ChatGPT just started running ads. Here's what $60 CPM actually means.", snippet: "Criteo became the first programmatic platform to open ChatGPT ad inventory — giving 17,000 advertisers access to a channel that didn't exist last month. The price: $60 CPM. Three times Meta...", date: "Mar 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7444184565851713536", title: "88% of teams use AI, but only a third scale results", snippet: "Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural...", date: "Mar 2026", bg: "rgba(184,240,237,0.18)" },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7441624814752141312", title: "The most important marketing role doesn't exist yet", snippet: "AI agents are absorbing the tactical execution layer of marketing ops — research, scheduling, sequencing, reporting. Companies running agentic workflows report 44% higher productivity and 37% cost reductions...", date: "Feb 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7440389396551401472", title: "The personalisation that used to require a team of five", snippet: "One B2B software company built a system where AI monitors every closed-lost deal and — 90 days later — automatically launches a full multi-channel re-engagement sequence. Zero manual work...", date: "Feb 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7440153299925786624", title: "AI didn't replace support agents. It rewired the economics.", snippet: "Klarna's AI now handles two-thirds of all customer chats — equivalent to 700 human agents — and saved $40M last year. AI interactions cost $0.25–0.50 while human agents cost $3–6...", date: "Feb 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7439391088374669312", title: "The content teams winning aren't writing more. They're systemising.", snippet: "AI-generated content is now the floor. Nearly every marketing team is using it. But the teams actually getting results — organic traffic up 40% in six months — aren't just using AI...", date: "Feb 2026", bg: "rgba(255,237,184,0.22)" },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7438736734290333696", title: "Search is no longer your most reliable discovery channel", snippet: "Google AI Overviews now answer queries directly — organic click-through has dropped 65% for those results. And AI-native advertising just opened up, at pricing far above what most paid search budgets are built around...", date: "Jan 2026", bg: null },
+  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7438318777794068481", title: "AI is working. Your C-suite just can't see it yet.", snippet: "GenAI is genuinely improving team efficiency — faster execution, lower production costs, more output with the same headcount. The challenge isn't the technology. It's the proof...", date: "Jan 2026", bg: null },
 ].slice(0, MAX_LINKEDIN_POSTS);
 
 const HERO_LOGOS = [
@@ -195,29 +196,11 @@ const Btn = ({ href, children, variant = "primary", className = "" }) => {
   );
 };
 
-// LinkedIn Carousel Component
+// LinkedIn Carousel Component — Option B: Custom branded cards
 const LinkedInCarousel = () => {
   const scrollRef = React.useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-
-  useEffect(() => {
-    // Load LinkedIn embed script
-    if (LINKEDIN_POSTS.length > 0 && !document.querySelector('script[src*="linkedin.com/badges"]')) {
-      const script = document.createElement("script");
-      script.src = "https://platform.linkedin.com/badges/js/profile.js";
-      script.async = true;
-      script.defer = true;
-      document.body.appendChild(script);
-    }
-  }, []);
-
-  // Re-process embeds when posts change
-  useEffect(() => {
-    if (LINKEDIN_POSTS.length > 0 && window.IN && window.IN.parse) {
-      window.IN.parse();
-    }
-  }, []);
 
   const updateScrollButtons = () => {
     const el = scrollRef.current;
@@ -229,8 +212,7 @@ const LinkedInCarousel = () => {
   const scroll = (direction) => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = 400;
-    el.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+    el.scrollBy({ left: direction * 356, behavior: "smooth" });
     setTimeout(updateScrollButtons, 350);
   };
 
@@ -246,70 +228,76 @@ const LinkedInCarousel = () => {
   if (LINKEDIN_POSTS.length === 0) return null;
 
   return (
-    <section className="relative border-t border-neutral-200/50">
-      <Wrap className="pt-3 pb-20 sm:pt-4 sm:pb-24">
+    <section className="relative border-t border-b" style={{ background: "#efe5cc", borderColor: "#e2d6b5" }}>
+      <Wrap className="pt-3 pb-10 sm:pt-4 sm:pb-12">
+        <div style={{ borderLeft: "3px solid #afb975", paddingLeft: "28px" }}>
         <Eyebrow>Insights</Eyebrow>
-        <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
-          <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
-            Latest from LinkedIn
-          </span>
-        </h2>
-        <div className="mt-6 relative">
-          {/* Scroll buttons */}
+        <div className="mt-4 flex flex-nowrap items-center justify-between">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-none">
+            <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
+              Latest
+            </span>
+          </h2>
           {LINKEDIN_POSTS.length > 1 && (
-            <>
+            <div className="flex items-center gap-2 shrink-0 ml-4">
               <button
                 onClick={() => scroll(-1)}
                 className={cx(
-                  "absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all",
-                  canScrollLeft ? "opacity-100 hover:shadow-xl hover:scale-105" : "opacity-0 pointer-events-none"
+                  "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
+                  canScrollLeft ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
                 )}
-                style={{ color: THEME.cta }}
+                style={{ background: THEME.cta, color: "white" }}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                   <path d="m15 18-6-6 6-6" />
                 </svg>
               </button>
               <button
                 onClick={() => scroll(1)}
                 className={cx(
-                  "absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all",
-                  canScrollRight ? "opacity-100 hover:shadow-xl hover:scale-105" : "opacity-0 pointer-events-none"
+                  "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
+                  canScrollRight ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
                 )}
-                style={{ color: THEME.cta }}
+                style={{ background: THEME.cta, color: "white" }}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
-            </>
+            </div>
           )}
-
+        </div>
+        <div className="mt-3 relative">
           {/* Carousel track */}
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-2 px-2"
+            className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 -mx-1 px-1"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
           >
-            <style>{`.li-carousel-track::-webkit-scrollbar{display:none}`}</style>
-            {LINKEDIN_POSTS.map((url, i) => (
-              <div
+            {LINKEDIN_POSTS.map((post, i) => (
+              <a
                 key={i}
-                className="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden"
+                href={post.url}
+                target="_blank"
+                rel="noreferrer"
+                className="snap-start shrink-0 w-[300px] sm:w-[320px] rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col group"
+                style={{ textDecoration: "none", background: post.bg || "#f7f8f2", border: "1px solid rgba(175,185,117,0.28)" }}
               >
-                <iframe
-                  src={url}
-                  height="500"
-                  width="100%"
-                  frameBorder="0"
-                  allowFullScreen
-                  title={`LinkedIn Post ${i + 1}`}
-                  className="w-full"
-                  style={{ border: "none", overflow: "hidden" }}
-                />
-              </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center justify-end mb-4">
+                    <img src="https://haschemie.com/assets/linkedin-logo.png" className="h-4 w-auto opacity-30 group-hover:opacity-60 transition-opacity" alt="LinkedIn" />
+                  </div>
+                  <p className="font-bold text-[15px] text-neutral-950 leading-snug mb-3">{post.title}</p>
+                  <p className="text-sm text-neutral-500 leading-relaxed flex-1">{post.snippet}</p>
+                  <div className={cx("mt-5 pt-4 flex items-center justify-between", post.bg ? "border-t border-black/[0.06]" : "border-t border-[rgba(175,185,117,0.25)]")}>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">{post.date}</span>
+                    <span className="text-[11px] font-black uppercase tracking-widest transition-colors group-hover:text-neutral-950" style={{ color: THEME.cta }}>Read post →</span>
+                  </div>
+                </div>
+              </a>
             ))}
           </div>
+        </div>
         </div>
       </Wrap>
     </section>
