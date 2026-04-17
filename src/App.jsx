@@ -21,21 +21,20 @@ const NAV = [
   ["Team", "#team"],
 ];
 
-// LinkedIn Posts (max 10, newest first)
-// To add a new post: add an object with { url, title, snippet, date, bg }
-// bg: null for white, or e.g. "rgba(184,240,237,0.18)" for teal, "rgba(255,237,184,0.22)" for amber
+// LinkedIn Post Embeds (max 10, newest first)
+// To add: paste the post URL and change /feed/ to /embed/feed/
 const MAX_LINKEDIN_POSTS = 10;
 const LINKEDIN_POSTS = [
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7450229020891385856", title: "MCP just crossed 97 million installs. The agent plumbing war is over.", snippet: "Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot, and Salesforce have all standardised on it. MCP is the plumbing that finally makes AI agents production-ready across the martech stack...", date: "Apr 2026", bg: null },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7447285866982445056", title: "Ads now appear in 25.5% of Google AI Overview results", snippet: "Up from 5.17% a year ago. A 394% increase. And here's the part most teams haven't registered: you can't opt in or out. Your ads may already be running inside AI-generated answers...", date: "Mar 2026", bg: null },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7444818888808296448", title: "ChatGPT just started running ads. Here's what $60 CPM actually means.", snippet: "Criteo became the first programmatic platform to open ChatGPT ad inventory — giving 17,000 advertisers access to a channel that didn't exist last month. The price: $60 CPM. Three times Meta...", date: "Mar 2026", bg: null },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7444184565851713536", title: "88% of teams use AI, but only a third scale results", snippet: "Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural...", date: "Mar 2026", bg: "rgba(184,240,237,0.18)" },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7441624814752141312", title: "The most important marketing role doesn't exist yet", snippet: "AI agents are absorbing the tactical execution layer of marketing ops — research, scheduling, sequencing, reporting. Companies running agentic workflows report 44% higher productivity and 37% cost reductions...", date: "Feb 2026", bg: null },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7440389396551401472", title: "The personalisation that used to require a team of five", snippet: "One B2B software company built a system where AI monitors every closed-lost deal and — 90 days later — automatically launches a full multi-channel re-engagement sequence. Zero manual work...", date: "Feb 2026", bg: null },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7440153299925786624", title: "AI didn't replace support agents. It rewired the economics.", snippet: "Klarna's AI now handles two-thirds of all customer chats — equivalent to 700 human agents — and saved $40M last year. AI interactions cost $0.25–0.50 while human agents cost $3–6...", date: "Feb 2026", bg: null },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7439391088374669312", title: "The content teams winning aren't writing more. They're systemising.", snippet: "AI-generated content is now the floor. Nearly every marketing team is using it. But the teams actually getting results — organic traffic up 40% in six months — aren't just using AI...", date: "Feb 2026", bg: "rgba(255,237,184,0.22)" },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7438736734290333696", title: "Search is no longer your most reliable discovery channel", snippet: "Google AI Overviews now answer queries directly — organic click-through has dropped 65% for those results. And AI-native advertising just opened up, at pricing far above what most paid search budgets are built around...", date: "Jan 2026", bg: null },
-  { url: "https://www.linkedin.com/feed/update/urn:li:activity:7438318777794068481", title: "AI is working. Your C-suite just can't see it yet.", snippet: "GenAI is genuinely improving team efficiency — faster execution, lower production costs, more output with the same headcount. The challenge isn't the technology. It's the proof...", date: "Jan 2026", bg: null },
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7450229020891385856",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7447285866982445056",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444818888808296448",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7444184565851713536",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7441624814752141312",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440389396551401472",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7440153299925786624",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7439391088374669312",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438736734290333696",
+  "https://www.linkedin.com/embed/feed/update/urn:li:activity:7438318777794068481",
 ].slice(0, MAX_LINKEDIN_POSTS);
 
 const HERO_LOGOS = [
@@ -89,33 +88,23 @@ const roadmapAreaIcon = (label) => {
   return Icon.target;
 };
 
-const INDUSTRY_BENCH = {
-  general: { growth: 0.065, labor: 0.2, media: 0.17, agency: 0.4 },
-  ecommerce: { growth: 0.095, labor: 0.18, media: 0.2, agency: 0.45 },
-  saas: { growth: 0.075, labor: 0.28, media: 0.15, agency: 0.4 },
-  professional: { growth: 0.03, labor: 0.3, media: 0.1, agency: 0.35 },
-  finserve: { growth: 0.05, labor: 0.22, media: 0.18, agency: 0.5 },
-  cpg: { growth: 0.04, labor: 0.15, media: 0.22, agency: 0.35 },
-  healthcare: { growth: 0.055, labor: 0.2, media: 0.12, agency: 0.4 },
-};
-
 const OPPORTUNITY = [
   { 
     tag: "PRODUCTIVITY", 
     headline: "Scale your business without hiring more people.", 
-    body: "Eliminate the manual bottlenecks slowing your growth. By automating data integration and repetitive workflows, we build a standardized operating model that scales. This allows your organization to increase total output without the need for linear increases in headcount.", 
+    body: "Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.",
     icon: Icon.graph 
   },
   { 
     tag: "PERFORMANCE", 
-    headline: "Optimize performance across the entire lifecycle.", 
-    body: "Our autonomous systems respond to performance signals in real-time. We ensure your budget and creative are always directed toward the highest-performing segments, making every interaction across the customer journey more efficient and every dollar of spend more impactful.", 
+    headline: "Real-time decisions across every workflow.",
+    body: "Our autonomous systems react to operational signals the moment they happen. An underperforming ad set, a support queue backing up, a pipeline stage going cold — the right decision runs automatically, not after a weekly review.",
     icon: Icon.target 
   },
   { 
     tag: "PROFIT", 
     headline: "Increase profitability through smart orchestration.", 
-    body: "Transform customer data into an intelligent orchestration engine. By automating the logic behind growth, we increase lifetime value and protect margins. This delivers a growth model that is both predictable and profitable, ensuring sustainable scale through data-driven precision.", 
+    body: "Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves — acquisition, retention, operations, revenue — we increase margin and protect quality. The result is an operating model that is both predictable and profitable.",
     icon: Icon.bolt 
   },
 ];
@@ -125,35 +114,35 @@ const ROADMAP_DATA = [
     step: 1, 
     title: "Diagnostic Sprint", 
     sub: "Analysis before assembly.", 
-    body: "Every partnership begins with a time-capped audit of your growth stack. This 4-to-6 week sprint identifies where performance is leaking and locates your highest-margin opportunities. We don’t move to execution until we have a data-led map for your investment.",
+    body: "Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking — human effort, missed signals, stalled handoffs — and locates your highest-margin opportunities for automation.",
     areas: [
-      "Growth process and operational efficiency",
-      "Marketing measurement maturity", 
-      "Budget allocation and channel ROI", 
-      "Customer lifecycle friction", 
-      "AI readiness audit"
-    ], 
+      "Workflow and process efficiency",
+      "Data and measurement maturity",
+      "Automation opportunity ranking",
+      "Customer and operational lifecycle friction",
+      "AI and agent readiness"
+    ],
     outcome: "A clear, prioritized view of where change will drive the highest return." 
   },
   { 
-    step: 2, 
-    title: "Performance Standards", 
-    sub: "Immediate performance lift.", 
-    body: "We fill operational gaps by installing rigorous standards across your marketing engine. By creating a unified source of truth and clear experimentation rules, we remove the drag of manual coordination. This stage drives an immediate lift in return on spend.",
-    areas: ["Unified data & measurement standards", "Creative experimentation frameworks", "Lifecycle communication governance", "Faster testing & optimization loops"], 
-    outcome: "Immediate acceleration in testing velocity, better creative performance, and significantly sharper budget allocation." 
+    step: 2,
+    title: "Instrumentation",
+    sub: "Clean data. Clear workflows.",
+    body: "Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement — the unglamorous work that makes automation actually work.",
+    areas: ["Unified data & measurement infrastructure", "Workflow definition and documentation", "Governance, guardrails, and eval criteria", "Automation-readiness across systems"],
+    outcome: "Your data, processes, and governance are automation-ready."
   },
   { 
     step: 3, 
     title: "Autonomous Orchestration", 
     sub: "Scale independent of headcount.", 
-    body: "Finally, we transition your team from manual execution to system oversight. We design the autonomous workflows that manage media and creative optimization in real-time. This builds a self-optimizing engine that improves your bottom line through intelligent scale.",
-    areas: ["Automated budget optimization", "Agentic creative generation", "Predictive CRM orchestration", "Real-time measurement loops"], 
-    outcome: "A self-optimizing growth engine that scales predictably while reclaiming up to 40% of your team’s strategic capacity." 
+    body: "Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time — across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.",
+    areas: ["Agentic workflow orchestration", "Automated decisioning (budget, routing, prioritization)", "Predictive operational & CRM orchestration", "Real-time measurement and feedback loops"],
+    outcome: "A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team’s strategic capacity."
   },
 ];
 
-const SME = ["Data Science", "Web Development", "Creative Production", "Agentic Workflows"];
+const SME = ["Data Science & ML", "Agentic Workflows", "Web Development", "Systems Integration"];
 
 const PAGE_BG = `radial-gradient(1100px circle at 12% -12%, ${THEME.accentTeal}, transparent 55%), radial-gradient(900px circle at 92% 18%, ${THEME.accentAmber}, transparent 60%), linear-gradient(180deg, rgba(244,252,251,0.95), rgba(255,250,236,0.78) 48%, rgba(255,250,236,0.78) 48%, rgba(255,255,255,1) 100%)`;
 
@@ -206,19 +195,29 @@ const Btn = ({ href, children, variant = "primary", className = "" }) => {
   );
 };
 
-const Metric = ({ label, value, note }) => (
-  <div className="rounded-2xl bg-white p-2 sm:p-4 shadow-sm ring-1 ring-black/5 text-center flex flex-col justify-center min-h-[80px] sm:min-h-[100px]">
-    <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.24em] text-neutral-400">{label}</div>
-    <div className="mt-0.5 sm:mt-1 text-xl sm:text-2xl font-black tracking-tight text-emerald-600">{value}</div>
-    <div className="mt-0.5 text-[8px] sm:text-[9px] uppercase font-bold tracking-[0.15em] text-neutral-400 leading-tight">{note}</div>
-  </div>
-);
-
-// LinkedIn Carousel Component — Option B: Custom branded cards
+// LinkedIn Carousel Component
 const LinkedInCarousel = () => {
   const scrollRef = React.useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  useEffect(() => {
+    // Load LinkedIn embed script
+    if (LINKEDIN_POSTS.length > 0 && !document.querySelector('script[src*="linkedin.com/badges"]')) {
+      const script = document.createElement("script");
+      script.src = "https://platform.linkedin.com/badges/js/profile.js";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  // Re-process embeds when posts change
+  useEffect(() => {
+    if (LINKEDIN_POSTS.length > 0 && window.IN && window.IN.parse) {
+      window.IN.parse();
+    }
+  }, []);
 
   const updateScrollButtons = () => {
     const el = scrollRef.current;
@@ -230,7 +229,8 @@ const LinkedInCarousel = () => {
   const scroll = (direction) => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollBy({ left: direction * 356, behavior: "smooth" });
+    const cardWidth = 400;
+    el.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
     setTimeout(updateScrollButtons, 350);
   };
 
@@ -246,76 +246,70 @@ const LinkedInCarousel = () => {
   if (LINKEDIN_POSTS.length === 0) return null;
 
   return (
-    <section className="relative border-t border-b" style={{ background: "#efe5cc", borderColor: "#e2d6b5" }}>
-      <Wrap className="pt-3 pb-10 sm:pt-4 sm:pb-12">
-        <div style={{ borderLeft: "3px solid #afb975", paddingLeft: "28px" }}>
+    <section className="relative border-t border-neutral-200/50">
+      <Wrap className="pt-3 pb-20 sm:pt-4 sm:pb-24">
         <Eyebrow>Insights</Eyebrow>
-        <div className="mt-4 flex flex-nowrap items-center justify-between">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-none">
-            <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
-              Latest
-            </span>
-          </h2>
+        <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
+          <span className="box-decoration-clone bg-neutral-950 px-4 py-1 text-white shadow-xl ring-1 ring-white/10">
+            Latest from LinkedIn
+          </span>
+        </h2>
+        <div className="mt-6 relative">
+          {/* Scroll buttons */}
           {LINKEDIN_POSTS.length > 1 && (
-            <div className="flex items-center gap-2 shrink-0 ml-4">
+            <>
               <button
                 onClick={() => scroll(-1)}
                 className={cx(
-                  "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
-                  canScrollLeft ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
+                  "absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all",
+                  canScrollLeft ? "opacity-100 hover:shadow-xl hover:scale-105" : "opacity-0 pointer-events-none"
                 )}
-                style={{ background: THEME.cta, color: "white" }}
+                style={{ color: THEME.cta }}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
                   <path d="m15 18-6-6 6-6" />
                 </svg>
               </button>
               <button
                 onClick={() => scroll(1)}
                 className={cx(
-                  "h-9 w-9 rounded-full shadow-md flex items-center justify-center transition-all",
-                  canScrollRight ? "opacity-100 hover:brightness-110 hover:scale-105" : "opacity-30 pointer-events-none"
+                  "absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/5 flex items-center justify-center transition-all",
+                  canScrollRight ? "opacity-100 hover:shadow-xl hover:scale-105" : "opacity-0 pointer-events-none"
                 )}
-                style={{ background: THEME.cta, color: "white" }}
+                style={{ color: THEME.cta }}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
-            </div>
+            </>
           )}
-        </div>
-        <div className="mt-3 relative">
+
           {/* Carousel track */}
           <div
             ref={scrollRef}
-            className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 -mx-1 px-1"
+            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-2 px-2"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
           >
-            {LINKEDIN_POSTS.map((post, i) => (
-              <a
+            <style>{`.li-carousel-track::-webkit-scrollbar{display:none}`}</style>
+            {LINKEDIN_POSTS.map((url, i) => (
+              <div
                 key={i}
-                href={post.url}
-                target="_blank"
-                rel="noreferrer"
-                className="snap-start shrink-0 w-[300px] sm:w-[320px] rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col group"
-                style={{ textDecoration: "none", background: post.bg || "#f7f8f2", border: "1px solid rgba(175,185,117,0.28)" }}
+                className="snap-start shrink-0 w-[340px] sm:w-[400px] rounded-2xl bg-white ring-1 ring-black/5 shadow-sm overflow-hidden"
               >
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center justify-end mb-4">
-                    <img src="https://haschemie.com/assets/linkedin-logo.png" className="h-4 w-auto opacity-30 group-hover:opacity-60 transition-opacity" alt="LinkedIn" />
-                  </div>
-                  <p className="font-bold text-[15px] text-neutral-950 leading-snug mb-3">{post.title}</p>
-                  <p className="text-sm text-neutral-500 leading-relaxed flex-1">{post.snippet}</p>
-                  <div className={cx("mt-5 pt-4 flex items-center justify-between", post.bg ? "border-t border-black/[0.06]" : "border-t border-[rgba(175,185,117,0.25)]")}>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">{post.date}</span>
-                    <span className="text-[11px] font-black uppercase tracking-widest transition-colors group-hover:text-neutral-950" style={{ color: THEME.cta }}>Read post →</span>
-                  </div>
-                </div>
-              </a>
+                <iframe
+                  src={url}
+                  height="500"
+                  width="100%"
+                  frameBorder="0"
+                  allowFullScreen
+                  title={`LinkedIn Post ${i + 1}`}
+                  className="w-full"
+                  style={{ border: "none", overflow: "hidden" }}
+                />
+              </div>
             ))}
           </div>
-        </div>
         </div>
       </Wrap>
     </section>
@@ -323,95 +317,6 @@ const LinkedInCarousel = () => {
 };
 
 // 6. Logic Components
-const ValueCalculator = () => {
-  const [industry, setIndustry] = useState("general");
-  const [rev, setRev] = useState(10_000_000);
-  const [hc, setHc] = useState(15);
-  const [media, setMedia] = useState(100_000);
-  const [agency, setAgency] = useState(15_000);
-  const [showMethodology, setShowMethodology] = useState(false);
-
-  const compactFmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 1, notation: "compact" });
-  const b = INDUSTRY_BENCH[industry] || INDUSTRY_BENCH.general;
-
-  const total = (rev * b.growth) + (hc * 110_000 * b.labor) + (media * 12 * b.media) + (agency * 12 * b.agency);
-
-  return (
-    <div className="w-full">
-      <style>{`input.calc-range{-webkit-appearance:none;width:100%;background:transparent}input.calc-range::-webkit-slider-runnable-track{height:4px;background:#f3f4f6;border-radius:999px}input.calc-range::-webkit-slider-thumb{-webkit-appearance:none;height:18px;width:18px;border-radius:999px;background:#111827;margin-top:-7px;border:3px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.12)}`}</style>
-      {/* UPDATED: sub-header width adjusted on desktop to 95% */}
-      <div className="mt-12 mb-8 lg:w-[95%]">
-        <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
-          Get a high-level view of your modernization opportunity. By applying validated performance data to your current model, this simulator offers a directional estimate of how autonomous workflows can impact your bottom line. It serves as an initial look at the scale available before moving into a granular Diagnostic Sprint.
-        </p>
-      </div>
-      <div className="rounded-[40px] bg-white ring-1 ring-black/5 shadow-2xl overflow-hidden transition-all">
-        <div className="grid grid-cols-1 md:grid-cols-2 relative">
-          <div className="p-6 md:p-10 space-y-5 border-b md:border-b-0 md:border-r border-neutral-100">
-            <div className="flex flex-col gap-2 mb-4">
-              <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">Vertical</label>
-              <select value={industry} onChange={(e) => setIndustry(e.target.value)} className="w-full p-2.5 rounded-sm bg-neutral-50 ring-1 ring-black/5 font-bold text-neutral-900 appearance-none outline-none cursor-pointer">
-                <option value="general">General / Other</option>
-                <option value="ecommerce">E-commerce</option>
-                <option value="saas">B2B SaaS</option>
-                <option value="professional">Professional Services</option>
-                <option value="finserve">Financial Services</option>
-                <option value="cpg">CPG & Manufacturing</option>
-                <option value="healthcare">Healthcare</option>
-              </select>
-            </div>
-            {[
-              { label: "Annual Revenue", val: rev, set: setRev, min: 1_000_000, max: 100_000_000, step: 1_000_000, disp: compactFmt.format(rev) },
-              { label: "FTE Headcount", val: hc, set: setHc, min: 1, max: 200, step: 1, disp: hc },
-              { label: "Monthly Media Spend", val: media, set: setMedia, min: 0, max: 1_000_000, step: 10_000, disp: compactFmt.format(media) },
-              { label: "Monthly Agency Fees", val: agency, set: setAgency, min: 0, max: 250_000, step: 1_000, disp: compactFmt.format(agency) },
-            ].map((r) => (
-              <div key={r.label}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">{r.label}</span>
-                  <span className="text-lg font-black text-neutral-900">{r.disp}</span>
-                </div>
-                <input type="range" className="calc-range" min={r.min} max={r.max} step={r.step} value={r.val} onChange={(e) => r.set(Number(e.target.value))} />
-              </div>
-            ))}
-          </div>
-          <div className="p-6 md:p-10 bg-neutral-50/50 flex flex-col justify-center relative">
-            <div className="flex justify-between items-start mb-6">
-              <div className="text-center flex-grow">
-                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-400">Estimated Annual Upside</div>
-                <div className="mt-1 text-3xl sm:text-4xl font-black tracking-tight text-neutral-950">{compactFmt.format(total)}</div>
-              </div>
-              <button onClick={() => setShowMethodology(!showMethodology)} className={cx("p-2 rounded-full transition-colors shrink-0", showMethodology ? "bg-neutral-900 text-white shadow-md" : "hover:bg-neutral-200/50")} style={{ color: showMethodology ? 'white' : THEME.cta }}>
-                {Icon.help("h-5 w-5")}
-              </button>
-            </div>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              <Metric label="Growth" value="+6.5%" note="Lift" />
-              <Metric label="Efficiency" value="+20%" note="Capacity" />
-              <Metric label="Media" value="+17%" note="ROAS Lift" />
-              <Metric label="Structural" value="+40%" note="Rationalized" />
-            </div>
-          </div>
-        </div>
-        {showMethodology && (
-          <div className="border-t border-neutral-100 bg-neutral-50/80 p-8 md:p-10 animate-in fade-in slide-in-from-top-4 duration-300">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-3">Simulator Logic</h4>
-            <p className="text-sm leading-relaxed text-neutral-600 font-medium">
-              This simulator applies high-level directional benchmarks: 
-              <a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right-or-wrong-is-multiplying" target="_blank" rel="noreferrer" className="mx-1 text-neutral-900 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-950 transition-all">McKinsey</a> 
-              (+6.5% revenue lift through AI-driven journeys), 
-              <a href="https://www.gartner.com/en/marketing/topics/marketing-ai" target="_blank" rel="noreferrer" className="mx-1 text-neutral-900 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-950 transition-all">Gartner</a> 
-              (20% capacity reclaim via automated administration), and 
-              <a href="https://www.nielsen.com/insights/2017/when-it-comes-to-advertising-effectiveness-what-is-the-most-important-element/" target="_blank" rel="noreferrer" className="mx-1 text-neutral-900 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-950 transition-all">Nielsen</a> 
-              (+17% media lift). These figures provide a baseline for the deeper, customized analysis performed during our Diagnostic Sprint.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
 const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default" }) => {
   const isElevated = variant === "elevated";
   
@@ -466,7 +371,6 @@ const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default"
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [showCalc, setShowCalc] = useState(false);
 
   const copyEmail = () => {
     const el = document.createElement('textarea');
@@ -519,8 +423,8 @@ export default function App() {
           border-color: ${THEME.cta};
           z-index: 20;
         }
-        .roadmap-connector-v { width: 3px; background: ${THEME.cta}; opacity: 0.85; border-radius: 2px; }
-        .roadmap-connector-h { height: 3px; background: ${THEME.cta}; opacity: 0.85; border-radius: 2px; }
+        .roadmap-connector-v { width: 1px; background: ${THEME.cta}; opacity: 0.2; }
+        .roadmap-connector-h { height: 1px; background: ${THEME.cta}; opacity: 0.2; }
       `}</style>
 
       <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-neutral-200/50">
@@ -574,18 +478,18 @@ export default function App() {
               <div className="hidden lg:block corner-bracket bottom-6 right-6 border-b-2 border-r-2" />
 
               <div className="relative z-10">
-                <Eyebrow>The New Standard of Performance</Eyebrow>
+                <Eyebrow>The New Standard of Operations</Eyebrow>
                 <h1 className="mt-8 font-black tracking-tight leading-[1.1] text-neutral-950 text-[13vw] sm:text-7xl md:text-8xl lg:text-5xl xl:text-6xl">
                   <span className="block lg:whitespace-nowrap">
-                    From Manual <br className="lg:hidden" />Marketing to
+                    From Manual <br className="lg:hidden" />Effort to
                   </span>
                   <span className="block w-fit lg:bg-black lg:text-white lg:px-4 lg:py-1 lg:mt-2 lg:whitespace-nowrap">
-                    <span className="block lg:inline bg-black lg:bg-transparent text-white px-4 lg:px-0 py-1 lg:py-0 mt-2 lg:mt-0 w-fit lg:w-auto">Autonomous </span>
-                    <span className="block lg:inline bg-black lg:bg-transparent text-white px-4 lg:px-0 py-1 lg:py-0 mt-2 lg:mt-0 w-fit lg:w-auto">Growth</span>
+                    <span className="block lg:inline bg-black lg:bg-transparent text-white px-4 lg:px-0 py-1 lg:py-0 mt-2 lg:mt-0 w-fit lg:w-auto">Agentic </span>
+                    <span className="block lg:inline bg-black lg:bg-transparent text-white px-4 lg:px-0 py-1 lg:py-0 mt-2 lg:mt-0 w-fit lg:w-auto">Scale</span>
                   </span>
                 </h1>
                 <p className="mt-10 text-lg md:text-xl text-neutral-600 max-w-2xl font-medium leading-relaxed">
-                  We replace manual marketing with autonomous systems. By aligning data, creative, and media into an automated engine, we remove operational bottlenecks and deliver growth that adapts to performance in real-time.
+                  We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals — across marketing, operations, and customer workflows.
                 </p>
                 <div className="mt-12 flex flex-col sm:flex-row gap-4 sm:items-center">
                   <Btn href="#opportunity" className="w-full sm:w-auto">See the Opportunity</Btn>
@@ -597,7 +501,7 @@ export default function App() {
             <div className="hidden lg:flex items-center gap-10 mt-12 border-t border-black/[0.05] pt-8 lg:w-[90%] lg:mx-auto">
               <div className="flex-[2.4]">
                  <p className="text-xl md:text-2xl italic font-serif leading-relaxed text-neutral-500 text-justify">
-                   "Sprint Assembly is led by senior operators who’ve scaled growth across global enterprises. We work in focused sprints to move your marketing from manual execution to autonomous scale."
+                   "Sprint Assembly is led by senior operators who’ve scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale — wherever work gets stuck."
                  </p>
               </div>
               <div className="w-px h-32 self-center opacity-30" style={{ background: THEME.cta }} />
@@ -610,7 +514,7 @@ export default function App() {
             <div className="lg:hidden mt-12 border-t border-black/[0.05] pt-8">
               <div className="space-y-6">
                  <p className="text-xl italic font-serif leading-relaxed text-neutral-500 text-center px-2">
-                   "Sprint Assembly is led by senior operators who’ve built and scaled growth across global enterprises. We work in focused sprints to transition your marketing from manual execution to autonomous scale."
+                   "Sprint Assembly is led by senior operators who’ve scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale — wherever work gets stuck."
                  </p>
                  
                  <div className="flex justify-center">
@@ -634,7 +538,7 @@ export default function App() {
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12 italic">
-               You can’t scale through manual effort alone. We help you transition to an autonomous system that targets the three essentials of modern performance: reclaiming team bandwidth, making the entire customer journey more responsive to data, and improving your bottom line through systematic orchestration.
+               You can’t scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.
              </p>
            </div>
            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
@@ -649,37 +553,13 @@ export default function App() {
                </div>
              ))}
            </div>
-           {!showCalc && (
-             <div className="mt-8">
-               <button
-                 onClick={() => setShowCalc(true)}
-                 className="inline-flex items-center gap-2 px-6 py-3 rounded-sm font-bold text-white transition-all hover:brightness-110 shadow-sm"
-                 style={{ background: THEME.cta }}
-               >
-                 Calculate your upside ↓
-               </button>
-             </div>
-           )}
-           {showCalc && (
-             <>
-               <ValueCalculator />
-               <div className="flex justify-end mt-4">
-                 <button
-                   onClick={() => setShowCalc(false)}
-                   className="text-xs font-semibold text-neutral-400 hover:text-neutral-600 transition-colors"
-                 >
-                   Hide simulator ↑
-                 </button>
-               </div>
-             </>
-           )}
         </Section>
 
         <Section id="roadmap" eyebrow="Process" title="How We Modernize You">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
-               We begin every partnership with a Diagnostic Sprint to map where your performance is leaking and find your biggest wins. Next, we fill operational gaps with rigorous Performance Standards to capture an immediate lift in return on spend. This foundation allows us to transition you to Autonomous Orchestration by building the systems that maximize your bottom line through intelligent scale.
+               We begin every partnership with a Diagnostic Sprint to map where your operations are leaking and find your biggest wins. Next, we move to Instrumentation — the unified data, defined workflows, and governance that agentic systems need to run on. This foundation lets us transition you to Autonomous Orchestration, where agents take over day-to-day decisions and actions.
              </p>
            </div>
 
@@ -722,7 +602,7 @@ export default function App() {
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
-               Sprint Assembly is led by growth veterans who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.
+               Sprint Assembly is led by senior operators who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.
              </p>
            </div>
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -768,7 +648,7 @@ export default function App() {
         <Section id="contact" eyebrow="CONTACT" title="Ready to Modernize?">
            <div className="max-w-full">
              <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-medium">
-               Modernizing your growth engine begins with a conversation. We’re available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to autonomous scale. We’ll provide an objective assessment of your modernization potential to help you determine the most effective next step for your growth.
+               Modernizing your business begins with a conversation. We’re available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to agentic scale. We’ll provide an objective assessment of your modernization potential to help you determine the most effective next step.
              </p>
              <div className="flex flex-col lg:flex-row items-stretch gap-6">
                <a 
