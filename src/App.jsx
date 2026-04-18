@@ -90,23 +90,20 @@ const roadmapAreaIcon = (label) => {
 };
 
 const OPPORTUNITY = [
-  { 
-    tag: "PRODUCTIVITY", 
-    headline: "Scale your business without hiring more people.", 
+  {
+    tag: "PRODUCTIVITY",
+    headline: "Scale your business without hiring more people.",
     body: "Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.",
-    icon: Icon.graph 
   },
-  { 
-    tag: "PERFORMANCE", 
+  {
+    tag: "PERFORMANCE",
     headline: "Real-time decisions across every workflow.",
     body: "Our autonomous systems react to operational signals the moment they happen. An underperforming ad set, a support queue backing up, a pipeline stage going cold — the right decision runs automatically, not after a weekly review.",
-    icon: Icon.target 
   },
-  { 
-    tag: "PROFIT", 
-    headline: "Increase profitability through smart orchestration.", 
+  {
+    tag: "PROFIT",
+    headline: "Increase profitability through smart orchestration.",
     body: "Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves — acquisition, retention, operations, revenue — we increase margin and protect quality. The result is an operating model that is both predictable and profitable.",
-    icon: Icon.bolt 
   },
 ];
 
@@ -230,7 +227,6 @@ const LinkedInCarousel = () => {
   return (
     <section className="relative border-t border-b" style={{ background: "#efe5cc", borderColor: "#e2d6b5" }}>
       <Wrap className="pt-3 pb-10 sm:pt-4 sm:pb-12">
-        <div style={{ borderLeft: "3px solid #afb975", paddingLeft: "28px" }}>
         <Eyebrow>Insights</Eyebrow>
         <div className="mt-4 flex flex-nowrap items-center justify-between">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-none">
@@ -298,7 +294,6 @@ const LinkedInCarousel = () => {
             ))}
           </div>
         </div>
-        </div>
       </Wrap>
     </section>
   );
@@ -310,7 +305,7 @@ const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default"
   
   return (
     <article className={cx(
-      "relative rounded-[32px] bg-white transition-all duration-500 overflow-hidden flex flex-col h-full",
+      "relative rounded-3xl bg-white transition-all duration-500 overflow-hidden flex flex-col h-full",
       isElevated 
         ? "shadow-[0_40px_80px_-15px_rgba(0,0,0,0.12)] ring-1 ring-black/5 border-t-[5px] z-20" 
         : "p-6 md:p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 z-10 hover:shadow-2xl"
@@ -405,11 +400,14 @@ export default function App() {
           background-size: 32px 32px;
         }
         .corner-bracket {
-          width: 24px;
-          height: 24px;
+          width: 14px;
+          height: 14px;
           position: absolute;
           border-color: ${THEME.cta};
           z-index: 20;
+        }
+        @media (min-width: 1024px) {
+          .corner-bracket { width: 24px; height: 24px; }
         }
         .roadmap-connector-v { width: 1px; background: ${THEME.cta}; opacity: 0.2; }
         .roadmap-connector-h { height: 1px; background: ${THEME.cta}; opacity: 0.2; }
@@ -458,22 +456,21 @@ export default function App() {
           </div>
 
           <Wrap className="relative z-10">
-            <div className="relative lg:bg-white/40 lg:backdrop-blur-md lg:p-16 lg:rounded-[48px] lg:ring-1 lg:ring-black/5 lg:shadow-2xl overflow-hidden">
-              <div className="hidden lg:block absolute inset-0 blueprint-grid opacity-50 pointer-events-none" />
-              <div className="hidden lg:block corner-bracket top-6 left-6 border-t-2 border-l-2" />
-              <div className="hidden lg:block corner-bracket top-6 right-6 border-t-2 border-r-2" />
-              <div className="hidden lg:block corner-bracket bottom-6 left-6 border-b-2 border-l-2" />
-              <div className="hidden lg:block corner-bracket bottom-6 right-6 border-b-2 border-r-2" />
+            <div className="relative p-5 sm:p-8 lg:p-16 rounded-3xl lg:bg-white/40 lg:backdrop-blur-md lg:ring-1 lg:ring-black/5 lg:shadow-2xl overflow-hidden">
+              <div className="absolute inset-0 blueprint-grid opacity-20 lg:opacity-50 pointer-events-none" />
+              <div className="corner-bracket top-3 lg:top-6 left-3 lg:left-6 border-t-2 border-l-2" />
+              <div className="corner-bracket top-3 lg:top-6 right-3 lg:right-6 border-t-2 border-r-2" />
+              <div className="corner-bracket bottom-3 lg:bottom-6 left-3 lg:left-6 border-b-2 border-l-2" />
+              <div className="corner-bracket bottom-3 lg:bottom-6 right-3 lg:right-6 border-b-2 border-r-2" />
 
               <div className="relative z-10">
                 <Eyebrow>The New Standard of Operations</Eyebrow>
-                <h1 className="mt-8 font-black tracking-tight leading-[1.1] text-neutral-950 text-[13vw] sm:text-7xl md:text-8xl lg:text-5xl xl:text-6xl">
-                  <span className="block lg:whitespace-nowrap">
-                    From Manual <br className="lg:hidden" />Effort to
-                  </span>
-                  <span className="block w-fit lg:bg-black lg:text-white lg:px-4 lg:py-1 lg:mt-2 lg:whitespace-nowrap">
-                    <span className="block lg:inline bg-black lg:bg-transparent text-white px-4 lg:px-0 py-1 lg:py-0 mt-2 lg:mt-0 w-fit lg:w-auto">Agentic </span>
-                    <span className="block lg:inline bg-black lg:bg-transparent text-white px-4 lg:px-0 py-1 lg:py-0 mt-2 lg:mt-0 w-fit lg:w-auto">Scale</span>
+                <h1 className="mt-8 font-black tracking-tight leading-[1.1] text-neutral-950 text-5xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl">
+                  <span className="block lg:whitespace-nowrap">From Manual Effort{"\u00A0"}to</span>
+                  <span className="inline-block mt-3 lg:mt-2">
+                    <span className="bg-neutral-950 text-white px-4 py-1 box-decoration-clone lg:whitespace-nowrap leading-[1.4]">
+                      Agentic Scale
+                    </span>
                   </span>
                 </h1>
                 <p className="mt-10 text-lg md:text-xl text-neutral-600 max-w-2xl font-medium leading-relaxed">
@@ -488,7 +485,7 @@ export default function App() {
             {/* Quote + Logos Section */}
             <div className="hidden lg:flex items-center gap-10 mt-12 border-t border-black/[0.05] pt-8 lg:w-[90%] lg:mx-auto">
               <div className="flex-[2.4]">
-                 <p className="text-xl md:text-2xl italic font-serif leading-relaxed text-neutral-500 text-justify">
+                 <p className="text-xl md:text-2xl italic leading-relaxed text-neutral-500 text-justify">
                    "Sprint Assembly is led by senior operators who’ve scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale — wherever work gets stuck."
                  </p>
               </div>
@@ -501,7 +498,7 @@ export default function App() {
 
             <div className="lg:hidden mt-12 border-t border-black/[0.05] pt-8">
               <div className="space-y-6">
-                 <p className="text-xl italic font-serif leading-relaxed text-neutral-500 text-center px-2">
+                 <p className="text-xl italic leading-relaxed text-neutral-500 text-center px-2">
                    "Sprint Assembly is led by senior operators who’ve scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale — wherever work gets stuck."
                  </p>
                  
@@ -520,24 +517,23 @@ export default function App() {
           </Wrap>
         </section>
 
-        <LinkedInCarousel />
-
         <Section id="opportunity" eyebrow="Business Impact" title="The Opportunity">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
-             <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12 italic">
+             <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12">
                You can’t scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.
              </p>
            </div>
-           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+           <div className="grid grid-cols-1 gap-10 md:gap-8 lg:grid-cols-3">
              {OPPORTUNITY.map((o, idx) => (
-               <div key={o.tag} className="bg-white p-7 rounded-3xl ring-1 ring-black/5 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow">
-                 <div className="flex justify-between items-start mb-6">
-                   <div className="px-3 py-1 bg-neutral-950 text-white text-[10px] font-black tracking-widest uppercase">{o.tag}</div>
-                   <div style={{ color: THEME.cta }}>{o.icon("h-8 w-8")}</div>
+               <div key={o.tag} className="flex flex-col">
+                 <div className="text-[13px] font-black tracking-[0.24em] mb-3.5" style={{ color: THEME.cta }}>
+                   {String(idx + 1).padStart(2, "0")}
                  </div>
-                 <h3 className="text-2xl font-bold mb-4 leading-tight md:min-h-[4rem]">{o.headline}</h3>
-                 <p className="text-neutral-600 leading-relaxed text-sm md:text-base">{o.body}</p>
+                 <div className="h-px mb-[18px]" style={{ background: "rgba(175,185,117,0.5)" }} />
+                 <div className="self-start px-3 py-1 bg-neutral-950 text-white text-[10px] font-black tracking-widest uppercase mb-3.5">{o.tag}</div>
+                 <h3 className="text-xl font-bold leading-tight tracking-tight mb-3.5 text-neutral-950">{o.headline}</h3>
+                 <p className="text-neutral-600 leading-relaxed text-sm">{o.body}</p>
                </div>
              ))}
            </div>
@@ -546,7 +542,7 @@ export default function App() {
         <Section id="roadmap" eyebrow="Process" title="How We Modernize You">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
-             <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
+             <p className="text-lg leading-relaxed text-neutral-600 font-medium">
                We begin every partnership with a Diagnostic Sprint to map where your operations are leaking and find your biggest wins. Next, we move to Instrumentation — the unified data, defined workflows, and governance that agentic systems need to run on. This foundation lets us transition you to Autonomous Orchestration, where agents take over day-to-day decisions and actions.
              </p>
            </div>
@@ -589,7 +585,7 @@ export default function App() {
         <Section id="team" eyebrow="Team" title="Built by Operators">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
-             <p className="text-lg leading-relaxed text-neutral-600 font-medium italic">
+             <p className="text-lg leading-relaxed text-neutral-600 font-medium">
                Sprint Assembly is led by senior operators who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.
              </p>
            </div>
@@ -610,7 +606,7 @@ export default function App() {
                  li: "https://www.linkedin.com/in/danielbesquin/" 
                }
              ].map(p => (
-               <div key={p.name} className="relative bg-white p-8 rounded-[40px] ring-1 ring-black/5 flex flex-col gap-6 shadow-sm">
+               <div key={p.name} className="relative bg-white p-8 rounded-3xl ring-1 ring-black/5 flex flex-col gap-6 shadow-sm">
                  <div className="flex items-center gap-6">
                     <img src={p.img} alt={p.name} className="h-20 w-20 rounded-3xl object-cover shadow-lg" />
                     <div>
@@ -632,6 +628,8 @@ export default function App() {
              </div>
            </div>
         </Section>
+
+        <LinkedInCarousel />
 
         <Section id="contact" eyebrow="CONTACT" title="Ready to Modernize?">
            <div className="max-w-full">
@@ -662,7 +660,7 @@ export default function App() {
         <Wrap>
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-3">
-              <img src={LOGO_URL} alt="Sprint Assembly" className="h-7 w-7 rounded-lg shadow-sm" />
+              <img src={LOGO_URL} alt="Sprint Assembly" className="h-7 w-7 rounded-xl shadow-sm" />
               <span className="font-bold tracking-tight">Sprint Assembly</span>
             </div>
             <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">&copy; {new Date().getFullYear()} Sprint Assembly</div>
