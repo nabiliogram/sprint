@@ -153,8 +153,12 @@ const Eyebrow = ({ children }) => (
   <div className="text-[11px] tracking-[0.28em] uppercase font-bold text-neutral-500/80">{children}</div>
 );
 
-const Section = ({ id, eyebrow, title, children }) => (
-  <section id={id} className="relative border-t border-neutral-200/50">
+const Section = ({ id, eyebrow, title, bg, children }) => (
+  <section
+    id={id}
+    className="relative border-t border-neutral-200/50"
+    style={bg ? { background: bg } : undefined}
+  >
     <Wrap className="pt-3 pb-20 sm:pt-4 sm:pb-24">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       {title && (
@@ -376,16 +380,16 @@ export default function App() {
       {HERO_LOGOS.map(([a, s]) => {
         const isWordmark = a === "Google" || a === "YouTube";
         return (
-          <img 
-            key={a} 
-            src={s} 
-            alt={a} 
+          <img
+            key={a}
+            src={s}
+            alt={a}
             className={cx(
               "w-auto object-contain transition-all duration-300 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-105",
-              isMobile 
+              isMobile
                 ? (isWordmark ? "max-h-[1.1rem]" : "max-h-[0.9rem]")
                 : (isWordmark ? "h-7" : "h-6")
-            )} 
+            )}
           />
         );
       })}
@@ -517,7 +521,7 @@ export default function App() {
           </Wrap>
         </section>
 
-        <Section id="opportunity" eyebrow="Business Impact" title="The Opportunity">
+        <Section id="opportunity" eyebrow="Business Impact" title="The Opportunity" bg="rgba(255, 250, 236, 0.5)">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium mb-12">
@@ -539,7 +543,7 @@ export default function App() {
            </div>
         </Section>
 
-        <Section id="roadmap" eyebrow="Process" title="How We Modernize You">
+        <Section id="roadmap" eyebrow="Process" title="How We Modernize You" bg="rgba(244, 252, 251, 0.55)">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium">
@@ -582,7 +586,7 @@ export default function App() {
            </div>
         </Section>
 
-        <Section id="team" eyebrow="Team" title="Built by Operators">
+        <Section id="team" eyebrow="Team" title="Built by Operators" bg="rgba(250, 250, 246, 1)">
            {/* UPDATED: sub-header width adjusted on desktop to 95% */}
            <div className="mb-8 lg:w-[95%]">
              <p className="text-lg leading-relaxed text-neutral-600 font-medium">
@@ -631,7 +635,7 @@ export default function App() {
 
         <LinkedInCarousel />
 
-        <Section id="contact" eyebrow="CONTACT" title="Ready to Modernize?">
+        <Section id="contact" eyebrow="CONTACT" title="Ready to Modernize?" bg="rgba(252, 249, 240, 1)">
            <div className="max-w-full">
              <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-medium">
                Modernizing your business begins with a conversation. We’re available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to agentic scale. We’ll provide an objective assessment of your modernization potential to help you determine the most effective next step.
