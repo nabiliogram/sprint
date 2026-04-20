@@ -146,7 +146,7 @@ const PAGE_BG = `radial-gradient(1100px circle at 12% -12%, ${THEME.accentTeal},
 
 // 5. Shared Components
 const Wrap = ({ children, className = "" }) => (
-  <div className={cx("mx-auto w-[92%] sm:w-[88%] lg:w-[85%] max-w-[950px]", className)}>{children}</div>
+  <div className={cx("mx-auto w-[90%] sm:w-[88%] lg:w-[85%] max-w-[950px]", className)}>{children}</div>
 );
 
 const Eyebrow = ({ children }) => (
@@ -310,31 +310,31 @@ const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default"
   return (
     <article className={cx(
       "relative rounded-3xl bg-white transition-all duration-500 overflow-hidden flex flex-col h-full",
-      isElevated 
-        ? "shadow-[0_40px_80px_-15px_rgba(0,0,0,0.12)] ring-1 ring-black/5 border-t-[5px] z-20" 
-        : "p-6 md:p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 z-10 hover:shadow-2xl"
+      isElevated
+        ? "shadow-[0_40px_80px_-15px_rgba(0,0,0,0.12)] ring-1 ring-black/5 border-t-[5px] z-20"
+        : "p-5 md:p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 z-10 hover:shadow-2xl"
     )} style={{ borderTopColor: isElevated ? THEME.cta : "transparent" }}>
-      
+
       <div className={cx("grid grid-cols-1 items-stretch", isElevated ? "md:grid-cols-[1.5fr_1.1fr]" : "flex-1 flex flex-col")}>
-        <div 
-          className={cx("transition-colors", isElevated ? "p-8 md:p-10 space-y-4" : "md:min-h-[150px] mb-2")}
+        <div
+          className={cx("transition-colors", isElevated ? "p-5 md:p-10 space-y-4" : "md:min-h-[150px] mb-2")}
           style={isElevated ? { backgroundColor: 'rgba(184,240,237,0.12)' } : {}}
         >
           <div className={cx("space-y-3", isElevated ? "" : "mb-4")}>
             <p className="text-neutral-500 font-bold uppercase text-[10px] tracking-[0.3em]">{sub}</p>
             <h3 className={cx("font-bold tracking-tight text-neutral-950 leading-tight", isElevated ? "text-2xl md:text-4xl" : "text-xl md:text-2xl")}>{title}</h3>
           </div>
-          <p className="text-neutral-600 leading-relaxed font-medium text-base">{body}</p>
+          <p className="text-neutral-600 leading-relaxed font-medium text-[17px] md:text-base">{body}</p>
         </div>
-        
+
         <div className={cx(
           "relative flex flex-col flex-1",
-          isElevated ? "p-8 md:p-10 border-t md:border-t-0 md:border-l border-neutral-100 justify-center" : "mt-10"
+          isElevated ? "p-5 md:p-10 border-t md:border-t-0 md:border-l border-neutral-100 justify-center" : "mt-6 md:mt-10"
         )}>
-          <div className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-6">Focus Areas</div>
-          <div className="grid grid-cols-1 gap-3.5 mb-6">
+          <div className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-4 md:mb-6">Focus Areas</div>
+          <div className="grid grid-cols-1 gap-3 md:gap-3.5 mb-5 md:mb-6">
             {areas.map(a => (
-              <div key={a} className="flex items-start gap-4 text-sm text-neutral-800">
+              <div key={a} className="flex items-start gap-3 md:gap-4 text-[15px] md:text-sm text-neutral-800">
                 <div className="mt-1 shrink-0" style={{ color: THEME.cta }}>{roadmapAreaIcon(a)("h-4 w-4")}</div>
                 <span className="font-bold leading-snug">{a}</span>
               </div>
@@ -344,11 +344,11 @@ const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default"
       </div>
 
       <div className={cx(
-        "pt-5 border-t border-black/[0.05] flex items-center gap-3 mt-auto",
-        isElevated ? "mx-8 md:mx-10 mb-8" : ""
+        "pt-4 md:pt-5 border-t border-black/[0.05] flex items-center gap-3 mt-auto",
+        isElevated ? "mx-5 md:mx-10 mb-5 md:mb-8" : ""
       )}>
          <div className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
-         <p className="text-sm font-bold text-neutral-800"><span className="text-neutral-400 font-medium">Outcome:</span> {outcome}</p>
+         <p className="text-[15px] md:text-sm font-bold text-neutral-800"><span className="text-neutral-400 font-medium">Outcome:</span> {outcome}</p>
       </div>
     </article>
   );
@@ -447,7 +447,7 @@ export default function App() {
 
       <main>
         {/* HERO SECTION */}
-        <section className="relative overflow-hidden pt-12 pb-24 lg:pt-16 lg:pb-32">
+        <section className="relative overflow-hidden pt-6 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-32">
           <div className="absolute inset-0 z-0 pointer-events-none opacity-40 flex justify-center overflow-hidden">
             <div 
               className="w-full max-w-[1200px] h-full bg-no-repeat bg-center" 
@@ -469,7 +469,7 @@ export default function App() {
 
               <div className="relative z-10">
                 <Eyebrow>The New Standard of Operations</Eyebrow>
-                <h1 className="mt-8 font-black tracking-tight leading-[1.1] text-neutral-950 text-5xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl">
+                <h1 className="mt-8 font-black tracking-tight leading-[1.05] text-neutral-950 text-[3.5rem] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl">
                   <span className="block lg:whitespace-nowrap">From Manual Effort{"\u00A0"}to</span>
                   <span className="inline-block mt-3 lg:mt-2">
                     <span className="bg-neutral-950 text-white px-4 py-1 box-decoration-clone lg:whitespace-nowrap leading-[1.4]">
@@ -665,7 +665,6 @@ export default function App() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-3">
               <img src={LOGO_URL} alt="Sprint Assembly" className="h-7 w-7 rounded-xl shadow-sm" />
-              <span className="font-bold tracking-tight">Sprint Assembly</span>
             </div>
             <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">&copy; {new Date().getFullYear()} Sprint Assembly</div>
           </div>
