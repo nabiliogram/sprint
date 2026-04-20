@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build output
+dist/
+dist-*/
+
+# Vite
+vite.config.js.timestamp-*.mjs
+*.local
+
+# Editor
+.vscode/
+.idea/
