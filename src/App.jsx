@@ -146,7 +146,7 @@ const PAGE_BG = `radial-gradient(1100px circle at 12% -12%, ${THEME.accentTeal},
 
 // 5. Shared Components
 const Wrap = ({ children, className = "" }) => (
-  <div className={cx("mx-auto w-[90%] sm:w-[88%] lg:w-[85%] max-w-[950px]", className)}>{children}</div>
+  <div className={cx("mx-auto w-[92%] sm:w-[88%] lg:w-[85%] max-w-[950px]", className)}>{children}</div>
 );
 
 const Eyebrow = ({ children }) => (
@@ -312,30 +312,30 @@ const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default"
       "relative rounded-3xl bg-white transition-all duration-500 overflow-hidden flex flex-col h-full",
       isElevated
         ? "shadow-[0_40px_80px_-15px_rgba(0,0,0,0.12)] ring-1 ring-black/5 border-t-[5px] z-20"
-        : "p-5 md:p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 z-10 hover:shadow-2xl"
+        : "p-4 md:p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 z-10 hover:shadow-2xl"
     )} style={{ borderTopColor: isElevated ? THEME.cta : "transparent" }}>
 
       <div className={cx("grid grid-cols-1 items-stretch", isElevated ? "md:grid-cols-[1.5fr_1.1fr]" : "flex-1 flex flex-col")}>
         <div
-          className={cx("transition-colors", isElevated ? "p-5 md:p-10 space-y-4" : "md:min-h-[150px] mb-2")}
+          className={cx("transition-colors", isElevated ? "p-4 md:p-10 space-y-4" : "md:min-h-[150px] mb-2")}
           style={isElevated ? { backgroundColor: 'rgba(184,240,237,0.12)' } : {}}
         >
           <div className={cx("space-y-3", isElevated ? "" : "mb-4")}>
             <p className="text-neutral-500 font-bold uppercase text-[10px] tracking-[0.3em]">{sub}</p>
             <h3 className={cx("font-bold tracking-tight text-neutral-950 leading-tight", isElevated ? "text-2xl md:text-4xl" : "text-xl md:text-2xl")}>{title}</h3>
           </div>
-          <p className="text-neutral-600 leading-relaxed font-medium text-[17px] md:text-base">{body}</p>
+          <p className="text-neutral-600 leading-relaxed text-base">{body}</p>
         </div>
 
         <div className={cx(
           "relative flex flex-col flex-1",
-          isElevated ? "p-5 md:p-10 border-t md:border-t-0 md:border-l border-neutral-100 justify-center" : "mt-6 md:mt-10"
+          isElevated ? "p-4 md:p-10 border-t md:border-t-0 md:border-l border-neutral-100 justify-center" : "mt-5 md:mt-10"
         )}>
-          <div className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-4 md:mb-6">Focus Areas</div>
-          <div className="grid grid-cols-1 gap-3 md:gap-3.5 mb-5 md:mb-6">
+          <div className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 mb-3 md:mb-6">Focus Areas</div>
+          <div className="grid grid-cols-1 gap-3 md:gap-3.5 mb-4 md:mb-6">
             {areas.map(a => (
-              <div key={a} className="flex items-start gap-3 md:gap-4 text-[15px] md:text-sm text-neutral-800">
-                <div className="mt-1 shrink-0" style={{ color: THEME.cta }}>{roadmapAreaIcon(a)("h-4 w-4")}</div>
+              <div key={a} className="flex items-start gap-3 md:gap-4 text-base text-neutral-800">
+                <div className="mt-[7px] shrink-0" style={{ color: THEME.cta }}>{roadmapAreaIcon(a)("h-4 w-4")}</div>
                 <span className="font-bold leading-snug">{a}</span>
               </div>
             ))}
@@ -345,10 +345,10 @@ const RoadmapStepCard = ({ title, sub, body, areas, outcome, variant = "default"
 
       <div className={cx(
         "pt-4 md:pt-5 border-t border-black/[0.05] flex items-center gap-3 mt-auto",
-        isElevated ? "mx-5 md:mx-10 mb-5 md:mb-8" : ""
+        isElevated ? "mx-4 md:mx-10 mb-4 md:mb-8" : ""
       )}>
          <div className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
-         <p className="text-[15px] md:text-sm font-bold text-neutral-800"><span className="text-neutral-400 font-medium">Outcome:</span> {outcome}</p>
+         <p className="text-base font-bold text-neutral-800"><span className="text-neutral-400 font-medium">Outcome:</span> {outcome}</p>
       </div>
     </article>
   );
@@ -419,7 +419,7 @@ export default function App() {
 
       <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-neutral-200/50">
         <Wrap className="py-5 sm:py-6">
-          <div className="flex items-center justify-between gap-10">
+          <div className="flex items-center justify-between gap-10 px-2 sm:px-0">
             <a href="#top" className="flex items-center gap-4 group flex-shrink-0">
               <img src={LOGO_URL} alt="Sprint Assembly" className="h-9 w-9 rounded-xl shadow-sm group-hover:rotate-6 transition-transform" />
               <span className="font-bold tracking-tight text-lg">Sprint Assembly</span>
@@ -460,7 +460,7 @@ export default function App() {
           </div>
 
           <Wrap className="relative z-10">
-            <div className="relative p-5 sm:p-8 lg:p-16 rounded-3xl lg:bg-white/40 lg:backdrop-blur-md lg:ring-1 lg:ring-black/5 lg:shadow-2xl overflow-hidden">
+            <div className="relative p-4 sm:p-8 lg:p-16 rounded-3xl lg:bg-white/40 lg:backdrop-blur-md lg:ring-1 lg:ring-black/5 lg:shadow-2xl overflow-hidden">
               <div className="absolute inset-0 blueprint-grid opacity-20 lg:opacity-50 pointer-events-none" />
               <div className="corner-bracket top-3 lg:top-6 left-3 lg:left-6 border-t-2 border-l-2" />
               <div className="corner-bracket top-3 lg:top-6 right-3 lg:right-6 border-t-2 border-r-2" />
@@ -469,10 +469,10 @@ export default function App() {
 
               <div className="relative z-10">
                 <Eyebrow>The New Standard of Operations</Eyebrow>
-                <h1 className="mt-8 font-black tracking-tight leading-[1.05] text-neutral-950 text-[3.5rem] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl">
+                <h1 className="mt-8 font-black tracking-tight leading-[1.1] text-neutral-950 text-5xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl">
                   <span className="block lg:whitespace-nowrap">From Manual Effort{"\u00A0"}to</span>
                   <span className="inline-block mt-3 lg:mt-2">
-                    <span className="bg-neutral-950 text-white px-4 py-1 box-decoration-clone lg:whitespace-nowrap leading-[1.4]">
+                    <span className="bg-neutral-950 text-white px-3 sm:px-4 py-1 box-decoration-clone lg:whitespace-nowrap leading-[1.4] text-[3.25rem] sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl">
                       Agentic Scale
                     </span>
                   </span>
@@ -537,7 +537,7 @@ export default function App() {
                  <div className="h-px mb-[18px]" style={{ background: "rgba(175,185,117,0.5)" }} />
                  <div className="self-start px-3 py-1 bg-neutral-950 text-white text-[10px] font-black tracking-widest uppercase mb-3.5">{o.tag}</div>
                  <h3 className="text-xl font-bold leading-tight tracking-tight mb-3.5 text-neutral-950">{o.headline}</h3>
-                 <p className="text-neutral-600 leading-relaxed text-sm">{o.body}</p>
+                 <p className="text-neutral-600 leading-relaxed text-base">{o.body}</p>
                </div>
              ))}
            </div>
