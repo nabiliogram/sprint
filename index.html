@@ -351,12 +351,15 @@
       }
 
       /* On mobile the clamp pins h1 at 44px; bump just the accent so the
-         brand phrase carries the emphasis without breaking to a new line. */
+         brand phrase carries the emphasis. Hero + section-title use a
+         mobile-only <br class="mob-br"> to control where lines break. */
+      .mob-br { display: none; }
       @media (max-width: 720px) {
         .hero h1 .accent {
           font-size: clamp(50px, 13.5vw, 60px);
           padding: 0 7px;
         }
+        .mob-br { display: inline; }
       }
 
       .hero-lede {
@@ -1235,7 +1238,7 @@
             <div class="hero-main">
               <div class="hero-eyebrow">The New Standard of Operations</div>
 
-              <h1>From Manual Effort to <span class="accent">Agentic Scale</span></h1>
+              <h1>From<br class="mob-br"> Manual Effort to<br class="mob-br"> <span class="accent">Agentic Scale</span></h1>
 
               <p class="hero-lede">
                 We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals &mdash; across marketing, operations, and customer workflows.
@@ -1311,7 +1314,7 @@
           <div class="section-head">
             <div class="section-eyebrow">Process</div>
             <div class="title-row">
-              <h2 class="section-title">How We <span class="accent">Modernize</span> You</h2>
+              <h2 class="section-title">How We<br class="mob-br"> <span class="accent">Modernize</span> You</h2>
               <p class="section-intro">Three stages, each with standalone value. Together they move your operations from manual effort to agentic scale.</p>
             </div>
           </div>
