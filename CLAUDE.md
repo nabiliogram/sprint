@@ -2,8 +2,8 @@
 
 ## Project quick-reference
 
-- **Stack**: Vite + React + Tailwind CSS; single-page app in `src/App.jsx`.
-- **Workflow**: edit `src/App.jsx` → `vite build` → GitHub Actions deploys to Pages.
+- **Stack**: hand-authored static HTML + inline CSS in `index.html` at repo root. Fonts: Host Grotesk (display/body) + Geist Mono.
+- **Workflow**: edit `index.html` → push to `main` → GitHub Actions runs `vite build` (which effectively just copies `index.html` into `dist/`) and deploys via both `build-site.yml` (gh-pages branch) and `static.yml` (Pages Actions). **The React code in `src/` is abandoned** (`aa7aae1 Ship refined V2 design as static site, drop React app`) — do not waste cycles editing `src/App.jsx`; it is not deployed.
 - **Branch**: `main` (not `master`).
 - **Positioning (post-2026-04-17)**: agentic workflow automation; marketing is a proof point, not the frame.
 
@@ -22,7 +22,7 @@ Two overlapping audiences: enterprise CMOs/marketing VPs evaluating a specialist
 
 Keep and double down on: the warm near-white surface with soft teal + amber radial wash; mossy green `#afb975` as the single sparingly-used accent; the black-highlight treatment on section titles (`bg-neutral-950 px-4 py-1 text-white` with `box-decoration-clone`); sharp-cornered buttons (`rounded-sm`) paired with softer cards (`rounded-2xl`); wide-tracked uppercase eyebrows; the custom-card LinkedIn insights section.
 
-Upgrade: typography (body currently uses Inter from `src/index.css` — biggest open lever; reject the reflex fonts like Inter, IBM Plex, Fraunces, Instrument, DM Sans, Space Grotesk and audition faces with genuine opinion); line-length discipline (~65–75ch body); rhythmic rather than uniform spacing; sharper hierarchy contrast between type steps.
+Upgrade: typography (currently Host Grotesk + Geist Mono via Google Fonts, loaded from the `<link>` in `index.html`); line-length discipline (~65–75ch body); rhythmic rather than uniform spacing; sharper hierarchy contrast between type steps.
 
 Theme: **light.** Dark would contradict the unfussy, pragmatic positioning.
 
@@ -39,8 +39,10 @@ Must NOT look like: consultancy grey; AI-startup futurism (dark mode, neon, mesh
 
 Design Health Score baseline: **27/40** (Acceptable). Working through in sequence, each with Nabil's review gate:
 
-- [x] Step 0 — Verify copy reframe landed in `App.jsx`
-- [ ] Step 1 — `/typeset`: replace Inter, install display/body pair
-- [ ] Step 2a — `/layout`: relocate LinkedIn carousel, remove the `borderLeft: 3px solid` that got added during the 2026-04-17 rewrite
-- [ ] Step 2b — `/layout`: redesign Opportunity 3-card grid
-- [ ] Step 3 — `/adapt` + `/polish`: mobile corner-brackets + blueprint-grid, hero h1 size inversion at `lg`, italic pruning, `bg-black` → `bg-neutral-950`, `index.html` metadata refresh, radius consolidation
+(Most of this queue was authored when the site still ran on React. Since the 2026-04-19 static rewrite, individual items have been absorbed into `index.html` or are stale. Revisit before acting on any row.)
+
+- [x] Step 0 — Verify copy reframe landed
+- [ ] Step 1 — typography pair (Host Grotesk shipped; evaluate further)
+- [ ] Step 2a — LinkedIn carousel placement
+- [ ] Step 2b — Opportunity 3-card grid
+- [ ] Step 3 — mobile polish (partially shipped 2026-04-20)

@@ -150,7 +150,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 18px 0;
+        padding-top: 18px;
+        padding-bottom: 18px;
         gap: 24px;
       }
 
@@ -284,7 +285,7 @@
 
       /* ---------- Hero ---------- */
       .hero {
-        padding: clamp(48px, 6vw, 80px) 0 clamp(40px, 5vw, 64px);
+        padding: clamp(20px, 6vw, 80px) 0 clamp(40px, 5vw, 64px);
       }
 
       .hero-inner {
@@ -313,7 +314,7 @@
         text-transform: uppercase;
         color: var(--ink-3);
         font-weight: 500;
-        margin-bottom: clamp(20px, 3vw, 32px);
+        margin-bottom: clamp(14px, 3vw, 32px);
         display: flex;
         align-items: center;
         gap: 12px;
@@ -347,6 +348,15 @@
         transform: skew(-2deg);
         display: inline-block;
         white-space: nowrap;
+      }
+
+      /* On mobile the clamp pins h1 at 44px; bump just the accent so the
+         brand phrase carries the emphasis without breaking to a new line. */
+      @media (max-width: 720px) {
+        .hero h1 .accent {
+          font-size: clamp(50px, 13.5vw, 60px);
+          padding: 0 7px;
+        }
       }
 
       .hero-lede {
@@ -649,15 +659,17 @@
 
       .phase-sidebar {
         background: var(--paper-3);
-        padding: 20px 22px;
+        padding: 14px 16px;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         border-bottom: 1px solid var(--rule-soft);
       }
 
       @media (min-width: 820px) {
         .phase-sidebar {
+          padding: 20px 22px;
+          gap: 10px;
           border-bottom: 0;
           border-right: 1px solid var(--rule-soft);
         }
@@ -705,8 +717,12 @@
       .phase-body-row {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 20px 22px;
+        gap: 14px;
+        padding: 14px 16px;
+      }
+
+      @media (min-width: 820px) {
+        .phase-body-row { gap: 18px; padding: 20px 22px; }
       }
 
       @media (min-width: 760px) {
@@ -719,8 +735,8 @@
       .phase-body { align-self: center; }
 
       .phase-body p {
-        font-size: 13.5px;
-        line-height: 1.55;
+        font-size: 15px;
+        line-height: 1.6;
         color: var(--ink-2);
         max-width: 60ch;
       }
@@ -743,8 +759,8 @@
       }
 
       .phase-areas li {
-        font-size: 13px;
-        line-height: 1.4;
+        font-size: 15px;
+        line-height: 1.45;
         color: var(--ink);
         font-weight: 500;
         display: grid;
@@ -765,12 +781,12 @@
       .phase-outcome {
         background: rgba(175, 185, 117, 0.1);
         border-top: 1px solid var(--rule-soft);
-        padding: 14px 22px;
+        padding: 12px 16px;
         display: grid;
         grid-template-columns: 1fr;
         gap: 4px;
-        font-size: 13px;
-        line-height: 1.5;
+        font-size: 15px;
+        line-height: 1.55;
         color: var(--ink);
         font-weight: 500;
         margin-top: auto;
@@ -1174,7 +1190,7 @@
 
       .footer-row {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         flex-wrap: wrap;
         gap: 16px;
@@ -1569,7 +1585,6 @@
 
     <footer class="site">
       <div class="wrap footer-row">
-        <span>Sprint Assembly</span>
         <span>&copy; 2026 Sprint Assembly</span>
       </div>
     </footer>
