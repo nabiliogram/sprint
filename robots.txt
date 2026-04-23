@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /preview-b.html
+
+Sitemap: https://sprintassembly.com/sitemap.xml
