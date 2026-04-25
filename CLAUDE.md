@@ -2,10 +2,22 @@
 
 ## Project quick-reference
 
+- **Workspace path (CRITICAL)**: the live repo is at `~/Desktop/SPRINT ASSEMBLY WEBSITE/` (parent folder). The empty `SprintAssembly Web (NEW)/` subfolder is **not** the project — ignore it / never mount it. If a session opens against the empty subfolder, immediately call `request_cowork_directory` with `~/Desktop/SPRINT ASSEMBLY WEBSITE` before doing anything else. Do not ask the user where the files are.
 - **Stack**: hand-authored static HTML + inline CSS in `index.html` at repo root. Fonts: Host Grotesk (display/body) + Geist Mono.
 - **Workflow**: edit `index.html` → push to `main` → GitHub Actions runs `vite build` (which effectively just copies `index.html` into `dist/`) and deploys via both `build-site.yml` (gh-pages branch) and `static.yml` (Pages Actions). **The React code in `src/` is abandoned** (`aa7aae1 Ship refined V2 design as static site, drop React app`) — do not waste cycles editing `src/App.jsx`; it is not deployed.
 - **Branch**: `main` (not `master`).
+- **Push**: must happen from the user's Mac terminal (`cd ~/Desktop/SPRINT\ ASSEMBLY\ WEBSITE && git push origin main`). The sandbox has no GitHub credentials.
 - **Positioning (post-2026-04-17)**: agentic workflow automation; marketing is a proof point, not the frame.
+
+## LinkedIn carousel — adding a new post
+
+When the user drops a LinkedIn post URL to add to the Insights carousel:
+1. WebFetch the URL, extract the post body from `og:description`.
+2. Build an HTML preview card in the outputs folder so the user can sanity-check the trim before commit; send a `computer://` link.
+3. After approval, edit `index.html`: the carousel lives in `<div class="carousel" id="carousel">` (~line 1482). Insert the new card as the **first** child (newest at top). Each card is an `<a class="insight-card">` with a `top` row (`date` + `marker // L-NNN`), `<h4>` headline, `<p>` 2–3-sentence body ending in `&hellip;`, and a `more` row. Bump the marker by one (last shipped is `L-010` as of 2026-04-25).
+4. Body length target: ~200–280 chars. Use HTML entities (`&mdash;`, `&rsquo;`, `&hellip;`) consistently with neighbours.
+5. Image support is not yet wired into the schema (decided 2026-04-22 to defer); cards remain text-only for now.
+6. Don't push — instruct the user to run the terminal push command from `~/Desktop/SPRINT\ ASSEMBLY\ WEBSITE`.
 
 ## Design Context
 
