@@ -80,9 +80,9 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
-    body { background: #f5f3ee; }
 
-    .b-root {
+    /* Design tokens — promoted to :root so any element on the page can use them */
+    :root {
       --b-bg:        #f5f3ee;
       --b-bg-2:      #ece9e1;
       --b-bg-3:      #e2dfd5;
@@ -104,7 +104,10 @@
       /* Content width cap: backgrounds/borders stay full-bleed, content centers in ≤1000px */
       --b-max:       1000px;
       --b-pad-x:     max(40px, calc((100% - var(--b-max)) / 2));
+    }
+    body { background: var(--b-bg); }
 
+    .b-root {
       background: var(--b-bg);
       color: var(--b-text);
       font-family: var(--b-sans);
@@ -230,6 +233,11 @@
       transition: border-color .25s, background .25s;
     }
     .b-nav-burger:hover { border-color: var(--b-text-2); background: color-mix(in oklab, var(--b-bg) 92%, var(--b-text) 8%); }
+    .b-nav-burger[aria-expanded="true"] {
+      border-color: var(--b-accent);
+      background: color-mix(in oklab, var(--b-accent) 12%, var(--b-bg));
+      color: var(--b-accent);
+    }
     .b-burger-icon { width: 18px; height: 18px; display: inline-block; }
     .b-burger-close { display: none; }
     .b-nav-burger[aria-expanded="true"] .b-burger-open { display: none; }
@@ -245,10 +253,18 @@
       padding: 8px var(--b-pad-x) 18px;
       z-index: 49;
       transform: translateY(-110%);
-      transition: transform .3s cubic-bezier(.2,.7,.2,1);
+      visibility: hidden;
+      pointer-events: none;
+      /* When closing: visibility hides AFTER the slide-out completes. When opening: visibility flips immediately so focus can move in. */
+      transition: transform .3s cubic-bezier(.2,.7,.2,1), visibility 0s linear .3s;
       box-shadow: 0 10px 24px rgba(20, 18, 14, 0.06);
     }
-    .b-mobile-menu[data-open="true"] { transform: translateY(0); }
+    .b-mobile-menu[data-open="true"] {
+      transform: translateY(0);
+      visibility: visible;
+      pointer-events: auto;
+      transition: transform .3s cubic-bezier(.2,.7,.2,1), visibility 0s linear 0s;
+    }
     .b-mobile-menu a {
       display: flex; align-items: baseline; gap: 12px;
       padding: 14px 4px;
@@ -855,7 +871,22 @@
       .b-nav-links { display: none; }
       .b-nav-burger { display: inline-flex; }
       .b-mobile-menu { display: block; }
-      .b-h1 { white-space: normal; font-size: clamp(44px, 11vw, 72px); }
+      /* Hero — mobile-only restructure: drop "to", give "Agentic Scale" its own block at hero scale */
+      .b-h1 {
+        white-space: normal;
+        /* Maxed to fill the line at typical mobile widths without wrapping "From Manual Effort" */
+        font-size: clamp(30px, 9vw, 60px);
+        line-height: 1.0;
+      }
+      .b-h1-conn { display: none; }
+      .b-h1-accent {
+        display: block;
+        font-size: clamp(48px, 13vw, 80px);
+        font-weight: 600;
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+        margin-top: 8px;
+      }
       .b-hero-bottom { grid-template-columns: 1fr; gap: 24px; }
       .b-fnote-inner { grid-template-columns: 1fr; gap: 16px; }
       /* Founders' logos: shrink so all 5 + label fit on a single line at 360-768px */
@@ -922,12 +953,12 @@
 
         <h1 class="b-h1 b-reveal">
           <span>From Manual Effort</span><br/>
-          <span>to <span class="b-h1-accent">Agentic Scale.</span></span>
+          <span><span class="b-h1-conn">to </span><span class="b-h1-accent">Agentic Scale.</span></span>
         </h1>
 
         <div class="b-hero-bottom">
           <div class="b-hero-body b-reveal">
-            <p>We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals &mdash; across marketing, operations, and customer workflows.</p>
+            <p>We replace your manual operational work with AI agents that make decisions and act in real time &mdash; across marketing, customer success, and revenue. The result: a business that scales on systems, not headcount.</p>
           </div>
           <div class="b-hero-cta-col b-reveal">
             <a href="#contact" class="b-cta">
@@ -1271,7 +1302,7 @@
           <h2 class="b-h2 b-contact-title">Ready to Modernize?</h2>
         </div>
         <div class="b-contact-right">
-          <p class="b-contact-body">Modernizing your business begins with a conversation. We&rsquo;re available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to agentic scale. We&rsquo;ll provide an objective assessment of your modernization potential to help you determine the most effective next step.</p>
+          <p class="b-contact-body">Book a 30-minute diagnostic call. We&rsquo;ll map your highest-ROI automation opportunities, recommend the one to build first, and tell you what it would take to ship. No deck, no obligation.</p>
           <div class="b-contact-direct">
             <div class="b-contact-direct-label">// Direct line</div>
             <div class="b-contact-direct-line">
