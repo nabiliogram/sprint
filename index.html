@@ -873,7 +873,7 @@
       .b-nav-links { display: none; }
       .b-nav-burger { display: inline-flex; }
       .b-mobile-menu { display: block; }
-      /* Hero — mobile-only restructure: 3 lines, same size, breaks at "From / Manual Effort to / Agentic Scale." */
+      /* Hero — mobile-only restructure: 3 lines, line 3 is the hero moment */
       .b-h1 {
         white-space: normal;
         font-size: clamp(32px, 9.5vw, 58px);
@@ -881,6 +881,15 @@
       }
       .b-h1-desktop { display: none; }
       .b-h1-mobile  { display: inline; }
+      /* Line 3 — "Agentic Scale." gets the hero-scream treatment */
+      .b-h1-mobile .b-h1-accent {
+        display: block;
+        font-size: clamp(44px, 12.5vw, 88px);
+        font-weight: 600;
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+        margin-top: 6px;
+      }
       .b-hero-bottom { grid-template-columns: 1fr; gap: 24px; }
       .b-fnote-inner { grid-template-columns: 1fr; gap: 16px; }
       /* Founders' logos: shrink so all 5 + label fit on a single line at 360-768px */
