@@ -141,6 +141,8 @@
       white-space: nowrap;
     }
     .b-h1-accent { color: var(--b-accent); font-weight: 500; }
+    /* Mobile-only span shown via media query below */
+    .b-h1-mobile { display: none; }
 
     .b-h2 {
       font-family: var(--b-display);
@@ -871,22 +873,14 @@
       .b-nav-links { display: none; }
       .b-nav-burger { display: inline-flex; }
       .b-mobile-menu { display: block; }
-      /* Hero — mobile-only restructure: drop "to", give "Agentic Scale" its own block at hero scale */
+      /* Hero — mobile-only restructure: 3 lines, same size, breaks at "From / Manual Effort to / Agentic Scale." */
       .b-h1 {
         white-space: normal;
-        /* Maxed to fill the line at typical mobile widths without wrapping "From Manual Effort" */
-        font-size: clamp(30px, 9vw, 60px);
-        line-height: 1.0;
+        font-size: clamp(32px, 9.5vw, 58px);
+        line-height: 1.05;
       }
-      .b-h1-conn { display: none; }
-      .b-h1-accent {
-        display: block;
-        font-size: clamp(48px, 13vw, 80px);
-        font-weight: 600;
-        line-height: 0.95;
-        letter-spacing: -0.035em;
-        margin-top: 8px;
-      }
+      .b-h1-desktop { display: none; }
+      .b-h1-mobile  { display: inline; }
       .b-hero-bottom { grid-template-columns: 1fr; gap: 24px; }
       .b-fnote-inner { grid-template-columns: 1fr; gap: 16px; }
       /* Founders' logos: shrink so all 5 + label fit on a single line at 360-768px */
@@ -952,8 +946,8 @@
         </div>
 
         <h1 class="b-h1 b-reveal">
-          <span>From Manual Effort</span><br/>
-          <span><span class="b-h1-conn">to </span><span class="b-h1-accent">Agentic Scale.</span></span>
+          <span class="b-h1-desktop">From Manual Effort<br/>to <span class="b-h1-accent">Agentic Scale.</span></span>
+          <span class="b-h1-mobile">From<br/>Manual Effort to<br/><span class="b-h1-accent">Agentic Scale.</span></span>
         </h1>
 
         <div class="b-hero-bottom">
