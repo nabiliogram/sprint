@@ -873,22 +873,31 @@
       .b-nav-links { display: none; }
       .b-nav-burger { display: inline-flex; }
       .b-mobile-menu { display: block; }
-      /* Hero — mobile-only restructure: 3 lines, line 3 is the hero moment */
-      .b-h1 {
-        white-space: normal;
-        font-size: clamp(32px, 9.5vw, 58px);
-        line-height: 1.05;
-      }
+      /* Hero — mobile-only restructure: tight setup + split scream accent */
+      .b-h1 { white-space: normal; line-height: 1.0; }
       .b-h1-desktop { display: none; }
-      .b-h1-mobile  { display: inline; }
-      /* Line 3 — "Agentic Scale." gets the hero-scream treatment */
+      .b-h1-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      /* Setup line — small, neutral; sets up the scream */
+      .b-h1-mobile .b-h1-prefix {
+        font-size: clamp(18px, 5.5vw, 32px);
+        font-weight: 500;
+        color: var(--b-text);
+        letter-spacing: -0.01em;
+        line-height: 1.1;
+        margin-bottom: 6px;
+      }
+      /* "Agentic" and "Scale." each on its own line at hero-scream scale */
       .b-h1-mobile .b-h1-accent {
         display: block;
-        font-size: clamp(44px, 12.5vw, 88px);
+        font-size: clamp(56px, 20vw, 96px);
         font-weight: 600;
-        line-height: 0.95;
+        line-height: 0.92;
         letter-spacing: -0.04em;
-        margin-top: 6px;
       }
       .b-hero-bottom { grid-template-columns: 1fr; gap: 24px; }
       .b-fnote-inner { grid-template-columns: 1fr; gap: 16px; }
@@ -956,7 +965,11 @@
 
         <h1 class="b-h1 b-reveal">
           <span class="b-h1-desktop">From Manual Effort<br/>to <span class="b-h1-accent">Agentic Scale.</span></span>
-          <span class="b-h1-mobile">From<br/>Manual Effort to<br/><span class="b-h1-accent">Agentic Scale.</span></span>
+          <span class="b-h1-mobile">
+            <span class="b-h1-prefix">From Manual Effort to</span>
+            <span class="b-h1-accent">Agentic</span>
+            <span class="b-h1-accent">Scale.</span>
+          </span>
         </h1>
 
         <div class="b-hero-bottom">

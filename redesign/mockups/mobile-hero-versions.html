@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobile hero — distribution variations (v2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --b-bg:      #f5f3ee;
+      --b-bg-2:    #ece9e1;
+      --b-line:    rgba(20, 18, 14, 0.10);
+      --b-line-2:  rgba(20, 18, 14, 0.18);
+      --b-text:    #15130f;
+      --b-text-2:  rgba(21, 19, 15, 0.72);
+      --b-text-3:  rgba(21, 19, 15, 0.5);
+      --b-text-4:  rgba(21, 19, 15, 0.35);
+      --b-accent:  #6f7340;
+      --b-display: "Geist", system-ui, sans-serif;
+      --b-mono:    "Geist Mono", monospace;
+    }
+
+    body { background: var(--b-bg-2); font-family: "Geist", system-ui, sans-serif; color: var(--b-text); -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 56px 40px 96px; }
+    .page > h1 { font-family: var(--b-display); font-weight: 600; font-size: 32px; letter-spacing: -0.018em; margin: 0 0 8px; }
+    .page > .lede { color: var(--b-text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 32px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+
+    .version { display: flex; flex-direction: column; gap: 14px; }
+    .version-meta { display: flex; align-items: baseline; gap: 12px; }
+    .version-id {
+      font-family: var(--b-mono);
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--b-accent);
+    }
+    .version-name {
+      font-family: var(--b-display);
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: -0.012em;
+    }
+    .version-desc {
+      font-size: 13px;
+      color: var(--b-text-2);
+      line-height: 1.5;
+    }
+    .version-math {
+      font-family: var(--b-mono);
+      font-size: 11px;
+      color: var(--b-text-3);
+      line-height: 1.5;
+      padding: 8px 12px;
+      background: var(--b-bg);
+      border: 1px dashed var(--b-line-2);
+      border-radius: 4px;
+      margin: 4px 0 8px;
+    }
+
+    /* iPhone-width frame (390px) — every measurement below is calibrated for this */
+    .phone {
+      width: 390px;
+      max-width: 100%;
+      background: var(--b-bg);
+      border: 1px solid var(--b-line-2);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(20, 18, 14, 0.06);
+    }
+    .phone-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--b-line);
+    }
+    .phone-logo {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--b-display);
+      font-weight: 500;
+      font-size: 13px;
+    }
+    .phone-logo-mark {
+      width: 22px; height: 22px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #afb975, #6f7340);
+      color: #eeffcb;
+      font-family: var(--b-display);
+      font-weight: 700;
+      font-size: 10px;
+      display: inline-flex; align-items: center; justify-content: center;
+      letter-spacing: -0.05em;
+    }
+    .phone-burger {
+      width: 28px; height: 28px;
+      border: 1px solid var(--b-line-2);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .phone-burger span { display: block; width: 12px; height: 1px; background: var(--b-text); position: relative; }
+    .phone-burger span::before, .phone-burger span::after {
+      content: ""; position: absolute; left: 0; width: 12px; height: 1px; background: var(--b-text);
+    }
+    .phone-burger span::before { top: -4px; }
+    .phone-burger span::after  { top:  4px; }
+    .phone-cta-pill {
+      padding: 6px 12px;
+      background: var(--b-accent);
+      color: #fff;
+      border-radius: 999px;
+      font-family: var(--b-display);
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .phone-nav-right { display: inline-flex; align-items: center; gap: 8px; }
+
+    .phone-hero {
+      padding: 28px 20px 36px;
+    }
+    .phone-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--b-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--b-text-3);
+      margin-bottom: 20px;
+    }
+    .phone-eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--b-accent); }
+
+    .phone-h1 {
+      font-family: var(--b-display);
+      margin: 0 0 24px;
+      letter-spacing: -0.025em;
+    }
+
+    .phone-body {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--b-text-2);
+      margin: 0 0 18px;
+    }
+    .phone-cta-large {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      background: var(--b-accent);
+      color: #fff;
+      border-radius: 999px;
+      font-family: var(--b-display);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  VERSION A — Tight setup + SPLIT accent ("scream")
+     *  "From Manual Effort to" small, then "Agentic" / "Scale." each on its own line, BIG.
+     *  Math on 350px content:
+     *    "From Manual Effort to" (21ch × 0.5 × 22px) = 231px ✓
+     *    "Agentic" (7ch × 0.55 × 80px) = 308px ✓
+     *    "Scale." (6ch × 0.55 × 80px) = 264px ✓
+     * ════════════════════════════════════════════════════════ */
+    .v-A .phone-h1 { display: flex; flex-direction: column; gap: 4px; line-height: 1.0; }
+    .v-A .phone-h1-prefix {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--b-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .v-A .phone-h1-accent-1,
+    .v-A .phone-h1-accent-2 {
+      display: block;
+      font-size: 80px;
+      font-weight: 600;
+      color: var(--b-accent);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  VERSION B — Current state (3 lines, single-line accent)
+     *  Math on 350px content:
+     *    "From" (4 × 0.5 × 37) = 74px ✓
+     *    "Manual Effort to" (16 × 0.5 × 37) = 296px ✓
+     *    "Agentic Scale." (14 × 0.5 × 49) = 343px — fits, just barely
+     * ════════════════════════════════════════════════════════ */
+    .v-B .phone-h1 { display: flex; flex-direction: column; gap: 4px; line-height: 1.05; }
+    .v-B .phone-h1-prefix {
+      font-size: 37px;
+      font-weight: 600;
+      color: var(--b-text);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .v-B .phone-h1-accent {
+      display: block;
+      font-size: 49px;
+      font-weight: 600;
+      color: var(--b-accent);
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+      margin-top: 6px;
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  VERSION C — Compact 2-liner (single-line accent, max-fit)
+     *  Setup at hero size, accent at max single-line size.
+     *  Math on 350px content:
+     *    "From Manual Effort to" (21 × 0.5 × 30) = 315px ✓
+     *    "Agentic Scale." (14 × 0.5 × 50) = 350px — at the limit, swap to nbsp to keep on one line
+     * ════════════════════════════════════════════════════════ */
+    .v-C .phone-h1 { display: flex; flex-direction: column; gap: 6px; line-height: 1.0; }
+    .v-C .phone-h1-prefix {
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--b-text);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .v-C .phone-h1-accent {
+      display: block;
+      font-size: 50px;
+      font-weight: 600;
+      color: var(--b-accent);
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  VERSION D — Word stack with split scream accent
+     *  Math on 350px content:
+     *    "From" (4 × 0.5 × 30) = 60px ✓
+     *    "Manual Effort" (13 × 0.5 × 30) = 195px ✓
+     *    "to" (2 × 0.5 × 18) = 18px ✓
+     *    "Agentic" (7 × 0.55 × 72) = 277px ✓
+     *    "Scale." (6 × 0.55 × 72) = 238px ✓
+     * ════════════════════════════════════════════════════════ */
+    .v-D .phone-h1 { display: flex; flex-direction: column; line-height: 1.0; }
+    .v-D .phone-h1-from,
+    .v-D .phone-h1-manual {
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--b-text);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .v-D .phone-h1-conn {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--b-text-3);
+      margin: 6px 0 4px;
+    }
+    .v-D .phone-h1-accent-1,
+    .v-D .phone-h1-accent-2 {
+      display: block;
+      font-size: 72px;
+      font-weight: 600;
+      color: var(--b-accent);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+    }
+
+    .commentary {
+      margin-top: 56px;
+      padding: 20px 24px;
+      background: var(--b-bg);
+      border: 1px solid var(--b-line-2);
+      border-radius: 8px;
+      color: var(--b-text-2);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .commentary strong { color: var(--b-text); font-family: var(--b-display); }
+    .commentary code { font-family: var(--b-mono); color: var(--b-accent); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Mobile hero &mdash; distribution variations (v2)</h1>
+    <p class="lede">Each version below has been math-checked to fit on a 390px iPhone screen. The big-scream versions split <em>"Agentic Scale."</em> onto two lines, which is what unlocks the larger sizes.</p>
+
+    <div class="grid">
+
+      <!-- ═════════ A — Tight setup + Split scream ═════════ -->
+      <div class="version">
+        <div class="version-meta">
+          <span class="version-id">A</span>
+          <span class="version-name">Tight setup + split scream</span>
+        </div>
+        <div class="version-desc">Small neutral setup line, then "Agentic" and "Scale." each on its own line at 80px sage. Splitting the accent unlocks the screaming size that wouldn't fit on one line.</div>
+        <div class="version-math">From Manual Effort to · 22px · 231px wide ✓ &nbsp; / &nbsp; Agentic · 80px · 308px ✓ &nbsp; / &nbsp; Scale. · 80px · 264px ✓</div>
+        <div class="phone v-A">
+          <div class="phone-nav">
+            <div class="phone-logo">
+              <span class="phone-logo-mark">SA</span>
+              <span>Sprint Assembly</span>
+            </div>
+            <div class="phone-nav-right">
+              <div class="phone-burger"><span></span></div>
+              <div class="phone-cta-pill">Book Call</div>
+            </div>
+          </div>
+          <div class="phone-hero">
+            <div class="phone-eyebrow">The New Standard of Operations</div>
+            <h2 class="phone-h1">
+              <span class="phone-h1-prefix">From Manual Effort to</span>
+              <span class="phone-h1-accent-1">Agentic</span>
+              <span class="phone-h1-accent-2">Scale.</span>
+            </h2>
+            <p class="phone-body">We replace your manual operational work with AI agents that make decisions and act in real time &mdash; across marketing, customer success, and revenue.</p>
+            <a class="phone-cta-large">Book Call &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════════ B — Current state ═════════ -->
+      <div class="version">
+        <div class="version-meta">
+          <span class="version-id">B</span>
+          <span class="version-name">Current state</span>
+        </div>
+        <div class="version-desc">What's currently shipping. Single-line accent at 49px. Modest 1.3× hierarchy. Reference for comparison.</div>
+        <div class="version-math">From / Manual Effort to · 37px · ≤296px ✓ &nbsp; / &nbsp; Agentic Scale. · 49px · 343px ✓ (tight)</div>
+        <div class="phone v-B">
+          <div class="phone-nav">
+            <div class="phone-logo">
+              <span class="phone-logo-mark">SA</span>
+              <span>Sprint Assembly</span>
+            </div>
+            <div class="phone-nav-right">
+              <div class="phone-burger"><span></span></div>
+              <div class="phone-cta-pill">Book Call</div>
+            </div>
+          </div>
+          <div class="phone-hero">
+            <div class="phone-eyebrow">The New Standard of Operations</div>
+            <h2 class="phone-h1">
+              <span class="phone-h1-prefix">From<br/>Manual Effort to</span>
+              <span class="phone-h1-accent">Agentic Scale.</span>
+            </h2>
+            <p class="phone-body">We replace your manual operational work with AI agents that make decisions and act in real time &mdash; across marketing, customer success, and revenue.</p>
+            <a class="phone-cta-large">Book Call &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════════ C — Compact 2-liner ═════════ -->
+      <div class="version">
+        <div class="version-meta">
+          <span class="version-id">C</span>
+          <span class="version-name">Compact 2-liner</span>
+        </div>
+        <div class="version-desc">Setup phrase on one line, accent on one line. Cleanest two-line hero shape. No split needed because both phrases fit at their target sizes.</div>
+        <div class="version-math">From Manual Effort to · 30px · 315px ✓ &nbsp; / &nbsp; Agentic Scale. · 50px · ~350px (max single-line)</div>
+        <div class="phone v-C">
+          <div class="phone-nav">
+            <div class="phone-logo">
+              <span class="phone-logo-mark">SA</span>
+              <span>Sprint Assembly</span>
+            </div>
+            <div class="phone-nav-right">
+              <div class="phone-burger"><span></span></div>
+              <div class="phone-cta-pill">Book Call</div>
+            </div>
+          </div>
+          <div class="phone-hero">
+            <div class="phone-eyebrow">The New Standard of Operations</div>
+            <h2 class="phone-h1">
+              <span class="phone-h1-prefix">From Manual Effort to</span>
+              <span class="phone-h1-accent">Agentic&nbsp;Scale.</span>
+            </h2>
+            <p class="phone-body">We replace your manual operational work with AI agents that make decisions and act in real time &mdash; across marketing, customer success, and revenue.</p>
+            <a class="phone-cta-large">Book Call &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════════ D — Word stack + Split scream ═════════ -->
+      <div class="version">
+        <div class="version-meta">
+          <span class="version-id">D</span>
+          <span class="version-name">Word stack + split scream</span>
+        </div>
+        <div class="version-desc">Each major word on its own line. "to" muted as a tiny connector. "Agentic" / "Scale." each on its own line at hero size. Most distinctive shape.</div>
+        <div class="version-math">From / Manual Effort · 30px ✓ &nbsp; / &nbsp; to · 18px muted ✓ &nbsp; / &nbsp; Agentic · 72px · 277px ✓ &nbsp; / &nbsp; Scale. · 72px · 238px ✓</div>
+        <div class="phone v-D">
+          <div class="phone-nav">
+            <div class="phone-logo">
+              <span class="phone-logo-mark">SA</span>
+              <span>Sprint Assembly</span>
+            </div>
+            <div class="phone-nav-right">
+              <div class="phone-burger"><span></span></div>
+              <div class="phone-cta-pill">Book Call</div>
+            </div>
+          </div>
+          <div class="phone-hero">
+            <div class="phone-eyebrow">The New Standard of Operations</div>
+            <h2 class="phone-h1">
+              <span class="phone-h1-from">From</span>
+              <span class="phone-h1-manual">Manual Effort</span>
+              <span class="phone-h1-conn">to</span>
+              <span class="phone-h1-accent-1">Agentic</span>
+              <span class="phone-h1-accent-2">Scale.</span>
+            </h2>
+            <p class="phone-body">We replace your manual operational work with AI agents that make decisions and act in real time &mdash; across marketing, customer success, and revenue.</p>
+            <a class="phone-cta-large">Book Call &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="commentary">
+      <strong>The constraint:</strong> at iPhone width (350px content area), "Agentic Scale." caps at ~50px on one line. To get bigger than that, we have to split it.
+      <br/><br/>
+      <strong>My read:</strong>
+      <ul style="margin: 12px 0 12px 18px; padding: 0; color: var(--b-text-2);">
+        <li><code>A</code> &mdash; biggest scream. "Agentic" and "Scale." each at 80px is roughly 4× the size of the setup line. Hero unmistakable.</li>
+        <li><code>B</code> &mdash; what's live. Won't get bigger without splitting.</li>
+        <li><code>C</code> &mdash; cleanest classic 2-line hero. Less dramatic than A but well-balanced.</li>
+        <li><code>D</code> &mdash; most editorial. Five-line shape, big scream at the end. Tall but distinctive.</li>
+      </ul>
+      <strong>Reply with</strong> <code>go A</code> / <code>go B</code> / <code>go C</code> / <code>go D</code>.
+    </div>
+  </div>
+</body>
+</html>
