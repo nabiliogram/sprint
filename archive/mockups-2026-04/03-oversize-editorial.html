@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Assembly — V3 Oversize Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --moss: #afb975;
+    --moss-deep: #7e8a4d;
+    --moss-bg: #c2cd84;
+    --moss-shade: #1f2310;
+    --ink: #0a0a08;
+    --ink-2: #2c2a26;
+    --ink-3: #5a5650;
+    --ink-4: #888378;
+    --paper: #f7f1de;
+    --paper-2: #efe6c8;
+    --paper-edge: #e6dcb6;
+    --rule: rgba(10, 10, 8, 0.16);
+    --rule-soft: rgba(10, 10, 8, 0.08);
+    --teal: rgba(184, 240, 237, 0.28);
+    --amber: rgba(255, 220, 140, 0.18);
+
+    --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    --body: "Onest", -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --gutter: clamp(20px, 4vw, 64px);
+    --max: 1440px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    background:
+      radial-gradient(1100px circle at 4% -8%, var(--teal), transparent 55%),
+      radial-gradient(900px circle at 100% 8%, var(--amber), transparent 60%),
+      var(--paper);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--moss); color: var(--moss-shade); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* ---------- Mockup banner ---------- */
+  .mockup-banner {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 0;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .mockup-banner .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .mockup-banner a { color: var(--moss); border-bottom: 1px solid var(--moss); padding-bottom: 1px; }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 241, 222, 0.8);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .site-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 0;
+  }
+
+  .site-mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .site-mark .glyph {
+    width: 36px;
+    height: 36px;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid;
+    place-items: center;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.04em;
+  }
+
+  .site-mark .name {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .site-nav a {
+    font-family: var(--body);
+    font-size: 14px;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+
+  .site-nav a:hover { color: var(--ink); }
+
+  .site-cta {
+    background: var(--ink);
+    color: var(--paper) !important;
+    padding: 12px 22px;
+    font-weight: 600 !important;
+    border-radius: 999px;
+  }
+  .site-cta:hover { background: var(--moss-deep); }
+
+  @media (max-width: 720px) {
+    .site-nav a:not(.site-cta) { display: none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: clamp(56px, 8vw, 144px) 0 clamp(40px, 5vw, 80px);
+    position: relative;
+  }
+
+  .hero-eyebrow-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: clamp(40px, 5vw, 72px);
+    flex-wrap: wrap;
+  }
+
+  .hero-num {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(56px, 7vw, 110px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+
+  .hero-num .slash {
+    color: var(--moss-deep);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .hero-eyebrow .pre {
+    color: var(--moss-deep);
+    margin-right: 6px;
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(64px, 12.5vw, 220px);
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    margin-bottom: clamp(40px, 5vw, 64px);
+    font-feature-settings: "ss01";
+  }
+
+  .hero h1 .line-1 { display: block; }
+  .hero h1 .line-2 {
+    display: block;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--moss-deep);
+    margin-top: -0.04em;
+    padding-left: clamp(40px, 6vw, 110px);
+  }
+  .hero h1 .marker {
+    display: inline-block;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    padding: 0 clamp(18px, 2vw, 36px);
+    color: var(--ink);
+    font-style: normal;
+    font-weight: 800;
+    transform: rotate(-1deg);
+  }
+
+  .hero-deck {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+
+  @media (min-width: 900px) {
+    .hero-deck { grid-template-columns: 1fr 1.4fr; }
+  }
+
+  .hero-cta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 320px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 22px 28px;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: background 200ms ease, transform 200ms ease;
+    gap: 18px;
+  }
+  .hero-cta:hover { background: var(--moss-deep); transform: translateX(-4px); }
+  .hero-cta .arrow { font-size: 24px; line-height: 1; }
+
+  .hero-cta-meta {
+    font-family: var(--body);
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .hero-lede {
+    font-size: clamp(20px, 1.7vw, 26px);
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 38ch;
+    font-weight: 400;
+    font-family: var(--body);
+  }
+
+  .hero-quote-strip {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: clamp(40px, 4vw, 56px);
+    border-top: 2px solid var(--ink);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .hero-quote-strip { grid-template-columns: 2fr 1fr; gap: 56px; }
+  }
+
+  .hero-quote {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 1.8vw, 28px);
+    line-height: 1.35;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+
+  .hero-logos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-logos .label {
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 700;
+  }
+
+  .hero-logos .logos {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .hero-logos img {
+    height: 18px;
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.6;
+  }
+  .hero-logos img.wm { height: 20px; }
+
+  /* ---------- Section frame ---------- */
+  section.spread {
+    padding: clamp(80px, 10vw, 160px) 0;
+    border-top: 2px solid var(--ink);
+    position: relative;
+  }
+
+  .spread-num {
+    position: absolute;
+    top: clamp(40px, 5vw, 80px);
+    right: clamp(20px, 4vw, 64px);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(120px, 22vw, 380px);
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    color: var(--ink);
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+
+  .spread-content { position: relative; z-index: 1; }
+
+  .spread-eyebrow {
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--moss-deep);
+    margin-bottom: 24px;
+  }
+
+  .spread h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(56px, 9vw, 156px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: clamp(40px, 5vw, 64px);
+    max-width: 13ch;
+  }
+
+  .spread h2 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--moss-deep);
+  }
+
+  .spread-intro {
+    font-size: clamp(17px, 1.4vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin-bottom: clamp(48px, 6vw, 96px);
+    font-weight: 400;
+  }
+
+  /* ---------- Opportunity (asymmetric stack) ---------- */
+  .opp-stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(48px, 5vw, 88px);
+  }
+
+  @media (min-width: 900px) {
+    .opp-stack {
+      grid-template-columns: repeat(12, 1fr);
+      gap: clamp(28px, 3vw, 56px) clamp(20px, 2vw, 40px);
+    }
+  }
+
+  .opp {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .opp-1 { grid-column: 1 / span 7; }
+  .opp-2 { grid-column: 6 / span 7; }
+  .opp-3 { grid-column: 1 / span 8; }
+
+  @media (max-width: 900px) {
+    .opp-1, .opp-2, .opp-3 { grid-column: 1 / -1; }
+  }
+
+  .opp-tag {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(48px, 6vw, 92px);
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    text-transform: uppercase;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .opp-tag .num {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.4em;
+    color: var(--moss-deep);
+    letter-spacing: 0;
+  }
+
+  .opp h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(22px, 2vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 22ch;
+  }
+
+  .opp p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 50ch;
+    font-family: var(--body);
+  }
+
+  /* ---------- Process — moss green spread ---------- */
+  .process-spread {
+    background: var(--moss);
+    color: var(--moss-shade);
+  }
+
+  .process-spread .spread-num { color: var(--moss-shade); opacity: 0.12; }
+  .process-spread .spread-eyebrow { color: var(--moss-shade); }
+  .process-spread h2 { color: var(--moss-shade); }
+  .process-spread h2 em { color: #fff; font-weight: 600; }
+  .process-spread .spread-intro { color: var(--moss-shade); opacity: 0.85; }
+
+  .process-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 2px solid var(--moss-shade);
+  }
+
+  .process-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: clamp(36px, 4vw, 64px) 0;
+    border-bottom: 2px solid var(--moss-shade);
+  }
+
+  @media (min-width: 900px) {
+    .process-card {
+      grid-template-columns: 200px 1.6fr 1fr;
+      gap: clamp(28px, 3vw, 56px);
+    }
+  }
+
+  .process-num-large {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(80px, 10vw, 160px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    color: var(--moss-shade);
+  }
+
+  .process-num-large .pre {
+    display: block;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--moss-shade);
+    opacity: 0.7;
+  }
+
+  .process-text h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--moss-shade);
+    margin-bottom: 8px;
+  }
+
+  .process-text .sub {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--moss-shade);
+    opacity: 0.8;
+    margin-bottom: 18px;
+  }
+
+  .process-text p {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--moss-shade);
+    max-width: 52ch;
+  }
+
+  .process-areas h4 {
+    font-family: var(--body);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-weight: 700;
+    color: var(--moss-shade);
+    opacity: 0.8;
+    margin-bottom: 16px;
+  }
+
+  .process-areas ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .process-areas li {
+    font-family: var(--body);
+    font-size: 14.5px;
+    line-height: 1.4;
+    color: var(--moss-shade);
+    font-weight: 500;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(31, 35, 16, 0.18);
+  }
+
+  .process-areas li:last-child { border-bottom: 0; }
+
+  .process-outcome {
+    grid-column: 1 / -1;
+    margin-top: 24px;
+    padding: 18px 24px;
+    border: 2px solid var(--moss-shade);
+    background: rgba(255, 255, 255, 0.4);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(17px, 1.5vw, 22px);
+    line-height: 1.4;
+    color: var(--moss-shade);
+  }
+
+  .process-outcome strong {
+    font-family: var(--body);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--moss-shade);
+    font-weight: 700;
+    margin-right: 14px;
+    vertical-align: 2px;
+  }
+
+  /* ---------- Team ---------- */
+  .team-spread { background: var(--paper); }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(80px, 8vw, 144px);
+  }
+
+  .founder {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  @media (min-width: 900px) {
+    .founder { grid-template-columns: 1fr 1.6fr; gap: clamp(36px, 4vw, 80px); }
+  }
+
+  .founder.flip { direction: rtl; }
+  .founder.flip > * { direction: ltr; }
+
+  .founder-portrait {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .founder-portrait img {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: grayscale(20%) contrast(1.05);
+  }
+
+  .founder-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .founder-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 80px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+
+  .founder-name .first { display: block; }
+  .founder-name .last {
+    display: block;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--moss-deep);
+  }
+
+  .founder-role {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 700;
+  }
+
+  .founder-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .founder-bio p {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+
+  .founder-bio p::first-line {
+    font-weight: 600;
+  }
+
+  .founder-bio .li {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--ink);
+    border-bottom: 2px solid var(--moss);
+    padding-bottom: 4px;
+    align-self: flex-start;
+  }
+
+  .founder-bio .li:hover { color: var(--moss-deep); }
+
+  .sme-row {
+    margin-top: clamp(56px, 6vw, 96px);
+    padding-top: 32px;
+    border-top: 2px solid var(--ink);
+    display: grid;
+    gap: 16px;
+  }
+
+  @media (min-width: 720px) {
+    .sme-row { grid-template-columns: 320px 1fr; align-items: baseline; gap: 56px; }
+  }
+
+  .sme-row .label {
+    font-family: var(--body);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--ink-4);
+    font-weight: 700;
+  }
+
+  .sme-row .items {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(20px, 2vw, 32px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .sme-row .items span + span::before {
+    content: " · ";
+    color: var(--moss-deep);
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  /* ---------- Insights ---------- */
+  .insights-spread {
+    background: var(--paper-2);
+  }
+
+  .insights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .insight-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: clamp(28px, 3vw, 40px) 0;
+    border-top: 1px solid var(--ink);
+    transition: background 200ms ease;
+  }
+
+  .insight-row:last-child { border-bottom: 1px solid var(--ink); }
+  .insight-row:hover { background: rgba(247, 241, 222, 0.6); }
+
+  @media (min-width: 720px) {
+    .insight-row { grid-template-columns: 80px 1fr 80px; gap: 36px; align-items: baseline; }
+  }
+
+  .insight-num {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--moss-deep);
+  }
+
+  .insight-body h4 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .insight-body p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-3);
+    max-width: 72ch;
+  }
+
+  .insight-body .date {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 700;
+  }
+
+  .insight-arrow {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 40px);
+    color: var(--moss-deep);
+    text-align: right;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-spread {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .contact-spread .spread-num { color: var(--paper); opacity: 0.06; }
+  .contact-spread .spread-eyebrow { color: var(--moss); }
+  .contact-spread h2 { color: var(--paper); }
+  .contact-spread h2 em { color: var(--moss); }
+
+  .contact-spread p.intro {
+    font-size: clamp(18px, 1.5vw, 24px);
+    line-height: 1.5;
+    color: rgba(247, 241, 222, 0.8);
+    max-width: 60ch;
+    margin-bottom: clamp(48px, 5vw, 80px);
+  }
+
+  .contact-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+    padding: 32px 0;
+    border-top: 2px solid var(--paper);
+    border-bottom: 2px solid var(--paper);
+  }
+
+  @media (min-width: 800px) {
+    .contact-actions { grid-template-columns: 1fr 1fr; gap: 48px; }
+  }
+
+  .contact-email-large {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--paper);
+  }
+
+  .contact-email-large .pre {
+    display: block;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .contact-cta-big {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--moss);
+    color: var(--moss-shade);
+    padding: 28px 36px;
+    border-radius: 999px;
+    font-family: var(--display);
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    transition: background 200ms ease, transform 200ms ease;
+    gap: 24px;
+    justify-self: end;
+  }
+
+  .contact-cta-big:hover {
+    background: var(--paper);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- Footer ---------- */
+  footer.site {
+    padding: 32px 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(247, 241, 222, 0.5);
+  }
+
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-row .mark {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--moss);
+    text-transform: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <div class="wrap">
+    <span>V3 / Oversize Editorial — Mockup</span>
+    <a href="./index.html">← Back to variants</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap site-inner">
+    <a href="#top" class="site-mark">
+      <span class="glyph">SA</span>
+      <span class="name">Sprint Assembly</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#opportunity">Opportunity</a>
+      <a href="#process">Process</a>
+      <a href="#team">Team</a>
+      <a href="#contact" class="site-cta">Book Call</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-eyebrow-row">
+        <div class="hero-num">01<span class="slash">/</span></div>
+        <div class="hero-eyebrow"><span class="pre">★</span> The New Standard of Operations · Issue 04 · April 2026</div>
+      </div>
+
+      <h1>
+        <span class="line-1">From Manual</span>
+        <span class="line-1">Effort to</span>
+        <span class="line-2"><span class="marker">Agentic</span> Scale.</span>
+      </h1>
+
+      <div class="hero-deck">
+        <div class="hero-cta-block">
+          <a href="#opportunity" class="hero-cta">
+            <span>See the Opportunity</span>
+            <span class="arrow">↓</span>
+          </a>
+          <span class="hero-cta-meta">5 sections · 8 minute read</span>
+        </div>
+
+        <p class="hero-lede">
+          We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals &mdash; across marketing, operations, and customer workflows.
+        </p>
+      </div>
+
+      <div class="hero-quote-strip">
+        <blockquote class="hero-quote">
+          &ldquo;Sprint Assembly is led by senior operators who&rsquo;ve scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale &mdash; wherever work gets stuck.&rdquo;
+        </blockquote>
+        <div class="hero-logos">
+          <span class="label">Experience across</span>
+          <div class="logos">
+            <img class="wm" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta">
+            <img class="wm" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" alt="BCG">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" alt="P&amp;G">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPPORTUNITY -->
+  <section id="opportunity" class="spread">
+    <div class="spread-num">02</div>
+    <div class="wrap spread-content">
+      <div class="spread-eyebrow">02 / Business Impact</div>
+      <h2>The <em>Opportunity.</em></h2>
+      <p class="spread-intro">
+        You can&rsquo;t scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.
+      </p>
+
+      <div class="opp-stack">
+        <article class="opp opp-1">
+          <div class="opp-tag">Productivity<span class="num">/01</span></div>
+          <h3>Scale your business without hiring more people.</h3>
+          <p>Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.</p>
+        </article>
+
+        <article class="opp opp-2">
+          <div class="opp-tag">Performance<span class="num">/02</span></div>
+          <h3>Real-time decisions across every workflow.</h3>
+          <p>Our autonomous systems react to operational signals the moment they happen. An underperforming ad set, a support queue backing up, a pipeline stage going cold &mdash; the right decision runs automatically, not after a weekly review.</p>
+        </article>
+
+        <article class="opp opp-3">
+          <div class="opp-tag">Profit<span class="num">/03</span></div>
+          <h3>Increase profitability through smart orchestration.</h3>
+          <p>Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves &mdash; acquisition, retention, operations, revenue &mdash; we increase margin and protect quality. The result is an operating model that is both predictable and profitable.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS — moss green spread -->
+  <section id="process" class="spread process-spread">
+    <div class="spread-num">03</div>
+    <div class="wrap spread-content">
+      <div class="spread-eyebrow">03 / Process</div>
+      <h2>How We <em>Modernize</em> You.</h2>
+      <p class="spread-intro">
+        We begin every partnership with a Diagnostic Sprint to map where your operations are leaking and find your biggest wins. Next, we move to Instrumentation &mdash; the unified data, defined workflows, and governance that agentic systems need to run on. This foundation lets us transition you to Autonomous Orchestration, where agents take over day-to-day decisions and actions.
+      </p>
+
+      <div class="process-list">
+        <article class="process-card">
+          <div class="process-num-large">
+            <span class="pre">Phase</span>
+            01
+          </div>
+          <div class="process-text">
+            <h3>Diagnostic Sprint</h3>
+            <div class="sub">Analysis before assembly.</div>
+            <p>Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+          </div>
+          <div class="process-areas">
+            <h4>Focus Areas</h4>
+            <ul>
+              <li>Workflow and process efficiency</li>
+              <li>Data and measurement maturity</li>
+              <li>Automation opportunity ranking</li>
+              <li>Customer and operational lifecycle friction</li>
+              <li>AI and agent readiness</li>
+            </ul>
+          </div>
+          <div class="process-outcome"><strong>Outcome</strong> A clear, prioritized view of where change will drive the highest return.</div>
+        </article>
+
+        <article class="process-card">
+          <div class="process-num-large">
+            <span class="pre">Phase</span>
+            02
+          </div>
+          <div class="process-text">
+            <h3>Instrumentation</h3>
+            <div class="sub">Clean data. Clear workflows.</div>
+            <p>Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement &mdash; the unglamorous work that makes automation actually work.</p>
+          </div>
+          <div class="process-areas">
+            <h4>Focus Areas</h4>
+            <ul>
+              <li>Unified data &amp; measurement infrastructure</li>
+              <li>Workflow definition and documentation</li>
+              <li>Governance, guardrails, and eval criteria</li>
+              <li>Automation-readiness across systems</li>
+            </ul>
+          </div>
+          <div class="process-outcome"><strong>Outcome</strong> Your data, processes, and governance are automation-ready.</div>
+        </article>
+
+        <article class="process-card">
+          <div class="process-num-large">
+            <span class="pre">Phase</span>
+            03
+          </div>
+          <div class="process-text">
+            <h3>Autonomous Orchestration</h3>
+            <div class="sub">Scale independent of headcount.</div>
+            <p>Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time &mdash; across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.</p>
+          </div>
+          <div class="process-areas">
+            <h4>Focus Areas</h4>
+            <ul>
+              <li>Agentic workflow orchestration</li>
+              <li>Automated decisioning (budget, routing, prioritization)</li>
+              <li>Predictive operational &amp; CRM orchestration</li>
+              <li>Real-time measurement and feedback loops</li>
+            </ul>
+          </div>
+          <div class="process-outcome"><strong>Outcome</strong> A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team&rsquo;s strategic capacity.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="spread team-spread">
+    <div class="spread-num">04</div>
+    <div class="wrap spread-content">
+      <div class="spread-eyebrow">04 / Team</div>
+      <h2>Built by <em>Operators.</em></h2>
+      <p class="spread-intro">
+        Sprint Assembly is led by senior operators who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.
+      </p>
+
+      <div class="team-grid">
+        <article class="founder">
+          <div class="founder-portrait">
+            <img src="https://haschemie.com/sprint/nabilhead.jpeg" alt="Nabil Haschemie">
+            <div class="founder-meta">
+              <h3 class="founder-name"><span class="first">Nabil</span><span class="last">Haschemie</span></h3>
+              <span class="founder-role">Co-founder</span>
+            </div>
+          </div>
+          <div class="founder-bio">
+            <p>Nabil is a growth and marketing strategist who brings big-tech rigor to practical execution. As a founding member of Google&rsquo;s EMEA headquarters, he spent nearly two decades shaping how Google and its clients approached growth, performance marketing, and customer engagement across Europe, Latin America, and the U.S. He led new market launches, built scalable acquisition systems, and helped organizations connect data directly to performance. More recently, he has worked hands-on with startups and growth-stage companies, turning experiments into repeatable growth. His approach is simple: clear strategy, fast execution, and honest measurement.</p>
+            <a href="https://www.linkedin.com/in/haschemie/" target="_blank" rel="noreferrer" class="li">LinkedIn →</a>
+          </div>
+        </article>
+
+        <article class="founder">
+          <div class="founder-portrait">
+            <img src="https://haschemie.com/sprint/danielhead.jpg" alt="Daniel Besquin">
+            <div class="founder-meta">
+              <h3 class="founder-name"><span class="first">Daniel</span><span class="last">Besquin</span></h3>
+              <span class="founder-role">Co-founder</span>
+            </div>
+          </div>
+          <div class="founder-bio">
+            <p>Daniel is a practical growth leader with experience across brand, data, and execution. He began his career at Procter &amp; Gamble, where he developed a strong foundation in consumer insight and disciplined messaging. At Google, he deepened his expertise in acquisition and measurement. In startups, he built small, fast teams that moved quickly from idea to impact. And at BCG, he advised senior leaders on priorities and performance tracking. Today, Daniel leads focused engagements that align teams, define simple success metrics, and install tools to test and scale what works. Fluent in English and Spanish, he works across the U.S. and Latin America.</p>
+            <a href="https://www.linkedin.com/in/danielbesquin/" target="_blank" rel="noreferrer" class="li">LinkedIn →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="sme-row">
+        <div class="label">Supported by SME network</div>
+        <div class="items">
+          <span>Data Science &amp; ML</span>
+          <span>Agentic Workflows</span>
+          <span>Web Development</span>
+          <span>Systems Integration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="spread insights-spread" id="insights">
+    <div class="spread-num">05</div>
+    <div class="wrap spread-content">
+      <div class="spread-eyebrow">05 / Insights</div>
+      <h2><em>Latest</em> Dispatches.</h2>
+      <p class="spread-intro">Field notes on the agent plumbing and the marketing operations stack. Read what&rsquo;s on our minds.</p>
+
+      <div class="insights-grid">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7450229020891385856" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">01</div>
+          <div class="insight-body">
+            <h4>MCP just crossed 97 million installs. The agent plumbing war is over.</h4>
+            <p>Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot, and Salesforce have all standardised on it. MCP is the plumbing that finally makes AI agents production-ready across the martech stack&hellip;</p>
+            <span class="date">Apr 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7447285866982445056" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">02</div>
+          <div class="insight-body">
+            <h4>Ads now appear in 25.5% of Google AI Overview results</h4>
+            <p>Up from 5.17% a year ago. A 394% increase. And here&rsquo;s the part most teams haven&rsquo;t registered: you can&rsquo;t opt in or out. Your ads may already be running inside AI-generated answers&hellip;</p>
+            <span class="date">Mar 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444818888808296448" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">03</div>
+          <div class="insight-body">
+            <h4>ChatGPT just started running ads. Here&rsquo;s what $60 CPM actually means.</h4>
+            <p>Criteo became the first programmatic platform to open ChatGPT ad inventory &mdash; giving 17,000 advertisers access to a channel that didn&rsquo;t exist last month. The price: $60 CPM. Three times Meta&hellip;</p>
+            <span class="date">Mar 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444184565851713536" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">04</div>
+          <div class="insight-body">
+            <h4>88% of teams use AI, but only a third scale results</h4>
+            <p>Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural&hellip;</p>
+            <span class="date">Mar 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7441624814752141312" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">05</div>
+          <div class="insight-body">
+            <h4>The most important marketing role doesn&rsquo;t exist yet</h4>
+            <p>AI agents are absorbing the tactical execution layer of marketing ops &mdash; research, scheduling, sequencing, reporting. Companies running agentic workflows report 44% higher productivity and 37% cost reductions&hellip;</p>
+            <span class="date">Feb 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7440389396551401472" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">06</div>
+          <div class="insight-body">
+            <h4>The personalisation that used to require a team of five</h4>
+            <p>One B2B software company built a system where AI monitors every closed-lost deal and &mdash; 90 days later &mdash; automatically launches a full multi-channel re-engagement sequence. Zero manual work&hellip;</p>
+            <span class="date">Feb 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7440153299925786624" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">07</div>
+          <div class="insight-body">
+            <h4>AI didn&rsquo;t replace support agents. It rewired the economics.</h4>
+            <p>Klarna&rsquo;s AI now handles two-thirds of all customer chats &mdash; equivalent to 700 human agents &mdash; and saved $40M last year. AI interactions cost $0.25&ndash;0.50 while human agents cost $3&ndash;6&hellip;</p>
+            <span class="date">Feb 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7439391088374669312" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">08</div>
+          <div class="insight-body">
+            <h4>The content teams winning aren&rsquo;t writing more. They&rsquo;re systemising.</h4>
+            <p>AI-generated content is now the floor. Nearly every marketing team is using it. But the teams actually getting results &mdash; organic traffic up 40% in six months &mdash; aren&rsquo;t just using AI&hellip;</p>
+            <span class="date">Feb 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7438736734290333696" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">09</div>
+          <div class="insight-body">
+            <h4>Search is no longer your most reliable discovery channel</h4>
+            <p>Google AI Overviews now answer queries directly &mdash; organic click-through has dropped 65% for those results. And AI-native advertising just opened up, at pricing far above what most paid search budgets are built around&hellip;</p>
+            <span class="date">Jan 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7438318777794068481" target="_blank" rel="noreferrer" class="insight-row">
+          <div class="insight-num">10</div>
+          <div class="insight-body">
+            <h4>AI is working. Your C-suite just can&rsquo;t see it yet.</h4>
+            <p>GenAI is genuinely improving team efficiency &mdash; faster execution, lower production costs, more output with the same headcount. The challenge isn&rsquo;t the technology. It&rsquo;s the proof&hellip;</p>
+            <span class="date">Jan 2026</span>
+          </div>
+          <div class="insight-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="spread contact-spread">
+    <div class="spread-num">06</div>
+    <div class="wrap spread-content">
+      <div class="spread-eyebrow">06 / Contact</div>
+      <h2>Ready to <em>Modernize?</em></h2>
+      <p class="intro">
+        Modernizing your business begins with a conversation. We&rsquo;re available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to agentic scale. We&rsquo;ll provide an objective assessment of your modernization potential to help you determine the most effective next step.
+      </p>
+
+      <div class="contact-actions">
+        <div class="contact-email-large">
+          <span class="pre">Direct line</span>
+          grow@sprintassembly.com
+        </div>
+        <a href="mailto:grow@sprintassembly.com?subject=Sprint%20Assembly%20Intro" class="contact-cta-big">
+          <span>Compose Email</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span class="mark">Sprint Assembly</span>
+    <span>&copy; 2026 Sprint Assembly · Issue 04 · April 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>

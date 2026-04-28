@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variation B — Compact horizontal strip</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: linear-gradient(180deg, #fafaf9 0%, #f5f5f4 100%); color: #171717; min-height: 100vh; padding: 24px; }
+  .wrap { max-width: 950px; margin: 0 auto; }
+
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: #eff6ff; color: #1d4ed8; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 24px; }
+  .badge svg { width: 16px; height: 16px; }
+
+  .eyebrow { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #a3a3a3; }
+  .section-title { margin-top: 16px; font-size: clamp(24px, 4vw, 36px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; }
+  .section-title span { display: inline; background: #0a0a0a; color: #fff; padding: 4px 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+  .subtitle { margin-top: 24px; margin-bottom: 32px; font-size: 18px; line-height: 1.7; color: #525252; font-weight: 500; font-style: italic; max-width: 95%; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: #fff; padding: 28px; border-radius: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+  .card-tag { padding: 4px 12px; background: #0a0a0a; color: #fff; font-size: 10px; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; }
+  .card-icon svg { width: 32px; height: 32px; color: #afb975; }
+  .card h3 { font-size: 22px; font-weight: 700; margin-bottom: 16px; line-height: 1.3; }
+  .card p { font-size: 14px; color: #525252; line-height: 1.7; }
+
+  /* Compact strip */
+  .strip { margin-top: 32px; border-radius: 20px; background: #fff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08); overflow: hidden; }
+  .strip-body { padding: 20px 28px; display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+  .strip-field { flex: 1; min-width: 150px; }
+  .strip-divider { width: 1px; height: 40px; background: #f0f0f0; flex-shrink: 0; }
+  @media (max-width: 700px) { .strip-divider { display: none; } .strip-field { min-width: 100%; } }
+
+  .field-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #a3a3a3; margin-bottom: 4px; display: block; }
+  .field-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .field-value { font-size: 14px; font-weight: 900; color: #0a0a0a; }
+
+  select { width: 100%; padding: 8px 10px; border-radius: 8px; background: #fafafa; border: 1px solid rgba(0,0,0,0.05); font-weight: 700; color: #0a0a0a; font-size: 13px; font-family: inherit; cursor: pointer; outline: none; -webkit-appearance: none; }
+
+  input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: #e5e5e4; border-radius: 999px; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 999px; background: #111827; margin-top: -6px; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+
+  .strip-result { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .strip-arrow svg { width: 20px; height: 20px; color: #d4d4d4; }
+  .result-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #a3a3a3; }
+  .result-number { font-size: 22px; font-weight: 700; letter-spacing: -0.025em; color: #0a0a0a; }
+  .result-unit { font-size: 13px; font-weight: 500; color: #a3a3a3; }
+
+  .strip-footer { padding: 10px 28px; background: rgba(250,250,249,0.8); border-top: 1px solid #f5f5f5; display: flex; flex-wrap: wrap; gap: 24px; }
+  .bench { font-size: 10px; color: #a3a3a3; font-weight: 500; }
+  .bench-source { color: #d4d4d4; }
+
+  .ghost { margin-top: 80px; padding-top: 32px; border-top: 2px dashed #e5e5e5; }
+  .ghost-eyebrow { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #d4d4d4; }
+  .ghost-title { margin-top: 12px; font-size: 24px; font-weight: 700; color: #d4d4d4; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="badge">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Variation B — Reduced to 3 inputs in a single horizontal strip, no header, no metric cards
+  </div>
+
+  <!-- OPPORTUNITY SECTION — unchanged -->
+  <div class="eyebrow">Business Impact</div>
+  <div class="section-title"><span>The Opportunity</span></div>
+  <p class="subtitle">You can't scale through manual effort alone. We help you transition to an autonomous system that targets the three essentials of modern performance: reclaiming team bandwidth, making the entire customer journey more responsive to data, and improving your bottom line through systematic orchestration.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tag">Efficiency</div>
+        <div class="card-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+      </div>
+      <h3>Reclaim 20% of Team Bandwidth</h3>
+      <p>Automate the manual work that consumes your team's time so they can focus on strategy and creative.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tag">Revenue</div>
+        <div class="card-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+      </div>
+      <h3>Unlock 6.5% Revenue Lift</h3>
+      <p>Data-responsive journeys that adapt in real-time to customer signals and market conditions.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tag">Media</div>
+        <div class="card-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      </div>
+      <h3>+17% Media Performance</h3>
+      <p>Systematic orchestration that improves your bottom line through intelligent allocation and measurement.</p>
+    </div>
+  </div>
+
+  <!-- COMPACT STRIP — no header, horizontal, fewer inputs -->
+  <div class="strip">
+    <div class="strip-body">
+      <div class="strip-field">
+        <label class="field-label">Vertical</label>
+        <select>
+          <option>General / Other</option><option>E-commerce</option><option>B2B SaaS</option><option>Professional Services</option><option>Financial Services</option><option>CPG & Manufacturing</option><option>Healthcare</option>
+        </select>
+      </div>
+
+      <div class="strip-divider"></div>
+
+      <div class="strip-field">
+        <div class="field-row">
+          <span class="field-label">Annual Revenue</span>
+          <span class="field-value">$10M</span>
+        </div>
+        <input type="range" min="1000000" max="100000000" value="10000000">
+      </div>
+
+      <div class="strip-divider"></div>
+
+      <div class="strip-field">
+        <div class="field-row">
+          <span class="field-label">Monthly Media Spend</span>
+          <span class="field-value">$100K</span>
+        </div>
+        <input type="range" min="0" max="1000000" value="100000">
+      </div>
+
+      <div class="strip-divider"></div>
+
+      <div class="strip-result">
+        <div class="strip-arrow">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </div>
+        <div>
+          <div class="result-label">Est. Upside</div>
+          <div class="result-number">~$1.5M<span class="result-unit">/yr</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip-footer">
+      <span class="bench">+6.5% revenue lift <span class="bench-source">· McKinsey</span></span>
+      <span class="bench">+20% capacity reclaim <span class="bench-source">· Gartner</span></span>
+      <span class="bench">+17% ROAS lift <span class="bench-source">· Nielsen</span></span>
+    </div>
+  </div>
+
+  <div class="ghost">
+    <div class="ghost-eyebrow">Next section: Process</div>
+    <div class="ghost-title">How We Modernize You</div>
+  </div>
+</div>
+</body>
+</html>

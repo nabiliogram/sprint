@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Assembly — V2d Masked Type</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --moss: #afb975;
+    --moss-deep: #7e8a4d;
+    --moss-shade: #1f2310;
+    --ink: #0d0d0c;
+    --ink-2: #2c2a26;
+    --ink-3: #5a5650;
+    --ink-4: #888378;
+    --ink-5: #b8b3a6;
+    --paper: #f7f3e7;
+    --paper-2: #efe9d4;
+    --paper-3: #ebe4cb;
+    --card: #fdfaf0;
+    --card-2: #faf6e9;
+    --rule-soft: rgba(13, 13, 12, 0.14);
+    --rule-faint: rgba(13, 13, 12, 0.07);
+    --teal: rgba(184, 240, 237, 0.4);
+    --amber: rgba(255, 237, 184, 0.26);
+
+    --sans: "Host Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+    --gutter: clamp(20px, 4vw, 56px);
+    --max: 1200px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    background:
+      radial-gradient(1000px circle at 8% -8%, var(--teal), transparent 55%),
+      radial-gradient(900px circle at 94% 14%, var(--amber), transparent 60%),
+      var(--paper);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--moss); color: var(--moss-shade); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* ---------- Mockup banner ---------- */
+  .mockup-banner {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .mockup-banner .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .mockup-banner a { color: var(--moss); border-bottom: 1px dotted var(--moss); padding-bottom: 1px; }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 243, 231, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .site-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    gap: 24px;
+  }
+
+  .site-mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .site-mark .glyph {
+    width: 34px;
+    height: 34px;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid;
+    place-items: center;
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .site-mark .name {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .site-nav a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    transition: color 160ms ease;
+  }
+
+  .site-nav a:hover { color: var(--ink); }
+
+  .site-cta {
+    background: var(--moss);
+    color: var(--moss-shade) !important;
+    font-family: var(--sans) !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    letter-spacing: 0.04em !important;
+    text-transform: none !important;
+    padding: 10px 18px !important;
+    transition: background 180ms ease !important;
+  }
+  .site-cta:hover { background: var(--moss-deep); color: var(--paper) !important; }
+
+  @media (max-width: 720px) {
+    .site-nav a:not(.site-cta) { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: clamp(48px, 6vw, 80px) 0 clamp(40px, 5vw, 64px);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 4vw, 56px);
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .hero-inner {
+      grid-template-columns: 2.2fr 1fr;
+      gap: clamp(40px, 4vw, 72px);
+    }
+  }
+
+  .hero-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    margin-bottom: clamp(20px, 3vw, 32px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--moss);
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(44px, 7.5vw, 104px);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: clamp(24px, 3vw, 36px);
+    max-width: 14ch;
+  }
+
+  .hero h1 .accent {
+    background: var(--moss);
+    color: var(--moss-shade);
+    padding: 0 10px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transform: skew(-2deg);
+    display: inline-block;
+  }
+
+  .hero-lede {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin-bottom: clamp(24px, 3vw, 36px);
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: stretch;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 180ms ease;
+    align-self: flex-start;
+  }
+
+  .hero-cta:hover { background: var(--moss-shade); }
+  .hero-cta .label { padding: 14px 22px; }
+  .hero-cta .arrow {
+    padding: 14px 16px;
+    border-left: 1px solid rgba(247, 243, 231, 0.22);
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* Hero sidebar — fine line separator, no box */
+  .hero-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  @media (min-width: 1000px) {
+    .hero-aside {
+      padding-left: clamp(24px, 2.5vw, 44px);
+      border-left: 1px solid var(--rule-soft);
+      margin-top: 28px;
+    }
+  }
+
+  @media (max-width: 999px) {
+    .hero-aside {
+      padding-top: 24px;
+      border-top: 1px solid var(--rule-soft);
+    }
+  }
+
+  .aside-block + .aside-block {
+    margin-top: 4px;
+  }
+
+  .aside-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--moss-deep);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .aside-quote {
+    font-family: var(--sans);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+
+  .aside-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 22px;
+  }
+
+  .aside-logos img {
+    height: 16px;
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.55;
+    transition: opacity 200ms ease, filter 200ms ease;
+  }
+
+  .aside-logos img:hover { opacity: 1; filter: grayscale(0); }
+  .aside-logos img.wm { height: 18px; }
+
+  /* ---------- Section frame (no borders between sections) ---------- */
+  section.block {
+    padding: clamp(48px, 6vw, 80px) 0;
+    position: relative;
+  }
+
+  .section-head { margin-bottom: clamp(24px, 2.5vw, 36px); }
+
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .section-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--moss);
+  }
+
+  .title-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start; /* top-aligned */
+  }
+
+  @media (min-width: 900px) {
+    .title-row {
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(28px, 3vw, 56px);
+    }
+  }
+
+  .section-title {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    max-width: 14ch;
+  }
+
+  .section-title .accent {
+    background: var(--moss);
+    color: var(--moss-shade);
+    padding: 0 10px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transform: skew(-2deg);
+    display: inline-block;
+  }
+
+  .section-intro {
+    font-family: var(--sans);
+    font-size: clamp(17px, 1.35vw, 20px);
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: -0.012em;
+    color: var(--ink-2);
+    max-width: 52ch;
+    padding-top: 12px; /* visual top alignment with cap-height of H2 */
+  }
+
+  .section-intro em, .section-intro .lead {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ---------- Opportunity — horizontal 3-col at desktop, stacked on mobile ---------- */
+  .opp-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: clamp(24px, 3vw, 36px);
+  }
+
+  @media (min-width: 900px) {
+    .opp-list { grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.5vw, 20px); }
+  }
+
+  .opp-card {
+    background: var(--card);
+    border: 1px solid var(--rule-soft);
+    padding: clamp(22px, 2.5vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 200ms ease, border-color 200ms ease;
+  }
+
+  .opp-card:hover { background: var(--card-2); border-color: rgba(13,13,12,0.22); }
+
+  .opp-card .num {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--moss-deep);
+    letter-spacing: 0.04em;
+  }
+
+  .opp-card .divider {
+    height: 1px;
+    background: var(--moss);
+    opacity: 0.6;
+    margin: 2px 0;
+  }
+
+  .opp-card .tag {
+    align-self: flex-start;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4px 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .opp-card h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(20px, 1.7vw, 25px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 46ch;
+  }
+
+  .opp-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 72ch;
+  }
+
+  /* ---------- Process — vertical cards, horizontal internal layout ---------- */
+  .process-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-top: clamp(24px, 3vw, 36px);
+  }
+
+  .phase-card {
+    background: var(--card);
+    border: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    transition: border-color 200ms ease;
+  }
+
+  @media (min-width: 860px) {
+    .phase-card {
+      grid-template-columns: 1.6fr 1fr;
+      grid-template-rows: auto auto;
+    }
+  }
+
+  .phase-card:hover { border-color: rgba(13,13,12,0.22); }
+
+  .phase-head {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--rule-soft);
+    background: var(--paper-3);
+    grid-column: 1 / -1;
+  }
+
+  .phase-num {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 12px 14px;
+    display: grid;
+    place-items: center;
+    letter-spacing: 0.04em;
+    min-width: 58px;
+  }
+
+  .phase-titles {
+    padding: 10px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .phase-titles h3 {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 19px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .phase-titles .sub {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+
+  .phase-body {
+    padding: 16px 20px 18px;
+  }
+
+  @media (min-width: 860px) {
+    .phase-body {
+      border-right: 1px solid var(--rule-soft);
+    }
+  }
+
+  .phase-body p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 55ch;
+  }
+
+  .phase-areas {
+    padding: 16px 20px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  @media (min-width: 860px) {
+    .phase-areas {
+      border-top: 0;
+    }
+  }
+
+  .phase-areas .label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-4);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .phase-areas ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .phase-areas li {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ink);
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .phase-areas li::before {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: var(--moss);
+    margin-top: 6px;
+  }
+
+  .phase-outcome {
+    grid-column: 1 / -1;
+    padding: 12px 20px;
+    border-top: 1px solid var(--rule-soft);
+    background: rgba(175, 185, 117, 0.08);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  @media (min-width: 720px) {
+    .phase-outcome {
+      grid-template-columns: 90px 1fr;
+      gap: 16px;
+      align-items: baseline;
+    }
+  }
+
+  .phase-outcome strong {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--moss-deep);
+    font-weight: 700;
+  }
+
+  .phase-connector {
+    display: flex;
+    justify-content: center;
+    color: var(--moss-deep);
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 2px 0;
+  }
+
+  /* ---------- Team ---------- */
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: clamp(24px, 3vw, 36px);
+  }
+
+  @media (min-width: 800px) {
+    .team-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  }
+
+  .founder-card {
+    background: var(--card);
+    border: 1px solid var(--rule-soft);
+    padding: clamp(22px, 2.5vw, 30px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+  }
+
+  .founder-card header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .founder-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: grayscale(20%);
+    border: 2px solid var(--ink);
+  }
+
+  .founder-card h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .founder-card .role {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--moss-deep);
+    font-weight: 700;
+    margin-top: 5px;
+  }
+
+  .founder-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  .founder-card .li {
+    align-self: flex-start;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    font-weight: 600;
+    border: 1.5px solid var(--ink);
+    padding: 6px 12px;
+    transition: background 160ms ease, color 160ms ease;
+    margin-top: auto;
+  }
+
+  .founder-card .li:hover { background: var(--ink); color: var(--paper); }
+
+  /* ---------- SME network — no box, top-aligned ---------- */
+  .sme-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: clamp(28px, 3vw, 40px);
+    padding-top: clamp(18px, 2vw, 24px);
+    border-top: 1px solid var(--rule-soft);
+    align-items: start;
+  }
+
+  @media (min-width: 800px) {
+    .sme-block {
+      grid-template-columns: 220px 1fr;
+      gap: 32px;
+    }
+  }
+
+  .sme-block .key {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+    font-weight: 700;
+    padding-top: 8px; /* align with chip top */
+  }
+
+  .sme-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sme-chips span {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 6px 14px;
+    border: 1px solid rgba(13, 13, 12, 0.2);
+    background: transparent;
+    white-space: nowrap;
+  }
+
+  /* ---------- Insights — horizontal carousel ---------- */
+  #insights.block {
+    padding: clamp(28px, 3.5vw, 48px) 0;
+  }
+
+  #insights .section-head { margin-bottom: clamp(16px, 2vw, 24px); }
+
+  .carousel-head {
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    gap: 24px;
+    margin-top: clamp(12px, 1.5vw, 20px);
+    margin-bottom: 14px;
+  }
+
+  .carousel-nav {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .carousel-nav button {
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 180ms ease, opacity 180ms ease;
+    font-family: var(--mono);
+    font-size: 16px;
+  }
+
+  .carousel-nav button:hover { background: var(--moss-shade); }
+  .carousel-nav button:disabled { opacity: 0.3; cursor: default; }
+
+  .carousel {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  .carousel::-webkit-scrollbar { display: none; }
+
+  .insight-card {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+    background: var(--card);
+    border: 1px solid var(--rule-soft);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 180ms ease, transform 200ms ease;
+  }
+
+  @media (max-width: 600px) { .insight-card { flex: 0 0 86%; } }
+
+  .insight-card:hover { transform: translateY(-2px); border-color: rgba(13, 13, 12, 0.22); }
+
+  .insight-card .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .insight-card .date {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 600;
+  }
+
+  .insight-card .marker {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--moss-deep);
+    font-weight: 600;
+  }
+
+  .insight-card h4 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .insight-card p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-3);
+    flex: 1;
+  }
+
+  .insight-card .more {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--moss);
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--moss-deep);
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ---------- Contact — all copy combined ---------- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1px solid var(--rule-soft);
+    background: var(--card);
+    margin-top: clamp(24px, 3vw, 36px);
+  }
+
+  @media (min-width: 800px) {
+    .contact-grid { grid-template-columns: 1.4fr 1fr; }
+  }
+
+  .contact-copy {
+    padding: clamp(24px, 3vw, 36px);
+    border-right: 1px solid var(--rule-soft);
+  }
+
+  @media (max-width: 800px) {
+    .contact-copy { border-right: 0; border-bottom: 1px solid var(--rule-soft); }
+  }
+
+  .contact-copy p {
+    font-size: clamp(15px, 1.2vw, 17px);
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+
+  .contact-actions {
+    padding: clamp(24px, 3vw, 36px);
+    background: var(--paper-3);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact-actions .key {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-4);
+    font-weight: 700;
+  }
+
+  .contact-email {
+    font-family: var(--mono);
+    font-size: clamp(14px, 1.2vw, 17px);
+    color: var(--ink);
+    font-weight: 700;
+    word-break: break-all;
+    background: var(--card);
+    border: 1.5px dashed var(--ink);
+    padding: 12px 14px;
+  }
+
+  .contact-cta {
+    background: var(--moss);
+    color: var(--moss-shade);
+    padding: 14px 20px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    transition: background 180ms ease, color 180ms ease;
+  }
+
+  .contact-cta:hover { background: var(--moss-shade); color: var(--paper); }
+
+  /* ---------- Footer — no line, no separation ---------- */
+  footer.site {
+    padding: 28px 0 40px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* ====================================================== */
+  /* VARIANT D — Masked Type                                  */
+  /* Each title accent slab is image-driven.                  */
+  /* Separation via distinctive mask per section.             */
+  /* ====================================================== */
+
+  /* Short offset rule before each section title (thin hairline) */
+  section.block > .wrap > .section-head {
+    position: relative;
+    padding-top: 24px;
+  }
+
+  section.block > .wrap > .section-head::before {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: #0d0d0c;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  /* Hero — conic rainbow representing AI's breadth */
+  .hero h1 .accent {
+    background:
+      conic-gradient(from 180deg at 50% 50%,
+        #afb975 0deg,
+        #c89b4f 80deg,
+        #c87454 150deg,
+        #a05a7a 210deg,
+        #6e8aa8 270deg,
+        #7e8a4d 330deg,
+        #afb975 360deg);
+    color: #1f1f1d;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  /* Opportunity — warm sunrise gradient moss→gold */
+  #opportunity .section-title .accent {
+    background: linear-gradient(115deg, #afb975 0%, #c89b4f 100%);
+    color: #1f2310;
+  }
+
+  /* Process — striped scan pattern on moss (technical, "engine" feel) */
+  #process .section-title .accent {
+    background:
+      repeating-linear-gradient(45deg,
+        rgba(31, 35, 16, 0.18) 0px,
+        rgba(31, 35, 16, 0.18) 4px,
+        transparent 4px,
+        transparent 10px),
+      linear-gradient(90deg, #afb975 0%, #c9d398 100%);
+    color: #1f2310;
+  }
+
+  /* Team — warm dot halftone (human, considered) */
+  #team .section-title .accent {
+    background:
+      radial-gradient(circle at 30% 50%, rgba(31, 35, 16, 0.18) 1.5px, transparent 2px) 0 0 / 8px 8px,
+      linear-gradient(135deg, #c89b4f 0%, #afb975 100%);
+    color: #1f1a10;
+  }
+
+  /* Insights — crosshatch grid (data, mapped) */
+  #insights .section-title .accent {
+    background:
+      repeating-linear-gradient(0deg, rgba(31, 35, 16, 0.12) 0px, rgba(31, 35, 16, 0.12) 1px, transparent 1px, transparent 6px),
+      repeating-linear-gradient(90deg, rgba(31, 35, 16, 0.12) 0px, rgba(31, 35, 16, 0.12) 1px, transparent 1px, transparent 6px),
+      linear-gradient(180deg, #c9d398 0%, #afb975 100%);
+    color: #1f2310;
+  }
+
+  /* Contact — deep ink slab, moss text (the commitment) */
+  #contact .section-title .accent {
+    background:
+      radial-gradient(circle at 30% 30%, #2c2a26 0%, #0d0d0c 60%, #0d0d0c 100%);
+    color: #afb975;
+  }
+
+  /* Subtle texture on body for cohesion */
+  body {
+    background-image:
+      radial-gradient(1000px circle at 8% -8%, var(--teal), transparent 55%),
+      radial-gradient(900px circle at 94% 14%, var(--amber), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.055 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+      linear-gradient(180deg, #f8f4e8, #f7f3e7 60%, #fbf7ec 100%);
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <div class="wrap">
+    <span>V2d / Masked Type — Variation</span>
+    <a href="./index.html">← Back to variants</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap site-inner">
+    <a href="#top" class="site-mark">
+      <span class="glyph">SA</span>
+      <span class="name">Sprint Assembly</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#opportunity">Opportunity</a>
+      <a href="#process">Process</a>
+      <a href="#team">Team</a>
+      <a href="#contact" class="site-cta">Book Call</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="hero-main">
+          <div class="hero-eyebrow">The New Standard of Operations</div>
+
+          <h1>From Manual Effort to <span class="accent">Agentic Scale</span></h1>
+
+          <p class="hero-lede">
+            We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals &mdash; across marketing, operations, and customer workflows.
+          </p>
+
+          <a href="#opportunity" class="hero-cta">
+            <span class="label">See the Opportunity</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <aside class="hero-aside">
+          <div class="aside-block">
+            <div class="aside-label">Founders&rsquo; Note</div>
+            <p class="aside-quote">&ldquo;Sprint Assembly is led by senior operators who&rsquo;ve scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale &mdash; wherever work gets stuck.&rdquo;</p>
+          </div>
+
+          <div class="aside-block">
+            <div class="aside-label">Experience across</div>
+            <div class="aside-logos">
+              <img class="wm" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta">
+              <img class="wm" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" alt="BCG">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" alt="P&amp;G">
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPPORTUNITY — vertical stack of full-width cards -->
+  <section id="opportunity" class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Business Impact</div>
+        <div class="title-row">
+          <h2 class="section-title">The <span class="accent">Opportunity</span></h2>
+          <p class="section-intro">You can&rsquo;t scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.</p>
+        </div>
+      </div>
+
+      <div class="opp-list">
+        <article class="opp-card">
+          <span class="num">01</span>
+          <div class="divider"></div>
+          <span class="tag">Productivity</span>
+          <h3>Scale your business without hiring more people.</h3>
+          <p>Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.</p>
+        </article>
+
+        <article class="opp-card">
+          <span class="num">02</span>
+          <div class="divider"></div>
+          <span class="tag">Performance</span>
+          <h3>Real-time decisions across every workflow.</h3>
+          <p>Our autonomous systems react to operational signals the moment they happen. An underperforming ad set, a support queue backing up, a pipeline stage going cold &mdash; the right decision runs automatically, not after a weekly review.</p>
+        </article>
+
+        <article class="opp-card">
+          <span class="num">03</span>
+          <div class="divider"></div>
+          <span class="tag">Profit</span>
+          <h3>Increase profitability through smart orchestration.</h3>
+          <p>Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves &mdash; acquisition, retention, operations, revenue &mdash; we increase margin and protect quality. The result is an operating model that is both predictable and profitable.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS — vertical stack of cards, horizontal internal layout -->
+  <section id="process" class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Process</div>
+        <div class="title-row">
+          <h2 class="section-title">How We <span class="accent">Modernize</span> You</h2>
+          <p class="section-intro">We begin every partnership with a Diagnostic Sprint to map where your operations are leaking and find your biggest wins. Next, we move to Instrumentation &mdash; the unified data, defined workflows, and governance that agentic systems need to run on. This foundation lets us transition you to Autonomous Orchestration, where agents take over day-to-day decisions and actions.</p>
+        </div>
+      </div>
+
+      <div class="process-list">
+        <article class="phase-card">
+          <header class="phase-head">
+            <div class="phase-num">01</div>
+            <div class="phase-titles">
+              <h3>Diagnostic Sprint</h3>
+              <div class="sub">Analysis before assembly</div>
+            </div>
+          </header>
+          <div class="phase-body">
+            <p>Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+          </div>
+          <div class="phase-areas">
+            <div class="label">Focus Areas</div>
+            <ul>
+              <li>Workflow and process efficiency</li>
+              <li>Data and measurement maturity</li>
+              <li>Automation opportunity ranking</li>
+              <li>Customer and operational lifecycle friction</li>
+              <li>AI and agent readiness</li>
+            </ul>
+          </div>
+          <div class="phase-outcome">
+            <strong>Outcome</strong>
+            <span>A clear, prioritized view of where change will drive the highest return.</span>
+          </div>
+        </article>
+
+        <div class="phase-connector">↓</div>
+
+        <article class="phase-card">
+          <header class="phase-head">
+            <div class="phase-num">02</div>
+            <div class="phase-titles">
+              <h3>Instrumentation</h3>
+              <div class="sub">Clean data. Clear workflows.</div>
+            </div>
+          </header>
+          <div class="phase-body">
+            <p>Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement &mdash; the unglamorous work that makes automation actually work.</p>
+          </div>
+          <div class="phase-areas">
+            <div class="label">Focus Areas</div>
+            <ul>
+              <li>Unified data &amp; measurement infrastructure</li>
+              <li>Workflow definition and documentation</li>
+              <li>Governance, guardrails, and eval criteria</li>
+              <li>Automation-readiness across systems</li>
+            </ul>
+          </div>
+          <div class="phase-outcome">
+            <strong>Outcome</strong>
+            <span>Your data, processes, and governance are automation-ready.</span>
+          </div>
+        </article>
+
+        <div class="phase-connector">↓</div>
+
+        <article class="phase-card">
+          <header class="phase-head">
+            <div class="phase-num">03</div>
+            <div class="phase-titles">
+              <h3>Autonomous Orchestration</h3>
+              <div class="sub">Scale independent of headcount</div>
+            </div>
+          </header>
+          <div class="phase-body">
+            <p>Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time &mdash; across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.</p>
+          </div>
+          <div class="phase-areas">
+            <div class="label">Focus Areas</div>
+            <ul>
+              <li>Agentic workflow orchestration</li>
+              <li>Automated decisioning (budget, routing, prioritization)</li>
+              <li>Predictive operational &amp; CRM orchestration</li>
+              <li>Real-time measurement and feedback loops</li>
+            </ul>
+          </div>
+          <div class="phase-outcome">
+            <strong>Outcome</strong>
+            <span>A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team&rsquo;s strategic capacity.</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Team</div>
+        <div class="title-row">
+          <h2 class="section-title">Built by <span class="accent">Operators</span></h2>
+          <p class="section-intro">Sprint Assembly is led by senior operators who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.</p>
+        </div>
+      </div>
+
+      <div class="team-grid">
+        <article class="founder-card">
+          <header>
+            <img src="https://haschemie.com/sprint/nabilhead.jpeg" alt="Nabil Haschemie">
+            <div>
+              <h3>Nabil Haschemie</h3>
+              <div class="role">Co-founder</div>
+            </div>
+          </header>
+          <p>Nabil is a growth and marketing strategist who brings big-tech rigor to practical execution. As a founding member of Google&rsquo;s EMEA headquarters, he spent nearly two decades shaping how Google and its clients approached growth, performance marketing, and customer engagement across Europe, Latin America, and the U.S. He led new market launches, built scalable acquisition systems, and helped organizations connect data directly to performance. More recently, he has worked hands-on with startups and growth-stage companies, turning experiments into repeatable growth. His approach is simple: clear strategy, fast execution, and honest measurement.</p>
+          <a href="https://www.linkedin.com/in/haschemie/" target="_blank" rel="noreferrer" class="li">LinkedIn ↗</a>
+        </article>
+
+        <article class="founder-card">
+          <header>
+            <img src="https://haschemie.com/sprint/danielhead.jpg" alt="Daniel Besquin">
+            <div>
+              <h3>Daniel Besquin</h3>
+              <div class="role">Co-founder</div>
+            </div>
+          </header>
+          <p>Daniel is a practical growth leader with experience across brand, data, and execution. He began his career at Procter &amp; Gamble, where he developed a strong foundation in consumer insight and disciplined messaging. At Google, he deepened his expertise in acquisition and measurement. In startups, he built small, fast teams that moved quickly from idea to impact. And at BCG, he advised senior leaders on priorities and performance tracking. Today, Daniel leads focused engagements that align teams, define simple success metrics, and install tools to test and scale what works. Fluent in English and Spanish, he works across the U.S. and Latin America.</p>
+          <a href="https://www.linkedin.com/in/danielbesquin/" target="_blank" rel="noreferrer" class="li">LinkedIn ↗</a>
+        </article>
+      </div>
+
+      <div class="sme-block">
+        <div class="key">// Supported by SME network in</div>
+        <div class="sme-chips">
+          <span>Data Science &amp; ML</span>
+          <span>Agentic Workflows</span>
+          <span>Web Development</span>
+          <span>Systems Integration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS (carousel) — no intro paragraph -->
+  <section class="block" id="insights">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Insights</div>
+        <h2 class="section-title"><span class="accent">Latest</span></h2>
+      </div>
+
+      <div class="carousel-head">
+        <div class="carousel-nav">
+          <button type="button" id="prev-btn" aria-label="Previous">←</button>
+          <button type="button" id="next-btn" aria-label="Next">→</button>
+        </div>
+      </div>
+
+      <div class="carousel" id="carousel">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7450229020891385856" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Apr 2026</span><span class="marker">// L-010</span></div>
+          <h4>MCP just crossed 97 million installs. The agent plumbing war is over.</h4>
+          <p>Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot, and Salesforce have all standardised on it. MCP is the plumbing that finally makes AI agents production-ready across the martech stack&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7447285866982445056" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Mar 2026</span><span class="marker">// L-009</span></div>
+          <h4>Ads now appear in 25.5% of Google AI Overview results</h4>
+          <p>Up from 5.17% a year ago. A 394% increase. And here&rsquo;s the part most teams haven&rsquo;t registered: you can&rsquo;t opt in or out. Your ads may already be running inside AI-generated answers&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444818888808296448" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Mar 2026</span><span class="marker">// L-008</span></div>
+          <h4>ChatGPT just started running ads. Here&rsquo;s what $60 CPM actually means.</h4>
+          <p>Criteo became the first programmatic platform to open ChatGPT ad inventory &mdash; giving 17,000 advertisers access to a channel that didn&rsquo;t exist last month. The price: $60 CPM. Three times Meta&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7444184565851713536" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Mar 2026</span><span class="marker">// L-007</span></div>
+          <h4>88% of teams use AI, but only a third scale results</h4>
+          <p>Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7441624814752141312" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Feb 2026</span><span class="marker">// L-006</span></div>
+          <h4>The most important marketing role doesn&rsquo;t exist yet</h4>
+          <p>AI agents are absorbing the tactical execution layer of marketing ops &mdash; research, scheduling, sequencing, reporting. Companies running agentic workflows report 44% higher productivity and 37% cost reductions&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7440389396551401472" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Feb 2026</span><span class="marker">// L-005</span></div>
+          <h4>The personalisation that used to require a team of five</h4>
+          <p>One B2B software company built a system where AI monitors every closed-lost deal and &mdash; 90 days later &mdash; automatically launches a full multi-channel re-engagement sequence. Zero manual work&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7440153299925786624" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Feb 2026</span><span class="marker">// L-004</span></div>
+          <h4>AI didn&rsquo;t replace support agents. It rewired the economics.</h4>
+          <p>Klarna&rsquo;s AI now handles two-thirds of all customer chats &mdash; equivalent to 700 human agents &mdash; and saved $40M last year. AI interactions cost $0.25&ndash;0.50 while human agents cost $3&ndash;6&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7439391088374669312" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Feb 2026</span><span class="marker">// L-003</span></div>
+          <h4>The content teams winning aren&rsquo;t writing more. They&rsquo;re systemising.</h4>
+          <p>AI-generated content is now the floor. Nearly every marketing team is using it. But the teams actually getting results &mdash; organic traffic up 40% in six months &mdash; aren&rsquo;t just using AI&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7438736734290333696" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Jan 2026</span><span class="marker">// L-002</span></div>
+          <h4>Search is no longer your most reliable discovery channel</h4>
+          <p>Google AI Overviews now answer queries directly &mdash; organic click-through has dropped 65% for those results. And AI-native advertising just opened up, at pricing far above what most paid search budgets are built around&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7438318777794068481" target="_blank" rel="noreferrer" class="insight-card">
+          <div class="top"><span class="date">Jan 2026</span><span class="marker">// L-001</span></div>
+          <h4>AI is working. Your C-suite just can&rsquo;t see it yet.</h4>
+          <p>GenAI is genuinely improving team efficiency &mdash; faster execution, lower production costs, more output with the same headcount. The challenge isn&rsquo;t the technology. It&rsquo;s the proof&hellip;</p>
+          <div class="more"><span>Read post</span><span>→</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT — single combined paragraph next to email -->
+  <section id="contact" class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Contact</div>
+        <h2 class="section-title">Ready to <span class="accent">Modernize?</span></h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <p>Modernizing your business begins with a conversation. We&rsquo;re available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to agentic scale. We&rsquo;ll provide an objective assessment of your modernization potential to help you determine the most effective next step.</p>
+        </div>
+        <div class="contact-actions">
+          <div class="key">// Direct line</div>
+          <div class="contact-email">grow@sprintassembly.com</div>
+          <a class="contact-cta" href="mailto:grow@sprintassembly.com?subject=Sprint%20Assembly%20Intro">Contact via Email →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span>Sprint Assembly &nbsp;//&nbsp; From Manual Effort to Agentic Scale</span>
+    <span>&copy; 2026 Sprint Assembly</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var carousel = document.getElementById('carousel');
+    var prev = document.getElementById('prev-btn');
+    var next = document.getElementById('next-btn');
+    if (!carousel || !prev || !next) return;
+
+    function step() {
+      var card = carousel.querySelector('.insight-card');
+      if (!card) return 320;
+      var gap = parseInt(getComputedStyle(carousel).columnGap || getComputedStyle(carousel).gap || '14', 10);
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function updateButtons() {
+      prev.disabled = carousel.scrollLeft <= 4;
+      next.disabled = carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 4;
+    }
+
+    prev.addEventListener('click', function () { carousel.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { carousel.scrollBy({ left: step(), behavior: 'smooth' }); });
+    carousel.addEventListener('scroll', function () { requestAnimationFrame(updateButtons); });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  })();
+</script>
+
+</body>
+</html>

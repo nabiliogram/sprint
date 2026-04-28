@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Automation strip — final mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+      --display:   "Inter Tight", "Inter", ui-sans-serif, sans-serif;
+      --sans:      "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono:      "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+    .frame {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 56px 40px 80px;
+    }
+    .frame h1 { font-family: var(--display); font-weight: 600; font-size: 30px; letter-spacing: -0.018em; margin: 0 0 6px; }
+    .frame .lede { color: var(--text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 12px; }
+
+    .pause-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      padding: 8px 12px;
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      margin: 8px 0 32px;
+      transition: color .25s, border-color .25s;
+    }
+    .pause-toggle:hover { color: var(--text); border-color: var(--text-3); }
+    .pause-toggle .key { color: var(--accent); }
+    body.paused * { animation-play-state: paused !important; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-3);
+      margin: 36px 0 16px;
+      display: inline-flex; align-items: center; gap: 12px;
+    }
+    .section-label::before { content: ""; width: 24px; height: 1px; background: var(--accent); }
+
+    /* In-context strip — matches the redesign's actual rendering */
+    .ctx-frame {
+      background: var(--bg-2);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 36px 0;
+      margin: 0 -40px;
+    }
+    .ctx-frame .strip-label {
+      padding: 0 40px 18px;
+      font-family: var(--mono);
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-3);
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .ctx-frame .strip-label::after { content: "\2192"; color: var(--accent); }
+
+    /* ── Chip ── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      white-space: nowrap;
+      transition: border-color .35s ease, background .35s ease;
+    }
+    .chip-marker {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── 2-row drift ── */
+    .drift { display: flex; flex-direction: column; gap: 14px; }
+    .drift-row {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+    }
+    .drift-track {
+      display: inline-flex;
+      gap: 12px;
+      will-change: transform;
+    }
+    .drift-row.row-1 .drift-track { animation: scrollLeft  90s linear infinite; }
+    .drift-row.row-2 .drift-track { animation: scrollRight 100s linear infinite; }
+    @keyframes scrollLeft  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+    @keyframes scrollRight { from { transform: translateX(-50%); } to { transform: translateX(0); }    }
+
+    /* ── Marker comparison block ── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 14px 24px;
+      align-items: center;
+      padding: 24px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .compare-grid h3 {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-3);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* ── Typography swap demo ── */
+    .typo-demo { display: flex; flex-direction: column; gap: 12px; padding: 24px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; }
+    .typo-demo .row { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: center; }
+    .typo-demo .row h3 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); margin: 0; font-weight: 500; }
+    .typo-demo .chip-mono { font-family: var(--mono); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .drift-track { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <h1>Automation strip &mdash; final mockup</h1>
+    <p class="lede">Two-row drift with the workflow-noun chip set. Inter Tight 500, no markers, in context. Comparison blocks below for marker styles and typography swap.</p>
+    <div class="pause-toggle" id="pause-toggle"><span class="key">[ P ]</span><span>Pause / play motion</span></div>
+
+
+    <div class="section-label">In context &middot; below the hero</div>
+
+    <div class="ctx-frame">
+      <div class="strip-label">Workflows we automate</div>
+      <div class="drift">
+        <!-- Row 1 — scrolling left -->
+        <div class="drift-row row-1">
+          <div class="drift-track">
+            <span class="chip">Cross-channel pacing decisions</span>
+            <span class="chip">Pipeline stall diagnosis</span>
+            <span class="chip">Account tiering and research</span>
+            <span class="chip">Deal review preparation</span>
+            <span class="chip">Renewal risk assessment</span>
+            <span class="chip">Account health surveillance</span>
+            <!-- duplicate set for seamless loop -->
+            <span class="chip">Cross-channel pacing decisions</span>
+            <span class="chip">Pipeline stall diagnosis</span>
+            <span class="chip">Account tiering and research</span>
+            <span class="chip">Deal review preparation</span>
+            <span class="chip">Renewal risk assessment</span>
+            <span class="chip">Account health surveillance</span>
+          </div>
+        </div>
+        <!-- Row 2 — scrolling right -->
+        <div class="drift-row row-2">
+          <div class="drift-track">
+            <span class="chip">Creative performance triage</span>
+            <span class="chip">Onboarding pathway selection</span>
+            <span class="chip">Customer issue triage</span>
+            <span class="chip">Cross-team handoff routing</span>
+            <span class="chip">Spend variance investigation</span>
+            <span class="chip">Executive brief composition</span>
+            <!-- duplicate set for seamless loop -->
+            <span class="chip">Creative performance triage</span>
+            <span class="chip">Onboarding pathway selection</span>
+            <span class="chip">Customer issue triage</span>
+            <span class="chip">Cross-team handoff routing</span>
+            <span class="chip">Spend variance investigation</span>
+            <span class="chip">Executive brief composition</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="section-label">Marker styles &middot; pick one</div>
+
+    <div class="compare-grid">
+      <h3>Plain</h3>
+      <div><span class="chip">Cross-channel pacing decisions</span></div>
+
+      <h3>Leading arrow</h3>
+      <div><span class="chip"><span class="chip-marker">&rarr;</span>Cross-channel pacing decisions</span></div>
+
+      <h3>Numbered</h3>
+      <div><span class="chip"><span class="chip-marker">01</span>Cross-channel pacing decisions</span></div>
+
+      <h3>Sage dot</h3>
+      <div><span class="chip"><span class="chip-marker" style="font-size: 8px;">&#9679;</span>Cross-channel pacing decisions</span></div>
+    </div>
+
+
+    <div class="section-label">Typography swap &middot; if mono fits better</div>
+
+    <div class="typo-demo">
+      <div class="row">
+        <h3>Inter Tight 500 (default)</h3>
+        <div><span class="chip">Cross-channel pacing decisions</span></div>
+      </div>
+      <div class="row">
+        <h3>JetBrains Mono 500</h3>
+        <div><span class="chip chip-mono">Cross-channel pacing decisions</span></div>
+      </div>
+    </div>
+
+
+    <div style="margin-top:32px; padding:18px 24px; background:var(--bg-2); border:1px solid var(--line-2); border-radius:8px; color:var(--text-2); font-size:13px; line-height:1.6;">
+      <strong style="color:var(--text); font-family:var(--display);">Sign-off needed:</strong>
+      <span style="font-family:var(--mono); color:var(--accent);">marker</span> (plain / arrow / number / dot),
+      <span style="font-family:var(--mono); color:var(--accent);">typeface</span> (Inter Tight / Mono),
+      <span style="font-family:var(--mono); color:var(--accent);">label</span> (currently <em>Workflows we automate</em>).
+      Reply with picks and I'll wire it into the live redesign.
+    </div>
+  </div>
+
+  <script>
+    const toggle = () => document.body.classList.toggle('paused');
+    document.getElementById('pause-toggle').addEventListener('click', toggle);
+    document.addEventListener('keydown', (e) => { if (e.key === 'p' || e.key === 'P') toggle(); });
+  </script>
+</body>
+</html>

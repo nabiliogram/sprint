@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>L-011 preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --sans: "Host Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+        --ink: #0d0d0c;
+        --ink-3: #4a4a47;
+        --ink-4: #6b6b66;
+        --card: #faf8f3;
+        --rule-soft: rgba(13, 13, 12, 0.10);
+        --moss: #afb975;
+        --moss-deep: #6f7843;
+        --bg: #f4f1e9;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--ink);
+        padding: 60px 40px;
+        min-height: 100vh;
+      }
+      .label {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        margin-bottom: 14px;
+      }
+      .row {
+        display: flex;
+        gap: 14px;
+        max-width: 720px;
+      }
+      .insight-card {
+        flex: 0 0 320px;
+        background: var(--card);
+        border: 1px solid var(--rule-soft);
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 180ms ease, transform 200ms ease;
+      }
+      .insight-card:hover { transform: translateY(-2px); border-color: rgba(13, 13, 12, 0.22); }
+      .insight-card .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .insight-card .date {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        font-weight: 600;
+      }
+      .insight-card .marker {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--moss-deep);
+        font-weight: 600;
+      }
+      .insight-card h4 {
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      .insight-card p {
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--ink-3);
+        flex: 1;
+      }
+      .insight-card .more {
+        margin-top: 8px;
+        padding-top: 12px;
+        border-top: 1px solid var(--moss);
+        font-family: var(--mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--moss-deep);
+        display: flex;
+        justify-content: space-between;
+      }
+      .meta {
+        max-width: 720px;
+        margin-top: 28px;
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--ink-3);
+      }
+      .meta strong { color: var(--ink); font-weight: 600; }
+      .meta code { font-family: var(--mono); font-size: 12px; background: rgba(13,13,12,0.06); padding: 1px 5px; border-radius: 3px; }
+    </style>
+  </head>
+  <body>
+    <div class="label">Preview · new card (L-011) next to current top card (L-010)</div>
+    <div class="row">
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7453871970418573312" target="_blank" rel="noreferrer" class="insight-card">
+        <div class="top"><span class="date">Apr 2026</span><span class="marker">// L-011</span></div>
+        <h4>The agent capabilities enterprises spent a year building are now toggles in your existing stack.</h4>
+        <p>In the last seven days, HubSpot, Adobe, and Salesforce all shipped production agents into the tools growth teams already use. The competitive gap is no longer access to AI &mdash; it&rsquo;s the workflow design that decides what each agent actually does&hellip;</p>
+        <div class="more"><span>Read post</span><span>→</span></div>
+      </a>
+
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7450229020891385856" target="_blank" rel="noreferrer" class="insight-card">
+        <div class="top"><span class="date">Apr 2026</span><span class="marker">// L-010</span></div>
+        <h4>MCP just crossed 97 million installs. The agent plumbing war is over.</h4>
+        <p>Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot, and Salesforce have all standardised on it. MCP is the plumbing that finally makes AI agents production-ready across the martech stack&hellip;</p>
+        <div class="more"><span>Read post</span><span>→</span></div>
+      </a>
+    </div>
+
+    <div class="meta">
+      <strong>Source:</strong> <a href="https://www.linkedin.com/feed/update/urn:li:activity:7453871970418573312">LinkedIn post</a><br>
+      <strong>Headline (full):</strong> 𝗧𝗵𝗲 𝗮𝗴𝗲𝗻𝘁 𝗰𝗮𝗽𝗮𝗯𝗶𝗹𝗶𝘁𝗶𝗲𝘀 𝗲𝗻𝘁𝗲𝗿𝗽𝗿𝗶𝘀𝗲𝘀 𝘀𝗽𝗲𝗻𝘁 𝗮 𝘆𝗲𝗮𝗿 𝗯𝘂𝗶𝗹𝗱𝗶𝗻𝗴 𝗮𝗿𝗲 𝗻𝗼𝘄 𝘁𝗼𝗴𝗴𝗹𝗲𝘀 𝗶𝗻 𝘆𝗼𝘂𝗿 𝗲𝘅𝗶𝘀𝘁𝗶𝗻𝗴 𝘀𝘁𝗮𝗰𝗸.<br>
+      <strong>Already inserted</strong> at top of <code>&lt;div class="carousel"&gt;</code> in <code>index.html</code>. Push when happy.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process graphics — abstract mesh evolution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+      --accent-soft: rgba(111, 115, 64, 0.40);
+      --accent-very-soft: rgba(111, 115, 64, 0.18);
+      --display:   "Inter Tight", "Inter", ui-sans-serif, sans-serif;
+      --sans:      "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono:      "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    body { background: var(--bg-2); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1240px; margin: 0 auto; padding: 56px 40px 80px; }
+    .page h1 { font-family: var(--display); font-weight: 600; font-size: 36px; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .page .lede { color: var(--text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 12px; }
+    .pause-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      transition: color .25s, border-color .25s;
+      margin: 8px 0 40px;
+    }
+    .pause-toggle:hover { color: var(--text); border-color: var(--text-3); }
+    .pause-toggle .key { color: var(--accent); }
+    body.paused * { animation-play-state: paused !important; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+
+    .panel {
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .panel-id {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .panel-id::before { content: ""; width: 18px; height: 1px; background: var(--accent); }
+    .panel-name {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: -0.012em;
+      margin: 0 0 14px;
+    }
+    .panel-note { font-size: 13px; color: var(--text-2); margin: 16px 0 0; line-height: 1.55; }
+    .panel-note em { color: var(--text); font-style: normal; font-weight: 500; }
+
+    /* Viz container — matches redesign at full size */
+    .viz {
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      padding: 14px 16px 12px;
+      font-family: var(--mono);
+      display: flex; flex-direction: column;
+      min-height: 360px;
+    }
+    .viz-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-3);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .viz-body { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .viz-foot { margin-top: 10px; display: flex; justify-content: flex-end; }
+    .viz-tag {
+      font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      padding: 3px 8px;
+      border: 1px dashed var(--line-2);
+      border-radius: 3px;
+      background: var(--bg-2);
+    }
+
+    /* SVG canvas — shared by all three vizes */
+    .mesh-svg { width: 100%; height: auto; max-height: 290px; display: block; }
+
+    /* ── Stage 01: scattered constellation ── */
+    .dot-faint  { fill: rgba(20, 18, 14, 0.18); }
+    .dot-bright { fill: var(--accent); }
+    .constellation-line { stroke: var(--accent-soft); stroke-width: 0.8; stroke-dasharray: 1.5 2.5; }
+
+    /* ── Stage 02 & 03: ordered lattice ── */
+    .lattice-line { stroke: var(--accent-soft); stroke-width: 0.6; }
+    .dot-lattice  { fill: var(--accent); }
+
+    /* ── Stage 03 pulse traveling diagonally ── */
+    .pulse-trail  { fill: var(--accent); }
+    .diag-node    { fill: var(--accent); transform-origin: center; transform-box: fill-box; animation: nodePulse 6s linear infinite; }
+    /* CSS variable --d is the node's diagonal index 0..6 — its pulse fires when the moving pulse passes (1s per node) */
+    .diag-node    { animation-delay: calc((var(--d) - 0.4) * 1s); }
+    @keyframes nodePulse {
+      0%, 6%   { r: 4.5; }
+      14%, 100%{ r: 2.3; }
+    }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .diag-node, .pulse-trail { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Process graphics — abstract mesh evolution</h1>
+    <p class="lede">Three states of one system. Same coordinate field, same primitives. Chaos &rarr; order &rarr; flow. Zero text inside the viz body. Motion only on stage 03.</p>
+    <div class="pause-toggle" id="pause-toggle"><span class="key">[ P ]</span><span>Pause / play motion</span></div>
+
+    <div class="grid">
+
+      <!-- ════════════════════════════════════════════════════════ -->
+      <!-- Stage 01 · Constellation                                  -->
+      <!-- ════════════════════════════════════════════════════════ -->
+      <div class="panel">
+        <div class="panel-id">01 · Diagnostic</div>
+        <div class="panel-name">Constellation</div>
+        <div class="viz">
+          <div class="viz-head"><span>Discovery</span><span>Stage 01</span></div>
+          <div class="viz-body">
+            <svg class="mesh-svg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- 49 faint dots (background field) -->
+              <g id="dots-1"></g>
+
+              <!-- Constellation lines — connecting clusters -->
+              <g class="constellations">
+                <!-- Cluster A (upper-left): (1,1)-(2,0), (2,0)-(3,1) -->
+                <line class="constellation-line" x1="65"  y1="65"  x2="100" y2="30" />
+                <line class="constellation-line" x1="100" y1="30"  x2="135" y2="65" />
+                <!-- Cluster B (right): (5,2)-(4,4), (5,2)-(6,4) -->
+                <line class="constellation-line" x1="205" y1="100" x2="170" y2="170" />
+                <line class="constellation-line" x1="205" y1="100" x2="240" y2="170" />
+                <!-- Cluster C (lower-left): (1,4)-(2,5), (2,5)-(0,6) -->
+                <line class="constellation-line" x1="65"  y1="170" x2="100" y2="205" />
+                <line class="constellation-line" x1="100" y1="205" x2="30"  y2="240" />
+              </g>
+
+              <!-- Bright "found" dots — 8 highlighted -->
+              <g class="dots-bright">
+                <circle class="dot-bright" cx="65"  cy="65"  r="3.2" />
+                <circle class="dot-bright" cx="100" cy="30"  r="3.2" />
+                <circle class="dot-bright" cx="135" cy="65"  r="3.2" />
+                <circle class="dot-bright" cx="205" cy="100" r="3.2" />
+                <circle class="dot-bright" cx="170" cy="170" r="3.2" />
+                <circle class="dot-bright" cx="240" cy="170" r="3.2" />
+                <circle class="dot-bright" cx="65"  cy="170" r="3.2" />
+                <circle class="dot-bright" cx="100" cy="205" r="3.2" />
+                <circle class="dot-bright" cx="30"  cy="240" r="3.2" />
+              </g>
+            </svg>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">A field of points, mostly faint. A handful glow brighter and form loose clusters. Reads as: <em>looking at a system, seeing the patterns inside the noise.</em> Static.</p>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════ -->
+      <!-- Stage 02 · Lattice                                        -->
+      <!-- ════════════════════════════════════════════════════════ -->
+      <div class="panel">
+        <div class="panel-id">02 · Instrumentation</div>
+        <div class="panel-name">Lattice</div>
+        <div class="viz">
+          <div class="viz-head"><span>Substrate</span><span>Stage 02</span></div>
+          <div class="viz-body">
+            <svg class="mesh-svg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- Lattice lines: 7 horizontal + 7 vertical -->
+              <g class="lattice">
+                <line class="lattice-line" x1="30"  y1="30"  x2="240" y2="30"  />
+                <line class="lattice-line" x1="30"  y1="65"  x2="240" y2="65"  />
+                <line class="lattice-line" x1="30"  y1="100" x2="240" y2="100" />
+                <line class="lattice-line" x1="30"  y1="135" x2="240" y2="135" />
+                <line class="lattice-line" x1="30"  y1="170" x2="240" y2="170" />
+                <line class="lattice-line" x1="30"  y1="205" x2="240" y2="205" />
+                <line class="lattice-line" x1="30"  y1="240" x2="240" y2="240" />
+                <line class="lattice-line" x1="30"  y1="30"  x2="30"  y2="240" />
+                <line class="lattice-line" x1="65"  y1="30"  x2="65"  y2="240" />
+                <line class="lattice-line" x1="100" y1="30"  x2="100" y2="240" />
+                <line class="lattice-line" x1="135" y1="30"  x2="135" y2="240" />
+                <line class="lattice-line" x1="170" y1="30"  x2="170" y2="240" />
+                <line class="lattice-line" x1="205" y1="30"  x2="205" y2="240" />
+                <line class="lattice-line" x1="240" y1="30"  x2="240" y2="240" />
+              </g>
+              <!-- 49 uniform dots -->
+              <g id="dots-2"></g>
+            </svg>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Same field. Every node is now equal weight, connected to its neighbors with clean horizontal and vertical lines. Reads as: <em>the substrate is built; everything has its place.</em> Static.</p>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════ -->
+      <!-- Stage 03 · Lattice + traveling pulse                      -->
+      <!-- ════════════════════════════════════════════════════════ -->
+      <div class="panel">
+        <div class="panel-id">03 · Orchestration</div>
+        <div class="panel-name">Lattice in motion</div>
+        <div class="viz">
+          <div class="viz-head"><span>Running</span><span>Stage 03</span></div>
+          <div class="viz-body">
+            <svg class="mesh-svg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <filter id="pulseGlow" x="-100%" y="-100%" width="300%" height="300%">
+                  <feGaussianBlur stdDeviation="3" />
+                  <feMerge>
+                    <feMergeNode />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- Same lattice as stage 02 -->
+              <g class="lattice">
+                <line class="lattice-line" x1="30"  y1="30"  x2="240" y2="30"  />
+                <line class="lattice-line" x1="30"  y1="65"  x2="240" y2="65"  />
+                <line class="lattice-line" x1="30"  y1="100" x2="240" y2="100" />
+                <line class="lattice-line" x1="30"  y1="135" x2="240" y2="135" />
+                <line class="lattice-line" x1="30"  y1="170" x2="240" y2="170" />
+                <line class="lattice-line" x1="30"  y1="205" x2="240" y2="205" />
+                <line class="lattice-line" x1="30"  y1="240" x2="240" y2="240" />
+                <line class="lattice-line" x1="30"  y1="30"  x2="30"  y2="240" />
+                <line class="lattice-line" x1="65"  y1="30"  x2="65"  y2="240" />
+                <line class="lattice-line" x1="100" y1="30"  x2="100" y2="240" />
+                <line class="lattice-line" x1="135" y1="30"  x2="135" y2="240" />
+                <line class="lattice-line" x1="170" y1="30"  x2="170" y2="240" />
+                <line class="lattice-line" x1="205" y1="30"  x2="205" y2="240" />
+                <line class="lattice-line" x1="240" y1="30"  x2="240" y2="240" />
+              </g>
+
+              <!-- 42 non-diagonal nodes (uniform) -->
+              <g id="dots-3"></g>
+
+              <!-- 7 diagonal nodes — pulse as the traveling glow passes -->
+              <circle class="diag-node" cx="30"  cy="30"  r="2.3" style="--d: 0" />
+              <circle class="diag-node" cx="65"  cy="65"  r="2.3" style="--d: 1" />
+              <circle class="diag-node" cx="100" cy="100" r="2.3" style="--d: 2" />
+              <circle class="diag-node" cx="135" cy="135" r="2.3" style="--d: 3" />
+              <circle class="diag-node" cx="170" cy="170" r="2.3" style="--d: 4" />
+              <circle class="diag-node" cx="205" cy="205" r="2.3" style="--d: 5" />
+              <circle class="diag-node" cx="240" cy="240" r="2.3" style="--d: 6" />
+
+              <!-- Traveling pulse — single sage glow moving along the diagonal -->
+              <circle r="5" fill="var(--accent)" filter="url(#pulseGlow)" opacity="0">
+                <animateMotion path="M 30,30 L 240,240" dur="6s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.05;0.95;1" dur="6s" repeatCount="indefinite" />
+              </circle>
+            </svg>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Same lattice. A single soft pulse travels diagonally across it every ~6s, briefly illuminating each node it passes. Reads as: <em>the system is running, decisions firing across the substrate.</em></p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:48px; padding:20px 24px; background:var(--bg); border:1px solid var(--line-2); border-radius:8px; color:var(--text-2); font-size:13px; line-height:1.6;">
+      <strong style="color:var(--text); font-family:var(--display);">If this lands:</strong> reply <span style="font-family:var(--mono); color:var(--accent);">"go mesh"</span> and I'll wire all three into the live redesign.
+      Otherwise call out what's off — too sparse, too dense, wrong primitive (rings? contours? waves?), pulse too fast/slow/visible &mdash; and I'll iterate from there.
+    </div>
+  </div>
+
+  <script>
+    // Pause toggle
+    const toggle = () => document.body.classList.toggle('paused');
+    document.getElementById('pause-toggle').addEventListener('click', toggle);
+    document.addEventListener('keydown', (e) => { if (e.key === 'p' || e.key === 'P') toggle(); });
+
+    // Generate the 7×7 dot grid for each viz.
+    // Same coordinates everywhere; only fill style differs.
+    const ns = 'http://www.w3.org/2000/svg';
+    const COLS = 7, ROWS = 7, MARGIN = 30, SPACING = 35;
+
+    function makeGrid(elId, dotClass, radius, skipDiagonal = false) {
+      const g = document.getElementById(elId);
+      if (!g) return;
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          if (skipDiagonal && r === c) continue; // diagonals are inline (animated)
+          const circle = document.createElementNS(ns, 'circle');
+          circle.setAttribute('cx', MARGIN + c * SPACING);
+          circle.setAttribute('cy', MARGIN + r * SPACING);
+          circle.setAttribute('r', radius);
+          circle.setAttribute('class', dotClass);
+          g.appendChild(circle);
+        }
+      }
+    }
+
+    // Stage 01: all 49 faint (highlighted ones drawn on top in markup)
+    makeGrid('dots-1', 'dot-faint', 2);
+    // Stage 02: all 49 uniform sage
+    makeGrid('dots-2', 'dot-lattice', 2.3);
+    // Stage 03: 42 uniform sage (diagonals are inline so they can pulse)
+    makeGrid('dots-3', 'dot-lattice', 2.3, true);
+  </script>
+</body>
+</html>

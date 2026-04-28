@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LinkedIn Section — 3 Variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f5f5f3; color: #0a0a0a; }
+
+  /* ── Label strips ── */
+  .variation-label {
+    background: #0a0a0a;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .variation-label .badge {
+    background: #afb975;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 10px;
+  }
+
+  /* ── Shared site chrome ── */
+  .site-chrome {
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .site-chrome img { height: 22px; }
+  .site-chrome-text {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    color: #0a0a0a;
+  }
+  .hero-stub {
+    background: #fff;
+    height: 48px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 6px;
+  }
+  .hero-stub-dot { width: 8px; height: 8px; border-radius: 50%; background: #e5e5e5; }
+  .hero-stub-line { height: 8px; border-radius: 4px; background: #e5e5e5; }
+
+  /* ── Wrap ── */
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Eyebrow ── */
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #afb975;
+    margin-bottom: 8px;
+  }
+
+  /* ── Cards ── */
+  .card {
+    flex-shrink: 0;
+    width: 300px;
+    border-radius: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow .2s;
+    overflow: hidden;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+  .card-inner { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+  .card-logo { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+  .card-logo-img { height: 14px; opacity: .3; }
+  .card-title { font-size: 14px; font-weight: 700; line-height: 1.35; color: #0a0a0a; margin-bottom: 10px; }
+  .card-snippet { font-size: 12px; color: #737373; line-height: 1.6; flex: 1; }
+  .card-footer {
+    margin-top: 16px;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+  .card-date { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #a3a3a3; }
+  .card-cta { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: #afb975; }
+
+  /* ── Carousel ── */
+  .carousel { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 4px; }
+  .carousel::-webkit-scrollbar { display: none; }
+
+  /* ── Scroll buttons ── */
+  .carousel-wrap { position: relative; }
+
+  /* ══════════════════════════════════════════════════════
+     VARIATION A — Soft sage band
+  ══════════════════════════════════════════════════════ */
+  .var-a {
+    background: #f4f5ee; /* very light sage, tinted with #afb975 */
+    padding: 52px 0 64px;
+    border-top: 1px solid #e2e5d1;
+    border-bottom: 1px solid #e2e5d1;
+  }
+  .var-a .eyebrow { color: #7a8050; }
+  .var-a .section-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #0a0a0a;
+    margin-bottom: 28px;
+    letter-spacing: -.01em;
+  }
+  .var-a .card { background: #fff; ring: 1px solid rgba(0,0,0,.06); }
+
+  /* ══════════════════════════════════════════════════════
+     VARIATION B — Dark ink band
+  ══════════════════════════════════════════════════════ */
+  .var-b {
+    background: #0f0f0d;
+    padding: 52px 0 64px;
+  }
+  .var-b .eyebrow { color: #afb975; }
+  .var-b .section-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 28px;
+    letter-spacing: -.01em;
+  }
+  .var-b .card { background: #1a1a17; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+  .var-b .card-title { color: #f0f0ec; }
+  .var-b .card-snippet { color: #8a8a84; }
+  .var-b .card-footer { border-top-color: rgba(255,255,255,.07); }
+  .var-b .card-date { color: #525248; }
+  .var-b .card-logo-img { filter: invert(1); }
+
+  /* ══════════════════════════════════════════════════════
+     VARIATION C — Left-ruled editorial aside
+  ══════════════════════════════════════════════════════ */
+  .var-c {
+    background: #fff;
+    padding: 52px 0 64px;
+    border-top: 1px solid rgba(0,0,0,.07);
+    border-bottom: 1px solid rgba(0,0,0,.07);
+  }
+  .var-c .section-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #0a0a0a;
+    margin-bottom: 28px;
+    letter-spacing: -.01em;
+  }
+  .var-c-inner {
+    border-left: 3px solid #afb975;
+    padding-left: 28px;
+  }
+  .var-c .card { background: #fafaf8; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+
+  /* ── Footer stub ── */
+  .footer-stub {
+    background: #fff;
+    height: 56px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* ── Page separator ── */
+  .page-gap { height: 40px; background: #f5f5f3; display: flex; align-items: center; justify-content: center; }
+  .page-gap-line { height: 1px; background: #d4d4d0; width: 80%; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     VARIATION A
+════════════════════════════════════════════ -->
+<div class="variation-label">
+  <span class="badge">Option A</span>
+  Soft Sage Band — subtle background tinted with brand colour, warm but light
+</div>
+
+<!-- site chrome -->
+<div class="site-chrome">
+  <span class="site-chrome-text">SprintAssembly</span>
+</div>
+<div class="hero-stub">
+  <div class="hero-stub-dot"></div>
+  <div class="hero-stub-line" style="width:120px"></div>
+  <div class="hero-stub-line" style="width:80px;margin-left:16px"></div>
+  <div class="hero-stub-line" style="width:60px;margin-left:16px"></div>
+</div>
+
+<!-- LinkedIn section — Variation A -->
+<div class="var-a">
+  <div class="wrap">
+    <div class="eyebrow">Insights</div>
+    <h2 class="section-title">Latest</h2>
+    <div class="carousel-wrap">
+      <div class="carousel">
+
+        <div class="card" style="background:#fff;ring:1px solid rgba(0,0,0,.06)">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+            <p class="card-title">Ads now appear in 25.5% of Google AI Overview results</p>
+            <p class="card-snippet">Up from 5.17% a year ago. A 394% increase. And here's the part most teams haven't registered: you can't opt in or out. Your ads may already be running inside AI-generated answers...</p>
+            <div class="card-footer">
+              <span class="card-date">Mar 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:#fff">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+            <p class="card-title">ChatGPT just started running ads. Here's what $60 CPM actually means.</p>
+            <p class="card-snippet">Criteo became the first programmatic platform to open ChatGPT ad inventory — giving 17,000 advertisers access to a channel that didn't exist last month. The price: $60 CPM. Three times Meta...</p>
+            <div class="card-footer">
+              <span class="card-date">Mar 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:rgba(184,240,237,0.18)">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+            <p class="card-title">88% of teams use AI, but only a third scale results</p>
+            <p class="card-snippet">Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural...</p>
+            <div class="card-footer" style="border-top-color:rgba(0,0,0,.06)">
+              <span class="card-date">Mar 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:#fff">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+            <p class="card-title">The most important marketing role doesn't exist yet</p>
+            <p class="card-snippet">AI agents are absorbing the tactical execution layer of marketing ops. Companies running agentic workflows report 44% higher productivity and 37% cost reductions...</p>
+            <div class="card-footer">
+              <span class="card-date">Feb 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:#fff">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+            <p class="card-title">The personalisation that used to require a team of five</p>
+            <p class="card-snippet">One B2B software company built a system where AI monitors every closed-lost deal and — 90 days later — automatically launches a full multi-channel re-engagement sequence. Zero manual work...</p>
+            <div class="card-footer">
+              <span class="card-date">Feb 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-stub"></div>
+
+<!-- gap -->
+<div class="page-gap"><div class="page-gap-line"></div></div>
+
+<!-- ════════════════════════════════════════════
+     VARIATION B
+════════════════════════════════════════════ -->
+<div class="variation-label">
+  <span class="badge">Option B</span>
+  Dark Ink Band — high contrast, editorial. Section stands out strongly.
+</div>
+
+<div class="site-chrome">
+  <span class="site-chrome-text">SprintAssembly</span>
+</div>
+<div class="hero-stub">
+  <div class="hero-stub-dot"></div>
+  <div class="hero-stub-line" style="width:120px"></div>
+  <div class="hero-stub-line" style="width:80px;margin-left:16px"></div>
+  <div class="hero-stub-line" style="width:60px;margin-left:16px"></div>
+</div>
+
+<!-- LinkedIn section — Variation B -->
+<div class="var-b">
+  <div class="wrap">
+    <div class="eyebrow">Insights</div>
+    <h2 class="section-title">Latest</h2>
+    <div class="carousel-wrap">
+      <div class="carousel">
+
+        <div class="card var-b">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" style="filter:invert(1);opacity:.25" /></div>
+            <p class="card-title" style="color:#f0f0ec">Ads now appear in 25.5% of Google AI Overview results</p>
+            <p class="card-snippet" style="color:#8a8a84">Up from 5.17% a year ago. A 394% increase. And here's the part most teams haven't registered: you can't opt in or out. Your ads may already be running inside AI-generated answers...</p>
+            <div class="card-footer" style="border-top-color:rgba(255,255,255,.08)">
+              <span class="card-date" style="color:#525248">Mar 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card var-b">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" style="filter:invert(1);opacity:.25" /></div>
+            <p class="card-title" style="color:#f0f0ec">ChatGPT just started running ads. Here's what $60 CPM actually means.</p>
+            <p class="card-snippet" style="color:#8a8a84">Criteo became the first programmatic platform to open ChatGPT ad inventory — giving 17,000 advertisers access to a channel that didn't exist last month. The price: $60 CPM. Three times Meta...</p>
+            <div class="card-footer" style="border-top-color:rgba(255,255,255,.08)">
+              <span class="card-date" style="color:#525248">Mar 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:#1f2a1a">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" style="filter:invert(1);opacity:.25" /></div>
+            <p class="card-title" style="color:#f0f0ec">88% of teams use AI, but only a third scale results</p>
+            <p class="card-snippet" style="color:#8a8a84">Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural...</p>
+            <div class="card-footer" style="border-top-color:rgba(255,255,255,.08)">
+              <span class="card-date" style="color:#525248">Mar 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card var-b">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" style="filter:invert(1);opacity:.25" /></div>
+            <p class="card-title" style="color:#f0f0ec">The most important marketing role doesn't exist yet</p>
+            <p class="card-snippet" style="color:#8a8a84">AI agents are absorbing the tactical execution layer of marketing ops. Companies running agentic workflows report 44% higher productivity and 37% cost reductions...</p>
+            <div class="card-footer" style="border-top-color:rgba(255,255,255,.08)">
+              <span class="card-date" style="color:#525248">Feb 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card var-b">
+          <div class="card-inner">
+            <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" style="filter:invert(1);opacity:.25" /></div>
+            <p class="card-title" style="color:#f0f0ec">The personalisation that used to require a team of five</p>
+            <p class="card-snippet" style="color:#8a8a84">One B2B software company built a system where AI monitors every closed-lost deal and — 90 days later — automatically launches a full multi-channel re-engagement sequence. Zero manual work...</p>
+            <div class="card-footer" style="border-top-color:rgba(255,255,255,.08)">
+              <span class="card-date" style="color:#525248">Feb 2026</span>
+              <span class="card-cta">Read post →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-stub" style="background:#0f0f0d;border-top:1px solid rgba(255,255,255,.06)"></div>
+
+<!-- gap -->
+<div class="page-gap"><div class="page-gap-line"></div></div>
+
+<!-- ════════════════════════════════════════════
+     VARIATION C
+════════════════════════════════════════════ -->
+<div class="variation-label">
+  <span class="badge">Option C</span>
+  Left-ruled Editorial — white background, mossy green accent bar. Quiet but clearly delineated.
+</div>
+
+<div class="site-chrome">
+  <span class="site-chrome-text">SprintAssembly</span>
+</div>
+<div class="hero-stub">
+  <div class="hero-stub-dot"></div>
+  <div class="hero-stub-line" style="width:120px"></div>
+  <div class="hero-stub-line" style="width:80px;margin-left:16px"></div>
+  <div class="hero-stub-line" style="width:60px;margin-left:16px"></div>
+</div>
+
+<!-- LinkedIn section — Variation C -->
+<div class="var-c">
+  <div class="wrap">
+    <div class="var-c-inner">
+      <div class="eyebrow">Insights</div>
+      <h2 class="section-title">Latest</h2>
+      <div class="carousel-wrap">
+        <div class="carousel">
+
+          <div class="card" style="background:#fafaf8;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+            <div class="card-inner">
+              <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+              <p class="card-title">Ads now appear in 25.5% of Google AI Overview results</p>
+              <p class="card-snippet">Up from 5.17% a year ago. A 394% increase. And here's the part most teams haven't registered: you can't opt in or out. Your ads may already be running inside AI-generated answers...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 2026</span>
+                <span class="card-cta">Read post →</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background:#fafaf8;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+            <div class="card-inner">
+              <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+              <p class="card-title">ChatGPT just started running ads. Here's what $60 CPM actually means.</p>
+              <p class="card-snippet">Criteo became the first programmatic platform to open ChatGPT ad inventory — giving 17,000 advertisers access to a channel that didn't exist last month. The price: $60 CPM. Three times Meta...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 2026</span>
+                <span class="card-cta">Read post →</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background:rgba(184,240,237,0.22);box-shadow:0 1px 3px rgba(0,0,0,.05)">
+            <div class="card-inner">
+              <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+              <p class="card-title">88% of teams use AI, but only a third scale results</p>
+              <p class="card-snippet">Two conversations in March 2026 landed on the same number: 88% of teams use AI in daily work. Only a third are scaling results from it. The gap is structural...</p>
+              <div class="card-footer" style="border-top-color:rgba(0,0,0,.06)">
+                <span class="card-date">Mar 2026</span>
+                <span class="card-cta">Read post →</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background:#fafaf8;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+            <div class="card-inner">
+              <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+              <p class="card-title">The most important marketing role doesn't exist yet</p>
+              <p class="card-snippet">AI agents are absorbing the tactical execution layer of marketing ops. Companies running agentic workflows report 44% higher productivity and 37% cost reductions...</p>
+              <div class="card-footer">
+                <span class="card-date">Feb 2026</span>
+                <span class="card-cta">Read post →</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background:#fafaf8;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+            <div class="card-inner">
+              <div class="card-logo"><img class="card-logo-img" src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+              <p class="card-title">The personalisation that used to require a team of five</p>
+              <p class="card-snippet">One B2B software company built a system where AI monitors every closed-lost deal and — 90 days later — automatically launches a full multi-channel re-engagement sequence. Zero manual work...</p>
+              <div class="card-footer">
+                <span class="card-date">Feb 2026</span>
+                <span class="card-cta">Read post →</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-stub"></div>
+
+</body>
+</html>

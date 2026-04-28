@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process graphics — three directions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+      --accent-soft: rgba(111, 115, 64, 0.40);
+      --accent-very-soft: rgba(111, 115, 64, 0.18);
+      --display:   "Inter Tight", "Inter", ui-sans-serif, sans-serif;
+      --sans:      "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono:      "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    body { background: var(--bg-2); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 56px 40px 96px; }
+    .page > h1 { font-family: var(--display); font-weight: 600; font-size: 36px; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .page > .lede { color: var(--text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 12px; }
+    .pause-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      transition: color .25s, border-color .25s;
+      margin: 8px 0 40px;
+    }
+    .pause-toggle:hover { color: var(--text); border-color: var(--text-3); }
+    .pause-toggle .key { color: var(--accent); }
+    body.paused * { animation-play-state: paused !important; }
+
+    .direction {
+      margin: 0 0 56px;
+    }
+    .direction-head {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 18px 0 14px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--line-2);
+    }
+    .direction-id {
+      font-family: var(--mono);
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .direction-name {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: -0.015em;
+    }
+    .direction-desc { color: var(--text-2); font-size: 14px; line-height: 1.55; flex: 1; }
+
+    .stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    @media (max-width: 1100px) { .stages { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
+
+    .stage-card {
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .stage-id {
+      font-family: var(--mono);
+      font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 6px;
+    }
+    .stage-name {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: -0.012em;
+      margin: 0 0 14px;
+      color: var(--text);
+    }
+
+    /* Viz container — matches redesign at full size */
+    .viz {
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      padding: 14px 16px 12px;
+      font-family: var(--mono);
+      display: flex; flex-direction: column;
+      min-height: 340px;
+    }
+    .viz-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-3);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .viz-body { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .viz-foot { margin-top: 10px; display: flex; justify-content: flex-end; }
+    .viz-tag {
+      font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      padding: 3px 8px;
+      border: 1px dashed var(--line-2);
+      border-radius: 3px;
+      background: var(--bg-2);
+    }
+
+    /* SVG canvas */
+    .mesh-svg { width: 100%; height: auto; display: block; }
+
+    /* Common dot/line styles */
+    .dot-faint  { fill: rgba(20, 18, 14, 0.22); }
+    .dot-mid    { fill: var(--accent-soft); }
+    .dot-bright { fill: var(--accent); }
+    .lattice-line { stroke: var(--accent-soft); stroke-width: 0.6; }
+
+    /* ════════════════════════════════════════════════════════
+     *  DIRECTION A — Mesh & Multi-Pulse
+     * ════════════════════════════════════════════════════════ */
+    /* (chaos uses inline JS-generated dots) */
+
+    /* Multi-pulse stage A-03 */
+    .puls-A { fill: var(--accent); }
+
+    /* ════════════════════════════════════════════════════════
+     *  DIRECTION B — Radial / Concentric
+     * ════════════════════════════════════════════════════════ */
+    .ring { fill: none; stroke: var(--accent-soft); stroke-width: 0.7; stroke-dasharray: 1.5 2.5; }
+    .ring-dot { fill: var(--accent); }
+    .ring-rotate-1 { animation: rotateB 60s linear infinite; transform-origin: 140px 140px; transform-box: fill-box; }
+    .ring-rotate-2 { animation: rotateB 45s linear infinite reverse; transform-origin: 140px 140px; transform-box: fill-box; }
+    .ring-rotate-3 { animation: rotateB 30s linear infinite; transform-origin: 140px 140px; transform-box: fill-box; }
+    .ring-rotate-4 { animation: rotateB 22s linear infinite reverse; transform-origin: 140px 140px; transform-box: fill-box; }
+    @keyframes rotateB { to { transform: rotate(360deg); } }
+    .pulse-ring {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.4;
+      transform-origin: 140px 140px;
+      animation: ringEmit 7s ease-out infinite;
+    }
+    .pulse-ring-2 {
+      animation-delay: 3.5s;
+    }
+    @keyframes ringEmit {
+      0%   { r: 4;   opacity: 0; }
+      10%  { opacity: 0.55; }
+      80%  { opacity: 0; }
+      100% { r: 110; opacity: 0; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  DIRECTION C — Network Graph
+     * ════════════════════════════════════════════════════════ */
+    .net-edge { stroke: var(--accent-soft); stroke-width: 0.8; }
+    .net-edge-faint { stroke: rgba(20, 18, 14, 0.14); stroke-width: 0.6; }
+    .net-node-faint { fill: rgba(20, 18, 14, 0.22); }
+    .net-node       { fill: var(--accent); }
+    .puls-C { fill: var(--accent); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .ring-rotate-1, .ring-rotate-2, .ring-rotate-3, .ring-rotate-4, .pulse-ring, .puls-A, .puls-C, animateMotion { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Process graphics — three directions</h1>
+    <p class="lede">True chaos in stage 01. Distinct order in stage 02. Multi-signal flow in stage 03 (parallel activity, not a single sweep). Three different visual vocabularies — pick the one that lands.</p>
+    <div class="pause-toggle" id="pause-toggle"><span class="key">[ P ]</span><span>Pause / play motion</span></div>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         DIRECTION A — Mesh & Multi-Pulse
+         ═══════════════════════════════════════════════════════ -->
+    <section class="direction">
+      <div class="direction-head">
+        <span class="direction-id">A</span>
+        <span class="direction-name">Mesh &amp; multi-pulse</span>
+        <span class="direction-desc">Engineering schematic. Scattered dots → snapped lattice → lattice with multiple concurrent pulses on different paths.</span>
+      </div>
+      <div class="stages">
+
+        <!-- A-01: chaos -->
+        <div class="stage-card">
+          <div class="stage-id">01 · Chaos</div>
+          <div class="stage-name">Scattered field</div>
+          <div class="viz">
+            <div class="viz-head"><span>Discovery</span><span>Stage 01</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" id="A01" aria-hidden="true"></svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+
+        <!-- A-02: lattice -->
+        <div class="stage-card">
+          <div class="stage-id">02 · Order</div>
+          <div class="stage-name">Lattice</div>
+          <div class="viz">
+            <div class="viz-head"><span>Substrate</span><span>Stage 02</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" aria-hidden="true">
+                <g class="lattice">
+                  <line class="lattice-line" x1="30"  y1="30"  x2="240" y2="30"  />
+                  <line class="lattice-line" x1="30"  y1="65"  x2="240" y2="65"  />
+                  <line class="lattice-line" x1="30"  y1="100" x2="240" y2="100" />
+                  <line class="lattice-line" x1="30"  y1="135" x2="240" y2="135" />
+                  <line class="lattice-line" x1="30"  y1="170" x2="240" y2="170" />
+                  <line class="lattice-line" x1="30"  y1="205" x2="240" y2="205" />
+                  <line class="lattice-line" x1="30"  y1="240" x2="240" y2="240" />
+                  <line class="lattice-line" x1="30"  y1="30"  x2="30"  y2="240" />
+                  <line class="lattice-line" x1="65"  y1="30"  x2="65"  y2="240" />
+                  <line class="lattice-line" x1="100" y1="30"  x2="100" y2="240" />
+                  <line class="lattice-line" x1="135" y1="30"  x2="135" y2="240" />
+                  <line class="lattice-line" x1="170" y1="30"  x2="170" y2="240" />
+                  <line class="lattice-line" x1="205" y1="30"  x2="205" y2="240" />
+                  <line class="lattice-line" x1="240" y1="30"  x2="240" y2="240" />
+                </g>
+                <g id="A02-dots"></g>
+              </svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+
+        <!-- A-03: multi-pulse -->
+        <div class="stage-card">
+          <div class="stage-id">03 · Flow</div>
+          <div class="stage-name">Lattice &middot; parallel signals</div>
+          <div class="viz">
+            <div class="viz-head"><span>Running</span><span>Stage 03</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" aria-hidden="true">
+                <defs>
+                  <filter id="glowA" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="2.5" />
+                    <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <g class="lattice">
+                  <line class="lattice-line" x1="30"  y1="30"  x2="240" y2="30"  />
+                  <line class="lattice-line" x1="30"  y1="65"  x2="240" y2="65"  />
+                  <line class="lattice-line" x1="30"  y1="100" x2="240" y2="100" />
+                  <line class="lattice-line" x1="30"  y1="135" x2="240" y2="135" />
+                  <line class="lattice-line" x1="30"  y1="170" x2="240" y2="170" />
+                  <line class="lattice-line" x1="30"  y1="205" x2="240" y2="205" />
+                  <line class="lattice-line" x1="30"  y1="240" x2="240" y2="240" />
+                  <line class="lattice-line" x1="30"  y1="30"  x2="30"  y2="240" />
+                  <line class="lattice-line" x1="65"  y1="30"  x2="65"  y2="240" />
+                  <line class="lattice-line" x1="100" y1="30"  x2="100" y2="240" />
+                  <line class="lattice-line" x1="135" y1="30"  x2="135" y2="240" />
+                  <line class="lattice-line" x1="170" y1="30"  x2="170" y2="240" />
+                  <line class="lattice-line" x1="205" y1="30"  x2="205" y2="240" />
+                  <line class="lattice-line" x1="240" y1="30"  x2="240" y2="240" />
+                </g>
+                <g id="A03-dots"></g>
+
+                <!-- Five concurrent pulses on different paths and timings -->
+                <circle class="puls-A" r="4" fill="var(--accent)" filter="url(#glowA)" opacity="0">
+                  <animateMotion path="M 30,30 L 240,240" dur="5s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.06;0.94;1" dur="5s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-A" r="4" fill="var(--accent)" filter="url(#glowA)" opacity="0">
+                  <animateMotion path="M 240,30 L 30,240" dur="6.5s" begin="1.2s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.06;0.94;1" dur="6.5s" begin="1.2s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-A" r="4" fill="var(--accent)" filter="url(#glowA)" opacity="0">
+                  <animateMotion path="M 30,135 L 240,135" dur="4.5s" begin="0.6s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.06;0.94;1" dur="4.5s" begin="0.6s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-A" r="4" fill="var(--accent)" filter="url(#glowA)" opacity="0">
+                  <animateMotion path="M 135,240 L 135,30" dur="5.5s" begin="2.4s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.06;0.94;1" dur="5.5s" begin="2.4s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-A" r="3" fill="var(--accent)" filter="url(#glowA)" opacity="0">
+                  <animateMotion path="M 100,100 L 170,100 L 170,170 L 100,170 Z" dur="7s" begin="0.4s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.05;0.95;1" dur="7s" begin="0.4s" repeatCount="indefinite" />
+                </circle>
+              </svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         DIRECTION B — Radial / Concentric
+         ═══════════════════════════════════════════════════════ -->
+    <section class="direction">
+      <div class="direction-head">
+        <span class="direction-id">B</span>
+        <span class="direction-name">Radial / concentric</span>
+        <span class="direction-desc">Control-room aesthetic. Drifting particles → concentric rings with structured nodes → rings rotating with a slow expanding pulse from the center.</span>
+      </div>
+      <div class="stages">
+
+        <!-- B-01: chaos (drifting particles, no center) -->
+        <div class="stage-card">
+          <div class="stage-id">01 · Chaos</div>
+          <div class="stage-name">Drifting particles</div>
+          <div class="viz">
+            <div class="viz-head"><span>Discovery</span><span>Stage 01</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" id="B01" aria-hidden="true"></svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+
+        <!-- B-02: concentric rings -->
+        <div class="stage-card">
+          <div class="stage-id">02 · Order</div>
+          <div class="stage-name">Concentric structure</div>
+          <div class="viz">
+            <div class="viz-head"><span>Substrate</span><span>Stage 02</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" aria-hidden="true">
+                <!-- 4 concentric ring outlines -->
+                <circle class="ring" cx="140" cy="140" r="34" />
+                <circle class="ring" cx="140" cy="140" r="62" />
+                <circle class="ring" cx="140" cy="140" r="90" />
+                <circle class="ring" cx="140" cy="140" r="115" />
+
+                <!-- Dots at clock positions on each ring -->
+                <!-- Inner (r=34): 4 dots -->
+                <circle class="ring-dot" cx="174" cy="140" r="2.6" />
+                <circle class="ring-dot" cx="140" cy="106" r="2.6" />
+                <circle class="ring-dot" cx="106" cy="140" r="2.6" />
+                <circle class="ring-dot" cx="140" cy="174" r="2.6" />
+                <!-- 2nd (r=62): 6 dots -->
+                <circle class="ring-dot" cx="202" cy="140" r="2.6" />
+                <circle class="ring-dot" cx="171" cy="86"  r="2.6" />
+                <circle class="ring-dot" cx="109" cy="86"  r="2.6" />
+                <circle class="ring-dot" cx="78"  cy="140" r="2.6" />
+                <circle class="ring-dot" cx="109" cy="194" r="2.6" />
+                <circle class="ring-dot" cx="171" cy="194" r="2.6" />
+                <!-- 3rd (r=90): 8 dots -->
+                <circle class="ring-dot" cx="230" cy="140" r="2.6" />
+                <circle class="ring-dot" cx="204" cy="76"  r="2.6" />
+                <circle class="ring-dot" cx="140" cy="50"  r="2.6" />
+                <circle class="ring-dot" cx="76"  cy="76"  r="2.6" />
+                <circle class="ring-dot" cx="50"  cy="140" r="2.6" />
+                <circle class="ring-dot" cx="76"  cy="204" r="2.6" />
+                <circle class="ring-dot" cx="140" cy="230" r="2.6" />
+                <circle class="ring-dot" cx="204" cy="204" r="2.6" />
+                <!-- Outer (r=115): 12 dots -->
+                <circle class="ring-dot" cx="255" cy="140" r="2.6" />
+                <circle class="ring-dot" cx="240" cy="83"  r="2.6" />
+                <circle class="ring-dot" cx="198" cy="42"  r="2.6" />
+                <circle class="ring-dot" cx="140" cy="25"  r="2.6" />
+                <circle class="ring-dot" cx="82"  cy="42"  r="2.6" />
+                <circle class="ring-dot" cx="40"  cy="83"  r="2.6" />
+                <circle class="ring-dot" cx="25"  cy="140" r="2.6" />
+                <circle class="ring-dot" cx="40"  cy="197" r="2.6" />
+                <circle class="ring-dot" cx="82"  cy="238" r="2.6" />
+                <circle class="ring-dot" cx="140" cy="255" r="2.6" />
+                <circle class="ring-dot" cx="198" cy="238" r="2.6" />
+                <circle class="ring-dot" cx="240" cy="197" r="2.6" />
+                <!-- Center -->
+                <circle class="ring-dot" cx="140" cy="140" r="3" />
+              </svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+
+        <!-- B-03: rotating + radial pulse -->
+        <div class="stage-card">
+          <div class="stage-id">03 · Flow</div>
+          <div class="stage-name">Rotating &middot; radial pulse</div>
+          <div class="viz">
+            <div class="viz-head"><span>Running</span><span>Stage 03</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" aria-hidden="true">
+                <!-- Each ring + its dots in a rotating group -->
+                <g class="ring-rotate-4">
+                  <circle class="ring" cx="140" cy="140" r="34" />
+                  <circle class="ring-dot" cx="174" cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="140" cy="106" r="2.6" />
+                  <circle class="ring-dot" cx="106" cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="140" cy="174" r="2.6" />
+                </g>
+                <g class="ring-rotate-3">
+                  <circle class="ring" cx="140" cy="140" r="62" />
+                  <circle class="ring-dot" cx="202" cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="171" cy="86"  r="2.6" />
+                  <circle class="ring-dot" cx="109" cy="86"  r="2.6" />
+                  <circle class="ring-dot" cx="78"  cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="109" cy="194" r="2.6" />
+                  <circle class="ring-dot" cx="171" cy="194" r="2.6" />
+                </g>
+                <g class="ring-rotate-2">
+                  <circle class="ring" cx="140" cy="140" r="90" />
+                  <circle class="ring-dot" cx="230" cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="204" cy="76"  r="2.6" />
+                  <circle class="ring-dot" cx="140" cy="50"  r="2.6" />
+                  <circle class="ring-dot" cx="76"  cy="76"  r="2.6" />
+                  <circle class="ring-dot" cx="50"  cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="76"  cy="204" r="2.6" />
+                  <circle class="ring-dot" cx="140" cy="230" r="2.6" />
+                  <circle class="ring-dot" cx="204" cy="204" r="2.6" />
+                </g>
+                <g class="ring-rotate-1">
+                  <circle class="ring" cx="140" cy="140" r="115" />
+                  <circle class="ring-dot" cx="255" cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="240" cy="83"  r="2.6" />
+                  <circle class="ring-dot" cx="198" cy="42"  r="2.6" />
+                  <circle class="ring-dot" cx="140" cy="25"  r="2.6" />
+                  <circle class="ring-dot" cx="82"  cy="42"  r="2.6" />
+                  <circle class="ring-dot" cx="40"  cy="83"  r="2.6" />
+                  <circle class="ring-dot" cx="25"  cy="140" r="2.6" />
+                  <circle class="ring-dot" cx="40"  cy="197" r="2.6" />
+                  <circle class="ring-dot" cx="82"  cy="238" r="2.6" />
+                  <circle class="ring-dot" cx="140" cy="255" r="2.6" />
+                  <circle class="ring-dot" cx="198" cy="238" r="2.6" />
+                  <circle class="ring-dot" cx="240" cy="197" r="2.6" />
+                </g>
+
+                <!-- Static center -->
+                <circle class="ring-dot" cx="140" cy="140" r="3.5" />
+                <!-- Two expanding pulses out of phase -->
+                <circle class="pulse-ring"   cx="140" cy="140" r="4" />
+                <circle class="pulse-ring pulse-ring-2" cx="140" cy="140" r="4" />
+              </svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         DIRECTION C — Network Graph
+         ═══════════════════════════════════════════════════════ -->
+    <section class="direction">
+      <div class="direction-head">
+        <span class="direction-id">C</span>
+        <span class="direction-name">Network graph</span>
+        <span class="direction-desc">Most "agentic." Loose disconnected nodes → cleanly-wired graph → graph with multiple signals firing on different edges concurrently.</span>
+      </div>
+      <div class="stages">
+
+        <!-- C-01: chaos (disconnected nodes + crossing noise) -->
+        <div class="stage-card">
+          <div class="stage-id">01 · Chaos</div>
+          <div class="stage-name">Disconnected nodes</div>
+          <div class="viz">
+            <div class="viz-head"><span>Discovery</span><span>Stage 01</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" id="C01" aria-hidden="true"></svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+
+        <!-- C-02: clean network -->
+        <div class="stage-card">
+          <div class="stage-id">02 · Order</div>
+          <div class="stage-name">Connected graph</div>
+          <div class="viz">
+            <div class="viz-head"><span>Substrate</span><span>Stage 02</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" aria-hidden="true">
+                <!-- Edges -->
+                <line class="net-edge" x1="60"  y1="60"  x2="140" y2="50"  />
+                <line class="net-edge" x1="140" y1="50"  x2="220" y2="70"  />
+                <line class="net-edge" x1="60"  y1="60"  x2="40"  y2="140" />
+                <line class="net-edge" x1="140" y1="50"  x2="130" y2="120" />
+                <line class="net-edge" x1="220" y1="70"  x2="220" y2="140" />
+                <line class="net-edge" x1="40"  y1="140" x2="130" y2="120" />
+                <line class="net-edge" x1="130" y1="120" x2="220" y2="140" />
+                <line class="net-edge" x1="40"  y1="140" x2="60"  y2="220" />
+                <line class="net-edge" x1="130" y1="120" x2="140" y2="230" />
+                <line class="net-edge" x1="220" y1="140" x2="230" y2="220" />
+                <line class="net-edge" x1="60"  y1="220" x2="140" y2="230" />
+                <line class="net-edge" x1="140" y1="230" x2="230" y2="220" />
+                <line class="net-edge" x1="60"  y1="60"  x2="130" y2="120" />
+                <line class="net-edge" x1="220" y1="70"  x2="130" y2="120" />
+                <!-- Nodes -->
+                <circle class="net-node" cx="60"  cy="60"  r="3.5" />
+                <circle class="net-node" cx="140" cy="50"  r="3.5" />
+                <circle class="net-node" cx="220" cy="70"  r="3.5" />
+                <circle class="net-node" cx="40"  cy="140" r="3.5" />
+                <circle class="net-node" cx="130" cy="120" r="4" />
+                <circle class="net-node" cx="220" cy="140" r="3.5" />
+                <circle class="net-node" cx="60"  cy="220" r="3.5" />
+                <circle class="net-node" cx="140" cy="230" r="3.5" />
+                <circle class="net-node" cx="230" cy="220" r="3.5" />
+              </svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+
+        <!-- C-03: signals firing -->
+        <div class="stage-card">
+          <div class="stage-id">03 · Flow</div>
+          <div class="stage-name">Signals on edges</div>
+          <div class="viz">
+            <div class="viz-head"><span>Running</span><span>Stage 03</span></div>
+            <div class="viz-body">
+              <svg class="mesh-svg" viewBox="0 0 280 280" aria-hidden="true">
+                <defs>
+                  <filter id="glowC" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="2" />
+                    <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <!-- Same edges -->
+                <line class="net-edge" x1="60"  y1="60"  x2="140" y2="50"  />
+                <line class="net-edge" x1="140" y1="50"  x2="220" y2="70"  />
+                <line class="net-edge" x1="60"  y1="60"  x2="40"  y2="140" />
+                <line class="net-edge" x1="140" y1="50"  x2="130" y2="120" />
+                <line class="net-edge" x1="220" y1="70"  x2="220" y2="140" />
+                <line class="net-edge" x1="40"  y1="140" x2="130" y2="120" />
+                <line class="net-edge" x1="130" y1="120" x2="220" y2="140" />
+                <line class="net-edge" x1="40"  y1="140" x2="60"  y2="220" />
+                <line class="net-edge" x1="130" y1="120" x2="140" y2="230" />
+                <line class="net-edge" x1="220" y1="140" x2="230" y2="220" />
+                <line class="net-edge" x1="60"  y1="220" x2="140" y2="230" />
+                <line class="net-edge" x1="140" y1="230" x2="230" y2="220" />
+                <line class="net-edge" x1="60"  y1="60"  x2="130" y2="120" />
+                <line class="net-edge" x1="220" y1="70"  x2="130" y2="120" />
+                <!-- Same nodes -->
+                <circle class="net-node" cx="60"  cy="60"  r="3.5" />
+                <circle class="net-node" cx="140" cy="50"  r="3.5" />
+                <circle class="net-node" cx="220" cy="70"  r="3.5" />
+                <circle class="net-node" cx="40"  cy="140" r="3.5" />
+                <circle class="net-node" cx="130" cy="120" r="4" />
+                <circle class="net-node" cx="220" cy="140" r="3.5" />
+                <circle class="net-node" cx="60"  cy="220" r="3.5" />
+                <circle class="net-node" cx="140" cy="230" r="3.5" />
+                <circle class="net-node" cx="230" cy="220" r="3.5" />
+
+                <!-- Active signals on selected edges, varied timing -->
+                <circle class="puls-C" r="3.2" filter="url(#glowC)" opacity="0">
+                  <animateMotion path="M 60,60 L 140,50" dur="2.4s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="2.4s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-C" r="3.2" filter="url(#glowC)" opacity="0">
+                  <animateMotion path="M 140,50 L 220,70" dur="2.8s" begin="0.6s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="2.8s" begin="0.6s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-C" r="3.2" filter="url(#glowC)" opacity="0">
+                  <animateMotion path="M 130,120 L 220,140" dur="2.2s" begin="1.0s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="2.2s" begin="1.0s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-C" r="3.2" filter="url(#glowC)" opacity="0">
+                  <animateMotion path="M 130,120 L 140,230" dur="3.2s" begin="0.4s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="3.2s" begin="0.4s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-C" r="3.2" filter="url(#glowC)" opacity="0">
+                  <animateMotion path="M 60,220 L 140,230" dur="2.6s" begin="1.4s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="2.6s" begin="1.4s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-C" r="3.2" filter="url(#glowC)" opacity="0">
+                  <animateMotion path="M 40,140 L 60,220" dur="3s" begin="2.0s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="3s" begin="2.0s" repeatCount="indefinite" />
+                </circle>
+                <circle class="puls-C" r="3.2" filter="url(#glowC)" opacity="0">
+                  <animateMotion path="M 220,70 L 130,120" dur="3.4s" begin="0.8s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="3.4s" begin="0.8s" repeatCount="indefinite" />
+                </circle>
+              </svg>
+            </div>
+            <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div style="margin-top:24px; padding:20px 24px; background:var(--bg); border:1px solid var(--line-2); border-radius:8px; color:var(--text-2); font-size:13px; line-height:1.6;">
+      <strong style="color:var(--text); font-family:var(--display);">If one of these lands:</strong> reply <span style="font-family:var(--mono); color:var(--accent);">"go A"</span> / <span style="font-family:var(--mono); color:var(--accent);">"go B"</span> / <span style="font-family:var(--mono); color:var(--accent);">"go C"</span> and I'll wire it into the live redesign. Or call out what's still off — chaos still too neat? motion too busy? wrong primitive entirely? — and I'll iterate.<br/><br/>
+      <span style="color:var(--text-3);">My pick: <b style="color:var(--accent);">C — Network graph</b>. The chaos→order transition is the most legible (disconnected → wired), and the multi-edge signals in stage 03 feel unmistakably like agents working in parallel.</span>
+    </div>
+  </div>
+
+  <script>
+    // Pause toggle
+    const toggle = () => document.body.classList.toggle('paused');
+    document.getElementById('pause-toggle').addEventListener('click', toggle);
+    document.addEventListener('keydown', (e) => { if (e.key === 'p' || e.key === 'P') toggle(); });
+
+    // Deterministic pseudo-random (so chaos looks the same across reloads)
+    function seeded(seed) {
+      let s = seed;
+      return () => {
+        s = (s * 9301 + 49297) % 233280;
+        return s / 233280;
+      };
+    }
+    const ns = 'http://www.w3.org/2000/svg';
+
+    // ── A-01: scattered field ── perturbed grid + varied size + varied opacity
+    (function () {
+      const el = document.getElementById('A01');
+      if (!el) return;
+      const rand = seeded(42);
+      // 56 dots: 7×8 perturbed grid
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 7; c++) {
+          const baseX = 30 + c * 35;
+          const baseY = 22 + r * 32;
+          const jx = (rand() - 0.5) * 28;
+          const jy = (rand() - 0.5) * 28;
+          const radius = 0.8 + rand() * 2.6;
+          const opacity = 0.18 + rand() * 0.55;
+          const dot = document.createElementNS(ns, 'circle');
+          dot.setAttribute('cx', baseX + jx);
+          dot.setAttribute('cy', baseY + jy);
+          dot.setAttribute('r', radius);
+          dot.setAttribute('fill', '#15130f');
+          dot.setAttribute('opacity', opacity);
+          el.appendChild(dot);
+        }
+      }
+    })();
+
+    // ── A-02 & A-03 dots: perfect 7×7 grid in sage ──
+    function makeGrid(elId) {
+      const g = document.getElementById(elId);
+      if (!g) return;
+      for (let r = 0; r < 7; r++) {
+        for (let c = 0; c < 7; c++) {
+          const dot = document.createElementNS(ns, 'circle');
+          dot.setAttribute('cx', 30 + c * 35);
+          dot.setAttribute('cy', 30 + r * 35);
+          dot.setAttribute('r', 2.3);
+          dot.setAttribute('fill', '#6f7340');
+          g.appendChild(dot);
+        }
+      }
+    }
+    makeGrid('A02-dots');
+    makeGrid('A03-dots');
+
+    // ── B-01: drifting particles, no center, no structure ──
+    (function () {
+      const el = document.getElementById('B01');
+      if (!el) return;
+      const rand = seeded(127);
+      for (let i = 0; i < 38; i++) {
+        const x = 25 + rand() * 230;
+        const y = 25 + rand() * 230;
+        const radius = 0.8 + rand() * 2.4;
+        const opacity = 0.15 + rand() * 0.55;
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', x);
+        dot.setAttribute('cy', y);
+        dot.setAttribute('r', radius);
+        dot.setAttribute('fill', '#15130f');
+        dot.setAttribute('opacity', opacity);
+        el.appendChild(dot);
+      }
+    })();
+
+    // ── C-01: disconnected nodes + faint crossing noise lines ──
+    (function () {
+      const el = document.getElementById('C01');
+      if (!el) return;
+      const rand = seeded(73);
+      // 6 faint crossing "noise" lines
+      for (let i = 0; i < 6; i++) {
+        const line = document.createElementNS(ns, 'line');
+        line.setAttribute('x1', 20 + rand() * 240);
+        line.setAttribute('y1', 20 + rand() * 240);
+        line.setAttribute('x2', 20 + rand() * 240);
+        line.setAttribute('y2', 20 + rand() * 240);
+        line.setAttribute('stroke', '#15130f');
+        line.setAttribute('stroke-width', 0.5);
+        line.setAttribute('opacity', 0.08 + rand() * 0.10);
+        line.setAttribute('stroke-dasharray', '1.5 3');
+        el.appendChild(line);
+      }
+      // 14 disconnected nodes scattered
+      for (let i = 0; i < 14; i++) {
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', 25 + rand() * 230);
+        dot.setAttribute('cy', 25 + rand() * 230);
+        dot.setAttribute('r', 2 + rand() * 2);
+        dot.setAttribute('fill', '#15130f');
+        dot.setAttribute('opacity', 0.25 + rand() * 0.45);
+        el.appendChild(dot);
+      }
+    })();
+  </script>
+</body>
+</html>

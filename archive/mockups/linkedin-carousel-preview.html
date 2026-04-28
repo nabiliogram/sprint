@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Carousel Preview — Sprint Assembly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafafa; padding: 40px 0; }
+    .wrap { max-width: 950px; width: 88%; margin: 0 auto; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 700; color: rgba(115,115,115,0.8); }
+    h2 { margin-top: 16px; font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; color: #0a0a0a; line-height: 1.2; }
+    h2 span { background: #0a0a0a; padding: 4px 16px; color: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); display: inline; }
+    .carousel-container { margin-top: 24px; position: relative; }
+    .carousel-track {
+      display: flex; gap: 24px; overflow-x: auto; scroll-behavior: smooth;
+      scroll-snap-type: x mandatory; padding: 8px 8px 16px 8px;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .card {
+      flex-shrink: 0; width: 400px; border-radius: 16px; background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);
+      overflow: hidden; scroll-snap-align: start;
+    }
+    .card iframe { width: 100%; height: 500px; border: none; }
+    .nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+      width: 40px; height: 40px; border-radius: 50%; background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: #afb975; transition: all 0.2s;
+    }
+    .nav-btn:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.12); transform: translateY(-50%) scale(1.05); }
+    .nav-btn.left { left: -20px; }
+    .nav-btn.right { right: -20px; }
+    .note { margin-top: 32px; padding: 20px; background: #f0fdf4; border-radius: 12px; border: 1px solid #bbf7d0; font-size: 14px; color: #166534; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">Insights</div>
+    <h2><span>Latest from LinkedIn</span></h2>
+
+    <div class="carousel-container">
+      <button class="nav-btn left" onclick="document.getElementById('track').scrollBy({left:-424,behavior:'smooth'})">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button class="nav-btn right" onclick="document.getElementById('track').scrollBy({left:424,behavior:'smooth'})">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+
+      <div class="carousel-track" id="track">
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7447285866982445056" frameborder="0" allowfullscreen title="Post 1"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7444818888808296448" frameborder="0" allowfullscreen title="Post 2"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7444184565851713536" frameborder="0" allowfullscreen title="Post 3"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7441624814752141312" frameborder="0" allowfullscreen title="Post 4"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7440389396551401472" frameborder="0" allowfullscreen title="Post 5"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7440153299925786624" frameborder="0" allowfullscreen title="Post 6"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7439391088374669312" frameborder="0" allowfullscreen title="Post 7"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438736734290333696" frameborder="0" allowfullscreen title="Post 8"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438318777794068481" frameborder="0" allowfullscreen title="Post 9"></iframe></div>
+        <div class="card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438316307147591681" frameborder="0" allowfullscreen title="Post 10"></iframe></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Preview note:</strong> This is a standalone preview of the LinkedIn carousel section. On your live site, it will sit between the hero quote/logos and the "Opportunity" section, styled consistently with the rest of the page.
+    </div>
+  </div>
+</body>
+</html>

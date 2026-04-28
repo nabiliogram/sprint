@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Assembly — Roadmap Layout Variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --moss: #afb975;
+    --moss-deep: #7e8a4d;
+    --moss-shade: #1f2310;
+    --ink: #0d0d0c;
+    --ink-2: #2c2a26;
+    --ink-3: #5a5650;
+    --ink-4: #888378;
+    --paper: #f7f3e7;
+    --paper-2: #efe9d4;
+    --paper-3: #ebe4cb;
+    --card: #fdfaf0;
+    --rule-soft: rgba(13, 13, 12, 0.14);
+    --rule-faint: rgba(13, 13, 12, 0.07);
+    --teal: rgba(184, 240, 237, 0.4);
+    --amber: rgba(255, 237, 184, 0.26);
+
+    --sans: "Host Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+    --gutter: clamp(20px, 4vw, 56px);
+    --max: 1200px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    background:
+      radial-gradient(1000px circle at 8% -8%, var(--teal), transparent 55%),
+      radial-gradient(900px circle at 94% 14%, var(--amber), transparent 60%),
+      var(--paper);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--moss); color: var(--moss-shade); }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* Mockup banner */
+  .mockup-banner {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .mockup-banner .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .mockup-banner a { color: var(--moss); border-bottom: 1px dotted var(--moss); padding-bottom: 1px; }
+
+  /* Intro */
+  .intro {
+    padding: clamp(40px, 5vw, 72px) 0 clamp(24px, 3vw, 40px);
+  }
+
+  .intro-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .intro-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--moss);
+  }
+
+  .intro h1 {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    max-width: 22ch;
+    margin-bottom: 20px;
+  }
+
+  .intro h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--moss-deep);
+  }
+
+  .intro p {
+    font-size: clamp(15px, 1.2vw, 17px);
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+
+  .intro .jump {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .intro .jump a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    border: 1.5px solid var(--ink);
+    padding: 6px 12px;
+    transition: background 160ms ease, color 160ms ease;
+  }
+
+  .intro .jump a:hover { background: var(--ink); color: var(--paper); }
+
+  /* Variation section frame */
+  .var-section {
+    padding: clamp(40px, 5vw, 72px) 0 clamp(32px, 4vw, 56px);
+    position: relative;
+  }
+
+  .var-section + .var-section::before {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 2px;
+    background: var(--moss);
+    position: absolute;
+    top: 0;
+    left: var(--gutter);
+  }
+
+  .var-header {
+    margin-bottom: clamp(24px, 3vw, 36px);
+    display: grid;
+    gap: 16px;
+  }
+
+  @media (min-width: 860px) {
+    .var-header { grid-template-columns: auto 1fr; gap: 32px; align-items: baseline; }
+  }
+
+  .var-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    white-space: nowrap;
+  }
+
+  .var-label .num {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4px 8px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .var-label .name {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-family: var(--sans);
+  }
+
+  .var-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 68ch;
+  }
+
+  /* Section title inside each variation (matches V2's style) */
+  .inline-sec-head {
+    margin-bottom: clamp(20px, 2vw, 28px);
+  }
+
+  .inline-sec-head .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .inline-sec-head .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--moss);
+  }
+
+  .inline-sec-head h2 {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .inline-sec-head h2 .accent {
+    background: var(--moss);
+    color: var(--moss-shade);
+    padding: 0 10px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transform: skew(-2deg);
+    display: inline-block;
+  }
+
+  /* Shared phase elements */
+  .phase-num {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 12px 14px;
+    display: grid;
+    place-items: center;
+    letter-spacing: 0.04em;
+    min-width: 58px;
+  }
+
+  .phase-title {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 19px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .phase-sub {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .phase-body-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .focus-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-4);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .focus-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .focus-list li {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ink);
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .focus-list li::before {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: var(--moss);
+    margin-top: 6px;
+  }
+
+  .outcome-box {
+    background: rgba(175, 185, 117, 0.1);
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .outcome-box .outcome-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--moss-deep);
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  /* ========================================================== */
+  /* VARIATION 1 — Compact Tile                                   */
+  /* Phase head spans full width, then 2-col: body | focus+outcome */
+  /* ========================================================== */
+
+  .v1-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .v1-card {
+    background: var(--card);
+    border: 1px solid var(--rule-soft);
+  }
+
+  .v1-head {
+    display: flex;
+    align-items: stretch;
+    background: var(--paper-3);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .v1-head .titles {
+    padding: 10px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .v1-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  @media (min-width: 860px) {
+    .v1-content { grid-template-columns: 1.35fr 1fr; }
+  }
+
+  .v1-body {
+    padding: 18px 22px;
+  }
+
+  @media (min-width: 860px) {
+    .v1-body { border-right: 1px solid var(--rule-soft); }
+  }
+
+  .v1-body p { max-width: 58ch; }
+
+  .v1-right {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  @media (min-width: 860px) {
+    .v1-right { border-top: 0; }
+  }
+
+  .v1-right .outcome-box {
+    border-top: 1px dashed var(--rule-soft);
+    background: transparent;
+    padding: 12px 0 0 0;
+    margin-top: 2px;
+  }
+
+  /* ========================================================== */
+  /* VARIATION 2 — Sidebar Phase                                  */
+  /* Narrow left sidebar for phase head + right content grid      */
+  /* ========================================================== */
+
+  .v2-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .v2-card {
+    background: var(--card);
+    border: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 820px) {
+    .v2-card { grid-template-columns: 200px 1fr; }
+  }
+
+  .v2-sidebar {
+    background: var(--paper-3);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  @media (min-width: 820px) {
+    .v2-sidebar { border-bottom: 0; border-right: 1px solid var(--rule-soft); }
+  }
+
+  .v2-sidebar .big-num {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--ink);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+
+  .v2-sidebar .rule {
+    width: 32px;
+    height: 2px;
+    background: var(--moss);
+    margin: 2px 0;
+  }
+
+  .v2-content {
+    padding: 18px 22px;
+    display: grid;
+    gap: 16px;
+  }
+
+  .v2-body-row {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .v2-body-row p { max-width: 68ch; }
+
+  .v2-bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  @media (min-width: 600px) {
+    .v2-bottom { grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: start; }
+  }
+
+  /* ========================================================== */
+  /* VARIATION 3 — Timeline Rows                                  */
+  /* No cards. Flowing rows with thin separators                  */
+  /* ========================================================== */
+
+  .v3-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  .v3-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: clamp(24px, 3vw, 36px) 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .v3-row { grid-template-columns: 220px 1fr 260px; gap: clamp(24px, 3vw, 48px); }
+  }
+
+  .v3-id {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 12px;
+  }
+
+  .v3-id .num-mark {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--moss-deep);
+  }
+
+  .v3-id .rule {
+    width: 32px;
+    height: 2px;
+    background: var(--moss);
+  }
+
+  .v3-body p { max-width: 60ch; }
+
+  .v3-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .v3-right .outcome-box {
+    background: transparent;
+    border-top: 1px dashed var(--rule-soft);
+    padding: 12px 0 0 0;
+  }
+
+  /* ========================================================== */
+  /* VARIATION 4 — Narrowed Cards (centered)                      */
+  /* Each card ~820px max, everything stacks vertically           */
+  /* ========================================================== */
+
+  .v4-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .v4-card {
+    background: var(--card);
+    border: 1px solid var(--rule-soft);
+    max-width: 860px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .v4-head {
+    display: flex;
+    align-items: stretch;
+    background: var(--paper-3);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .v4-head .titles {
+    padding: 10px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .v4-body-section {
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .v4-body-section p { max-width: 62ch; }
+
+  .v4-focus-section {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .v4-outcome-section {
+    padding: 14px 22px;
+    background: rgba(175, 185, 117, 0.08);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  @media (min-width: 640px) {
+    .v4-outcome-section { grid-template-columns: 100px 1fr; gap: 16px; align-items: baseline; }
+  }
+
+  .v4-outcome-section .outcome-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--moss-deep);
+    font-weight: 700;
+  }
+
+  .v4-outcome-section .outcome-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Footer */
+  footer {
+    padding: clamp(40px, 4vw, 56px) 0 40px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <div class="wrap">
+    <span>Roadmap / Process Section — 4 Layout Variations</span>
+    <a href="./02-index-ledger.html">← Back to V2</a>
+  </div>
+</div>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-eyebrow">V2 · Roadmap layout exploration</div>
+    <h1>Four layouts for the <em>Process</em> section.</h1>
+    <p>Same three phases, same copy, same focus areas. Four different ways to arrange them on a single page so the section scans quickly and wastes less horizontal space. Scroll through, then tell me which direction to commit to in the main V2 mockup.</p>
+    <div class="jump">
+      <a href="#v1">V1 · Compact Tile</a>
+      <a href="#v2">V2 · Sidebar Phase</a>
+      <a href="#v3">V3 · Timeline Rows</a>
+      <a href="#v4">V4 · Narrowed Cards</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- VARIATION 1 — Compact Tile                    -->
+<!-- ============================================ -->
+<section class="var-section" id="v1">
+  <div class="wrap">
+    <div class="var-header">
+      <div class="var-label"><span class="num">V1</span><span class="name">Compact Tile</span></div>
+      <p class="var-desc">Your suggestion. Phase head stays as a full-width black bar across the top of each card. Below it, a 2-column split: body paragraph on the left, focus areas stacked above outcome on the right. The outcome stops being a full-width footer and becomes part of the right column. Each card reads top-down without the body ever running to an unreadable width.</p>
+    </div>
+
+    <div class="inline-sec-head">
+      <div class="eyebrow">Process</div>
+      <h2>How We <span class="accent">Modernize</span> You</h2>
+    </div>
+
+    <div class="v1-list">
+      <article class="v1-card">
+        <header class="v1-head">
+          <div class="phase-num">01</div>
+          <div class="titles">
+            <h3 class="phase-title">Diagnostic Sprint</h3>
+            <div class="phase-sub">Analysis before assembly</div>
+          </div>
+        </header>
+        <div class="v1-content">
+          <div class="v1-body">
+            <p class="phase-body-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+          </div>
+          <div class="v1-right">
+            <div>
+              <div class="focus-label">Focus Areas</div>
+              <ul class="focus-list">
+                <li>Workflow and process efficiency</li>
+                <li>Data and measurement maturity</li>
+                <li>Automation opportunity ranking</li>
+                <li>Customer and operational lifecycle friction</li>
+                <li>AI and agent readiness</li>
+              </ul>
+            </div>
+            <div class="outcome-box">
+              <span class="outcome-label">Outcome</span>
+              A clear, prioritized view of where change will drive the highest return.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="v1-card">
+        <header class="v1-head">
+          <div class="phase-num">02</div>
+          <div class="titles">
+            <h3 class="phase-title">Instrumentation</h3>
+            <div class="phase-sub">Clean data. Clear workflows.</div>
+          </div>
+        </header>
+        <div class="v1-content">
+          <div class="v1-body">
+            <p class="phase-body-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement &mdash; the unglamorous work that makes automation actually work.</p>
+          </div>
+          <div class="v1-right">
+            <div>
+              <div class="focus-label">Focus Areas</div>
+              <ul class="focus-list">
+                <li>Unified data &amp; measurement infrastructure</li>
+                <li>Workflow definition and documentation</li>
+                <li>Governance, guardrails, and eval criteria</li>
+                <li>Automation-readiness across systems</li>
+              </ul>
+            </div>
+            <div class="outcome-box">
+              <span class="outcome-label">Outcome</span>
+              Your data, processes, and governance are automation-ready.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="v1-card">
+        <header class="v1-head">
+          <div class="phase-num">03</div>
+          <div class="titles">
+            <h3 class="phase-title">Autonomous Orchestration</h3>
+            <div class="phase-sub">Scale independent of headcount</div>
+          </div>
+        </header>
+        <div class="v1-content">
+          <div class="v1-body">
+            <p class="phase-body-text">Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time &mdash; across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.</p>
+          </div>
+          <div class="v1-right">
+            <div>
+              <div class="focus-label">Focus Areas</div>
+              <ul class="focus-list">
+                <li>Agentic workflow orchestration</li>
+                <li>Automated decisioning (budget, routing, prioritization)</li>
+                <li>Predictive operational &amp; CRM orchestration</li>
+                <li>Real-time measurement and feedback loops</li>
+              </ul>
+            </div>
+            <div class="outcome-box">
+              <span class="outcome-label">Outcome</span>
+              A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team&rsquo;s strategic capacity.
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- VARIATION 2 — Sidebar Phase                   -->
+<!-- ============================================ -->
+<section class="var-section" id="v2">
+  <div class="wrap">
+    <div class="var-header">
+      <div class="var-label"><span class="num">V2</span><span class="name">Sidebar Phase</span></div>
+      <p class="var-desc">Each phase card has a narrow left sidebar &mdash; a vertical tab &mdash; carrying the big phase number plus title/sub. The rest of the card is a content area: body paragraph on top, then a focus-areas + outcome 2-col below. The sidebar treats each phase like a numbered chapter opener. Denser than V1, stronger phase identity.</p>
+    </div>
+
+    <div class="inline-sec-head">
+      <div class="eyebrow">Process</div>
+      <h2>How We <span class="accent">Modernize</span> You</h2>
+    </div>
+
+    <div class="v2-list">
+      <article class="v2-card">
+        <aside class="v2-sidebar">
+          <div class="big-num">01</div>
+          <div class="rule"></div>
+          <h3 class="phase-title">Diagnostic Sprint</h3>
+          <div class="phase-sub">Analysis before assembly</div>
+        </aside>
+        <div class="v2-content">
+          <div class="v2-body-row">
+            <p class="phase-body-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+          </div>
+          <div class="v2-bottom">
+            <div>
+              <div class="focus-label">Focus Areas</div>
+              <ul class="focus-list">
+                <li>Workflow and process efficiency</li>
+                <li>Data and measurement maturity</li>
+                <li>Automation opportunity ranking</li>
+                <li>Customer and operational lifecycle friction</li>
+                <li>AI and agent readiness</li>
+              </ul>
+            </div>
+            <div class="outcome-box">
+              <span class="outcome-label">Outcome</span>
+              A clear, prioritized view of where change will drive the highest return.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="v2-card">
+        <aside class="v2-sidebar">
+          <div class="big-num">02</div>
+          <div class="rule"></div>
+          <h3 class="phase-title">Instrumentation</h3>
+          <div class="phase-sub">Clean data. Clear workflows.</div>
+        </aside>
+        <div class="v2-content">
+          <div class="v2-body-row">
+            <p class="phase-body-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement &mdash; the unglamorous work that makes automation actually work.</p>
+          </div>
+          <div class="v2-bottom">
+            <div>
+              <div class="focus-label">Focus Areas</div>
+              <ul class="focus-list">
+                <li>Unified data &amp; measurement infrastructure</li>
+                <li>Workflow definition and documentation</li>
+                <li>Governance, guardrails, and eval criteria</li>
+                <li>Automation-readiness across systems</li>
+              </ul>
+            </div>
+            <div class="outcome-box">
+              <span class="outcome-label">Outcome</span>
+              Your data, processes, and governance are automation-ready.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="v2-card">
+        <aside class="v2-sidebar">
+          <div class="big-num">03</div>
+          <div class="rule"></div>
+          <h3 class="phase-title">Autonomous Orchestration</h3>
+          <div class="phase-sub">Scale independent of headcount</div>
+        </aside>
+        <div class="v2-content">
+          <div class="v2-body-row">
+            <p class="phase-body-text">Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time &mdash; across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.</p>
+          </div>
+          <div class="v2-bottom">
+            <div>
+              <div class="focus-label">Focus Areas</div>
+              <ul class="focus-list">
+                <li>Agentic workflow orchestration</li>
+                <li>Automated decisioning (budget, routing, prioritization)</li>
+                <li>Predictive operational &amp; CRM orchestration</li>
+                <li>Real-time measurement and feedback loops</li>
+              </ul>
+            </div>
+            <div class="outcome-box">
+              <span class="outcome-label">Outcome</span>
+              A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team&rsquo;s strategic capacity.
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- VARIATION 3 — Timeline Rows                   -->
+<!-- ============================================ -->
+<section class="var-section" id="v3">
+  <div class="wrap">
+    <div class="var-header">
+      <div class="var-label"><span class="num">V3</span><span class="name">Timeline Rows</span></div>
+      <p class="var-desc">Drops the card chrome entirely. Each phase is a row with three columns: phase identity on the left (big mono number, moss rule, title, sub), body paragraph in the middle, focus areas + outcome on the right. Thin rules separate rows. Feels like a changelog or a printed brief &mdash; the most information-dense, least decorated option.</p>
+    </div>
+
+    <div class="inline-sec-head">
+      <div class="eyebrow">Process</div>
+      <h2>How We <span class="accent">Modernize</span> You</h2>
+    </div>
+
+    <div class="v3-list">
+      <article class="v3-row">
+        <div class="v3-id">
+          <div class="num-mark">01</div>
+          <div class="rule"></div>
+          <h3 class="phase-title">Diagnostic Sprint</h3>
+          <div class="phase-sub">Analysis before assembly</div>
+        </div>
+        <div class="v3-body">
+          <p class="phase-body-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+        </div>
+        <div class="v3-right">
+          <div>
+            <div class="focus-label">Focus Areas</div>
+            <ul class="focus-list">
+              <li>Workflow and process efficiency</li>
+              <li>Data and measurement maturity</li>
+              <li>Automation opportunity ranking</li>
+              <li>Customer and operational lifecycle friction</li>
+              <li>AI and agent readiness</li>
+            </ul>
+          </div>
+          <div class="outcome-box">
+            <span class="outcome-label">Outcome</span>
+            A clear, prioritized view of where change will drive the highest return.
+          </div>
+        </div>
+      </article>
+
+      <article class="v3-row">
+        <div class="v3-id">
+          <div class="num-mark">02</div>
+          <div class="rule"></div>
+          <h3 class="phase-title">Instrumentation</h3>
+          <div class="phase-sub">Clean data. Clear workflows.</div>
+        </div>
+        <div class="v3-body">
+          <p class="phase-body-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement &mdash; the unglamorous work that makes automation actually work.</p>
+        </div>
+        <div class="v3-right">
+          <div>
+            <div class="focus-label">Focus Areas</div>
+            <ul class="focus-list">
+              <li>Unified data &amp; measurement infrastructure</li>
+              <li>Workflow definition and documentation</li>
+              <li>Governance, guardrails, and eval criteria</li>
+              <li>Automation-readiness across systems</li>
+            </ul>
+          </div>
+          <div class="outcome-box">
+            <span class="outcome-label">Outcome</span>
+            Your data, processes, and governance are automation-ready.
+          </div>
+        </div>
+      </article>
+
+      <article class="v3-row">
+        <div class="v3-id">
+          <div class="num-mark">03</div>
+          <div class="rule"></div>
+          <h3 class="phase-title">Autonomous Orchestration</h3>
+          <div class="phase-sub">Scale independent of headcount</div>
+        </div>
+        <div class="v3-body">
+          <p class="phase-body-text">Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time &mdash; across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.</p>
+        </div>
+        <div class="v3-right">
+          <div>
+            <div class="focus-label">Focus Areas</div>
+            <ul class="focus-list">
+              <li>Agentic workflow orchestration</li>
+              <li>Automated decisioning (budget, routing, prioritization)</li>
+              <li>Predictive operational &amp; CRM orchestration</li>
+              <li>Real-time measurement and feedback loops</li>
+            </ul>
+          </div>
+          <div class="outcome-box">
+            <span class="outcome-label">Outcome</span>
+            A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team&rsquo;s strategic capacity.
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- VARIATION 4 — Narrowed Cards (centered)       -->
+<!-- ============================================ -->
+<section class="var-section" id="v4">
+  <div class="wrap">
+    <div class="var-header">
+      <div class="var-label"><span class="num">V4</span><span class="name">Narrowed Cards</span></div>
+      <p class="var-desc">Each phase card is constrained to ~860px and centered on the page. Content stacks vertically inside: phase head strip, body paragraph, focus areas, then outcome as a tinted footer strip. No side-by-side columns inside the card &mdash; everything flows downward. The narrower width forces a readable column naturally. Feels like a chapter page in a printed pitch document.</p>
+    </div>
+
+    <div class="inline-sec-head">
+      <div class="eyebrow">Process</div>
+      <h2>How We <span class="accent">Modernize</span> You</h2>
+    </div>
+
+    <div class="v4-list">
+      <article class="v4-card">
+        <header class="v4-head">
+          <div class="phase-num">01</div>
+          <div class="titles">
+            <h3 class="phase-title">Diagnostic Sprint</h3>
+            <div class="phase-sub">Analysis before assembly</div>
+          </div>
+        </header>
+        <div class="v4-body-section">
+          <p class="phase-body-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+        </div>
+        <div class="v4-focus-section">
+          <div class="focus-label">Focus Areas</div>
+          <ul class="focus-list">
+            <li>Workflow and process efficiency</li>
+            <li>Data and measurement maturity</li>
+            <li>Automation opportunity ranking</li>
+            <li>Customer and operational lifecycle friction</li>
+            <li>AI and agent readiness</li>
+          </ul>
+        </div>
+        <div class="v4-outcome-section">
+          <span class="outcome-label">Outcome</span>
+          <span class="outcome-text">A clear, prioritized view of where change will drive the highest return.</span>
+        </div>
+      </article>
+
+      <article class="v4-card">
+        <header class="v4-head">
+          <div class="phase-num">02</div>
+          <div class="titles">
+            <h3 class="phase-title">Instrumentation</h3>
+            <div class="phase-sub">Clean data. Clear workflows.</div>
+          </div>
+        </header>
+        <div class="v4-body-section">
+          <p class="phase-body-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement &mdash; the unglamorous work that makes automation actually work.</p>
+        </div>
+        <div class="v4-focus-section">
+          <div class="focus-label">Focus Areas</div>
+          <ul class="focus-list">
+            <li>Unified data &amp; measurement infrastructure</li>
+            <li>Workflow definition and documentation</li>
+            <li>Governance, guardrails, and eval criteria</li>
+            <li>Automation-readiness across systems</li>
+          </ul>
+        </div>
+        <div class="v4-outcome-section">
+          <span class="outcome-label">Outcome</span>
+          <span class="outcome-text">Your data, processes, and governance are automation-ready.</span>
+        </div>
+      </article>
+
+      <article class="v4-card">
+        <header class="v4-head">
+          <div class="phase-num">03</div>
+          <div class="titles">
+            <h3 class="phase-title">Autonomous Orchestration</h3>
+            <div class="phase-sub">Scale independent of headcount</div>
+          </div>
+        </header>
+        <div class="v4-body-section">
+          <p class="phase-body-text">Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time &mdash; across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.</p>
+        </div>
+        <div class="v4-focus-section">
+          <div class="focus-label">Focus Areas</div>
+          <ul class="focus-list">
+            <li>Agentic workflow orchestration</li>
+            <li>Automated decisioning (budget, routing, prioritization)</li>
+            <li>Predictive operational &amp; CRM orchestration</li>
+            <li>Real-time measurement and feedback loops</li>
+          </ul>
+        </div>
+        <div class="v4-outcome-section">
+          <span class="outcome-label">Outcome</span>
+          <span class="outcome-text">A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team&rsquo;s strategic capacity.</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Sprint Assembly · Roadmap layout study · April 2026</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SprintAssembly — Section Tinting Mockups</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400..900;1,400..900&display=swap');
+
+    :root {
+      --cta: #afb975;
+      --cta-ring: #6b7347;
+      --ink: #0a0a0a;
+      --muted: #525252;
+      --muted-2: #737373;
+      --faint: rgba(115,115,115,0.8);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      color: #171717;
+      font-family: 'Public Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-feature-settings: "kern", "ss01";
+      -webkit-font-smoothing: antialiased;
+      background: #e8e8e2;
+    }
+
+    /* ---------- Page-level intro ---------- */
+    .page-intro {
+      max-width: 760px; margin: 48px auto 24px; padding: 0 32px;
+    }
+    .page-intro .kicker {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--faint); margin-bottom: 12px;
+    }
+    .page-intro h1 {
+      font-weight: 900; font-size: 32px; line-height: 1.1;
+      letter-spacing: -0.02em; margin: 0 0 12px;
+    }
+    .page-intro p { color: var(--muted); line-height: 1.6; font-size: 15px; margin: 0 0 8px; }
+
+    /* ---------- Variant label ---------- */
+    .variant-label {
+      max-width: 1040px; margin: 48px auto 0; padding: 20px 32px;
+      background: rgba(0,0,0,0.04);
+      border: 1px dashed rgba(0,0,0,0.15);
+      border-radius: 16px 16px 0 0;
+      border-bottom: none;
+    }
+    .variant-label .mock-label {
+      font-size: 10px; font-weight: 900;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--cta); margin-bottom: 6px;
+    }
+    .variant-label h2 {
+      font-weight: 900; font-size: 22px;
+      letter-spacing: -0.01em; margin: 0 0 8px;
+    }
+    .variant-label p {
+      color: var(--muted); font-size: 14px; line-height: 1.55;
+      margin: 0 0 6px;
+    }
+    .variant-label .note {
+      margin-top: 10px; font-size: 12px;
+      padding: 8px 12px; border-radius: 8px;
+      background: rgba(175,185,117,0.15);
+      color: #5f6a3b; line-height: 1.45;
+    }
+
+    /* ---------- Page variant wrapper ---------- */
+    .variant {
+      max-width: 1040px; margin: 0 auto 32px; padding: 0;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    /* ---------- Shared section elements ---------- */
+    .wrap {
+      max-width: 860px; margin: 0 auto; padding: 0 24px;
+    }
+    .eyebrow {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--faint);
+    }
+    .sec-title {
+      font-weight: 700; font-size: 26px;
+      letter-spacing: -0.015em; line-height: 1.15;
+      margin: 12px 0 0;
+    }
+    .sec-title .hl {
+      display: inline;
+      background: var(--ink); color: white;
+      padding: 2px 12px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .sec-intro {
+      margin: 20px 0 0; font-size: 14px;
+      line-height: 1.6; color: var(--muted);
+      max-width: 640px;
+    }
+    .sec {
+      padding: 48px 0 56px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .sec:first-child { border-top: 0; }
+
+    /* ---------- Hero section ---------- */
+    .hero-sec {
+      padding: 48px 0 56px;
+      background: var(--bg-hero, transparent);
+      position: relative;
+    }
+    .hero-card {
+      position: relative;
+      padding: 56px 48px;
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      ring: 1px;
+      box-shadow: 0 30px 60px -24px rgba(0,0,0,0.12);
+      border: 1px solid rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .blueprint {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.25) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .bracket {
+      position: absolute; width: 20px; height: 20px;
+      border-color: var(--cta); z-index: 20;
+    }
+    .bracket.tl { top: 16px; left: 16px; border-top: 2px solid; border-left: 2px solid; }
+    .bracket.tr { top: 16px; right: 16px; border-top: 2px solid; border-right: 2px solid; }
+    .bracket.bl { bottom: 16px; left: 16px; border-bottom: 2px solid; border-left: 2px solid; }
+    .bracket.br { bottom: 16px; right: 16px; border-bottom: 2px solid; border-right: 2px solid; }
+    .hero-h1 {
+      font-weight: 900; font-size: 48px;
+      line-height: 1.08; letter-spacing: -0.025em;
+      margin: 16px 0 20px; color: #0a0a0a;
+      position: relative; z-index: 5;
+    }
+    .hero-h1 .top { display: block; white-space: nowrap; }
+    .hero-h1 .hl {
+      display: inline-block; margin-top: 6px;
+      background: var(--ink); color: white;
+      padding: 2px 14px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      line-height: 1.3;
+    }
+    .hero-body {
+      color: var(--muted); line-height: 1.6;
+      font-size: 15px; max-width: 560px; margin: 16px 0 24px;
+      position: relative; z-index: 5;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--cta); color: white;
+      font-weight: 800;
+      font-size: 12px; letter-spacing: 0.01em;
+      padding: 12px 22px; border-radius: 2px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px -4px rgba(0,0,0,0.2);
+      position: relative; z-index: 5;
+    }
+    .quote-row {
+      display: grid;
+      grid-template-columns: 2.3fr 1px 1fr;
+      gap: 28px;
+      align-items: center;
+      margin: 32px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      max-width: 800px;
+    }
+    .quote-row .quote {
+      font-style: italic; font-size: 15px;
+      line-height: 1.55; color: var(--muted-2);
+    }
+    .quote-row .divider {
+      width: 1px; height: 80px; background: var(--cta); opacity: 0.3;
+    }
+    .quote-row .logos-wrap {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .quote-row .logos-label {
+      font-size: 9px; font-weight: 900;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(115,115,115,0.6);
+    }
+    .quote-row .logos {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px 16px; align-items: center; justify-items: start;
+    }
+    .quote-row .logos img {
+      height: 18px; width: auto;
+      filter: grayscale(100%);
+      opacity: 0.55;
+    }
+
+    /* ---------- Opportunity section ---------- */
+    .opp-sec { background: var(--bg-opportunity, transparent); }
+    .opp-grid {
+      margin-top: 24px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 28px;
+    }
+    .col { display: flex; flex-direction: column; }
+    .col-num {
+      font-size: 12px; font-weight: 900;
+      letter-spacing: 0.24em; color: var(--cta);
+      margin-bottom: 12px;
+    }
+    .col-rule {
+      height: 1px; margin: 0 0 14px;
+      background: rgba(175,185,117,0.5);
+    }
+    .col-tag {
+      align-self: start;
+      display: inline-block;
+      background: var(--ink); color: white;
+      font-size: 9px; font-weight: 900;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 3px 8px; margin-bottom: 12px;
+    }
+    .col-headline {
+      font-weight: 700; font-size: 17px;
+      line-height: 1.25; letter-spacing: -0.01em;
+      margin: 0 0 10px; color: #0a0a0a;
+    }
+    .col-body {
+      color: var(--muted); line-height: 1.55;
+      font-size: 13px; margin: 0;
+    }
+
+    /* ---------- Roadmap section ---------- */
+    .road-sec { background: var(--bg-roadmap, transparent); }
+    .road-steps { margin-top: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .road-card {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 24px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px -4px rgba(0,0,0,0.06);
+      display: grid; grid-template-columns: 1fr auto; gap: 16px;
+      align-items: start;
+    }
+    .road-card.elevated {
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
+      border-top: 4px solid var(--cta);
+    }
+    .road-card .sub {
+      font-size: 10px; font-weight: 900;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--muted-2);
+    }
+    .road-card h4 {
+      font-weight: 700; font-size: 18px;
+      letter-spacing: -0.01em;
+      margin: 6px 0 8px;
+    }
+    .road-card p {
+      color: var(--muted); font-size: 13px;
+      line-height: 1.55; margin: 0;
+    }
+    .road-card .outcome {
+      font-size: 12px; color: var(--muted-2);
+      border-left: 2px solid var(--cta); padding-left: 10px;
+      max-width: 220px;
+    }
+    .road-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ---------- Team section ---------- */
+    .team-sec { background: var(--bg-team, transparent); }
+    .team-grid {
+      margin-top: 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .team-card {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 24px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px -4px rgba(0,0,0,0.06);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .team-card .row { display: flex; align-items: center; gap: 14px; }
+    .team-avatar {
+      width: 48px; height: 48px; border-radius: 16px;
+      background: linear-gradient(135deg, #afb975, #8c965e);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 900; font-size: 16px;
+    }
+    .team-card h5 { font-weight: 700; font-size: 15px; margin: 0; }
+    .team-card .role {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted-2);
+    }
+    .team-card .bio {
+      font-size: 12px; color: var(--muted);
+      line-height: 1.55; margin: 0;
+    }
+    .sme-pills {
+      margin-top: 20px; text-align: center;
+    }
+    .sme-pills .label {
+      font-size: 9px; font-weight: 900;
+      letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--muted-2); margin-bottom: 12px;
+    }
+    .sme-pills .pills {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+    }
+    .sme-pills .pill {
+      padding: 6px 14px; background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.06); border-radius: 16px;
+      font-size: 11px; font-weight: 700; color: #525252;
+    }
+
+    /* ---------- LinkedIn section (cream signature) ---------- */
+    .li-sec {
+      background: #efe5cc;
+      border-color: #e2d6b5;
+    }
+    .li-track { margin-top: 20px; display: flex; gap: 14px; overflow: hidden; }
+    .li-card {
+      flex: 0 0 250px; padding: 16px; border-radius: 16px;
+      background: #f7f8f2;
+      border: 1px solid rgba(175,185,117,0.28);
+    }
+    .li-card p.t { font-weight: 700; font-size: 13px; margin: 0 0 8px; line-height: 1.3; }
+    .li-card p.b { font-size: 11px; color: var(--muted-2); line-height: 1.45; margin: 0 0 10px; }
+    .li-card .meta {
+      display: flex; justify-content: space-between;
+      padding-top: 8px; border-top: 1px solid rgba(175,185,117,0.3);
+      font-size: 9px; font-weight: 900; letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .li-card .meta .d { color: var(--muted-2); }
+    .li-card .meta .r { color: var(--cta); }
+
+    /* ---------- Contact section ---------- */
+    .contact-sec { background: var(--bg-contact, transparent); }
+    .contact-row {
+      margin-top: 20px; display: grid;
+      grid-template-columns: 1fr 2fr; gap: 16px;
+    }
+    .contact-btn {
+      display: flex; align-items: center; justify-content: center;
+      background: var(--cta); color: white;
+      font-weight: 800; font-size: 12px;
+      padding: 12px 18px; border-radius: 2px;
+    }
+    .contact-email {
+      padding: 12px 18px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-weight: 700; font-size: 13px;
+    }
+
+    /* ---------- Variant tints: CSS custom properties per variant ---------- */
+
+    /* V1 — Subtle (current LinkedIn approach at low intensity elsewhere) */
+    .v-subtle {
+      --bg-hero: linear-gradient(180deg, rgba(244,252,251,1) 0%, rgba(250,245,232,1) 100%);
+      --bg-opportunity: rgba(255,250,236,0.5);
+      --bg-roadmap: rgba(244,252,251,0.55);
+      --bg-team: rgba(250,250,246,1);
+      --bg-contact: rgba(252,249,240,1);
+    }
+
+    /* V2 — Medium */
+    .v-medium {
+      --bg-hero: linear-gradient(180deg, rgba(236,249,248,1) 0%, rgba(252,243,220,1) 100%);
+      --bg-opportunity: rgba(255,246,220,1);
+      --bg-roadmap: rgba(230,246,244,1);
+      --bg-team: rgba(250,246,237,1);
+      --bg-contact: rgba(243,239,229,1);
+    }
+
+    /* V3 — Bold */
+    .v-bold {
+      --bg-hero: linear-gradient(180deg, rgba(219,243,241,1) 0%, rgba(255,240,210,1) 100%);
+      --bg-opportunity: rgba(253,239,200,1);
+      --bg-roadmap: rgba(216,239,236,1);
+      --bg-team: rgba(248,245,236,1);
+      --bg-contact: rgba(235,230,215,1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="page-intro">
+    <div class="kicker">SprintAssembly · Section Tinting Exploration</div>
+    <h1>Three intensities, same content, same site.</h1>
+    <p>Each of the three scrollable previews below renders the full page (hero + opportunity + roadmap + team + linkedin + contact) with a different section-tinting intensity applied. The LinkedIn cream signature stays the same across all three. The question is how much the other sections should differentiate themselves by background color as you scroll.</p>
+  </div>
+
+  <!-- ========== VARIANT 1: SUBTLE ========== -->
+  <div class="variant-label">
+    <div class="mock-label">Option 1</div>
+    <h2>Subtle — sections whisper, not speak</h2>
+    <p>Each section gets a very slight background tint (2–5% opacity away from near-white). You'd barely notice them individually, but scrolling gives a faint sense of rhythm. Most conservative extension of the brief.</p>
+    <div class="note"><strong>Trade-off:</strong> might be so subtle that it fails to address the "flat" concern. You'll see sections shift but might not feel the dynamic lift you're after.</div>
+  </div>
+  <div class="variant v-subtle">
+
+    <!-- HERO -->
+    <section class="hero-sec">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="blueprint"></div>
+          <div class="bracket tl"></div>
+          <div class="bracket tr"></div>
+          <div class="bracket bl"></div>
+          <div class="bracket br"></div>
+          <div style="position:relative;z-index:5;">
+            <div class="eyebrow">The New Standard of Operations</div>
+            <h1 class="hero-h1">
+              <span class="top">From Manual Effort to</span>
+              <span class="hl">Agentic Scale</span>
+            </h1>
+            <p class="hero-body">We replace manual work with autonomous systems. Agentic workflows that align data, decisions, and execution across your business — marketing, operations, customer workflows.</p>
+            <a class="hero-cta">See the Opportunity →</a>
+          </div>
+        </div>
+        <div class="quote-row">
+          <p class="quote">"Sprint Assembly is led by senior operators who've scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale."</p>
+          <div class="divider"></div>
+          <div class="logos-wrap">
+            <div class="logos-label">Experience across</div>
+            <div class="logos">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" alt="BCG">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" alt="P&amp;G">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPPORTUNITY -->
+    <section class="sec opp-sec">
+      <div class="wrap">
+        <div class="eyebrow">Business Impact</div>
+        <h3 class="sec-title"><span class="hl">The Opportunity</span></h3>
+        <p class="sec-intro">You can't scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business.</p>
+        <div class="opp-grid">
+          <div class="col"><div class="col-num">01</div><div class="col-rule"></div><span class="col-tag">Productivity</span><h4 class="col-headline">Scale your business without hiring more people.</h4><p class="col-body">Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows.</p></div>
+          <div class="col"><div class="col-num">02</div><div class="col-rule"></div><span class="col-tag">Performance</span><h4 class="col-headline">Real-time decisions across every workflow.</h4><p class="col-body">Our autonomous systems react to operational signals the moment they happen. An ad set underperforming, a pipeline stage going cold.</p></div>
+          <div class="col"><div class="col-num">03</div><div class="col-rule"></div><span class="col-tag">Profit</span><h4 class="col-headline">Increase profitability through smart orchestration.</h4><p class="col-body">Turn your business data into an intelligent orchestration layer. Automate the logic behind how work moves.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section class="sec road-sec">
+      <div class="wrap">
+        <div class="eyebrow">Process</div>
+        <h3 class="sec-title"><span class="hl">How We Modernize You</span></h3>
+        <p class="sec-intro">We begin every partnership with a Diagnostic Sprint, move to Instrumentation, then transition you to Autonomous Orchestration.</p>
+        <div class="road-steps">
+          <div class="road-card elevated">
+            <div><span class="sub">Analysis before assembly</span><h4>Diagnostic Sprint</h4><p>Time-capped audit of your growth and operations stack. Identifies where work is leaking and locates highest-margin automation opportunities.</p></div>
+            <div class="outcome"><strong>Outcome:</strong> prioritized view of highest-return change.</div>
+          </div>
+          <div class="road-pair">
+            <div class="road-card">
+              <div><span class="sub">Clean data · Clear workflows</span><h4>Instrumentation</h4><p>Unified data, documented workflows, governance. The substrate agents need to run on without breaking.</p></div>
+            </div>
+            <div class="road-card">
+              <div><span class="sub">Scale independent of headcount</span><h4>Autonomous Orchestration</h4><p>Agentic workflows manage day-to-day decisions and actions in real time. Self-optimizing operating model.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="sec team-sec">
+      <div class="wrap">
+        <div class="eyebrow">Team</div>
+        <h3 class="sec-title"><span class="hl">Built by Operators</span></h3>
+        <p class="sec-intro">Led by senior operators who prioritize execution over theory. Drawing on a vetted network of specialists.</p>
+        <div class="team-grid">
+          <div class="team-card"><div class="row"><div class="team-avatar">NH</div><div><h5>Nabil Haschemie</h5><div class="role">Co-founder</div></div></div><p class="bio">Nabil is a growth strategist who brings big-tech rigor to execution. Founding member of Google's EMEA HQ. Nearly two decades shaping growth and acquisition.</p></div>
+          <div class="team-card"><div class="row"><div class="team-avatar">DB</div><div><h5>Daniel Besquin</h5><div class="role">Co-founder</div></div></div><p class="bio">Daniel is a growth leader across brand, data, and execution. Career spans P&amp;G, Google, and BCG. Fluent in English and Spanish.</p></div>
+        </div>
+        <div class="sme-pills">
+          <div class="label">Supported by SME network in</div>
+          <div class="pills">
+            <span class="pill">Data Science &amp; ML</span>
+            <span class="pill">Agentic Workflows</span>
+            <span class="pill">Web Development</span>
+            <span class="pill">Systems Integration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LINKEDIN (always cream) -->
+    <section class="sec li-sec" style="border-top:1px solid #e2d6b5;border-bottom:1px solid #e2d6b5;">
+      <div class="wrap">
+        <div class="eyebrow">Insights</div>
+        <h3 class="sec-title"><span class="hl">Latest</span></h3>
+        <div class="li-track">
+          <div class="li-card"><p class="t">MCP crossed 97M installs. The agent plumbing war is over.</p><p class="b">Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot standardized on it.</p><div class="meta"><span class="d">Apr 2026</span><span class="r">Read post →</span></div></div>
+          <div class="li-card"><p class="t">Ads now appear in 25.5% of Google AI Overview results</p><p class="b">Up from 5.17% a year ago. A 394% increase. Teams haven't registered this yet.</p><div class="meta"><span class="d">Mar 2026</span><span class="r">Read post →</span></div></div>
+          <div class="li-card"><p class="t">ChatGPT started running ads. $60 CPM.</p><p class="b">Criteo became the first programmatic platform to open ChatGPT ad inventory.</p><div class="meta"><span class="d">Mar 2026</span><span class="r">Read post →</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sec contact-sec">
+      <div class="wrap">
+        <div class="eyebrow">Contact</div>
+        <h3 class="sec-title"><span class="hl">Ready to Modernize?</span></h3>
+        <p class="sec-intro">Modernizing your business begins with a conversation. We'll provide an objective assessment of your modernization potential.</p>
+        <div class="contact-row">
+          <div class="contact-btn">Contact via Email</div>
+          <div class="contact-email"><span>grow@sprintassembly.com</span><span style="color:var(--cta);font-size:10px;letter-spacing:0.2em;">Copy →</span></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ========== VARIANT 2: MEDIUM ========== -->
+  <div class="variant-label">
+    <div class="mock-label">Option 2</div>
+    <h2>Medium — sections visibly differentiated</h2>
+    <p>Each section has a distinct-but-still-calm tint. Opportunity warms into light amber, Roadmap cools into light teal, Team stays warm white, LinkedIn stays cream, Contact settles into neutral warm. Clear rhythm, still composed.</p>
+    <div class="note" style="background:rgba(255,237,184,0.4);color:#8a6d3b;"><strong>My recommendation.</strong> Adds real color dynamic without abandoning restraint. The tint language becomes: teal = systems/process, amber = business/outcomes, cream = voice/editorial, neutral = humans. That's an actual system.</div>
+  </div>
+  <div class="variant v-medium">
+
+    <!-- HERO -->
+    <section class="hero-sec">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="blueprint"></div>
+          <div class="bracket tl"></div><div class="bracket tr"></div><div class="bracket bl"></div><div class="bracket br"></div>
+          <div style="position:relative;z-index:5;">
+            <div class="eyebrow">The New Standard of Operations</div>
+            <h1 class="hero-h1">
+              <span class="top">From Manual Effort to</span>
+              <span class="hl">Agentic Scale</span>
+            </h1>
+            <p class="hero-body">We replace manual work with autonomous systems. Agentic workflows that align data, decisions, and execution across your business — marketing, operations, customer workflows.</p>
+            <a class="hero-cta">See the Opportunity →</a>
+          </div>
+        </div>
+        <div class="quote-row">
+          <p class="quote">"Sprint Assembly is led by senior operators who've scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale."</p>
+          <div class="divider"></div>
+          <div class="logos-wrap">
+            <div class="logos-label">Experience across</div>
+            <div class="logos">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" alt="BCG">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" alt="P&amp;G">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec opp-sec">
+      <div class="wrap">
+        <div class="eyebrow">Business Impact</div>
+        <h3 class="sec-title"><span class="hl">The Opportunity</span></h3>
+        <p class="sec-intro">You can't scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business.</p>
+        <div class="opp-grid">
+          <div class="col"><div class="col-num">01</div><div class="col-rule"></div><span class="col-tag">Productivity</span><h4 class="col-headline">Scale your business without hiring more people.</h4><p class="col-body">Eliminate the manual bottlenecks slowing you down. Automating data integration and deploying agents across repetitive workflows.</p></div>
+          <div class="col"><div class="col-num">02</div><div class="col-rule"></div><span class="col-tag">Performance</span><h4 class="col-headline">Real-time decisions across every workflow.</h4><p class="col-body">Our autonomous systems react to operational signals the moment they happen. An ad set underperforming, a pipeline stage going cold.</p></div>
+          <div class="col"><div class="col-num">03</div><div class="col-rule"></div><span class="col-tag">Profit</span><h4 class="col-headline">Increase profitability through smart orchestration.</h4><p class="col-body">Turn your business data into an intelligent orchestration layer. Automate the logic behind how work moves.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec road-sec">
+      <div class="wrap">
+        <div class="eyebrow">Process</div>
+        <h3 class="sec-title"><span class="hl">How We Modernize You</span></h3>
+        <p class="sec-intro">We begin every partnership with a Diagnostic Sprint, move to Instrumentation, then transition you to Autonomous Orchestration.</p>
+        <div class="road-steps">
+          <div class="road-card elevated">
+            <div><span class="sub">Analysis before assembly</span><h4>Diagnostic Sprint</h4><p>Time-capped audit of your growth and operations stack. Identifies where work is leaking and locates highest-margin automation opportunities.</p></div>
+            <div class="outcome"><strong>Outcome:</strong> prioritized view of highest-return change.</div>
+          </div>
+          <div class="road-pair">
+            <div class="road-card"><div><span class="sub">Clean data · Clear workflows</span><h4>Instrumentation</h4><p>Unified data, documented workflows, governance. The substrate agents need to run on without breaking.</p></div></div>
+            <div class="road-card"><div><span class="sub">Scale independent of headcount</span><h4>Autonomous Orchestration</h4><p>Agentic workflows manage day-to-day decisions and actions in real time. Self-optimizing operating model.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec team-sec">
+      <div class="wrap">
+        <div class="eyebrow">Team</div>
+        <h3 class="sec-title"><span class="hl">Built by Operators</span></h3>
+        <p class="sec-intro">Led by senior operators who prioritize execution over theory. Drawing on a vetted network of specialists.</p>
+        <div class="team-grid">
+          <div class="team-card"><div class="row"><div class="team-avatar">NH</div><div><h5>Nabil Haschemie</h5><div class="role">Co-founder</div></div></div><p class="bio">Nabil is a growth strategist who brings big-tech rigor to execution. Founding member of Google's EMEA HQ. Nearly two decades shaping growth and acquisition.</p></div>
+          <div class="team-card"><div class="row"><div class="team-avatar">DB</div><div><h5>Daniel Besquin</h5><div class="role">Co-founder</div></div></div><p class="bio">Daniel is a growth leader across brand, data, and execution. Career spans P&amp;G, Google, and BCG. Fluent in English and Spanish.</p></div>
+        </div>
+        <div class="sme-pills">
+          <div class="label">Supported by SME network in</div>
+          <div class="pills">
+            <span class="pill">Data Science &amp; ML</span><span class="pill">Agentic Workflows</span><span class="pill">Web Development</span><span class="pill">Systems Integration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec li-sec" style="border-top:1px solid #e2d6b5;border-bottom:1px solid #e2d6b5;">
+      <div class="wrap">
+        <div class="eyebrow">Insights</div>
+        <h3 class="sec-title"><span class="hl">Latest</span></h3>
+        <div class="li-track">
+          <div class="li-card"><p class="t">MCP crossed 97M installs. The agent plumbing war is over.</p><p class="b">Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot standardized on it.</p><div class="meta"><span class="d">Apr 2026</span><span class="r">Read post →</span></div></div>
+          <div class="li-card"><p class="t">Ads now appear in 25.5% of Google AI Overview results</p><p class="b">Up from 5.17% a year ago. A 394% increase. Teams haven't registered this yet.</p><div class="meta"><span class="d">Mar 2026</span><span class="r">Read post →</span></div></div>
+          <div class="li-card"><p class="t">ChatGPT started running ads. $60 CPM.</p><p class="b">Criteo became the first programmatic platform to open ChatGPT ad inventory.</p><div class="meta"><span class="d">Mar 2026</span><span class="r">Read post →</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec contact-sec">
+      <div class="wrap">
+        <div class="eyebrow">Contact</div>
+        <h3 class="sec-title"><span class="hl">Ready to Modernize?</span></h3>
+        <p class="sec-intro">Modernizing your business begins with a conversation. We'll provide an objective assessment of your modernization potential.</p>
+        <div class="contact-row">
+          <div class="contact-btn">Contact via Email</div>
+          <div class="contact-email"><span>grow@sprintassembly.com</span><span style="color:var(--cta);font-size:10px;letter-spacing:0.2em;">Copy →</span></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ========== VARIANT 3: BOLD ========== -->
+  <div class="variant-label">
+    <div class="mock-label">Option 3</div>
+    <h2>Bold — sections read as chapters</h2>
+    <p>Each section gets a saturated tint. Hero is washed teal+amber. Opportunity is confident cream/amber. Roadmap is distinct teal. Team drops to neutral warmth. LinkedIn stays cream. Contact settles into a warm neutral to close. Reads like an editorial chapter book, not a scrolling page.</p>
+    <div class="note" style="background:rgba(255,237,184,0.4);color:#8a6d3b;"><strong>Trade-off:</strong> visually distinct per section, but leans less "unfussy." Works if you want the site to feel more like Stripe Press / a print magazine and less like a standard SaaS landing page.</div>
+  </div>
+  <div class="variant v-bold">
+
+    <section class="hero-sec">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="blueprint"></div>
+          <div class="bracket tl"></div><div class="bracket tr"></div><div class="bracket bl"></div><div class="bracket br"></div>
+          <div style="position:relative;z-index:5;">
+            <div class="eyebrow">The New Standard of Operations</div>
+            <h1 class="hero-h1">
+              <span class="top">From Manual Effort to</span>
+              <span class="hl">Agentic Scale</span>
+            </h1>
+            <p class="hero-body">We replace manual work with autonomous systems. Agentic workflows that align data, decisions, and execution across your business — marketing, operations, customer workflows.</p>
+            <a class="hero-cta">See the Opportunity →</a>
+          </div>
+        </div>
+        <div class="quote-row">
+          <p class="quote">"Sprint Assembly is led by senior operators who've scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale."</p>
+          <div class="divider"></div>
+          <div class="logos-wrap">
+            <div class="logos-label">Experience across</div>
+            <div class="logos">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" alt="BCG">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" alt="P&amp;G">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec opp-sec">
+      <div class="wrap">
+        <div class="eyebrow">Business Impact</div>
+        <h3 class="sec-title"><span class="hl">The Opportunity</span></h3>
+        <p class="sec-intro">You can't scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business.</p>
+        <div class="opp-grid">
+          <div class="col"><div class="col-num">01</div><div class="col-rule"></div><span class="col-tag">Productivity</span><h4 class="col-headline">Scale your business without hiring more people.</h4><p class="col-body">Eliminate the manual bottlenecks slowing you down. Automating data integration and deploying agents across repetitive workflows.</p></div>
+          <div class="col"><div class="col-num">02</div><div class="col-rule"></div><span class="col-tag">Performance</span><h4 class="col-headline">Real-time decisions across every workflow.</h4><p class="col-body">Our autonomous systems react to operational signals the moment they happen. An ad set underperforming, a pipeline stage going cold.</p></div>
+          <div class="col"><div class="col-num">03</div><div class="col-rule"></div><span class="col-tag">Profit</span><h4 class="col-headline">Increase profitability through smart orchestration.</h4><p class="col-body">Turn your business data into an intelligent orchestration layer. Automate the logic behind how work moves.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec road-sec">
+      <div class="wrap">
+        <div class="eyebrow">Process</div>
+        <h3 class="sec-title"><span class="hl">How We Modernize You</span></h3>
+        <p class="sec-intro">We begin every partnership with a Diagnostic Sprint, move to Instrumentation, then transition you to Autonomous Orchestration.</p>
+        <div class="road-steps">
+          <div class="road-card elevated">
+            <div><span class="sub">Analysis before assembly</span><h4>Diagnostic Sprint</h4><p>Time-capped audit of your growth and operations stack. Identifies where work is leaking and locates highest-margin automation opportunities.</p></div>
+            <div class="outcome"><strong>Outcome:</strong> prioritized view of highest-return change.</div>
+          </div>
+          <div class="road-pair">
+            <div class="road-card"><div><span class="sub">Clean data · Clear workflows</span><h4>Instrumentation</h4><p>Unified data, documented workflows, governance. The substrate agents need to run on without breaking.</p></div></div>
+            <div class="road-card"><div><span class="sub">Scale independent of headcount</span><h4>Autonomous Orchestration</h4><p>Agentic workflows manage day-to-day decisions and actions in real time. Self-optimizing operating model.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec team-sec">
+      <div class="wrap">
+        <div class="eyebrow">Team</div>
+        <h3 class="sec-title"><span class="hl">Built by Operators</span></h3>
+        <p class="sec-intro">Led by senior operators who prioritize execution over theory. Drawing on a vetted network of specialists.</p>
+        <div class="team-grid">
+          <div class="team-card"><div class="row"><div class="team-avatar">NH</div><div><h5>Nabil Haschemie</h5><div class="role">Co-founder</div></div></div><p class="bio">Nabil is a growth strategist who brings big-tech rigor to execution. Founding member of Google's EMEA HQ. Nearly two decades shaping growth and acquisition.</p></div>
+          <div class="team-card"><div class="row"><div class="team-avatar">DB</div><div><h5>Daniel Besquin</h5><div class="role">Co-founder</div></div></div><p class="bio">Daniel is a growth leader across brand, data, and execution. Career spans P&amp;G, Google, and BCG. Fluent in English and Spanish.</p></div>
+        </div>
+        <div class="sme-pills">
+          <div class="label">Supported by SME network in</div>
+          <div class="pills">
+            <span class="pill">Data Science &amp; ML</span><span class="pill">Agentic Workflows</span><span class="pill">Web Development</span><span class="pill">Systems Integration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec li-sec" style="border-top:1px solid #e2d6b5;border-bottom:1px solid #e2d6b5;">
+      <div class="wrap">
+        <div class="eyebrow">Insights</div>
+        <h3 class="sec-title"><span class="hl">Latest</span></h3>
+        <div class="li-track">
+          <div class="li-card"><p class="t">MCP crossed 97M installs. The agent plumbing war is over.</p><p class="b">Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot standardized on it.</p><div class="meta"><span class="d">Apr 2026</span><span class="r">Read post →</span></div></div>
+          <div class="li-card"><p class="t">Ads now appear in 25.5% of Google AI Overview results</p><p class="b">Up from 5.17% a year ago. A 394% increase. Teams haven't registered this yet.</p><div class="meta"><span class="d">Mar 2026</span><span class="r">Read post →</span></div></div>
+          <div class="li-card"><p class="t">ChatGPT started running ads. $60 CPM.</p><p class="b">Criteo became the first programmatic platform to open ChatGPT ad inventory.</p><div class="meta"><span class="d">Mar 2026</span><span class="r">Read post →</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec contact-sec">
+      <div class="wrap">
+        <div class="eyebrow">Contact</div>
+        <h3 class="sec-title"><span class="hl">Ready to Modernize?</span></h3>
+        <p class="sec-intro">Modernizing your business begins with a conversation. We'll provide an objective assessment of your modernization potential.</p>
+        <div class="contact-row">
+          <div class="contact-btn">Contact via Email</div>
+          <div class="contact-email"><span>grow@sprintassembly.com</span><span style="color:var(--cta);font-size:10px;letter-spacing:0.2em;">Copy →</span></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div style="max-width:760px;margin:16px auto 80px;padding:24px 32px;background:rgba(0,0,0,0.03);border:1px dashed rgba(0,0,0,0.12);border-radius:20px;">
+    <h3 style="font-weight:900;font-size:14px;letter-spacing:0.02em;margin:0 0 12px;">How to pick</h3>
+    <p style="font-size:14px;color:var(--muted);line-height:1.6;margin:6px 0;"><strong>1 (Subtle)</strong> — you sense rhythm without noticing specific colors. Safest, least change. Probably won't move your "flat" feeling needle much.</p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.6;margin:6px 0;"><strong>2 (Medium)</strong> — recommended. Clear per-section identity that tells a color story: teal for process/systems, amber for business/outcomes, cream for editorial voice, neutral for humans. Extensible design language.</p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.6;margin:6px 0;"><strong>3 (Bold)</strong> — each section reads as its own chapter. More editorial, more print-magazine. Loudest; may push past "unfussy."</p>
+    <p style="font-size:12px;color:var(--muted-2);line-height:1.55;margin:14px 0 0;padding-top:14px;border-top:1px solid rgba(0,0,0,0.1);"><em>Note:</em> these previews are at ~900px width with simplified copy. The real site at 950px container will look similar. LinkedIn cream bg stays in all three as your existing signature.</p>
+  </div>
+
+</body>
+</html>

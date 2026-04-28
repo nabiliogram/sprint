@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Assembly — Design Mockups · April 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --moss: #afb975;
+    --moss-deep: #7e8a4d;
+    --ink: #131210;
+    --ink-2: #2e2b27;
+    --ink-3: #5a5650;
+    --ink-4: #8a8478;
+    --paper: #fbf8f0;
+    --paper-2: #f4f0e2;
+    --rule: rgba(19, 18, 16, 0.12);
+    --rule-soft: rgba(19, 18, 16, 0.06);
+    --teal: rgba(184, 240, 237, 0.28);
+    --amber: rgba(255, 237, 184, 0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Public Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    background:
+      radial-gradient(1000px circle at 4% -4%, var(--teal), transparent 55%),
+      radial-gradient(900px circle at 100% 10%, var(--amber), transparent 60%),
+      var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 56px);
+  }
+
+  header.intro {
+    padding: clamp(56px, 7vw, 96px) 0 clamp(48px, 5vw, 72px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--moss);
+  }
+
+  h1 {
+    font-family: "Literata", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+    max-width: 20ch;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--moss-deep);
+  }
+
+  .lede {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.7;
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+
+  .lede + .lede { margin-top: 14px; }
+
+  .meta {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule-soft);
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 600;
+  }
+
+  .meta .v { color: var(--ink); margin-left: 8px; }
+  .meta .dot { color: var(--moss); }
+
+  main.gallery {
+    padding: clamp(56px, 7vw, 96px) 0 clamp(72px, 8vw, 120px);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 4vw, 56px);
+  }
+
+  @media (min-width: 800px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+  .variant {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease;
+  }
+
+  .variant:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -20px rgba(19, 18, 16, 0.18);
+  }
+
+  .variant-preview {
+    aspect-ratio: 4 / 3;
+    background: var(--paper-2);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--rule-soft);
+  }
+
+  .variant-preview iframe {
+    border: 0;
+    width: 400%;
+    height: 400%;
+    transform: scale(0.25);
+    transform-origin: top left;
+    pointer-events: none;
+    background: var(--paper);
+  }
+
+  .variant-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .variant-num {
+    font-family: "Literata", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--moss-deep);
+    letter-spacing: -0.01em;
+  }
+
+  .variant-open {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--moss-deep);
+    font-weight: 600;
+    border-bottom: 1px solid var(--moss);
+    padding-bottom: 2px;
+  }
+
+  .variant h2 {
+    font-family: "Literata", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .variant-desc {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+
+  .variant-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule-soft);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .variant-meta .row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+  }
+
+  .variant-meta .k {
+    color: var(--ink-4);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 10px;
+    padding-top: 2px;
+  }
+
+  .variant-meta .v {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .comparison-note {
+    margin-top: clamp(56px, 6vw, 96px);
+    padding: clamp(28px, 3vw, 48px);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 800px) {
+    .comparison-note { grid-template-columns: 240px 1fr; gap: 48px; }
+  }
+
+  .comparison-note h3 {
+    font-family: "Literata", Georgia, serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .comparison-note p {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ink-2);
+    max-width: 70ch;
+    margin-bottom: 14px;
+  }
+
+  .comparison-note p:last-child { margin-bottom: 0; }
+
+  .comparison-note strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--rule-soft);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 500;
+  }
+
+  footer .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="intro">
+  <div class="wrap">
+    <div class="eyebrow">Sprint Assembly · Mockup Set · April 2026</div>
+    <h1>Four directions for an <em>elevated</em> sprintassembly.com</h1>
+    <p class="lede">
+      Every variant below carries the current site&rsquo;s copy verbatim &mdash; same words, same sections, same hero, same team bios, same LinkedIn insights. What changes is how the information is presented: typography, layout, rhythm, density, and signature visual moves.
+    </p>
+    <p class="lede">
+      All four stay true to the brand brief &mdash; <strong style="color: var(--ink);">rigorous, pragmatic, unfussy</strong> &mdash; and all four use the warm near-white surface with mossy green <span style="color: var(--moss-deep); font-weight: 600;">#afb975</span> as the single brand accent. None use banned reflex fonts (Inter, IBM Plex, Fraunces, Instrument, DM Sans, Space Grotesk). None go dark mode. None introduce consultancy grey or AI-startup futurism.
+    </p>
+    <div class="meta">
+      <span>Scope<span class="v">Full site</span></span>
+      <span class="dot">·</span>
+      <span>Variants<span class="v">4</span></span>
+      <span class="dot">·</span>
+      <span>Format<span class="v">Standalone HTML</span></span>
+      <span class="dot">·</span>
+      <span>Direction<span class="v">Wide exploration</span></span>
+    </div>
+  </div>
+</header>
+
+<main class="gallery">
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- V1 -->
+      <a href="./01-editorial-ledger.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./01-editorial-ledger.html" loading="lazy" title="V1 Editorial Ledger preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">i. Editorial Ledger</span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>The site as a <em style="font-style: italic; color: var(--moss-deep);">long-read essay.</em></h2>
+        <p class="variant-desc">
+          Typographic, document-like, earned. Roman-numeral chapters, sidenotes, figure captions, a dropcap intro on each section. Reads like a printed Stripe Press essay or a Works-in-Progress piece &mdash; something a CMO would forward.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Type</span><span class="v">Spectral <span style="font-style: italic; color: var(--moss-deep);">+</span> Schibsted Grotesk</span></div>
+          <div class="row"><span class="k">Moves</span><span class="v">Roman numerals · Fig. 01&ndash;03 · §-numbered process · dropcap intros · italic sub-decks</span></div>
+          <div class="row"><span class="k">Feel</span><span class="v">Publication · considered · considered · adult</span></div>
+        </div>
+      </a>
+
+      <!-- V2 -->
+      <a href="./02-index-ledger.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./02-index-ledger.html" loading="lazy" title="V2 Index & Ledger preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">ii. Index &amp; Ledger <span style="font-size: 11px; color: var(--moss-deep); font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; margin-left: 6px;">· refined</span></span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>Modern, <em style="font-style: italic; color: var(--moss-deep);">grotesque-led</em>, tightened up.</h2>
+        <p class="variant-desc">
+          The favoured direction, refined. Keeps the Host Grotesk + Geist Mono pairing and the skewed moss-green slab on &ldquo;Agentic Scale.&rdquo; Drops the paged/document framing &mdash; no more spec banners, no renamed sections. Sticks to the actual site&rsquo;s flow: three horizontal Opportunity cards, three sequential Process cards with connectors, horizontal LinkedIn carousel, compressed vertical rhythm.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Type</span><span class="v">Host Grotesk <span style="font-style: italic; color: var(--moss-deep);">+</span> Geist Mono</span></div>
+          <div class="row"><span class="k">Moves</span><span class="v">Moss slab hero · black-slab section titles · 3-col opp cards · 3 detached process cards w/ connectors · horizontal carousel</span></div>
+          <div class="row"><span class="k">Feel</span><span class="v">Modern · grotesque · engineered · tight rhythm</span></div>
+        </div>
+      </a>
+
+      <!-- V3 -->
+      <a href="./03-oversize-editorial.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./03-oversize-editorial.html" loading="lazy" title="V3 Oversize Editorial preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">iii. Oversize Editorial</span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>The site as an <em style="font-style: italic; color: var(--moss-deep);">art-directed spread.</em></h2>
+        <p class="variant-desc">
+          Poster-scale headlines. Asymmetric grids. Giant section numerals in the margin. The Process section bathed in mossy green as a single spot-color moment &mdash; deliberate, not decorative. The loudest variant, but still credibly B2B.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Type</span><span class="v">Bricolage Grotesque <span style="font-style: italic; color: var(--moss-deep);">+</span> Onest</span></div>
+          <div class="row"><span class="k">Moves</span><span class="v">220px hero type · asymmetric 12-col grid · margin numerals · moss-green spread · contact-as-CTA-block</span></div>
+          <div class="row"><span class="k">Feel</span><span class="v">Magazine cover · Emigre · Bravo Bravo · Peter Bil&rsquo;ak</span></div>
+        </div>
+      </a>
+
+      <!-- V4 -->
+      <a href="./04-minimal-document.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./04-minimal-document.html" loading="lazy" title="V4 Minimal Document preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">iv. Minimal Document</span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>The site as an <em style="font-style: italic; color: var(--moss-deep);">investor memo.</em></h2>
+        <p class="variant-desc">
+          Maximum restraint. Small body type, generous leading, enormous margins between sections. Type does all the work &mdash; no cards, no shadows, no chrome. Moss green appears once or twice per section as a thin rule or a small dot. The most grown-up of the four.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Type</span><span class="v">Literata <span style="font-style: italic; color: var(--moss-deep);">+</span> Public Sans</span></div>
+          <div class="row"><span class="k">Moves</span><span class="v">§-numbered sections · tiny body 14.5px · 1.75 leading · no cards · hairline rules · italic outcomes</span></div>
+          <div class="row"><span class="k">Feel</span><span class="v">Klim specimen · printed prospectus · Aesop marketing</span></div>
+        </div>
+      </a>
+
+    </div>
+
+    <div style="margin: clamp(56px, 6vw, 96px) 0 clamp(28px, 3vw, 40px); padding-top: clamp(40px, 4vw, 56px); border-top: 1px solid var(--rule);">
+      <div class="eyebrow" style="margin-bottom: 20px;">Round 2 · V2 variations · sectional separation + color exploration</div>
+      <h2 style="font-family: 'Literata', Georgia, serif; font-weight: 400; font-size: clamp(32px, 4.5vw, 56px); line-height: 1.05; letter-spacing: -0.025em; max-width: 22ch; color: var(--ink); margin-bottom: 18px;">Four variations on the <em style="font-style: italic; color: var(--moss-deep);">refined V2.</em></h2>
+      <p style="font-size: clamp(15px, 1.2vw, 17px); line-height: 1.65; color: var(--ink-2); max-width: 65ch;">All four start from the V2 you signed off on. Each takes a different swing at the same two questions: <strong style="color: var(--ink); font-weight: 600;">how do we visually separate sections</strong> on a single warm background, and <strong style="color: var(--ink); font-weight: 600;">how does the color palette evolve</strong> beyond strict black/moss/beige.</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- V2a -->
+      <a href="./02a-tinted-sections.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./02a-tinted-sections.html" loading="lazy" title="V2a Tinted Sections preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">a. Tinted Sections</span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>Separation by <em style="font-style: italic; color: var(--moss-deep);">paper tint.</em></h2>
+        <p class="variant-desc">
+          Most restrained. Each section gets its own subtle paper colour — amber for Opportunity, cool teal for Process, warm cream for Team, muted sage for Insights, deeper amber for Contact. Same brand palette, just spread across zones. The colour shift itself is the section break.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Sep&rsquo;n</span><span class="v">Section background tint</span></div>
+          <div class="row"><span class="k">Color</span><span class="v">Black / moss / beige (zoned variants)</span></div>
+          <div class="row"><span class="k">Loudness</span><span class="v">Quiet · the most disciplined</span></div>
+        </div>
+      </a>
+
+      <!-- V2b -->
+      <a href="./02b-spot-multicolor.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./02b-spot-multicolor.html" loading="lazy" title="V2b Spot Multi-color preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">b. Spot Multi-color</span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>One <em style="font-style: italic; color: var(--moss-deep);">colour per section.</em></h2>
+        <p class="variant-desc">
+          Each section claims its own accent colour. Moss for Opportunity, terracotta for Process, dusty blue for Team, gold for Insights, ink-black for Contact. The slab in each section title plus a short 72px offset rule at the section&rsquo;s top inherits that colour. Multi-colour without becoming a rainbow.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Sep&rsquo;n</span><span class="v">72px offset rule + colour shift</span></div>
+          <div class="row"><span class="k">Color</span><span class="v">Moss · terracotta · blue · gold · ink</span></div>
+          <div class="row"><span class="k">Loudness</span><span class="v">Medium · expressive but cohesive</span></div>
+        </div>
+      </a>
+
+      <!-- V2c -->
+      <a href="./02c-brutalist.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./02c-brutalist.html" loading="lazy" title="V2c Brutalist preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">c. Brutalist</span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>Inverse <em style="font-style: italic; color: var(--moss-deep);">black acts.</em></h2>
+        <p class="variant-desc">
+          The loudest. Process and Contact go full-black inverse — paper text, moss accents popping harder against the dark. Hero and section titles get bigger. The page reads as alternating acts: paper, paper, BLACK, paper, paper, BLACK. Strong visual drumbeat.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Sep&rsquo;n</span><span class="v">Full inverse sections (Process &amp; Contact)</span></div>
+          <div class="row"><span class="k">Color</span><span class="v">Black ↔ paper, moss spot</span></div>
+          <div class="row"><span class="k">Loudness</span><span class="v">High · aggressive · committed</span></div>
+        </div>
+      </a>
+
+      <!-- V2d -->
+      <a href="./02d-masked-type.html" class="variant">
+        <div class="variant-preview">
+          <iframe src="./02d-masked-type.html" loading="lazy" title="V2d Masked Type preview"></iframe>
+        </div>
+        <div class="variant-header">
+          <span class="variant-num">d. Masked Type</span>
+          <span class="variant-open">Open →</span>
+        </div>
+        <h2>Image-driven <em style="font-style: italic; color: var(--moss-deep);">accent slabs.</em></h2>
+        <p class="variant-desc">
+          Most experimental. Hero&rsquo;s &ldquo;Agentic Scale&rdquo; gets a conic rainbow representing AI&rsquo;s breadth. Each section title accent uses a different image-driven mask: striped scan-pattern on Process, dot halftone on Team, crosshatch grid on Insights, deep ink radial on Contact. A short 56px hairline marks the start of each section. Type as image.
+        </p>
+        <div class="variant-meta">
+          <div class="row"><span class="k">Sep&rsquo;n</span><span class="v">56px hairline + distinct slab per section</span></div>
+          <div class="row"><span class="k">Color</span><span class="v">Conic rainbow · gradients · patterns</span></div>
+          <div class="row"><span class="k">Loudness</span><span class="v">High · risky · genuinely surprising</span></div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="comparison-note">
+      <div>
+        <h3>How to read these</h3>
+      </div>
+      <div>
+        <p>The <strong>top four</strong> are the original wide-exploration directions (Editorial, Index &amp; Ledger, Oversize, Minimal). The <strong>bottom four</strong> all start from the refined V2 you preferred &mdash; same structure, same content, same fonts. Only section separation and colour treatment change.</p>
+        <p>Pay attention to how each round-2 variant handles the transition between Opportunity and Process &mdash; that&rsquo;s where separation choices show up most clearly. Then tell me which direction (or hybrid) is closest. I can keep iterating, or commit to one and start porting it into the React codebase.</p>
+        <p style="color: var(--ink-4); font-size: 13px;"><em>Thumbnails are live scaled-down iframes, so they may take a second to render. Click any card to open the full mockup.</em></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <span>Sprint Assembly · Mockup set · April 2026</span>
+    <span>Built with impeccable · Based on .impeccable.md brief</span>
+  </div>
+</footer>
+
+</body>
+</html>

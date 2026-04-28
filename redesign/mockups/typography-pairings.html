@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Typography pairings — specimens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,500;10..48,600;10..48,700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+    }
+
+    body { background: var(--bg-2); color: var(--text); font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1140px; margin: 0 auto; padding: 56px 40px 80px; }
+    .page > h1 { font-family: "Inter Tight", system-ui, sans-serif; font-weight: 600; font-size: 32px; letter-spacing: -0.018em; margin: 0 0 8px; }
+    .page > .lede { color: var(--text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 32px; }
+    .pair-nav {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      padding: 14px 16px;
+      margin-bottom: 32px;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      width: max-content;
+    }
+    .pair-nav a {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--text-2);
+      text-decoration: none;
+      padding: 4px 12px;
+      border-radius: 999px;
+      transition: background .2s, color .2s;
+    }
+    .pair-nav a:hover { background: var(--bg-2); color: var(--text); }
+
+    .specimen {
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 12px;
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .specimen-meta {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
+      padding: 16px 32px;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .specimen-meta-left { display: flex; align-items: baseline; gap: 14px; }
+    .specimen-id {
+      font-family: "Inter", sans-serif;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .specimen-name {
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+    }
+    .specimen-rationale {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      color: var(--text-2);
+      max-width: 56ch;
+      line-height: 1.5;
+    }
+    .specimen-body { padding: 48px 40px; }
+
+    /* ── Sample components — these are restyled per pair ── */
+    .sp-eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 16px;
+    }
+    .sp-eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent); display: inline-block; }
+
+    .sp-h1 {
+      font-size: 64px;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+      margin: 0 0 28px;
+    }
+    .sp-h1-accent { color: var(--accent); font-style: italic; font-weight: 500; }
+
+    .sp-body {
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--text-2);
+      max-width: 60ch;
+      margin: 0 0 36px;
+    }
+
+    .sp-section-block { padding-top: 24px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 160px 1fr; gap: 48px; align-items: start; }
+    .sp-num { font-size: 56px; font-weight: 600; line-height: 0.9; color: var(--accent); letter-spacing: -0.04em; }
+    .sp-bar { width: 40px; height: 2px; background: var(--accent); opacity: 0.5; margin-top: 8px; }
+    .sp-rail { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 6px; }
+    .sp-stage-title {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 4px;
+    }
+    .sp-stage-sub { font-size: 12px; letter-spacing: 0.06em; color: var(--text-3); }
+
+    .sp-mono-tag {
+      display: inline-flex;
+      padding: 6px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-top: 18px;
+    }
+
+    /* ── Per-pair font assignments ── */
+
+    /* A — Host Grotesk + Geist Mono */
+    .pair-A .sp-eyebrow,
+    .pair-A .sp-stage-sub,
+    .pair-A .sp-mono-tag { font-family: "Geist Mono", monospace; }
+    .pair-A .sp-h1,
+    .pair-A .sp-num,
+    .pair-A .sp-stage-title { font-family: "Host Grotesk", system-ui, sans-serif; }
+    .pair-A .sp-body { font-family: "Host Grotesk", system-ui, sans-serif; }
+
+    /* B — Bricolage Grotesque + Geist Mono */
+    .pair-B .sp-eyebrow,
+    .pair-B .sp-stage-sub,
+    .pair-B .sp-mono-tag { font-family: "Geist Mono", monospace; }
+    .pair-B .sp-h1,
+    .pair-B .sp-num,
+    .pair-B .sp-stage-title { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-variation-settings: "opsz" 36; }
+    .pair-B .sp-body { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-variation-settings: "opsz" 14; }
+
+    /* C — Geist + Geist Mono */
+    .pair-C .sp-eyebrow,
+    .pair-C .sp-stage-sub,
+    .pair-C .sp-mono-tag { font-family: "Geist Mono", monospace; }
+    .pair-C .sp-h1,
+    .pair-C .sp-num,
+    .pair-C .sp-stage-title { font-family: "Geist", system-ui, sans-serif; }
+    .pair-C .sp-body { font-family: "Geist", system-ui, sans-serif; }
+
+    /* D — Newsreader (display serif) + Host Grotesk (body) */
+    .pair-D .sp-eyebrow,
+    .pair-D .sp-stage-sub,
+    .pair-D .sp-mono-tag { font-family: "Geist Mono", monospace; }
+    .pair-D .sp-h1,
+    .pair-D .sp-num,
+    .pair-D .sp-stage-title {
+      font-family: "Newsreader", "Source Serif Pro", Georgia, serif;
+      font-variation-settings: "opsz" 60;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .pair-D .sp-h1-accent { font-style: italic; font-weight: 400; }
+    .pair-D .sp-stage-title { font-weight: 500; }
+    .pair-D .sp-body { font-family: "Host Grotesk", system-ui, sans-serif; }
+
+    /* Reference — current redesign for comparison */
+    .pair-current .sp-eyebrow,
+    .pair-current .sp-stage-sub,
+    .pair-current .sp-mono-tag { font-family: "JetBrains Mono", monospace; }
+    .pair-current .sp-h1,
+    .pair-current .sp-num,
+    .pair-current .sp-stage-title { font-family: "Inter Tight", system-ui, sans-serif; }
+    .pair-current .sp-body { font-family: "Inter", system-ui, sans-serif; }
+
+    @media (max-width: 760px) {
+      .specimen-body { padding: 32px 24px; }
+      .sp-h1 { font-size: 44px; }
+      .sp-section-block { grid-template-columns: 1fr; gap: 16px; }
+      .sp-num { font-size: 44px; }
+      .sp-stage-title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Typography pairings &mdash; specimens</h1>
+    <p class="lede">Same content, four candidate font pairs (plus the current Inter pair as a baseline for comparison). Each specimen renders with real Google Fonts &mdash; no placeholders.</p>
+
+    <nav class="pair-nav">
+      <a href="#current">Current (Inter Tight)</a>
+      <a href="#A">A &middot; Host Grotesk</a>
+      <a href="#B">B &middot; Bricolage</a>
+      <a href="#C">C &middot; Geist</a>
+      <a href="#D">D &middot; Newsreader (editorial)</a>
+    </nav>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         BASELINE — current redesign typography
+         ════════════════════════════════════════════════════════ -->
+    <section class="specimen pair-current" id="current">
+      <div class="specimen-meta">
+        <div class="specimen-meta-left">
+          <span class="specimen-id">Baseline</span>
+          <span class="specimen-name">Inter Tight + Inter + JetBrains Mono</span>
+        </div>
+        <span class="specimen-rationale">What's currently shipping. Brief flags Inter as the #1 reflex font. Use this row to compare.</span>
+      </div>
+      <div class="specimen-body">
+        <div class="sp-eyebrow">The New Standard of Operations</div>
+        <h2 class="sp-h1">From Manual Effort<br/>to <span class="sp-h1-accent">Agentic Scale.</span></h2>
+        <p class="sp-body">We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals.</p>
+        <div class="sp-section-block">
+          <div class="sp-rail">
+            <div class="sp-num">02</div>
+            <div class="sp-bar"></div>
+          </div>
+          <div>
+            <h3 class="sp-stage-title">Instrumentation</h3>
+            <div class="sp-stage-sub">&mdash; Clean data. Clear workflows.</div>
+            <div class="sp-mono-tag">Cross-channel pacing decisions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         A — Host Grotesk + Geist Mono
+         ════════════════════════════════════════════════════════ -->
+    <section class="specimen pair-A" id="A">
+      <div class="specimen-meta">
+        <div class="specimen-meta-left">
+          <span class="specimen-id">A</span>
+          <span class="specimen-name">Host Grotesk + Geist Mono</span>
+        </div>
+        <span class="specimen-rationale">Quiet, precise grotesque. Klim-adjacent register. Already used on the live site &mdash; familiar, brand-consistent. Free.</span>
+      </div>
+      <div class="specimen-body">
+        <div class="sp-eyebrow">The New Standard of Operations</div>
+        <h2 class="sp-h1">From Manual Effort<br/>to <span class="sp-h1-accent">Agentic Scale.</span></h2>
+        <p class="sp-body">We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals.</p>
+        <div class="sp-section-block">
+          <div class="sp-rail">
+            <div class="sp-num">02</div>
+            <div class="sp-bar"></div>
+          </div>
+          <div>
+            <h3 class="sp-stage-title">Instrumentation</h3>
+            <div class="sp-stage-sub">&mdash; Clean data. Clear workflows.</div>
+            <div class="sp-mono-tag">Cross-channel pacing decisions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         B — Bricolage Grotesque + Geist Mono
+         ════════════════════════════════════════════════════════ -->
+    <section class="specimen pair-B" id="B">
+      <div class="specimen-meta">
+        <div class="specimen-meta-left">
+          <span class="specimen-id">B</span>
+          <span class="specimen-name">Bricolage Grotesque + Geist Mono</span>
+        </div>
+        <span class="specimen-rationale">Variable optical sizing &mdash; more character at display sizes, neutral at body. Idiosyncratic but legible. Free.</span>
+      </div>
+      <div class="specimen-body">
+        <div class="sp-eyebrow">The New Standard of Operations</div>
+        <h2 class="sp-h1">From Manual Effort<br/>to <span class="sp-h1-accent">Agentic Scale.</span></h2>
+        <p class="sp-body">We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals.</p>
+        <div class="sp-section-block">
+          <div class="sp-rail">
+            <div class="sp-num">02</div>
+            <div class="sp-bar"></div>
+          </div>
+          <div>
+            <h3 class="sp-stage-title">Instrumentation</h3>
+            <div class="sp-stage-sub">&mdash; Clean data. Clear workflows.</div>
+            <div class="sp-mono-tag">Cross-channel pacing decisions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         C — Geist + Geist Mono
+         ════════════════════════════════════════════════════════ -->
+    <section class="specimen pair-C" id="C">
+      <div class="specimen-meta">
+        <div class="specimen-meta-left">
+          <span class="specimen-id">C</span>
+          <span class="specimen-name">Geist + Geist Mono</span>
+        </div>
+        <span class="specimen-rationale">Vercel's matched sans + mono. Geometric, contemporary, quietly engineered. Reads "developer tool brand" rather than consultancy. Free.</span>
+      </div>
+      <div class="specimen-body">
+        <div class="sp-eyebrow">The New Standard of Operations</div>
+        <h2 class="sp-h1">From Manual Effort<br/>to <span class="sp-h1-accent">Agentic Scale.</span></h2>
+        <p class="sp-body">We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals.</p>
+        <div class="sp-section-block">
+          <div class="sp-rail">
+            <div class="sp-num">02</div>
+            <div class="sp-bar"></div>
+          </div>
+          <div>
+            <h3 class="sp-stage-title">Instrumentation</h3>
+            <div class="sp-stage-sub">&mdash; Clean data. Clear workflows.</div>
+            <div class="sp-mono-tag">Cross-channel pacing decisions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         D — Newsreader (serif display) + Host Grotesk (body)
+         ════════════════════════════════════════════════════════ -->
+    <section class="specimen pair-D" id="D">
+      <div class="specimen-meta">
+        <div class="specimen-meta-left">
+          <span class="specimen-id">D</span>
+          <span class="specimen-name">Newsreader (display) + Host Grotesk (body)</span>
+        </div>
+        <span class="specimen-rationale">Editorial direction. Serif display for headlines, sans for everything else. Stripe Press-adjacent. Most distinctive of the four. Free.</span>
+      </div>
+      <div class="specimen-body">
+        <div class="sp-eyebrow">The New Standard of Operations</div>
+        <h2 class="sp-h1">From Manual Effort<br/>to <span class="sp-h1-accent">Agentic Scale.</span></h2>
+        <p class="sp-body">We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals.</p>
+        <div class="sp-section-block">
+          <div class="sp-rail">
+            <div class="sp-num">02</div>
+            <div class="sp-bar"></div>
+          </div>
+          <div>
+            <h3 class="sp-stage-title">Instrumentation</h3>
+            <div class="sp-stage-sub">&mdash; Clean data. Clear workflows.</div>
+            <div class="sp-mono-tag">Cross-channel pacing decisions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div style="margin-top:32px; padding:18px 24px; background:var(--bg); border:1px solid var(--line-2); border-radius:8px; color:var(--text-2); font-size:13px; line-height:1.6;">
+      <strong style="color:var(--text); font-family:'Inter Tight';">Pick one:</strong>
+      reply <span style="font-family:'JetBrains Mono'; color:var(--accent);">"go A"</span> /
+      <span style="font-family:'JetBrains Mono'; color:var(--accent);">"go B"</span> /
+      <span style="font-family:'JetBrains Mono'; color:var(--accent);">"go C"</span> /
+      <span style="font-family:'JetBrains Mono'; color:var(--accent);">"go D"</span>
+      and I'll wire it into the live redesign.
+    </div>
+  </div>
+</body>
+</html>

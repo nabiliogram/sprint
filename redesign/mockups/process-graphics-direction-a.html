@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process graphics — Direction A + hybrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+      --accent-tint: rgba(111, 115, 64, 0.14);
+      --display:   "Inter Tight", "Inter", ui-sans-serif, sans-serif;
+      --sans:      "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono:      "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    body {
+      background: var(--bg-2);
+      color: var(--text);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: 1080px; margin: 0 auto; padding: 56px 40px 80px; }
+    .page h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+    .page .lede { color: var(--text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 12px; }
+    .page .controls {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      cursor: pointer;
+      margin: 8px 0 40px;
+      user-select: none;
+      transition: color .25s, border-color .25s;
+    }
+    .page .controls:hover { color: var(--text); border-color: var(--text-3); }
+    .page .controls .key { color: var(--accent); }
+    body.paused * { animation-play-state: paused !important; }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .panel-id {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .panel-id::before { content: ""; width: 18px; height: 1px; background: var(--accent); }
+    .panel-name {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: -0.012em;
+      margin: 0 0 14px;
+    }
+
+    /* Viz container — matches redesign exactly */
+    .viz {
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      padding: 14px 16px 12px;
+      font-family: var(--mono);
+    }
+    .viz-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-3);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .viz-foot { margin-top: 12px; display: flex; justify-content: flex-end; }
+    .viz-tag {
+      font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      padding: 3px 8px;
+      border: 1px dashed var(--line-2);
+      border-radius: 3px;
+      background: var(--bg-2);
+    }
+    .viz-meta {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+      text-align: left;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px;
+    }
+    .viz-meta b { color: var(--accent); font-weight: 500; letter-spacing: 0.06em; }
+
+    .panel-note { font-size: 13px; color: var(--text-2); margin: 16px 0 0; line-height: 1.55; }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-01  ·  Scan + score
+     *  Grid of workflow cells, scan line sweeps L→R, opportunity
+     *  cells light up as the scan crosses their column.
+     * ════════════════════════════════════════════════════════ */
+    .scan {
+      position: relative;
+      padding: 4px 0;
+      overflow: hidden;
+    }
+    .scan-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 4px;
+      padding: 4px;
+    }
+    .cell {
+      aspect-ratio: 1;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      transition: background .4s ease, border-color .4s ease;
+    }
+    /* Highlighted "opportunity" cells — animate in sync with scan position */
+    .cell.opp {
+      animation: cellLight 6s linear infinite;
+    }
+    @keyframes cellLight {
+      0%, 8%   { background: transparent; border-color: var(--line); }
+      14%, 88% { background: var(--accent-tint); border-color: color-mix(in oklab, var(--accent) 60%, var(--line-2)); }
+      100%     { background: transparent; border-color: var(--line); }
+    }
+    /* Per-column delays — column N lights up as scan crosses it */
+    .cell[data-c="0"] { animation-delay: 0s; }
+    .cell[data-c="1"] { animation-delay: 0.42s; }
+    .cell[data-c="2"] { animation-delay: 0.84s; }
+    .cell[data-c="3"] { animation-delay: 1.26s; }
+    .cell[data-c="4"] { animation-delay: 1.68s; }
+    .cell[data-c="5"] { animation-delay: 2.10s; }
+    .cell[data-c="6"] { animation-delay: 2.52s; }
+    .cell[data-c="7"] { animation-delay: 2.94s; }
+
+    /* Scan line */
+    .scan-line {
+      position: absolute;
+      top: 4px; bottom: 4px;
+      width: 32px;
+      pointer-events: none;
+      background: linear-gradient(to right,
+        transparent 0%,
+        color-mix(in oklab, var(--accent) 0%, transparent) 0%,
+        color-mix(in oklab, var(--accent) 35%, transparent) 50%,
+        color-mix(in oklab, var(--accent) 0%, transparent) 100%);
+      animation: scanMove 6s linear infinite;
+    }
+    @keyframes scanMove {
+      0%   { left: -32px; opacity: 0; }
+      6%   { opacity: 1; }
+      52%  { opacity: 1; left: calc(100% - 0px); }
+      58%  { opacity: 0; }
+      100% { opacity: 0; left: 100%; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-02  ·  Stack assembly
+     *  Vertical stack of substrate layers, dropping in sequentially.
+     *  Bottom layer remains "in-progress" with a pulse dot.
+     * ════════════════════════════════════════════════════════ */
+    .stack { display: flex; flex-direction: column; gap: 5px; padding: 4px 0; }
+    .stack-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center; gap: 10px;
+      padding: 9px 12px;
+      background: color-mix(in oklab, var(--accent) 5%, var(--bg));
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 3px;
+      font-size: 11px;
+      color: var(--text);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: rowAppear 12s ease-out infinite;
+    }
+    .stack-row:nth-child(1) { animation-delay: 0s; }
+    .stack-row:nth-child(2) { animation-delay: 0.9s; }
+    .stack-row:nth-child(3) { animation-delay: 1.8s; }
+    .stack-row:nth-child(4) { animation-delay: 2.7s; }
+    @keyframes rowAppear {
+      0%       { opacity: 0; transform: translateY(8px); }
+      8%, 92%  { opacity: 1; transform: translateY(0); }
+      100%     { opacity: 0; transform: translateY(8px); }
+    }
+    .stack-check { color: var(--accent); font-family: var(--display); font-weight: 600; font-size: 13px; }
+    .stack-row.active { background: var(--bg-2); border-left-color: color-mix(in oklab, var(--accent) 60%, var(--line-2)); }
+    .stack-row.active .stack-check { color: transparent; position: relative; width: 8px; height: 8px; }
+    .stack-row.active .stack-check::after {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 var(--accent);
+      animation: dotPulse 1.6s ease-out infinite;
+    }
+    @keyframes dotPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(111, 115, 64, 0.5); }
+      100% { box-shadow: 0 0 0 6px rgba(111, 115, 64, 0); }
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-03 pure  ·  Pulses on network
+     *  Three input nodes → three agents. Pulse dots travel
+     *  along edges. Agent labels glow on arrival.
+     * ════════════════════════════════════════════════════════ */
+    .pulse-svg { width: 100%; height: 158px; display: block; }
+    .pulse-svg .edge { stroke: var(--line-2); stroke-width: 1; }
+    .pulse-svg .edge-glow { stroke: var(--accent); stroke-width: 1.2; opacity: 0; }
+    .pulse-svg .input-dot  { fill: var(--accent); }
+    .pulse-svg .agent-rect { fill: var(--accent-tint); stroke: var(--accent); stroke-width: 1; rx: 2; }
+    .pulse-svg .agent-rect-glow { fill: var(--accent); opacity: 0; }
+    .pulse-svg .agent-label { font-family: var(--mono); font-size: 9.5px; fill: var(--text); }
+    .pulse-svg .col-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.14em; fill: var(--text-4); text-transform: uppercase; }
+    .pulse-svg .signal { fill: var(--accent); }
+
+    /* ════════════════════════════════════════════════════════
+     *  A+B  ·  Live agents
+     *  Status panel — agent name, pulsing dot, ticking metric.
+     *  Numbers update every ~2.4s via JS, dot pulses via CSS.
+     * ════════════════════════════════════════════════════════ */
+    .agents { display: flex; flex-direction: column; gap: 4px; padding: 2px 0; }
+    .agent {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px;
+      border-bottom: 1px dashed var(--line);
+      font-size: 10.5px;
+    }
+    .agent:last-child { border-bottom: 0; }
+    .agent-name { color: var(--text); font-weight: 500; letter-spacing: 0.005em; }
+    .agent-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      font-size: 9.5px;
+      text-transform: uppercase;
+    }
+    .agent-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 var(--accent);
+      animation: dotPulse 1.6s ease-out infinite;
+    }
+    .agent-meta { color: var(--text-3); text-align: right; font-size: 9.5px; letter-spacing: 0.04em; }
+    .agent-num { color: var(--text); font-weight: 500; min-width: 22px; display: inline-block; text-align: right; transition: color .3s; }
+    .agent-num.flash { color: var(--accent); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .scan-line, .cell.opp, .stack-row, .agent-dot, .stack-row.active .stack-check::after { animation: none !important; }
+      .stack-row { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Process graphics — Direction A + hybrid</h1>
+    <p class="lede">Each viz mocked at the redesign's actual render width (340px). Animations loop on real-world cycles (6&ndash;12s) so you can judge whether they're subtle enough or pull attention.</p>
+    <div class="controls" id="pause-toggle">
+      <span class="key">[ P ]</span>
+      <span>Pause / play animations</span>
+    </div>
+
+    <div class="grid">
+
+      <!-- ── A-01 — Scan + score ── -->
+      <div class="panel">
+        <div class="panel-id">A-01 · Diagnostic</div>
+        <div class="panel-name">Scan + score</div>
+        <div class="viz">
+          <div class="viz-head"><span>Diagnostic scan</span><span>Stage 01</span></div>
+          <div class="scan">
+            <div class="scan-grid">
+              <!-- 8 cols × 4 rows = 32 cells. Some flagged .opp -->
+              <div class="cell" data-c="0"></div><div class="cell" data-c="1"></div><div class="cell opp" data-c="2"></div><div class="cell" data-c="3"></div><div class="cell opp" data-c="4"></div><div class="cell" data-c="5"></div><div class="cell" data-c="6"></div><div class="cell" data-c="7"></div>
+              <div class="cell opp" data-c="0"></div><div class="cell" data-c="1"></div><div class="cell" data-c="2"></div><div class="cell" data-c="3"></div><div class="cell" data-c="4"></div><div class="cell opp" data-c="5"></div><div class="cell" data-c="6"></div><div class="cell" data-c="7"></div>
+              <div class="cell" data-c="0"></div><div class="cell opp" data-c="1"></div><div class="cell" data-c="2"></div><div class="cell" data-c="3"></div><div class="cell" data-c="4"></div><div class="cell" data-c="5"></div><div class="cell opp" data-c="6"></div><div class="cell" data-c="7"></div>
+              <div class="cell" data-c="0"></div><div class="cell" data-c="1"></div><div class="cell" data-c="2"></div><div class="cell opp" data-c="3"></div><div class="cell" data-c="4"></div><div class="cell" data-c="5"></div><div class="cell" data-c="6"></div><div class="cell opp" data-c="7"></div>
+              <div class="scan-line"></div>
+            </div>
+          </div>
+          <div class="viz-meta">
+            <span>Workflows scanned · ranked by ROI</span>
+            <span><b>8</b> opportunities</span>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Each cell is a workflow. The sage band sweeps the grid; high-value opportunities light up as it passes. Conveys <em>scanning &amp; ranking</em> without stating a specific finding. Total cycle ~6s.</p>
+      </div>
+
+      <!-- ── A-02 — Stack assembly ── -->
+      <div class="panel">
+        <div class="panel-id">A-02 · Instrumentation</div>
+        <div class="panel-name">Stack assembly</div>
+        <div class="viz">
+          <div class="viz-head"><span>Building automation substrate</span><span>Stage 02</span></div>
+          <div class="stack">
+            <div class="stack-row">
+              <span>Data layer · unified</span>
+              <span class="stack-check">&check;</span>
+            </div>
+            <div class="stack-row">
+              <span>Workflow specs</span>
+              <span class="stack-check">&check;</span>
+            </div>
+            <div class="stack-row">
+              <span>Guardrails + evals</span>
+              <span class="stack-check">&check;</span>
+            </div>
+            <div class="stack-row active">
+              <span>Tool integrations</span>
+              <span class="stack-check">&middot;</span>
+            </div>
+          </div>
+          <div class="viz-meta">
+            <span>Layers locked &middot; ready for agents</span>
+            <span><b>3 / 4</b></span>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Layers drop in sequentially over ~3s, hold for ~7s, fade and replay. Bottom row stays "active" with a pulsing dot. Conveys <em>assembling the substrate</em>. Cycle 12s.</p>
+      </div>
+
+      <!-- ── A-03 pure — Pulses on network ── -->
+      <div class="panel">
+        <div class="panel-id">A-03 · Orchestration (pure A)</div>
+        <div class="panel-name">Pulses on network</div>
+        <div class="viz">
+          <div class="viz-head"><span>Live signals &rarr; agents</span><span>Stage 03</span></div>
+          <svg class="pulse-svg" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Column labels -->
+            <text class="col-label" x="14" y="12">Signals</text>
+            <text class="col-label" x="220" y="12" text-anchor="start">Agents</text>
+
+            <!-- Edges (faint) -->
+            <line class="edge" x1="20" y1="40" x2="216" y2="40" />
+            <line class="edge" x1="20" y1="80" x2="216" y2="80" />
+            <line class="edge" x1="20" y1="120" x2="216" y2="120" />
+
+            <!-- Input dots -->
+            <circle class="input-dot" cx="20" cy="40" r="3" />
+            <circle class="input-dot" cx="20" cy="80" r="3" />
+            <circle class="input-dot" cx="20" cy="120" r="3" />
+
+            <!-- Agent rectangles -->
+            <rect class="agent-rect" x="220" y="32" width="68" height="16" />
+            <rect class="agent-rect" x="220" y="72" width="68" height="16" />
+            <rect class="agent-rect" x="220" y="112" width="68" height="16" />
+
+            <!-- Agent glow overlays — opacity animated when signal arrives -->
+            <rect class="agent-rect-glow" x="220" y="32" width="68" height="16" rx="2">
+              <animate attributeName="opacity" values="0;0.45;0" dur="4s" begin="2.6s" repeatCount="indefinite" />
+            </rect>
+            <rect class="agent-rect-glow" x="220" y="72" width="68" height="16" rx="2">
+              <animate attributeName="opacity" values="0;0.45;0" dur="4s" begin="3.4s" repeatCount="indefinite" />
+            </rect>
+            <rect class="agent-rect-glow" x="220" y="112" width="68" height="16" rx="2">
+              <animate attributeName="opacity" values="0;0.45;0" dur="4s" begin="4.2s" repeatCount="indefinite" />
+            </rect>
+
+            <!-- Agent labels -->
+            <text class="agent-label" x="254" y="44" text-anchor="middle">budget</text>
+            <text class="agent-label" x="254" y="84" text-anchor="middle">pipeline</text>
+            <text class="agent-label" x="254" y="124" text-anchor="middle">renewals</text>
+
+            <!-- Traveling signal dots -->
+            <circle class="signal" cy="40" r="3">
+              <animate attributeName="cx" from="20" to="216" dur="2.4s" begin="0s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.05;0.95;1" dur="2.4s" begin="0s" repeatCount="indefinite" />
+            </circle>
+            <circle class="signal" cy="80" r="3">
+              <animate attributeName="cx" from="20" to="216" dur="2.4s" begin="0.8s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.05;0.95;1" dur="2.4s" begin="0.8s" repeatCount="indefinite" />
+            </circle>
+            <circle class="signal" cy="120" r="3">
+              <animate attributeName="cx" from="20" to="216" dur="2.4s" begin="1.6s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.05;0.95;1" dur="2.4s" begin="1.6s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+          <div class="viz-meta">
+            <span>Decisions running across workflows</span>
+            <span><b>live</b></span>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Signal dots travel L&rarr;R, agent rectangles glow briefly when one arrives. The most "alive" of the three. Steady 2.4s cycle per lane, staggered.</p>
+      </div>
+
+      <!-- ── A+B hybrid — Live agents ── -->
+      <div class="panel">
+        <div class="panel-id">A+B-03 · Orchestration (A+B hybrid)</div>
+        <div class="panel-name">Live agents</div>
+        <div class="viz">
+          <div class="viz-head"><span>Active agents</span><span>Stage 03</span></div>
+          <div class="agents">
+            <div class="agent">
+              <span class="agent-name">budget-router</span>
+              <span class="agent-status"><span class="agent-dot"></span>running</span>
+              <span class="agent-meta">decisions/hr <span class="agent-num" data-min="34" data-max="42">38</span></span>
+            </div>
+            <div class="agent">
+              <span class="agent-name">pipeline-triage</span>
+              <span class="agent-status"><span class="agent-dot"></span>running</span>
+              <span class="agent-meta">deals routed <span class="agent-num" data-min="118" data-max="132">124</span></span>
+            </div>
+            <div class="agent">
+              <span class="agent-name">renewal-watch</span>
+              <span class="agent-status"><span class="agent-dot"></span>running</span>
+              <span class="agent-meta">outreach sent <span class="agent-num" data-min="14" data-max="22">17</span></span>
+            </div>
+            <div class="agent">
+              <span class="agent-name">ops-triage</span>
+              <span class="agent-status"><span class="agent-dot"></span>running</span>
+              <span class="agent-meta">tickets routed <span class="agent-num" data-min="58" data-max="74">66</span></span>
+            </div>
+          </div>
+          <div class="viz-meta">
+            <span>Oversight: weekly review &middot; auto-rollback on drift</span>
+            <span><b>4 agents</b></span>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Concrete and tangible &mdash; named agents, live counters, pulse dots. Reads like a status panel. Numbers update every ~2.4s. Trade-off: more "static" feel than the pulses; punchier on substance.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:48px; padding:20px 24px; background:var(--bg); border:1px solid var(--line-2); border-radius:8px; color:var(--text-2); font-size:13px; line-height:1.55;">
+      <strong style="color:var(--text); font-family:var(--display);">Pick one of these to commit:</strong><br/>
+      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--accent);">PURE A</span> &nbsp;Scan &middot; Stack &middot; Pulses &nbsp;&nbsp;
+      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--accent);">A+B HYBRID</span> &nbsp;Scan &middot; Stack &middot; Live Agents &nbsp;&nbsp;
+      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--accent);">OTHER</span> &nbsp;Mix and match &mdash; tell me which goes where.
+    </div>
+  </div>
+
+  <script>
+    // Pause toggle (P key or click the chip)
+    const toggle = () => document.body.classList.toggle('paused');
+    document.getElementById('pause-toggle').addEventListener('click', toggle);
+    document.addEventListener('keydown', (e) => { if (e.key === 'p' || e.key === 'P') toggle(); });
+
+    // Live-agent counter ticker — pick a new value within range, briefly flash sage
+    (function () {
+      const nums = document.querySelectorAll('.agent-num');
+      function tick() {
+        nums.forEach((n) => {
+          const min = +n.dataset.min, max = +n.dataset.max;
+          // 60% chance of a small change so it doesn't feel manic
+          if (Math.random() < 0.6) {
+            const cur = +n.textContent;
+            const drift = Math.random() < 0.5 ? -1 : 1;
+            let next = cur + drift * (Math.random() < 0.7 ? 1 : 2);
+            if (next < min) next = min;
+            if (next > max) next = max;
+            if (next !== cur) {
+              n.textContent = next;
+              n.classList.add('flash');
+              setTimeout(() => n.classList.remove('flash'), 380);
+            }
+          }
+        });
+      }
+      setInterval(tick, 2400);
+    })();
+  </script>
+</body>
+</html>

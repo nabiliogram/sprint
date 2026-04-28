@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process stage — layout mockups</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: #ece9e1;
+      color: #15130f;
+      font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+      --display:   "Inter Tight", "Inter", ui-sans-serif, sans-serif;
+      --mono:      "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    /* ── Page chrome (frame around each mockup) ── */
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 56px 40px;
+    }
+    .page > h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+    .page > .lede {
+      color: var(--text-2);
+      max-width: 64ch;
+      line-height: 1.55;
+      margin: 0 0 48px;
+    }
+    .mockup {
+      margin: 0 0 56px;
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .mockup-head {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 14px 24px;
+      border-bottom: 1px dashed var(--line);
+      background: var(--bg-2);
+    }
+    .mockup-head .id {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .mockup-head .name {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+    .mockup-head .desc {
+      font-size: 13px; color: var(--text-2);
+    }
+    .mockup-body { padding: 32px 40px 36px; }
+
+    /* ── Shared stage tokens (mirrors redesign/index.html) ── */
+    .b-stage-num {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 64px;
+      line-height: 0.9;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+    }
+    .b-stage-bar { width: 48px; height: 2px; background: var(--accent); opacity: 0.5; }
+    .b-stage-title {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(24px, 2.4vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0;
+      text-wrap: balance;
+    }
+    .b-stage-sub {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+    .b-stage-text {
+      font-size: 15px; line-height: 1.55;
+      color: var(--text-2);
+      margin: 0 0 18px;
+      max-width: 60ch; text-wrap: pretty;
+    }
+    .b-stage-grid {
+      display: grid; grid-template-columns: 1fr; gap: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .b-stage-block { display: flex; flex-direction: column; gap: 10px; }
+    .b-stage-label {
+      font-family: var(--mono);
+      font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .b-stage-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+    .b-stage-list li { display: grid; grid-template-columns: 24px 1fr; font-size: 13.5px; color: var(--text-2); line-height: 1.4; }
+    .b-stage-li-num { font-family: var(--mono); font-size: 10.5px; color: var(--accent); letter-spacing: 0.06em; padding-top: 3px; }
+    .b-stage-outcome {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.35;
+      color: var(--text);
+      margin: 0;
+      letter-spacing: -0.01em;
+      text-wrap: pretty;
+    }
+
+    /* ── Viz (shift) ── */
+    .b-viz {
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      padding: 14px 16px 12px;
+      align-self: stretch;
+      display: flex; flex-direction: column;
+      font-family: var(--mono);
+    }
+    .b-viz-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-3);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .b-viz-foot { margin-top: 10px; display: flex; justify-content: flex-end; }
+    .b-viz-tag {
+      font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      padding: 3px 8px;
+      border: 1px dashed var(--line-2);
+      border-radius: 3px;
+      background: var(--bg-2);
+    }
+    .b-shift-cols-head {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 14px 1.1fr;
+      gap: 8px;
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-4);
+      padding-bottom: 6px;
+    }
+    .b-shift-col-h.b-shift-col-manual { grid-column: 2; }
+    .b-shift-col-h.b-shift-col-agent  { grid-column: 4; color: var(--accent); }
+    .b-shift-row {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 14px 1.1fr;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 0;
+      border-top: 1px dashed var(--line);
+      font-size: 11px;
+    }
+    .b-shift-row:first-of-type { border-top: 1px solid var(--line); }
+    .b-shift-area { color: var(--text-3); font-size: 10px; letter-spacing: 0.04em; }
+    .b-shift-manual { color: var(--text-3); text-decoration: line-through; text-decoration-color: var(--text-4); }
+    .b-shift-arrow { color: var(--accent); font-family: var(--display); text-align: center; font-weight: 500; }
+    .b-shift-agent {
+      color: var(--text);
+      font-weight: 500;
+      background: color-mix(in oklab, var(--accent) 14%, var(--bg));
+      padding: 2px 6px;
+      border-radius: 3px;
+      display: inline-block;
+      width: max-content;
+      max-width: 100%;
+    }
+
+    /* ───────────────────── Layout A — rebalance current 3-col ─────────────────────
+       260px | 1fr | 320px  (was 200 | 1fr | 380)
+       Adds breathing room to the title column so subtitle fits on one line,
+       slimmer viz so middle column gets room. */
+    .stage-A {
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 260px 1fr 320px;
+      gap: 40px;
+      align-items: start;
+    }
+    .stage-A .head { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .stage-A .title-row { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+    .stage-A .body { padding-top: 28px; } /* gap before paragraph for breathing room */
+
+    /* ───────────────────── Layout B — full-width header row above content+viz ───────────────────── */
+    .stage-B { padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .stage-B .head-row {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      gap: 24px;
+      align-items: end;
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .stage-B .head-row .num-block { display: flex; flex-direction: column; gap: 10px; }
+    .stage-B .head-row .titles { display: flex; flex-direction: column; gap: 4px; padding-bottom: 6px; }
+    .stage-B .body-row {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ───────────────────── Layout C — content (with title at top) | viz right ─────────────────────
+       Single content column on the left holds title-block + body + grid; viz docked right. */
+    .stage-C {
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 56px;
+      align-items: start;
+    }
+    .stage-C .head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: end;
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    .stage-C .head .num-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+    .stage-C .head .titles { display: flex; flex-direction: column; gap: 4px; padding-bottom: 6px; }
+
+    /* Reduce viz scale slightly in mockups so they fit when col is narrower */
+    .stage-A .b-viz, .stage-B .b-viz, .stage-C .b-viz { font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Process stage — three layout candidates</h1>
+    <p class="lede">Each option shows the same stage (02 · Instrumentation) so you can compare. The current site is the same shape as A but tighter (200px / 1fr / 380px) — that's why the subtitle wraps and the title sits too close to the body.</p>
+
+    <!-- ────────────────── Mockup A ────────────────── -->
+    <div class="mockup">
+      <div class="mockup-head">
+        <span class="id">A</span>
+        <span class="name">Rebalance the current 3-col grid</span>
+        <span class="desc">260px | 1fr | 320px · slimmer viz, wider title col, padding above body. Smallest change.</span>
+      </div>
+      <div class="mockup-body">
+        <div class="stage-A">
+          <div class="head">
+            <div class="b-stage-num">02</div>
+            <div class="b-stage-bar"></div>
+            <div class="title-row">
+              <h3 class="b-stage-title">Instrumentation</h3>
+              <div class="b-stage-sub">— Clean data. Clear workflows.</div>
+            </div>
+          </div>
+          <div class="body">
+            <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top without breaking — the unglamorous groundwork that makes automation actually work.</p>
+            <div class="b-stage-grid">
+              <div class="b-stage-block">
+                <div class="b-stage-label">Focus Areas</div>
+                <ul class="b-stage-list">
+                  <li><span class="b-stage-li-num">01</span><span>Unified data &amp; measurement infrastructure</span></li>
+                  <li><span class="b-stage-li-num">02</span><span>Workflow definition and documentation</span></li>
+                  <li><span class="b-stage-li-num">03</span><span>Governance, guardrails, and eval criteria</span></li>
+                  <li><span class="b-stage-li-num">04</span><span>Automation-readiness across systems</span></li>
+                </ul>
+              </div>
+              <div class="b-stage-block">
+                <div class="b-stage-label">Outcome</div>
+                <p class="b-stage-outcome">Your data, processes, and governance are automation-ready.</p>
+              </div>
+            </div>
+          </div>
+          <div class="b-viz">
+            <div class="b-viz-head"><span>What changes after Instrumentation</span><span>Sample</span></div>
+            <div class="b-shift-cols-head"><span></span><span class="b-shift-col-h b-shift-col-manual">Before</span><span class="b-shift-col-h b-shift-col-agent">After</span></div>
+            <div class="b-shift-row"><div class="b-shift-area">Data layer</div><div class="b-shift-manual">siloed sources</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">unified substrate</div></div>
+            <div class="b-shift-row"><div class="b-shift-area">Workflows</div><div class="b-shift-manual">tribal knowledge</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">documented specs</div></div>
+            <div class="b-shift-row"><div class="b-shift-area">Quality controls</div><div class="b-shift-manual">spot checks</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">evals + guardrails</div></div>
+            <div class="b-shift-row"><div class="b-shift-area">Tool integrations</div><div class="b-shift-manual">manual handoffs</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">API-first wiring</div></div>
+            <div class="b-viz-foot"><span class="b-viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────── Mockup B ────────────────── -->
+    <div class="mockup">
+      <div class="mockup-head">
+        <span class="id">B</span>
+        <span class="name">Full-width header row, content + viz below</span>
+        <span class="desc">Stage number, title, and subtitle line up horizontally across the full width. Body text and viz sit beneath in a 2-col grid.</span>
+      </div>
+      <div class="mockup-body">
+        <div class="stage-B">
+          <div class="head-row">
+            <div class="num-block">
+              <div class="b-stage-num">02</div>
+              <div class="b-stage-bar"></div>
+            </div>
+            <div class="titles">
+              <h3 class="b-stage-title">Instrumentation</h3>
+              <div class="b-stage-sub">— Clean data. Clear workflows.</div>
+            </div>
+          </div>
+          <div class="body-row">
+            <div>
+              <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top without breaking — the unglamorous groundwork that makes automation actually work.</p>
+              <div class="b-stage-grid">
+                <div class="b-stage-block">
+                  <div class="b-stage-label">Focus Areas</div>
+                  <ul class="b-stage-list">
+                    <li><span class="b-stage-li-num">01</span><span>Unified data &amp; measurement infrastructure</span></li>
+                    <li><span class="b-stage-li-num">02</span><span>Workflow definition and documentation</span></li>
+                    <li><span class="b-stage-li-num">03</span><span>Governance, guardrails, and eval criteria</span></li>
+                    <li><span class="b-stage-li-num">04</span><span>Automation-readiness across systems</span></li>
+                  </ul>
+                </div>
+                <div class="b-stage-block">
+                  <div class="b-stage-label">Outcome</div>
+                  <p class="b-stage-outcome">Your data, processes, and governance are automation-ready.</p>
+                </div>
+              </div>
+            </div>
+            <div class="b-viz">
+              <div class="b-viz-head"><span>What changes after Instrumentation</span><span>Sample</span></div>
+              <div class="b-shift-cols-head"><span></span><span class="b-shift-col-h b-shift-col-manual">Before</span><span class="b-shift-col-h b-shift-col-agent">After</span></div>
+              <div class="b-shift-row"><div class="b-shift-area">Data layer</div><div class="b-shift-manual">siloed sources</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">unified substrate</div></div>
+              <div class="b-shift-row"><div class="b-shift-area">Workflows</div><div class="b-shift-manual">tribal knowledge</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">documented specs</div></div>
+              <div class="b-shift-row"><div class="b-shift-area">Quality controls</div><div class="b-shift-manual">spot checks</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">evals + guardrails</div></div>
+              <div class="b-shift-row"><div class="b-shift-area">Tool integrations</div><div class="b-shift-manual">manual handoffs</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">API-first wiring</div></div>
+              <div class="b-viz-foot"><span class="b-viz-tag">Sample · illustrative</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────── Mockup C ────────────────── -->
+    <div class="mockup">
+      <div class="mockup-head">
+        <span class="id">C</span>
+        <span class="name">2-col: content (title at top) | viz right</span>
+        <span class="desc">Drop the third column. Title sits at the top of the content column with the subtitle inline next to it. More room for the paragraph.</span>
+      </div>
+      <div class="mockup-body">
+        <div class="stage-C">
+          <div>
+            <div class="head">
+              <div class="num-col">
+                <div class="b-stage-num">02</div>
+                <div class="b-stage-bar"></div>
+              </div>
+              <div class="titles">
+                <h3 class="b-stage-title">Instrumentation</h3>
+                <div class="b-stage-sub">— Clean data. Clear workflows.</div>
+              </div>
+            </div>
+            <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top without breaking — the unglamorous groundwork that makes automation actually work.</p>
+            <div class="b-stage-grid">
+              <div class="b-stage-block">
+                <div class="b-stage-label">Focus Areas</div>
+                <ul class="b-stage-list">
+                  <li><span class="b-stage-li-num">01</span><span>Unified data &amp; measurement infrastructure</span></li>
+                  <li><span class="b-stage-li-num">02</span><span>Workflow definition and documentation</span></li>
+                  <li><span class="b-stage-li-num">03</span><span>Governance, guardrails, and eval criteria</span></li>
+                  <li><span class="b-stage-li-num">04</span><span>Automation-readiness across systems</span></li>
+                </ul>
+              </div>
+              <div class="b-stage-block">
+                <div class="b-stage-label">Outcome</div>
+                <p class="b-stage-outcome">Your data, processes, and governance are automation-ready.</p>
+              </div>
+            </div>
+          </div>
+          <div class="b-viz">
+            <div class="b-viz-head"><span>What changes after Instrumentation</span><span>Sample</span></div>
+            <div class="b-shift-cols-head"><span></span><span class="b-shift-col-h b-shift-col-manual">Before</span><span class="b-shift-col-h b-shift-col-agent">After</span></div>
+            <div class="b-shift-row"><div class="b-shift-area">Data layer</div><div class="b-shift-manual">siloed sources</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">unified substrate</div></div>
+            <div class="b-shift-row"><div class="b-shift-area">Workflows</div><div class="b-shift-manual">tribal knowledge</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">documented specs</div></div>
+            <div class="b-shift-row"><div class="b-shift-area">Quality controls</div><div class="b-shift-manual">spot checks</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">evals + guardrails</div></div>
+            <div class="b-shift-row"><div class="b-shift-area">Tool integrations</div><div class="b-shift-manual">manual handoffs</div><div class="b-shift-arrow">→</div><div class="b-shift-agent">API-first wiring</div></div>
+            <div class="b-viz-foot"><span class="b-viz-tag">Sample · illustrative</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

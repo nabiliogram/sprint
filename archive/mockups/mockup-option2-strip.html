@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 2 — Compact Quick Estimate Strip</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: linear-gradient(180deg, #fafaf9 0%, #f5f5f4 100%); color: #171717; min-height: 100vh; padding: 24px; }
+  .wrap { max-width: 950px; margin: 0 auto; }
+
+  /* Label badge */
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: #eff6ff; color: #1d4ed8; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 24px; }
+  .badge svg { width: 16px; height: 16px; }
+
+  /* Ghost sections */
+  .ghost { padding-bottom: 32px; border-bottom: 2px dashed #e5e5e5; margin-bottom: 8px; }
+  .ghost-bottom { margin-top: 8px; padding-top: 32px; border-top: 2px dashed #e5e5e5; }
+  .ghost-eyebrow { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #d4d4d4; }
+  .ghost-title { margin-top: 8px; font-size: 24px; font-weight: 700; color: #d4d4d4; letter-spacing: -0.02em; }
+  .ghost-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .ghost-card { height: 128px; background: #f5f5f5; border-radius: 24px; border: 2px dashed #e5e5e5; }
+
+  /* Strip card */
+  .strip { margin: 40px 0; border-radius: 24px; background: #fff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08); overflow: hidden; }
+
+  /* Strip header */
+  .strip-header { padding: 16px 28px 12px; border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; align-items: center; }
+  .strip-header-left { display: flex; align-items: center; gap: 8px; }
+  .strip-header-left svg { width: 16px; height: 16px; color: #afb975; }
+  .strip-header-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #a3a3a3; }
+  .strip-header-note { font-size: 10px; color: #a3a3a3; font-weight: 500; }
+
+  /* Strip body - horizontal layout */
+  .strip-body { padding: 20px 28px; display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+
+  .strip-field { flex: 1; min-width: 160px; }
+  .strip-divider { width: 1px; height: 40px; background: #f5f5f5; flex-shrink: 0; }
+  @media (max-width: 700px) { .strip-divider { display: none; } }
+
+  .field-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #a3a3a3; margin-bottom: 4px; display: block; }
+  .field-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .field-value { font-size: 14px; font-weight: 900; color: #0a0a0a; }
+
+  select { width: 100%; padding: 8px 10px; border-radius: 8px; background: #fafafa; border: 1px solid rgba(0,0,0,0.05); font-weight: 700; color: #0a0a0a; font-size: 13px; font-family: inherit; cursor: pointer; outline: none; -webkit-appearance: none; }
+
+  input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: #e5e5e4; border-radius: 999px; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 999px; background: #111827; margin-top: -6px; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+
+  /* Result area */
+  .strip-result { display: flex; align-items: center; gap: 12px; padding-left: 8px; flex-shrink: 0; }
+  .strip-arrow { color: #d4d4d4; }
+  .strip-arrow svg { width: 20px; height: 20px; }
+  .result-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #a3a3a3; }
+  .result-number { font-size: 24px; font-weight: 700; letter-spacing: -0.025em; color: #0a0a0a; }
+  .result-unit { font-size: 14px; font-weight: 500; color: #a3a3a3; }
+
+  /* Footer benchmarks */
+  .strip-footer { padding: 10px 28px; background: rgba(250,250,249,0.8); border-top: 1px solid #f5f5f5; display: flex; flex-wrap: wrap; gap: 24px; }
+  .bench { font-size: 10px; color: #a3a3a3; font-weight: 500; }
+  .bench-source { color: #d4d4d4; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Label -->
+  <div class="badge">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Option 2 — Compact single-row strip between Opportunity and Roadmap
+  </div>
+
+  <!-- Ghost: Opportunity ending -->
+  <div class="ghost">
+    <div class="ghost-eyebrow">Previous section: Business Impact</div>
+    <div class="ghost-title">The Opportunity</div>
+    <div class="ghost-cards">
+      <div class="ghost-card"></div>
+      <div class="ghost-card"></div>
+      <div class="ghost-card"></div>
+    </div>
+  </div>
+
+  <!-- THE STRIP -->
+  <div class="strip">
+    <div class="strip-header">
+      <div class="strip-header-left">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        <span class="strip-header-label">Quick Estimate</span>
+      </div>
+      <span class="strip-header-note">Directional figures based on industry benchmarks</span>
+    </div>
+
+    <div class="strip-body">
+      <!-- Industry -->
+      <div class="strip-field">
+        <label class="field-label">Vertical</label>
+        <select>
+          <option>General / Other</option><option>E-commerce</option><option>B2B SaaS</option><option>Professional Services</option>
+        </select>
+      </div>
+
+      <div class="strip-divider"></div>
+
+      <!-- Revenue -->
+      <div class="strip-field">
+        <div class="field-row">
+          <span class="field-label">Revenue</span>
+          <span class="field-value">$10M</span>
+        </div>
+        <input type="range" min="1000000" max="100000000" value="10000000">
+      </div>
+
+      <div class="strip-divider"></div>
+
+      <!-- Media Spend -->
+      <div class="strip-field">
+        <div class="field-row">
+          <span class="field-label">Media Spend</span>
+          <span class="field-value">$100K/mo</span>
+        </div>
+        <input type="range" min="0" max="1000000" value="100000">
+      </div>
+
+      <div class="strip-divider"></div>
+
+      <!-- Result -->
+      <div class="strip-result">
+        <div class="strip-arrow">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </div>
+        <div>
+          <div class="result-label">Est. Upside</div>
+          <div class="result-number">~$1.5M<span class="result-unit">/yr</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip-footer">
+      <span class="bench">+6.5% revenue lift <span class="bench-source">· McKinsey</span></span>
+      <span class="bench">+20% capacity reclaim <span class="bench-source">· Gartner</span></span>
+      <span class="bench">+17% ROAS lift <span class="bench-source">· Nielsen</span></span>
+    </div>
+  </div>
+
+  <!-- Ghost: Roadmap starting -->
+  <div class="ghost-bottom">
+    <div class="ghost-eyebrow">Next section: Process</div>
+    <div class="ghost-title">How We Modernize You</div>
+  </div>
+</div>
+</body>
+</html>

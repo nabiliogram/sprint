@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 3 — Diagnostic Inside Roadmap Step 1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: linear-gradient(180deg, #fafaf9 0%, #f5f5f4 100%); color: #171717; min-height: 100vh; padding: 24px; }
+  .wrap { max-width: 950px; margin: 0 auto; }
+
+  /* Label badge */
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: #eff6ff; color: #1d4ed8; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 24px; }
+  .badge svg { width: 16px; height: 16px; }
+
+  /* Ghost */
+  .ghost { padding-bottom: 32px; border-bottom: 2px dashed #e5e5e5; margin-bottom: 48px; }
+  .ghost-eyebrow { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #d4d4d4; }
+  .ghost-title { margin-top: 8px; font-size: 24px; font-weight: 700; color: #d4d4d4; letter-spacing: -0.02em; }
+
+  /* Typography */
+  .eyebrow { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #a3a3a3; }
+  .section-title { margin-top: 16px; font-size: clamp(24px, 4vw, 36px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; }
+  .section-title span { display: inline; background: #0a0a0a; color: #fff; padding: 4px 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+  .subtitle { margin-top: 24px; margin-bottom: 40px; font-size: 18px; line-height: 1.7; color: #525252; font-weight: 500; font-style: italic; max-width: 95%; }
+
+  /* Step 1 card - elevated */
+  .step1 { border-radius: 32px; background: #fff; box-shadow: 0 40px 80px -15px rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.05); border-top: 5px solid #afb975; overflow: hidden; margin-bottom: 32px; }
+  .step1-grid { display: grid; grid-template-columns: 1.5fr 1.1fr; }
+  @media (max-width: 768px) { .step1-grid { grid-template-columns: 1fr; } }
+
+  /* Left panel */
+  .step1-left { padding: 36px 40px; background: rgba(184,240,237,0.12); }
+  .step-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; color: #737373; }
+  .step-title { margin-top: 12px; font-size: clamp(22px, 3.5vw, 36px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: #0a0a0a; }
+  .step-desc { margin-top: 16px; font-size: 16px; line-height: 1.7; color: #525252; font-weight: 500; }
+
+  /* Embedded calculator */
+  .preview-section { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06); }
+  .preview-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .preview-header svg { width: 16px; height: 16px; color: #afb975; }
+  .preview-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #737373; }
+
+  .preview-card { background: rgba(255,255,255,0.7); border-radius: 16px; padding: 16px; border: 1px solid rgba(0,0,0,0.05); }
+  .preview-card > div + div { margin-top: 12px; }
+
+  .field-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #a3a3a3; margin-bottom: 4px; display: block; }
+  .field-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .field-value { font-size: 14px; font-weight: 900; color: #0a0a0a; }
+
+  select { width: 100%; padding: 8px 10px; border-radius: 8px; background: #fafafa; border: 1px solid rgba(0,0,0,0.05); font-weight: 700; color: #0a0a0a; font-size: 13px; font-family: inherit; cursor: pointer; outline: none; -webkit-appearance: none; }
+  input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: #e5e5e4; border-radius: 999px; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 999px; background: #111827; margin-top: -6px; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+
+  /* Result row inside preview */
+  .preview-result { padding-top: 12px; margin-top: 8px; border-top: 1px solid #f5f5f5; display: flex; justify-content: space-between; align-items: center; }
+  .result-left .result-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #a3a3a3; }
+  .result-left .result-number { font-size: 20px; font-weight: 700; letter-spacing: -0.025em; color: #0a0a0a; }
+  .result-left .result-unit { font-size: 14px; font-weight: 500; color: #a3a3a3; }
+  .result-right { font-size: 9px; color: #a3a3a3; text-align: right; max-width: 140px; line-height: 1.5; }
+
+  /* Right panel */
+  .step1-right { padding: 36px 40px; border-left: 1px solid #f5f5f5; display: flex; flex-direction: column; justify-content: center; }
+  @media (max-width: 768px) { .step1-right { border-left: none; border-top: 1px solid #f5f5f5; } }
+
+  .focus-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.25em; color: #a3a3a3; margin-bottom: 24px; }
+  .focus-item { display: flex; align-items: flex-start; gap: 16px; font-size: 14px; color: #262626; margin-bottom: 16px; }
+  .focus-item svg { width: 16px; height: 16px; color: #afb975; flex-shrink: 0; margin-top: 2px; }
+  .focus-item span { font-weight: 700; line-height: 1.4; }
+
+  .outcome { padding-top: 20px; margin-top: 20px; border-top: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: 12px; }
+  .outcome-dot { width: 8px; height: 8px; border-radius: 999px; background: #059669; flex-shrink: 0; }
+  .outcome p { font-size: 14px; font-weight: 700; color: #262626; }
+  .outcome p em { font-weight: 500; font-style: normal; color: #a3a3a3; }
+
+  /* Steps 2 & 3 */
+  .steps-row { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  @media (max-width: 768px) { .steps-row { grid-template-columns: 1fr; } }
+
+  .step-card { border-radius: 32px; background: #fff; padding: 28px 32px; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
+  .step-card .step-label { margin-bottom: 8px; }
+  .step-card h3 { font-size: clamp(18px, 2.5vw, 22px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; color: #0a0a0a; }
+  .step-card p { margin-top: 12px; font-size: 15px; line-height: 1.7; color: #525252; font-weight: 500; margin-bottom: 28px; }
+  .step-card .focus-label { margin-top: 0; }
+  .step-card .focus-item { margin-bottom: 12px; }
+  .step-card .focus-item svg { color: #afb975; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Label -->
+  <div class="badge">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Option 3 — Calculator embedded as interactive preview in Roadmap Step 1 (Diagnostic Sprint)
+  </div>
+
+  <!-- Ghost: Opportunity ending -->
+  <div class="ghost">
+    <div class="ghost-eyebrow">Previous section: Business Impact</div>
+    <div class="ghost-title">The Opportunity</div>
+  </div>
+
+  <!-- Roadmap Section -->
+  <div class="eyebrow">Process</div>
+  <div class="section-title"><span>How We Modernize You</span></div>
+  <p class="subtitle">We begin every partnership with a Diagnostic Sprint to map where your performance is leaking and find your biggest wins.</p>
+
+  <!-- STEP 1 — Elevated, with embedded calculator -->
+  <article class="step1">
+    <div class="step1-grid">
+      <div class="step1-left">
+        <div class="step-label">Step 01</div>
+        <h3 class="step-title">Diagnostic Sprint</h3>
+        <p class="step-desc">A focused audit that maps your current performance landscape, identifies leakage points, and quantifies the opportunity. We assess data infrastructure, media efficiency, team capacity, and vendor structure to build your modernization roadmap.</p>
+
+        <!-- Mini calculator -->
+        <div class="preview-section">
+          <div class="preview-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <span class="preview-label">Preview your diagnostic</span>
+          </div>
+
+          <div class="preview-card">
+            <div>
+              <label class="field-label">Your vertical</label>
+              <select>
+                <option>General / Other</option><option>E-commerce</option><option>B2B SaaS</option><option>Professional Services</option>
+              </select>
+            </div>
+            <div>
+              <div class="field-row">
+                <span class="field-label">Annual Revenue</span>
+                <span class="field-value">$10M</span>
+              </div>
+              <input type="range" min="1000000" max="100000000" value="10000000">
+            </div>
+            <div>
+              <div class="field-row">
+                <span class="field-label">Monthly Media Spend</span>
+                <span class="field-value">$100K</span>
+              </div>
+              <input type="range" min="0" max="1000000" value="100000">
+            </div>
+
+            <div class="preview-result">
+              <div class="result-left">
+                <div class="result-label">Approximate Opportunity</div>
+                <div class="result-number">~$1.5M <span class="result-unit">/ year</span></div>
+              </div>
+              <div class="result-right">Our Diagnostic Sprint quantifies this with your actual data</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step1-right">
+        <div class="focus-label">Focus Areas</div>
+        <div class="focus-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
+          <span>Data Infrastructure & Measurement</span>
+        </div>
+        <div class="focus-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>Media Efficiency & ROAS</span>
+        </div>
+        <div class="focus-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Team Capacity & Workflow</span>
+        </div>
+        <div class="focus-item">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          <span>Vendor & Agency Structure</span>
+        </div>
+
+        <div class="outcome">
+          <div class="outcome-dot"></div>
+          <p><em>Outcome:</em> Prioritized modernization roadmap with quantified business case</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Steps 2 & 3 -->
+  <div class="steps-row">
+    <article class="step-card">
+      <div class="step-label">Step 02</div>
+      <h3>Performance Standards</h3>
+      <p>Fill operational gaps with rigorous standards to capture an immediate lift in return on spend.</p>
+      <div class="focus-label">Focus Areas</div>
+      <div class="focus-item">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <span>Campaign architecture optimization</span>
+      </div>
+      <div class="focus-item">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <span>Measurement & attribution</span>
+      </div>
+      <div class="focus-item">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <span>Creative testing framework</span>
+      </div>
+      <div class="outcome">
+        <div class="outcome-dot"></div>
+        <p><em>Outcome:</em> Measurable performance lift within 90 days</p>
+      </div>
+    </article>
+
+    <article class="step-card">
+      <div class="step-label">Step 03</div>
+      <h3>Autonomous Orchestration</h3>
+      <p>Build the systems that maximize your bottom line through intelligent scale and real-time adaptation.</p>
+      <div class="focus-label">Focus Areas</div>
+      <div class="focus-item">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <span>AI-driven workflow automation</span>
+      </div>
+      <div class="focus-item">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <span>Real-time budget allocation</span>
+      </div>
+      <div class="focus-item">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <span>Predictive performance modeling</span>
+      </div>
+      <div class="outcome">
+        <div class="outcome-dot"></div>
+        <p><em>Outcome:</em> Self-optimizing growth engine at scale</p>
+      </div>
+    </article>
+  </div>
+
+</div>
+</body>
+</html>

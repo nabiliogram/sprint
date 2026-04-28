@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variation A — Updated</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: linear-gradient(180deg, #fafaf9 0%, #f5f5f4 100%); color: #171717; min-height: 100vh; padding: 24px; }
+  .wrap { max-width: 950px; margin: 0 auto; }
+  .eyebrow { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #a3a3a3; }
+  .section-title { margin-top: 16px; font-size: 32px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; }
+  .section-title span { display: inline; background: #0a0a0a; color: #fff; padding: 4px 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+  .subtitle { margin-top: 24px; margin-bottom: 32px; font-size: 18px; line-height: 1.7; color: #525252; font-weight: 500; font-style: italic; max-width: 95%; }
+  .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 800px) { .card-grid { grid-template-columns: 1fr; } }
+  .card { background: #fff; padding: 28px; border-radius: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.05); }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+  .card-tag { padding: 4px 12px; background: #0a0a0a; color: #fff; font-size: 10px; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; }
+  .card-icon svg { width: 32px; height: 32px; color: #afb975; }
+  .card h3 { font-size: 22px; font-weight: 700; margin-bottom: 16px; line-height: 1.3; }
+  .card p { font-size: 14px; color: #525252; line-height: 1.7; }
+
+  .calc-intro { margin-top: 32px; margin-bottom: 24px; max-width: 95%; }
+  .calc-intro p { font-size: 18px; line-height: 1.7; color: #525252; font-weight: 500; font-style: italic; }
+
+  .calc-card { border-radius: 28px; background: #fff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); overflow: hidden; }
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 700px) { .calc-grid { grid-template-columns: 1fr; } }
+  .calc-inputs { padding: 28px 32px; border-right: 1px solid #f5f5f5; display: flex; flex-direction: column; gap: 16px; }
+  @media (max-width: 700px) { .calc-inputs { border-right: none; border-bottom: 1px solid #f5f5f5; } }
+  .input-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: #a3a3a3; }
+  .input-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .input-value { font-size: 15px; font-weight: 900; color: #0a0a0a; }
+  select { width: 100%; padding: 8px 10px; border-radius: 4px; background: #fafafa; border: 1px solid rgba(0,0,0,0.05); font-weight: 700; color: #0a0a0a; font-size: 13px; font-family: inherit; cursor: pointer; outline: none; -webkit-appearance: none; }
+  input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: #f3f4f6; border-radius: 999px; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 999px; background: #111827; margin-top: -7px; border: 3px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+
+  .calc-output { padding: 28px 32px; background: rgba(250,250,249,0.5); display: flex; flex-direction: column; justify-content: center; }
+  .output-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .output-main { text-align: center; flex-grow: 1; }
+  .output-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; color: #a3a3a3; }
+  .output-number { margin-top: 6px; font-size: 36px; font-weight: 900; letter-spacing: -0.025em; color: #0a0a0a; }
+
+  .help-btn { width: 32px; height: 32px; border-radius: 999px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+  .help-btn.inactive { background: transparent; color: #afb975; }
+  .help-btn.inactive:hover { background: rgba(0,0,0,0.04); }
+  .help-btn.active { background: #111827; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .help-btn svg { width: 20px; height: 20px; }
+
+  .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .metric { border-radius: 14px; background: #fff; padding: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.05); text-align: center; }
+  .metric-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: #a3a3a3; }
+  .metric-value { font-size: 17px; font-weight: 700; color: #059669; margin-top: 2px; }
+  .metric-note { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #a3a3a3; margin-top: 2px; }
+
+  .methodology { border-top: 1px solid #f5f5f5; background: rgba(250,250,249,0.8); padding: 28px 32px; display: none; }
+  .methodology.open { display: block; }
+  .methodology h4 { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.25em; color: #a3a3a3; margin-bottom: 12px; }
+  .methodology p { font-size: 14px; line-height: 1.7; color: #525252; font-weight: 500; }
+  .methodology a { color: #0a0a0a; text-decoration: underline; text-decoration-color: #d4d4d4; text-underline-offset: 4px; margin: 0 2px; transition: text-decoration-color 0.2s; }
+  .methodology a:hover { text-decoration-color: #0a0a0a; }
+
+  .ghost { margin-top: 80px; padding-top: 32px; border-top: 2px dashed #e5e5e5; }
+  .ghost-eyebrow { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #d4d4d4; }
+  .ghost-title { margin-top: 12px; font-size: 24px; font-weight: 700; color: #d4d4d4; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- OPPORTUNITY SECTION — unchanged -->
+  <div class="eyebrow">Business Impact</div>
+  <div class="section-title"><span>The Opportunity</span></div>
+  <p class="subtitle">You can't scale through manual effort alone. We help you transition to an autonomous system that targets the three essentials of modern performance: reclaiming team bandwidth, making the entire customer journey more responsive to data, and improving your bottom line through systematic orchestration.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tag">Efficiency</div>
+        <div class="card-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+      </div>
+      <h3>Reclaim 20% of Team Bandwidth</h3>
+      <p>Automate the manual work that consumes your team's time so they can focus on strategy and creative.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tag">Revenue</div>
+        <div class="card-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+      </div>
+      <h3>Unlock 6.5% Revenue Lift</h3>
+      <p>Data-responsive journeys that adapt in real-time to customer signals and market conditions.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tag">Media</div>
+        <div class="card-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      </div>
+      <h3>+17% Media Performance</h3>
+      <p>Systematic orchestration that improves your bottom line through intelligent allocation and measurement.</p>
+    </div>
+  </div>
+
+  <!-- Intro paragraph above calculator -->
+  <div class="calc-intro">
+    <p>Get a high-level view of your modernization opportunity. By applying validated performance data to your current model, this simulator offers a directional estimate of how autonomous workflows can impact your bottom line. It serves as an initial look at the scale available before moving into a granular Diagnostic Sprint.</p>
+  </div>
+
+  <!-- Calculator — no section header, inside Opportunity -->
+  <div class="calc-card">
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <div>
+          <div class="input-label" style="margin-bottom:6px;">Vertical</div>
+          <select><option>General / Other</option><option>E-commerce</option><option>B2B SaaS</option><option>Professional Services</option><option>Financial Services</option><option>CPG &amp; Manufacturing</option><option>Healthcare</option></select>
+        </div>
+        <div><div class="input-row"><span class="input-label">Annual Revenue</span><span class="input-value">$10M</span></div><input type="range" min="1000000" max="100000000" value="10000000"></div>
+        <div><div class="input-row"><span class="input-label">FTE Headcount</span><span class="input-value">15</span></div><input type="range" min="1" max="200" value="15"></div>
+        <div><div class="input-row"><span class="input-label">Monthly Media Spend</span><span class="input-value">$100K</span></div><input type="range" min="0" max="1000000" value="100000"></div>
+        <div><div class="input-row"><span class="input-label">Monthly Agency Fees</span><span class="input-value">$15K</span></div><input type="range" min="0" max="250000" value="15000"></div>
+      </div>
+      <div class="calc-output">
+        <div class="output-top">
+          <div class="output-main">
+            <div class="output-label">Estimated Annual Upside</div>
+            <div class="output-number">~$1.5M</div>
+          </div>
+          <button id="helpBtn" class="help-btn inactive" onclick="toggleMethodology()">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </button>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric"><div class="metric-label">Growth</div><div class="metric-value">+6.5%</div><div class="metric-note">Lift</div></div>
+          <div class="metric"><div class="metric-label">Efficiency</div><div class="metric-value">+20%</div><div class="metric-note">Capacity</div></div>
+          <div class="metric"><div class="metric-label">Media</div><div class="metric-value">+17%</div><div class="metric-note">ROAS Lift</div></div>
+          <div class="metric"><div class="metric-label">Structural</div><div class="metric-value">+40%</div><div class="metric-note">Rationalized</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Methodology panel — toggled by ? button -->
+    <div id="methodology" class="methodology">
+      <h4>Simulator Logic</h4>
+      <p>
+        This simulator applies high-level directional benchmarks:
+        <a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right-or-wrong-is-multiplying" target="_blank" rel="noreferrer">McKinsey</a>
+        (+6.5% revenue lift through AI-driven journeys),
+        <a href="https://www.gartner.com/en/marketing/topics/marketing-ai" target="_blank" rel="noreferrer">Gartner</a>
+        (20% capacity reclaim via automated administration), and
+        <a href="https://www.nielsen.com/insights/2017/when-it-comes-to-advertising-effectiveness-what-is-the-most-important-element/" target="_blank" rel="noreferrer">Nielsen</a>
+        (+17% media lift). These figures provide a baseline for the deeper, customized analysis performed during our Diagnostic Sprint.
+      </p>
+    </div>
+  </div>
+
+  <!-- Ghost: next section -->
+  <div class="ghost">
+    <div class="ghost-eyebrow">Next section: Process</div>
+    <div class="ghost-title">How We Modernize You</div>
+  </div>
+</div>
+
+<script>
+function toggleMethodology() {
+  var panel = document.getElementById('methodology');
+  var btn = document.getElementById('helpBtn');
+  var isOpen = panel.classList.contains('open');
+  if (isOpen) {
+    panel.classList.remove('open');
+    btn.className = 'help-btn inactive';
+  } else {
+    panel.classList.add('open');
+    btn.className = 'help-btn active';
+  }
+}
+</script>
+</body>
+</html>

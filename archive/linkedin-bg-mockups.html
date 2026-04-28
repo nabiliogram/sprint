@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LinkedIn Section — Background Colour Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f0f0ee; color: #0a0a0a; }
+
+  .variation-label {
+    background: #0a0a0a; color: #fff;
+    font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+    padding: 10px 24px; display: flex; align-items: center; gap: 12px;
+  }
+  .variation-label .badge {
+    background: #afb975; color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 10px;
+  }
+  .variation-label .desc { font-weight: 500; letter-spacing: 0; text-transform: none; font-size: 12px; color: #aaa; }
+
+  /* Site chrome */
+  .nav { background: #fff; border-bottom: 1px solid rgba(0,0,0,.06); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .nav-brand { font-size: 13px; font-weight: 700; }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-link { font-size: 12px; color: #555; text-decoration: none; }
+
+  .section-stub {
+    background: #fff; padding: 36px 0;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+  }
+  .stub-inner { max-width: 950px; margin: 0 auto; padding: 0 32px; }
+  .stub-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #afb975; margin-bottom: 8px; }
+  .stub-title { font-size: 28px; font-weight: 800; margin-bottom: 14px; }
+  .stub-title span { background: #0a0a0a; color: #fff; padding: 2px 12px; }
+  .stub-body { display: flex; gap: 14px; }
+  .stub-card { flex: 1; height: 80px; background: #f5f5f3; border-radius: 16px; border: 1px solid #e5e5e3; }
+
+  .section-after { background: #fff; padding: 36px 0; border-top: 1px solid rgba(0,0,0,.06); }
+
+  /* Shared linkedin section structure */
+  .li-section { padding: 52px 0 64px; }
+  .li-inner { max-width: 950px; margin: 0 auto; padding: 0 32px; border-left: 3px solid #afb975; padding-left: 60px; }
+  .eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #afb975; margin-bottom: 8px; }
+  .section-title { font-size: 28px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 28px; }
+  .section-title span { background: #0a0a0a; color: #fff; padding: 2px 12px; }
+
+  /* Carousel */
+  .carousel { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 4px; }
+  .carousel::-webkit-scrollbar { display: none; }
+
+  /* Cards — Card C style */
+  .card {
+    flex-shrink: 0; width: 280px; border-radius: 16px;
+    display: flex; flex-direction: column;
+    background: #f7f8f2; border: 1px solid rgba(175,185,117,0.28);
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    transition: box-shadow .2s;
+  }
+  .card:hover { box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+  .card-inner { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .card-logo { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+  .card-logo img { height: 13px; opacity: .28; }
+  .card-title { font-size: 13px; font-weight: 700; line-height: 1.35; color: #0a0a0a; margin-bottom: 9px; }
+  .card-snippet { font-size: 11.5px; color: #737373; line-height: 1.6; flex: 1; }
+  .card-footer { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(175,185,117,0.25); display: flex; justify-content: space-between; align-items: center; }
+  .card-date { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #a3a3a3; }
+  .card-cta { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: #afb975; }
+
+  .page-gap { height: 32px; background: #f0f0ee; }
+</style>
+</head>
+<body>
+
+<!-- POSTS DATA (shared) -->
+<template id="posts">
+  <div class="card">
+    <div class="card-inner">
+      <div class="card-logo"><img src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+      <p class="card-title">Ads now appear in 25.5% of Google AI Overview results</p>
+      <p class="card-snippet">Up from 5.17% a year ago. A 394% increase. You can't opt in or out — your ads may already be running inside AI-generated answers...</p>
+      <div class="card-footer"><span class="card-date">Mar 2026</span><span class="card-cta">Read post →</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-inner">
+      <div class="card-logo"><img src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+      <p class="card-title">ChatGPT just started running ads. Here's what $60 CPM means.</p>
+      <p class="card-snippet">Criteo became the first platform to open ChatGPT ad inventory — giving 17,000 advertisers access to a channel that didn't exist last month...</p>
+      <div class="card-footer"><span class="card-date">Mar 2026</span><span class="card-cta">Read post →</span></div>
+    </div>
+  </div>
+  <div class="card" style="background:rgba(184,240,237,0.28)">
+    <div class="card-inner">
+      <div class="card-logo"><img src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+      <p class="card-title">88% of teams use AI, but only a third scale results</p>
+      <p class="card-snippet">Two conversations in March 2026 landed on the same number. Only a third are scaling results from it. The gap is structural...</p>
+      <div class="card-footer" style="border-top-color:rgba(0,0,0,.07)"><span class="card-date">Mar 2026</span><span class="card-cta">Read post →</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-inner">
+      <div class="card-logo"><img src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+      <p class="card-title">The most important marketing role doesn't exist yet</p>
+      <p class="card-snippet">AI agents are absorbing the tactical execution layer of marketing ops. Companies running agentic workflows report 44% higher productivity...</p>
+      <div class="card-footer"><span class="card-date">Feb 2026</span><span class="card-cta">Read post →</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-inner">
+      <div class="card-logo"><img src="https://haschemie.com/assets/linkedin-logo.png" /></div>
+      <p class="card-title">The personalisation that used to require a team of five</p>
+      <p class="card-snippet">One B2B software company built a system where AI monitors every closed-lost deal and — 90 days later — automatically launches re-engagement...</p>
+      <div class="card-footer"><span class="card-date">Feb 2026</span><span class="card-cta">Read post →</span></div>
+    </div>
+  </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════
+     OPTION A — Warm Parchment  #faf4e8
+     Feels like a editorial insert or newspaper pull-quote zone.
+     Warm enough to clearly delineate without being colourful.
+════════════════════════════════════════════════ -->
+<div class="variation-label">
+  <span class="badge">Option A</span>
+  <span>Warm Parchment</span>
+  <span class="desc">— editorial warmth, clearly different from white sections</span>
+</div>
+
+<div class="nav">
+  <span class="nav-brand">SprintAssembly</span>
+  <div class="nav-links">
+    <a class="nav-link">Opportunity</a><a class="nav-link">Process</a><a class="nav-link">Team</a>
+  </div>
+</div>
+<div class="section-stub">
+  <div class="stub-inner">
+    <div class="stub-eyebrow">Business Impact</div>
+    <div class="stub-title"><span>The Opportunity</span></div>
+    <div class="stub-body">
+      <div class="stub-card"></div><div class="stub-card"></div><div class="stub-card"></div>
+    </div>
+  </div>
+</div>
+
+<div class="li-section" style="background:#faf4e8; border-top:1px solid #ede4cc; border-bottom:1px solid #ede4cc;">
+  <div class="li-inner" style="padding-left:60px">
+    <div class="eyebrow">Insights</div>
+    <div class="section-title"><span>Latest</span></div>
+    <div class="carousel" id="carousel-a"></div>
+  </div>
+</div>
+
+<div class="section-after">
+  <div class="stub-inner">
+    <div class="stub-eyebrow">Process</div>
+    <div class="stub-title"><span>How We Work</span></div>
+  </div>
+</div>
+
+<div class="page-gap"></div>
+
+<!-- ═══════════════════════════════════════════════
+     OPTION B — Cool Slate Blue  #edf1f7
+     Neutral-cool. Feels like a data/content digest panel.
+     Subtly different colour temperature from the white sections.
+════════════════════════════════════════════════ -->
+<div class="variation-label">
+  <span class="badge">Option B</span>
+  <span>Cool Slate Blue</span>
+  <span class="desc">— data/digest feel, different temperature from warm white sections</span>
+</div>
+
+<div class="nav">
+  <span class="nav-brand">SprintAssembly</span>
+  <div class="nav-links">
+    <a class="nav-link">Opportunity</a><a class="nav-link">Process</a><a class="nav-link">Team</a>
+  </div>
+</div>
+<div class="section-stub">
+  <div class="stub-inner">
+    <div class="stub-eyebrow">Business Impact</div>
+    <div class="stub-title"><span>The Opportunity</span></div>
+    <div class="stub-body">
+      <div class="stub-card"></div><div class="stub-card"></div><div class="stub-card"></div>
+    </div>
+  </div>
+</div>
+
+<div class="li-section" style="background:#edf1f7; border-top:1px solid #d8e0ed; border-bottom:1px solid #d8e0ed;">
+  <div class="li-inner" style="padding-left:60px">
+    <div class="eyebrow">Insights</div>
+    <div class="section-title"><span>Latest</span></div>
+    <div class="carousel" id="carousel-b"></div>
+  </div>
+</div>
+
+<div class="section-after">
+  <div class="stub-inner">
+    <div class="stub-eyebrow">Process</div>
+    <div class="stub-title"><span>How We Work</span></div>
+  </div>
+</div>
+
+<div class="page-gap"></div>
+
+<!-- ═══════════════════════════════════════════════
+     OPTION C — Warm Stone / Greige  #f0ede8
+     Between beige and grey. Neutral but clearly off-white.
+     Works well with the mossy green accent without competing.
+════════════════════════════════════════════════ -->
+<div class="variation-label">
+  <span class="badge">Option C</span>
+  <span>Warm Stone / Greige</span>
+  <span class="desc">— sits between beige and grey, neutral but clearly not white</span>
+</div>
+
+<div class="nav">
+  <span class="nav-brand">SprintAssembly</span>
+  <div class="nav-links">
+    <a class="nav-link">Opportunity</a><a class="nav-link">Process</a><a class="nav-link">Team</a>
+  </div>
+</div>
+<div class="section-stub">
+  <div class="stub-inner">
+    <div class="stub-eyebrow">Business Impact</div>
+    <div class="stub-title"><span>The Opportunity</span></div>
+    <div class="stub-body">
+      <div class="stub-card"></div><div class="stub-card"></div><div class="stub-card"></div>
+    </div>
+  </div>
+</div>
+
+<div class="li-section" style="background:#f0ede8; border-top:1px solid #dedad3; border-bottom:1px solid #dedad3;">
+  <div class="li-inner" style="padding-left:60px">
+    <div class="eyebrow">Insights</div>
+    <div class="section-title"><span>Latest</span></div>
+    <div class="carousel" id="carousel-c"></div>
+  </div>
+</div>
+
+<div class="section-after">
+  <div class="stub-inner">
+    <div class="stub-eyebrow">Process</div>
+    <div class="stub-title"><span>How We Work</span></div>
+  </div>
+</div>
+
+<script>
+  // Stamp the cards into each carousel from the template
+  const tmpl = document.getElementById('posts').content;
+  ['carousel-a','carousel-b','carousel-c'].forEach(id => {
+    document.getElementById(id).appendChild(tmpl.cloneNode(true));
+  });
+</script>
+</body>
+</html>

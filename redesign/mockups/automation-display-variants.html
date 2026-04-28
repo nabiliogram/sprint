@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sample automations — display variants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --bg-3:      #e2dfd5;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+      --accent-soft: rgba(111, 115, 64, 0.40);
+      --accent-tint: rgba(111, 115, 64, 0.10);
+      --display:   "Inter Tight", "Inter", ui-sans-serif, sans-serif;
+      --sans:      "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono:      "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1240px; margin: 0 auto; padding: 56px 40px 120px; }
+    .page > h1 { font-family: var(--display); font-weight: 600; font-size: 36px; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .page > .lede { color: var(--text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 12px; }
+
+    .pause-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      padding: 8px 12px;
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      transition: color .25s, border-color .25s;
+      margin: 8px 0 32px;
+    }
+    .pause-toggle:hover { color: var(--text); border-color: var(--text-3); }
+    .pause-toggle .key { color: var(--accent); }
+    body.paused * { animation-play-state: paused !important; }
+
+    .variant {
+      margin: 0 0 80px;
+    }
+    .variant-head {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 18px 0 14px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--line-2);
+    }
+    .variant-id {
+      font-family: var(--mono);
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .variant-name {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: -0.015em;
+    }
+    .variant-desc { color: var(--text-2); font-size: 14px; line-height: 1.55; flex: 1; max-width: 70ch; }
+
+    /* Stage frame — simulates the in-context placement under the hero */
+    .stage {
+      background: var(--bg-2);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 32px 40px;
+    }
+    .stage-strip-label {
+      font-family: var(--mono);
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 18px;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .stage-strip-label::after { content: ""; flex: 1; height: 1px; background: var(--line); width: 32px; }
+
+    /* ════════════════════════════════════════════════════════
+     *  Shared chip styles
+     * ════════════════════════════════════════════════════════ */
+    .chip {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text);
+      transition: background .35s ease, border-color .35s ease, transform .35s ease;
+      min-width: 0;
+    }
+    .chip-tools {
+      display: inline-flex; align-items: baseline; gap: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.005em;
+      white-space: nowrap;
+    }
+    .chip-tools .arr {
+      color: var(--accent);
+      font-weight: 400;
+      font-size: 12px;
+    }
+    .chip-desc {
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.005em;
+      line-height: 1.35;
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  VARIANT A — Pulse Grid
+     * ════════════════════════════════════════════════════════ */
+    .variant-A .stage { padding: 36px 40px; }
+    .pulse-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 900px) { .pulse-grid { grid-template-columns: repeat(2, 1fr); } }
+    .pulse-grid .chip {
+      animation: chipDim 24s linear infinite;
+      animation-delay: calc(var(--i) * -2s);
+    }
+    @keyframes chipDim {
+      0%, 7%   { background: color-mix(in oklab, var(--accent) 8%, var(--bg)); border-color: var(--accent-soft); }
+      8%, 100% { background: var(--bg); border-color: var(--line); }
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  VARIANT B — Multi-Row Scroll
+     * ════════════════════════════════════════════════════════ */
+    .variant-B .stage { padding: 36px 0; }
+    .scroll-rows { display: flex; flex-direction: column; gap: 14px; }
+    .scroll-row {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+    }
+    .scroll-track {
+      display: inline-flex;
+      gap: 12px;
+      will-change: transform;
+    }
+    .scroll-row.row-1 .scroll-track { animation: scrollLeft 80s linear infinite; }
+    .scroll-row.row-2 .scroll-track { animation: scrollRight 90s linear infinite; }
+    .scroll-row.row-3 .scroll-track { animation: scrollLeft 70s linear infinite; }
+    @keyframes scrollLeft  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+    @keyframes scrollRight { from { transform: translateX(-50%); } to { transform: translateX(0); }    }
+    .scroll-row .chip { flex-shrink: 0; }
+
+    /* ════════════════════════════════════════════════════════
+     *  VARIANT C — Pinboard / Asymmetric
+     * ════════════════════════════════════════════════════════ */
+    .variant-C .stage { padding: 48px 40px; }
+    .pinboard {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .pinboard .chip {
+      transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s, border-color .4s;
+      cursor: default;
+    }
+    .pinboard .chip[data-tilt="-2"] { transform: rotate(-2deg); }
+    .pinboard .chip[data-tilt="-1"] { transform: rotate(-1deg); }
+    .pinboard .chip[data-tilt="1"]  { transform: rotate(1deg); }
+    .pinboard .chip[data-tilt="2"]  { transform: rotate(2deg); }
+    .pinboard .chip[data-size="lg"] { padding: 14px 18px; }
+    .pinboard .chip[data-size="lg"] .chip-tools { font-size: 13.5px; }
+    .pinboard .chip[data-size="lg"] .chip-desc  { font-size: 12px; }
+    .pinboard .chip:hover {
+      transform: translateY(-2px) rotate(0deg) !important;
+      box-shadow: 0 14px 28px rgba(20,18,14,.10);
+      border-color: var(--accent-soft);
+      z-index: 2;
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  VARIANT D — Categorized Grid
+     * ════════════════════════════════════════════════════════ */
+    .variant-D .stage { padding: 36px 40px; }
+    .cat-grid { display: flex; flex-direction: column; gap: 24px; }
+    .cat-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .cat-row:first-child { padding-top: 0; border-top: 0; }
+    .cat-label {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 12px;
+    }
+    .cat-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    @media (max-width: 760px) {
+      .cat-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .pulse-grid .chip, .scroll-track { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Sample automations &mdash; display variants</h1>
+    <p class="lede">Four ways to surface the same 12 sample workflows. Each tries to keep the energy of the original ticker without the "live feed" implication. Pick the one that lands &mdash; or call out hybrids.</p>
+    <div class="pause-toggle" id="pause-toggle"><span class="key">[ P ]</span><span>Pause / play motion</span></div>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         VARIANT A — Pulse Grid
+         ═══════════════════════════════════════════════════════ -->
+    <section class="variant variant-A">
+      <div class="variant-head">
+        <span class="variant-id">A</span>
+        <span class="variant-name">Pulse grid</span>
+        <span class="variant-desc">12 chips in a static 4&times;3 grid. Every ~2s a different chip briefly highlights (sage tint + border) and fades back. Calm but alive. The cycle moves through all chips so eyes keep landing on new ones over time.</span>
+      </div>
+      <div class="stage">
+        <div class="stage-strip-label">Workflows we automate</div>
+        <div class="pulse-grid">
+          <div class="chip" style="--i: 0"><div class="chip-tools"><span>Google&nbsp;Ads</span><span class="arr">&rarr;</span><span>Snowflake</span></div><div class="chip-desc">spend-pacing sync</div></div>
+          <div class="chip" style="--i: 1"><div class="chip-tools"><span>HubSpot</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">lifecycle triggers</div></div>
+          <div class="chip" style="--i: 2"><div class="chip-tools"><span>Salesforce</span><span class="arr">&rarr;</span><span>Outreach</span></div><div class="chip-desc">sequence stalled deals</div></div>
+          <div class="chip" style="--i: 3"><div class="chip-tools"><span>Gong</span><span class="arr">&rarr;</span><span>Salesforce</span></div><div class="chip-desc">next steps from calls</div></div>
+          <div class="chip" style="--i: 4"><div class="chip-tools"><span>Mixpanel</span><span class="arr">&rarr;</span><span>HubSpot</span></div><div class="chip-desc">churn-risk outreach</div></div>
+          <div class="chip" style="--i: 5"><div class="chip-tools"><span>Zendesk</span><span class="arr">+</span><span>LLM</span></div><div class="chip-desc">inbound ticket triage</div></div>
+          <div class="chip" style="--i: 6"><div class="chip-tools"><span>Stripe</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">renewal sequences</div></div>
+          <div class="chip" style="--i: 7"><div class="chip-tools"><span>Bill.com</span><span class="arr">&harr;</span><span>QuickBooks</span></div><div class="chip-desc">invoice reconciliation</div></div>
+          <div class="chip" style="--i: 8"><div class="chip-tools"><span>Ramp</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">spend anomaly alerts</div></div>
+          <div class="chip" style="--i: 9"><div class="chip-tools"><span>Snowflake</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">daily metric briefs</div></div>
+          <div class="chip" style="--i: 10"><div class="chip-tools"><span>Asana</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">SLA-breach escalation</div></div>
+          <div class="chip" style="--i: 11"><div class="chip-tools"><span>Workday</span><span class="arr">&rarr;</span><span>Okta</span></div><div class="chip-desc">access provisioning</div></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         VARIANT B — Multi-Row Scroll
+         ═══════════════════════════════════════════════════════ -->
+    <section class="variant variant-B">
+      <div class="variant-head">
+        <span class="variant-id">B</span>
+        <span class="variant-name">Multi-row drift</span>
+        <span class="variant-desc">Three rows of chips, each scrolling at a different speed and direction (much slower than the original ticker). Edges fade so chips feel like they pass through the band. Less "news ticker," more "wall of options drifting by."</span>
+      </div>
+      <div class="stage">
+        <div style="padding: 0 40px;">
+          <div class="stage-strip-label">Workflows we automate</div>
+        </div>
+        <div class="scroll-rows">
+          <!-- Row 1 — left -->
+          <div class="scroll-row row-1">
+            <div class="scroll-track">
+              <!-- duplicate set for seamless loop -->
+              <div class="chip"><div class="chip-tools"><span>Google&nbsp;Ads</span><span class="arr">&rarr;</span><span>Snowflake</span></div><div class="chip-desc">spend-pacing sync</div></div>
+              <div class="chip"><div class="chip-tools"><span>HubSpot</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">lifecycle triggers</div></div>
+              <div class="chip"><div class="chip-tools"><span>Salesforce</span><span class="arr">&rarr;</span><span>Outreach</span></div><div class="chip-desc">sequence stalled deals</div></div>
+              <div class="chip"><div class="chip-tools"><span>Gong</span><span class="arr">&rarr;</span><span>Salesforce</span></div><div class="chip-desc">next steps from calls</div></div>
+              <!-- duplicates for seamless wrap -->
+              <div class="chip"><div class="chip-tools"><span>Google&nbsp;Ads</span><span class="arr">&rarr;</span><span>Snowflake</span></div><div class="chip-desc">spend-pacing sync</div></div>
+              <div class="chip"><div class="chip-tools"><span>HubSpot</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">lifecycle triggers</div></div>
+              <div class="chip"><div class="chip-tools"><span>Salesforce</span><span class="arr">&rarr;</span><span>Outreach</span></div><div class="chip-desc">sequence stalled deals</div></div>
+              <div class="chip"><div class="chip-tools"><span>Gong</span><span class="arr">&rarr;</span><span>Salesforce</span></div><div class="chip-desc">next steps from calls</div></div>
+            </div>
+          </div>
+          <!-- Row 2 — right -->
+          <div class="scroll-row row-2">
+            <div class="scroll-track">
+              <div class="chip"><div class="chip-tools"><span>Mixpanel</span><span class="arr">&rarr;</span><span>HubSpot</span></div><div class="chip-desc">churn-risk outreach</div></div>
+              <div class="chip"><div class="chip-tools"><span>Zendesk</span><span class="arr">+</span><span>LLM</span></div><div class="chip-desc">inbound ticket triage</div></div>
+              <div class="chip"><div class="chip-tools"><span>Stripe</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">renewal sequences</div></div>
+              <div class="chip"><div class="chip-tools"><span>Bill.com</span><span class="arr">&harr;</span><span>QuickBooks</span></div><div class="chip-desc">invoice reconciliation</div></div>
+              <div class="chip"><div class="chip-tools"><span>Mixpanel</span><span class="arr">&rarr;</span><span>HubSpot</span></div><div class="chip-desc">churn-risk outreach</div></div>
+              <div class="chip"><div class="chip-tools"><span>Zendesk</span><span class="arr">+</span><span>LLM</span></div><div class="chip-desc">inbound ticket triage</div></div>
+              <div class="chip"><div class="chip-tools"><span>Stripe</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">renewal sequences</div></div>
+              <div class="chip"><div class="chip-tools"><span>Bill.com</span><span class="arr">&harr;</span><span>QuickBooks</span></div><div class="chip-desc">invoice reconciliation</div></div>
+            </div>
+          </div>
+          <!-- Row 3 — left -->
+          <div class="scroll-row row-3">
+            <div class="scroll-track">
+              <div class="chip"><div class="chip-tools"><span>Ramp</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">spend anomaly alerts</div></div>
+              <div class="chip"><div class="chip-tools"><span>Snowflake</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">daily metric briefs</div></div>
+              <div class="chip"><div class="chip-tools"><span>Asana</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">SLA-breach escalation</div></div>
+              <div class="chip"><div class="chip-tools"><span>Workday</span><span class="arr">&rarr;</span><span>Okta</span></div><div class="chip-desc">access provisioning</div></div>
+              <div class="chip"><div class="chip-tools"><span>Ramp</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">spend anomaly alerts</div></div>
+              <div class="chip"><div class="chip-tools"><span>Snowflake</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">daily metric briefs</div></div>
+              <div class="chip"><div class="chip-tools"><span>Asana</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">SLA-breach escalation</div></div>
+              <div class="chip"><div class="chip-tools"><span>Workday</span><span class="arr">&rarr;</span><span>Okta</span></div><div class="chip-desc">access provisioning</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         VARIANT C — Pinboard / Asymmetric
+         ═══════════════════════════════════════════════════════ -->
+    <section class="variant variant-C">
+      <div class="variant-head">
+        <span class="variant-id">C</span>
+        <span class="variant-name">Pinboard composition</span>
+        <span class="variant-desc">Static. Chips arranged in an asymmetric, intentional composition with slight rotations &mdash; like notes pinned to a board. No motion by default; chips lift on hover. Most editorial / curated of the four.</span>
+      </div>
+      <div class="stage">
+        <div class="stage-strip-label">Workflows we automate</div>
+        <div class="pinboard">
+          <div class="chip" data-tilt="-1"><div class="chip-tools"><span>Google&nbsp;Ads</span><span class="arr">&rarr;</span><span>Snowflake</span></div><div class="chip-desc">spend-pacing sync</div></div>
+          <div class="chip" data-tilt="1" data-size="lg"><div class="chip-tools"><span>Salesforce</span><span class="arr">&rarr;</span><span>Outreach</span></div><div class="chip-desc">auto-sequence stalled deals</div></div>
+          <div class="chip" data-tilt="-2"><div class="chip-tools"><span>HubSpot</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">lifecycle triggers</div></div>
+          <div class="chip" data-tilt="2"><div class="chip-tools"><span>Gong</span><span class="arr">&rarr;</span><span>Salesforce</span></div><div class="chip-desc">next steps from calls</div></div>
+          <div class="chip" data-tilt="1"><div class="chip-tools"><span>Mixpanel</span><span class="arr">&rarr;</span><span>HubSpot</span></div><div class="chip-desc">churn-risk outreach</div></div>
+          <div class="chip" data-tilt="-1" data-size="lg"><div class="chip-tools"><span>Zendesk</span><span class="arr">+</span><span>LLM</span></div><div class="chip-desc">inbound ticket triage and routing</div></div>
+          <div class="chip" data-tilt="2"><div class="chip-tools"><span>Stripe</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">renewal sequences</div></div>
+          <div class="chip" data-tilt="-1"><div class="chip-tools"><span>Bill.com</span><span class="arr">&harr;</span><span>QuickBooks</span></div><div class="chip-desc">invoice reconciliation</div></div>
+          <div class="chip" data-tilt="1"><div class="chip-tools"><span>Ramp</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">spend anomaly alerts</div></div>
+          <div class="chip" data-tilt="-2"><div class="chip-tools"><span>Snowflake</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">daily metric briefs</div></div>
+          <div class="chip" data-tilt="2"><div class="chip-tools"><span>Asana</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">SLA-breach escalation</div></div>
+          <div class="chip" data-tilt="-1"><div class="chip-tools"><span>Workday</span><span class="arr">&rarr;</span><span>Okta</span></div><div class="chip-desc">access provisioning</div></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         VARIANT D — Categorized Grid
+         ═══════════════════════════════════════════════════════ -->
+    <section class="variant variant-D">
+      <div class="variant-head">
+        <span class="variant-id">D</span>
+        <span class="variant-name">Categorized grid</span>
+        <span class="variant-desc">Static. Chips grouped by domain (Marketing, Sales, etc.) with mono labels in the left rail. No motion. Most informational of the four &mdash; reads as "here's the breadth of what we automate, sorted by where you live."</span>
+      </div>
+      <div class="stage">
+        <div class="stage-strip-label">Workflows we automate</div>
+        <div class="cat-grid">
+          <div class="cat-row">
+            <div class="cat-label">Marketing &amp; growth</div>
+            <div class="cat-chips">
+              <div class="chip"><div class="chip-tools"><span>Google&nbsp;Ads</span><span class="arr">&rarr;</span><span>Snowflake</span></div><div class="chip-desc">spend-pacing sync</div></div>
+              <div class="chip"><div class="chip-tools"><span>HubSpot</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">lifecycle triggers</div></div>
+            </div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-label">Sales &amp; pipeline</div>
+            <div class="cat-chips">
+              <div class="chip"><div class="chip-tools"><span>Salesforce</span><span class="arr">&rarr;</span><span>Outreach</span></div><div class="chip-desc">sequence stalled deals</div></div>
+              <div class="chip"><div class="chip-tools"><span>Gong</span><span class="arr">&rarr;</span><span>Salesforce</span></div><div class="chip-desc">next steps from calls</div></div>
+            </div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-label">Customer success</div>
+            <div class="cat-chips">
+              <div class="chip"><div class="chip-tools"><span>Mixpanel</span><span class="arr">&rarr;</span><span>HubSpot</span></div><div class="chip-desc">churn-risk outreach</div></div>
+              <div class="chip"><div class="chip-tools"><span>Zendesk</span><span class="arr">+</span><span>LLM</span></div><div class="chip-desc">inbound ticket triage</div></div>
+              <div class="chip"><div class="chip-tools"><span>Stripe</span><span class="arr">&rarr;</span><span>Customer.io</span></div><div class="chip-desc">renewal sequences</div></div>
+            </div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-label">Finance &amp; ops</div>
+            <div class="cat-chips">
+              <div class="chip"><div class="chip-tools"><span>Bill.com</span><span class="arr">&harr;</span><span>QuickBooks</span></div><div class="chip-desc">invoice reconciliation</div></div>
+              <div class="chip"><div class="chip-tools"><span>Ramp</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">spend anomaly alerts</div></div>
+            </div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-label">Data &amp; reporting</div>
+            <div class="cat-chips">
+              <div class="chip"><div class="chip-tools"><span>Snowflake</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">daily metric briefs</div></div>
+            </div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-label">Internal &amp; people</div>
+            <div class="cat-chips">
+              <div class="chip"><div class="chip-tools"><span>Asana</span><span class="arr">&rarr;</span><span>Slack</span></div><div class="chip-desc">SLA-breach escalation</div></div>
+              <div class="chip"><div class="chip-tools"><span>Workday</span><span class="arr">&rarr;</span><span>Okta</span></div><div class="chip-desc">access provisioning</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div style="margin-top:40px; padding:20px 24px; background:var(--bg-2); border:1px solid var(--line-2); border-radius:8px; color:var(--text-2); font-size:13px; line-height:1.6;">
+      <strong style="color:var(--text); font-family:var(--display);">Once you pick:</strong> reply <span style="font-family:var(--mono); color:var(--accent);">"go A"</span> / <span style="font-family:var(--mono); color:var(--accent);">"go B"</span> / <span style="font-family:var(--mono); color:var(--accent);">"go C"</span> / <span style="font-family:var(--mono); color:var(--accent);">"go D"</span>, or describe a hybrid (e.g. "C's pinboard but with D's category labels above each cluster"). I'll wire it in once you've also confirmed the final 12 chips and whether to add tool logos.
+    </div>
+  </div>
+
+  <script>
+    const toggle = () => document.body.classList.toggle('paused');
+    document.getElementById('pause-toggle').addEventListener('click', toggle);
+    document.addEventListener('keydown', (e) => { if (e.key === 'p' || e.key === 'P') toggle(); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SprintAssembly — Opportunity Layouts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400..900;1,400..900&display=swap');
+
+    :root {
+      --cta: #afb975;
+      --ink: #0a0a0a;
+      --muted: #525252;
+      --muted-2: #737373;
+      --faint: rgba(115,115,115,0.8);
+      --accent-teal: rgba(184,240,237,0.55);
+      --accent-amber: rgba(255,237,184,0.28);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      color: #171717;
+      padding: 48px 0 96px;
+      background-color: #FFFFFF;
+      background-image:
+        radial-gradient(1100px circle at 12% -12%, var(--accent-teal), transparent 55%),
+        radial-gradient(900px circle at 92% 18%, var(--accent-amber), transparent 60%),
+        linear-gradient(180deg, rgba(244,252,251,0.95), rgba(255,250,236,0.78) 48%, rgba(255,250,236,0.78) 48%, rgba(255,255,255,1) 100%);
+      font-family: 'Public Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-feature-settings: "kern", "ss01";
+      -webkit-font-smoothing: antialiased;
+    }
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ---------- Intro ---------- */
+    .intro { max-width: 720px; margin-bottom: 56px; }
+    .intro .kicker {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--faint);
+      margin-bottom: 12px;
+    }
+    .intro h1 {
+      font-weight: 900; font-size: 36px; line-height: 1.1;
+      letter-spacing: -0.02em; margin: 0 0 12px;
+    }
+    .intro p { color: var(--muted); line-height: 1.6; font-size: 15px; margin: 0; }
+
+    /* ---------- Layout specimen wrapper ---------- */
+    .specimen {
+      margin-bottom: 72px;
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 32px;
+      padding: 36px;
+      box-shadow: 0 20px 50px -20px rgba(0,0,0,0.08);
+    }
+    .spec-header { margin-bottom: 28px; max-width: 720px; }
+    .spec-label {
+      font-size: 10px; font-weight: 900;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--cta); margin-bottom: 6px;
+    }
+    .spec-name {
+      font-weight: 900; font-size: 26px;
+      letter-spacing: -0.01em; margin: 0 0 10px;
+    }
+    .spec-pitch {
+      color: var(--muted); line-height: 1.55;
+      font-size: 14px; margin: 0 0 10px;
+    }
+    .spec-tradeoff {
+      margin-top: 10px;
+      font-size: 13px; color: #8a6d3b;
+      line-height: 1.5;
+      padding: 10px 14px;
+      background: rgba(255,237,184,0.35);
+      border-radius: 10px;
+    }
+
+    /* ---------- Section header (shared across all layouts) ---------- */
+    .wrap { max-width: 950px; margin: 0 auto; }
+    .section-head { margin-bottom: 28px; }
+    .eyebrow {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--faint);
+    }
+    .section-title {
+      font-weight: 700; font-size: 30px;
+      letter-spacing: -0.015em; line-height: 1.15;
+      margin: 14px 0 0;
+    }
+    .section-title .hl {
+      display: inline;
+      background: var(--ink); color: white;
+      padding: 2px 14px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .section-intro {
+      margin-top: 24px; font-size: 16px;
+      line-height: 1.65; color: var(--muted);
+      font-style: italic; max-width: 680px;
+    }
+
+    /* ---------- Tag chip (shared) ---------- */
+    .tag {
+      display: inline-block;
+      background: var(--ink); color: white;
+      font-size: 10px; font-weight: 900;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 3px 10px;
+    }
+
+    /* ================================================= */
+    /* LAYOUT A — Primary + two supporting              */
+    /* ================================================= */
+    .layoutA { display: grid; gap: 20px; grid-template-columns: 1fr; }
+    .layoutA .featured {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 32px;
+      padding: 36px 40px;
+      box-shadow: 0 2px 10px -4px rgba(0,0,0,0.06);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+    }
+    .layoutA .featured .body-wrap { display: flex; flex-direction: column; }
+    .layoutA .featured .headline {
+      font-weight: 700; font-size: 28px;
+      line-height: 1.2; letter-spacing: -0.015em;
+      margin: 14px 0 14px;
+      max-width: 560px;
+    }
+    .layoutA .featured .body {
+      color: var(--muted); line-height: 1.6;
+      font-size: 16px; max-width: 640px;
+      margin: 0;
+    }
+    .layoutA .featured .icon-wrap {
+      background: rgba(175,185,117,0.1);
+      border-radius: 16px;
+      padding: 16px;
+      color: var(--cta);
+    }
+    .layoutA .supporting {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 720px) {
+      .layoutA .supporting { grid-template-columns: 1fr; }
+    }
+    .layoutA .supporting .card {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 24px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 8px -4px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .layoutA .supporting .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .layoutA .supporting .card-head svg {
+      color: var(--cta); flex-shrink: 0;
+    }
+    .layoutA .supporting .card-headline {
+      font-weight: 700; font-size: 20px;
+      line-height: 1.25; letter-spacing: -0.01em;
+      margin: 8px 0 10px;
+    }
+    .layoutA .supporting .card-body {
+      color: var(--muted); line-height: 1.55;
+      font-size: 14px; margin: 0;
+    }
+
+    /* ================================================= */
+    /* LAYOUT B — Editorial asymmetric columns          */
+    /* ================================================= */
+    .layoutB {
+      display: grid;
+      grid-template-columns: 5fr 3fr 4fr;
+      gap: 36px;
+    }
+    @media (max-width: 900px) {
+      .layoutB { grid-template-columns: 1fr; gap: 32px; }
+    }
+    .layoutB .col {
+      display: flex;
+      flex-direction: column;
+    }
+    .layoutB .num {
+      font-size: 13px; font-weight: 900;
+      letter-spacing: 0.24em;
+      color: var(--cta);
+      margin-bottom: 14px;
+    }
+    .layoutB .rule {
+      height: 1px; background: rgba(175,185,117,0.5);
+      margin: 0 0 18px;
+    }
+    .layoutB .col .tag {
+      align-self: start;
+      margin-bottom: 14px;
+    }
+    .layoutB .col-headline {
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin: 0 0 14px;
+    }
+    .layoutB .col-body {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* ================================================= */
+    /* LAYOUT C — Index / catalogue horizontal list     */
+    /* ================================================= */
+    .layoutC {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 32px;
+      padding: 8px 40px;
+      box-shadow: 0 2px 10px -4px rgba(0,0,0,0.06);
+    }
+    .layoutC .row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      align-items: start;
+    }
+    .layoutC .row:last-child { border-bottom: 0; }
+    @media (max-width: 720px) {
+      .layoutC .row { grid-template-columns: 1fr; gap: 12px; }
+      .layoutC { padding: 8px 24px; }
+    }
+    .layoutC .row-num {
+      font-size: 46px; font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--cta);
+      line-height: 1;
+    }
+    .layoutC .row-content { display: flex; flex-direction: column; }
+    .layoutC .row-tag-line {
+      margin-bottom: 10px;
+    }
+    .layoutC .row-headline {
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin: 10px 0 12px;
+    }
+    .layoutC .row-body {
+      color: var(--muted); line-height: 1.65;
+      font-size: 15px; margin: 0;
+      max-width: 680px;
+    }
+
+    /* ---------- How to pick ---------- */
+    .how {
+      margin-top: 48px;
+      padding: 28px 32px;
+      background: rgba(0,0,0,0.02);
+      border: 1px dashed rgba(0,0,0,0.1);
+      border-radius: 20px;
+    }
+    .how h3 {
+      font-weight: 900; font-size: 14px;
+      letter-spacing: 0.02em;
+      margin: 0 0 12px; color: var(--ink);
+    }
+    .how p {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.6; margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="intro">
+      <div class="kicker">SprintAssembly · Opportunity Section</div>
+      <h1>Three ways out of the 3-card grid.</h1>
+      <p>Each specimen below shows the Opportunity section — eyebrow, title, italic intro, and the three benefits — rendered with a different layout. Same copy in all three; the argument is that layout changes how the three items relate to each other and whether they feel like a diagram or a list. Read each, then tell me which one you want to ship.</p>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- OPTION A — Primary + two supporting                 -->
+    <!-- ==================================================== -->
+    <div class="specimen">
+      <div class="spec-header">
+        <div class="spec-label">Option A</div>
+        <h2 class="spec-name">Primary + two supporting</h2>
+        <p class="spec-pitch">PRODUCTIVITY becomes the featured card (full-width, larger typography, generous padding). PERFORMANCE and PROFIT drop below as two supporting cards. The layout argues that productivity is the lead outcome and the other two are its consequences.</p>
+        <div class="spec-tradeoff"><strong>Trade-off:</strong> commits to a hierarchy. If all three are equally important to your pitch, this layout overstates PRODUCTIVITY. Natural fit since the hero already sells "agentic scale → reclaim capacity."</div>
+      </div>
+
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Business Impact</div>
+          <h3 class="section-title"><span class="hl">The Opportunity</span></h3>
+          <p class="section-intro">You can't scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.</p>
+        </div>
+
+        <div class="layoutA">
+          <article class="featured">
+            <div class="body-wrap">
+              <span class="tag">Productivity</span>
+              <h4 class="headline">Scale your business without hiring more people.</h4>
+              <p class="body">Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.</p>
+            </div>
+            <div class="icon-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15v-4M12 15V7M16 15v-6"/></svg>
+            </div>
+          </article>
+
+          <div class="supporting">
+            <article class="card">
+              <div class="card-head">
+                <span class="tag">Performance</span>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+              </div>
+              <h4 class="card-headline">Real-time decisions across every workflow.</h4>
+              <p class="card-body">Our autonomous systems react to operational signals the moment they happen — an underperforming ad set, a support queue backing up, a pipeline stage going cold.</p>
+            </article>
+            <article class="card">
+              <div class="card-head">
+                <span class="tag">Profit</span>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z"/></svg>
+              </div>
+              <h4 class="card-headline">Increase profitability through smart orchestration.</h4>
+              <p class="card-body">Turn your business data into an intelligent orchestration layer. The result is an operating model that's both predictable and profitable.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- OPTION B — Editorial asymmetric columns             -->
+    <!-- ==================================================== -->
+    <div class="specimen">
+      <div class="spec-header">
+        <div class="spec-label">Option B</div>
+        <h2 class="spec-name">Editorial asymmetric columns</h2>
+        <p class="spec-pitch">Three columns with deliberately different widths (5 / 3 / 4 of 12) — PRODUCTIVITY widest as lead, PERFORMANCE most compact, PROFIT mid-width. Each column starts with a wide-tracked numeral and a mossy-green rule. Reads like a magazine contents page. No card containers — just columns of typeset information.</p>
+        <div class="spec-tradeoff"><strong>Trade-off:</strong> less visually distinctive than cards, but arguably more confident. Works if typography is carrying the weight. Loses the tag-chip / icon visual rhythm — relies on text rhythm instead.</div>
+      </div>
+
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Business Impact</div>
+          <h3 class="section-title"><span class="hl">The Opportunity</span></h3>
+          <p class="section-intro">You can't scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.</p>
+        </div>
+
+        <div class="layoutB">
+          <div class="col">
+            <div class="num">01</div>
+            <div class="rule"></div>
+            <span class="tag">Productivity</span>
+            <h4 class="col-headline">Scale your business without hiring more people.</h4>
+            <p class="col-body">Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.</p>
+          </div>
+          <div class="col">
+            <div class="num">02</div>
+            <div class="rule"></div>
+            <span class="tag">Performance</span>
+            <h4 class="col-headline">Real-time decisions across every workflow.</h4>
+            <p class="col-body">Our autonomous systems react to operational signals the moment they happen — an underperforming ad set, a support queue backing up, a pipeline stage going cold. The right decision runs automatically.</p>
+          </div>
+          <div class="col">
+            <div class="num">03</div>
+            <div class="rule"></div>
+            <span class="tag">Profit</span>
+            <h4 class="col-headline">Increase profitability through smart orchestration.</h4>
+            <p class="col-body">Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves, we increase margin and protect quality. The result is an operating model that's both predictable and profitable.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- OPTION C — Index / catalogue horizontal list        -->
+    <!-- ==================================================== -->
+    <div class="specimen">
+      <div class="spec-header">
+        <div class="spec-label">Option C</div>
+        <h2 class="spec-name">Index / catalogue</h2>
+        <p class="spec-pitch">Three full-width horizontal rows inside a single white container, divided by thin rules. Each row has a large mossy-green numeral and full-width prose to the right. Reads like a well-typeset table of contents or an instruction manual index. Maximum restraint.</p>
+        <div class="spec-tradeoff"><strong>Trade-off:</strong> no card-to-card visual rhythm — it's one long list. Reads as more "serious" / less "marketing." Best fit if the "unfussy" axis dominates; might feel austere if you want more color energy in this section.</div>
+      </div>
+
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Business Impact</div>
+          <h3 class="section-title"><span class="hl">The Opportunity</span></h3>
+          <p class="section-intro">You can't scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.</p>
+        </div>
+
+        <div class="layoutC">
+          <div class="row">
+            <div class="row-num">01</div>
+            <div class="row-content">
+              <div class="row-tag-line"><span class="tag">Productivity</span></div>
+              <h4 class="row-headline">Scale your business without hiring more people.</h4>
+              <p class="row-body">Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-num">02</div>
+            <div class="row-content">
+              <div class="row-tag-line"><span class="tag">Performance</span></div>
+              <h4 class="row-headline">Real-time decisions across every workflow.</h4>
+              <p class="row-body">Our autonomous systems react to operational signals the moment they happen. An underperforming ad set, a support queue backing up, a pipeline stage going cold — the right decision runs automatically, not after a weekly review.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-num">03</div>
+            <div class="row-content">
+              <div class="row-tag-line"><span class="tag">Profit</span></div>
+              <h4 class="row-headline">Increase profitability through smart orchestration.</h4>
+              <p class="row-body">Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves — acquisition, retention, operations, revenue — we increase margin and protect quality. The result is an operating model that is both predictable and profitable.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to pick -->
+    <section class="how">
+      <h3>How to pick</h3>
+      <p><strong>A</strong> if you want the argument "Productivity is the headline; Performance and Profit are its implications." Most argumentative.</p>
+      <p><strong>B</strong> if typography + asymmetric space should do the work instead of cards — a more editorial / magazine reading of the section. Most restrained with the most rhythm.</p>
+      <p><strong>C</strong> if you want the Opportunity section to read as an indexed catalogue rather than a sales section. Most "unfussy" per the brief. Loses color energy but gains composure.</p>
+    </section>
+
+  </div>
+</body>
+</html>

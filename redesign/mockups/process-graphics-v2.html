@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process graphics — round 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ee;
+      --bg-2:      #ece9e1;
+      --line:      rgba(20, 18, 14, 0.10);
+      --line-2:    rgba(20, 18, 14, 0.18);
+      --text:      #15130f;
+      --text-2:    rgba(21, 19, 15, 0.72);
+      --text-3:    rgba(21, 19, 15, 0.5);
+      --text-4:    rgba(21, 19, 15, 0.35);
+      --accent:    #6f7340;
+      --accent-tint: rgba(111, 115, 64, 0.14);
+      --accent-tint-strong: rgba(111, 115, 64, 0.22);
+      --display:   "Inter Tight", "Inter", ui-sans-serif, sans-serif;
+      --sans:      "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono:      "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    body { background: var(--bg-2); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1140px; margin: 0 auto; padding: 56px 40px 80px; }
+    .page h1 { font-family: var(--display); font-weight: 600; font-size: 36px; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .page .lede { color: var(--text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 32px; }
+    .page h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: -0.015em;
+      margin: 56px 0 6px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line-2);
+    }
+    .page h2 + .sec-lede { color: var(--text-2); margin: 0 0 28px; line-height: 1.55; max-width: 60ch; }
+    body.paused * { animation-play-state: paused !important; }
+
+    .pause-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      transition: color .25s, border-color .25s;
+    }
+    .pause-toggle:hover { color: var(--text); border-color: var(--text-3); }
+    .pause-toggle .key { color: var(--accent); }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .panel-id {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .panel-id::before { content: ""; width: 18px; height: 1px; background: var(--accent); }
+    .panel-name {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: -0.012em;
+      margin: 0 0 14px;
+    }
+    .panel-note { font-size: 13px; color: var(--text-2); margin: 16px 0 0; line-height: 1.55; }
+    .panel-note em { color: var(--text); font-style: normal; font-weight: 500; }
+
+    /* Viz container — matches redesign at full available size (340w × ~360h) */
+    .viz {
+      width: 340px;
+      max-width: 100%;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      padding: 16px 18px 14px;
+      font-family: var(--mono);
+      display: flex; flex-direction: column;
+      min-height: 360px;
+    }
+    .viz-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-3);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .viz-body { flex: 1; display: flex; flex-direction: column; }
+    .viz-foot { margin-top: 12px; display: flex; justify-content: flex-end; }
+    .viz-tag {
+      font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      padding: 3px 8px;
+      border: 1px dashed var(--line-2);
+      border-radius: 3px;
+      background: var(--bg-2);
+    }
+    .viz-meta {
+      margin-top: auto;
+      padding-top: 12px;
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px;
+      border-top: 1px solid var(--line);
+    }
+    .viz-meta b { color: var(--accent); font-weight: 500; letter-spacing: 0.06em; }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-01 / Option 1 — Findings · ranked by ROI
+     * ════════════════════════════════════════════════════════ */
+    .findings { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .finding {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .finding:last-child { border-bottom: 0; }
+    .f-rank { font-size: 10px; color: var(--accent); letter-spacing: 0.08em; padding-top: 2px; }
+    .f-info { display: flex; flex-direction: column; gap: 4px; }
+    .f-title { font-size: 11.5px; color: var(--text); font-weight: 500; line-height: 1.25; }
+    .f-bar-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
+    .f-detail { font-size: 9.5px; color: var(--text-3); letter-spacing: 0.04em; }
+    .f-bar {
+      height: 4px;
+      background: var(--bg-2);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .f-bar-fill {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      background: var(--accent);
+      border-radius: 2px;
+      width: 0%;
+      animation: barFill 1.4s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    @keyframes barFill { to { width: var(--w); } }
+    .f-score-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-top: 2px; }
+    .f-score { font-size: 11px; color: var(--text); font-weight: 600; font-family: var(--display); letter-spacing: -0.01em; }
+    .f-score-label { font-size: 9px; color: var(--text-4); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-01 / Option 2 — Opportunity matrix (impact × effort)
+     * ════════════════════════════════════════════════════════ */
+    .matrix-svg { width: 100%; height: 100%; flex: 1; min-height: 240px; }
+    .matrix-svg .axis { stroke: var(--line-2); stroke-width: 1; }
+    .matrix-svg .mid-line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 3; }
+    .matrix-svg .priority-zone { fill: var(--accent-tint); }
+    .matrix-svg .axis-label { font-family: var(--mono); font-size: 9px; fill: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+    .matrix-svg .corner-label { font-family: var(--mono); font-size: 8.5px; fill: var(--text-4); letter-spacing: 0.1em; }
+    .matrix-svg .priority-tag { font-family: var(--mono); font-size: 8.5px; fill: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+    .matrix-svg .dot { fill: var(--text-3); }
+    .matrix-svg .dot.priority { fill: var(--accent); }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-01 / Option 3 — Audit report preview
+     * ════════════════════════════════════════════════════════ */
+    .report { font-size: 11px; line-height: 1.5; color: var(--text-2); display: flex; flex-direction: column; gap: 6px; }
+    .r-doc-bar {
+      display: flex; align-items: center; gap: 6px;
+      padding: 0 0 6px;
+      margin-bottom: 6px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .r-doc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+    .r-doc-dot.mid { background: var(--accent); }
+    .r-doc-name { margin-left: 6px; font-size: 10px; color: var(--text-3); }
+    .r-h { font-family: var(--display); font-weight: 600; font-size: 12.5px; color: var(--text); letter-spacing: -0.005em; margin: 6px 0 2px; }
+    .r-tag { color: var(--accent); font-size: 9.5px; letter-spacing: 0.06em; margin-top: 4px; }
+    .r-li { display: grid; grid-template-columns: 12px 1fr; gap: 4px; }
+    .r-li > span:first-child { color: var(--accent); }
+    .r-kv { display: grid; grid-template-columns: 110px 8px 1fr; gap: 4px; align-items: baseline; font-size: 10.5px; }
+    .r-kv-k { color: var(--text-3); }
+    .r-kv-sep { color: var(--text-4); }
+    .r-kv-v { color: var(--text); }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-02 refined — Substrate build (artifacts)
+     * ════════════════════════════════════════════════════════ */
+    .builds { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .build-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 12px;
+      background: color-mix(in oklab, var(--accent) 4%, var(--bg));
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 3px;
+      font-size: 11px;
+      opacity: 0;
+      transform: translateY(6px);
+      animation: rowAppear 14s ease-out infinite;
+    }
+    .build-row:nth-child(1) { animation-delay: 0s; }
+    .build-row:nth-child(2) { animation-delay: 0.7s; }
+    .build-row:nth-child(3) { animation-delay: 1.4s; }
+    .build-row:nth-child(4) { animation-delay: 2.1s; }
+    .build-row:nth-child(5) { animation-delay: 2.8s; }
+    @keyframes rowAppear {
+      0%       { opacity: 0; transform: translateY(6px); }
+      6%, 92%  { opacity: 1; transform: translateY(0); }
+      100%     { opacity: 0; transform: translateY(6px); }
+    }
+    .b-name { color: var(--text); display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .b-name b { font-weight: 500; letter-spacing: 0.01em; }
+    .b-detail { color: var(--text-3); font-size: 9.5px; letter-spacing: 0.04em; }
+    .b-status {
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .b-status.committed { background: var(--accent-tint); color: var(--accent); }
+    .b-status.running   { background: var(--accent-tint-strong); color: var(--accent); }
+    .b-status.active {
+      background: var(--bg-2); color: var(--text-3);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .b-status.active::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 var(--accent);
+      animation: dotPulse 1.6s ease-out infinite;
+    }
+    @keyframes dotPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(111, 115, 64, 0.5); }
+      100% { box-shadow: 0 0 0 6px rgba(111, 115, 64, 0); }
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-03 / Option 1 — Active rules (IF / THEN logic)
+     * ════════════════════════════════════════════════════════ */
+    .rules { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .rule {
+      padding: 10px 12px;
+      background: var(--bg-2);
+      border-left: 2px solid var(--accent);
+      border-radius: 3px;
+      font-size: 10.5px;
+      line-height: 1.45;
+    }
+    .rule-trig { color: var(--text); font-weight: 500; letter-spacing: 0.02em; }
+    .rule-trig .if { color: var(--accent); margin-right: 4px; }
+    .rule-act { color: var(--text-3); padding-left: 6px; }
+    .rule-act .arr { color: var(--accent); margin-right: 4px; }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-03 / Option 2 — Decision log (recent activity)
+     * ════════════════════════════════════════════════════════ */
+    .log { display: flex; flex-direction: column; flex: 1; }
+    .log-row {
+      display: grid;
+      grid-template-columns: 38px 80px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      padding: 7px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 10.5px;
+      color: var(--text-2);
+    }
+    .log-row:last-child { border-bottom: 0; }
+    .log-time { color: var(--text-4); font-size: 9.5px; }
+    .log-cat { color: var(--accent); font-weight: 500; letter-spacing: 0.02em; font-size: 10px; }
+    .log-detail { color: var(--text); }
+    .log-row.is-new {
+      animation: logSlide 0.8s cubic-bezier(.2,.7,.2,1);
+    }
+    @keyframes logSlide {
+      0%   { opacity: 0; transform: translateY(-8px); background: var(--accent-tint); }
+      60%  { background: var(--accent-tint); }
+      100% { opacity: 1; transform: translateY(0); background: transparent; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  A-03 / Option 3 — Decoupling chart (output vs headcount)
+     * ════════════════════════════════════════════════════════ */
+    .decouple-svg { width: 100%; flex: 1; min-height: 220px; }
+    .decouple-svg .grid-line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 3; }
+    .decouple-svg .axis { stroke: var(--line-2); stroke-width: 1; }
+    .decouple-svg .axis-label { font-family: var(--mono); font-size: 9px; fill: var(--text-3); letter-spacing: 0.06em; }
+    .decouple-svg .line-headcount { fill: none; stroke: var(--text-3); stroke-width: 1.4; stroke-dasharray: 4 3; }
+    .decouple-svg .line-output { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .decouple-svg .line-fill { fill: var(--accent-tint); opacity: 0.55; }
+    .decouple-svg .label-end { font-family: var(--mono); font-size: 10px; font-weight: 500; }
+    .decouple-svg .label-output { fill: var(--accent); }
+    .decouple-svg .label-headcount { fill: var(--text-3); }
+    .decouple-svg .draw-output { stroke-dasharray: 360; stroke-dashoffset: 360; animation: drawLine 2.2s ease-out forwards; }
+    .decouple-svg .draw-headcount { stroke-dasharray: 280; stroke-dashoffset: 280; animation: drawLine 1.6s ease-out 0.4s forwards; }
+    .decouple-svg .draw-fill { opacity: 0; animation: fadeIn 1s ease-out 1.6s forwards; }
+    @keyframes drawLine { to { stroke-dashoffset: 0; } }
+    @keyframes fadeIn { to { opacity: 0.55; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .build-row, .f-bar-fill, .b-status.active::before, .draw-output, .draw-headcount, .draw-fill { animation: none !important; }
+      .build-row { opacity: 1; transform: none; }
+      .f-bar-fill { width: var(--w); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Process graphics — round 2</h1>
+    <p class="lede">Three alternatives for stage 01, a refined stage 02, three alternatives for stage 03. All sized at the live render width (340px) and minimum 360px tall — the graphic now fills the slot in the actual layout.</p>
+    <div class="pause-toggle" id="pause-toggle"><span class="key">[ P ]</span><span>Pause / play animations</span></div>
+
+    <h2>Stage 01 · Diagnostic Sprint</h2>
+    <p class="sec-lede">A diagnostic produces a <em>ranked output</em> — not an ongoing scan. The graphic should be that output. Three takes:</p>
+
+    <div class="grid">
+
+      <!-- ── A-01 / Option 1 — Findings ranked by ROI ── -->
+      <div class="panel">
+        <div class="panel-id">A-01-a · Recommended</div>
+        <div class="panel-name">Findings · ranked by ROI</div>
+        <div class="viz">
+          <div class="viz-head"><span>Diagnostic findings</span><span>Stage 01</span></div>
+          <div class="viz-body">
+            <div class="findings">
+              <div class="finding">
+                <div class="f-rank">01</div>
+                <div class="f-info">
+                  <div class="f-title">Ad-spend pacing reviews</div>
+                  <div class="f-bar-row">
+                    <div class="f-detail">saves ~12 hr / wk</div>
+                    <div class="f-score-row"><span class="f-score-label">ROI</span><span class="f-score">87</span></div>
+                  </div>
+                  <div class="f-bar"><div class="f-bar-fill" style="--w: 87%"></div></div>
+                </div>
+              </div>
+              <div class="finding">
+                <div class="f-rank">02</div>
+                <div class="f-info">
+                  <div class="f-title">Pipeline stage decay</div>
+                  <div class="f-bar-row">
+                    <div class="f-detail">no auto re-engage rule</div>
+                    <div class="f-score-row"><span class="f-score-label">ROI</span><span class="f-score">74</span></div>
+                  </div>
+                  <div class="f-bar"><div class="f-bar-fill" style="--w: 74%"></div></div>
+                </div>
+              </div>
+              <div class="finding">
+                <div class="f-rank">03</div>
+                <div class="f-info">
+                  <div class="f-title">Vendor reconciliation</div>
+                  <div class="f-bar-row">
+                    <div class="f-detail">error rate 3.4%</div>
+                    <div class="f-score-row"><span class="f-score-label">ROI</span><span class="f-score">62</span></div>
+                  </div>
+                  <div class="f-bar"><div class="f-bar-fill" style="--w: 62%"></div></div>
+                </div>
+              </div>
+              <div class="finding">
+                <div class="f-rank">04</div>
+                <div class="f-info">
+                  <div class="f-title">Lead routing gaps</div>
+                  <div class="f-bar-row">
+                    <div class="f-detail">avg 38 min latency</div>
+                    <div class="f-score-row"><span class="f-score-label">ROI</span><span class="f-score">51</span></div>
+                  </div>
+                  <div class="f-bar"><div class="f-bar-fill" style="--w: 51%"></div></div>
+                </div>
+              </div>
+              <div class="finding">
+                <div class="f-rank">05</div>
+                <div class="f-info">
+                  <div class="f-title">Onboarding handoffs</div>
+                  <div class="f-bar-row">
+                    <div class="f-detail">7 manual steps</div>
+                    <div class="f-score-row"><span class="f-score-label">ROI</span><span class="f-score">43</span></div>
+                  </div>
+                  <div class="f-bar"><div class="f-bar-fill" style="--w: 43%"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="viz-meta">
+              <span>Top 5 of 8 · ranked by ROI</span>
+              <span><b>240 hr / wk</b> reclaimable</span>
+            </div>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">The deliverable: a prioritized list of opportunities with concrete metrics. Bars fill once on viewport entry, then stop. <em>Static after load</em> — feels like a finished report, not an ongoing process.</p>
+      </div>
+
+      <!-- ── A-01 / Option 2 — Opportunity matrix ── -->
+      <div class="panel">
+        <div class="panel-id">A-01-b · Alternative</div>
+        <div class="panel-name">Opportunity matrix</div>
+        <div class="viz">
+          <div class="viz-head"><span>Impact &times; effort</span><span>Stage 01</span></div>
+          <div class="viz-body">
+            <svg class="matrix-svg" viewBox="0 0 304 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- Priority quadrant (high impact, low effort = top-left) -->
+              <rect class="priority-zone" x="40" y="20" width="120" height="100" />
+
+              <!-- Mid-line splits -->
+              <line class="mid-line" x1="160" y1="20" x2="160" y2="220" />
+              <line class="mid-line" x1="40" y1="120" x2="280" y2="120" />
+
+              <!-- Axes -->
+              <line class="axis" x1="40" y1="20" x2="40" y2="220" />
+              <line class="axis" x1="40" y1="220" x2="280" y2="220" />
+
+              <!-- Axis labels -->
+              <text class="axis-label" x="40" y="14" text-anchor="start">Impact &uarr;</text>
+              <text class="axis-label" x="280" y="236" text-anchor="end">Effort &rarr;</text>
+
+              <!-- Priority tag -->
+              <text class="priority-tag" x="48" y="34">priority</text>
+
+              <!-- Corner labels (very faint) -->
+              <text class="corner-label" x="40" y="232">low</text>
+              <text class="corner-label" x="278" y="232" text-anchor="end">high</text>
+
+              <!-- Dots — priorities in top-left, others scattered -->
+              <circle class="dot priority" cx="62"  cy="42"  r="5" />
+              <circle class="dot priority" cx="92"  cy="62"  r="5" />
+              <circle class="dot priority" cx="120" cy="48"  r="5" />
+              <circle class="dot priority" cx="138" cy="92"  r="5" />
+              <circle class="dot"          cx="184" cy="58"  r="4" />
+              <circle class="dot"          cx="218" cy="86"  r="4" />
+              <circle class="dot"          cx="234" cy="50"  r="4" />
+              <circle class="dot"          cx="78"  cy="158" r="4" />
+              <circle class="dot"          cx="124" cy="178" r="4" />
+              <circle class="dot"          cx="186" cy="158" r="4" />
+              <circle class="dot"          cx="220" cy="190" r="4" />
+              <circle class="dot"          cx="252" cy="158" r="4" />
+            </svg>
+            <div class="viz-meta">
+              <span>4 priority opportunities &middot; 8 below</span>
+              <span><b>12 mapped</b> in total</span>
+            </div>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Classic 2&times;2. Visualizes prioritization more abstractly — sage dots in the priority zone show "do these first." Static. Reads as a strategic artifact rather than a list.</p>
+      </div>
+
+      <!-- ── A-01 / Option 3 — Audit report preview ── -->
+      <div class="panel">
+        <div class="panel-id">A-01-c · Alternative</div>
+        <div class="panel-name">Audit report preview</div>
+        <div class="viz">
+          <div class="viz-head"><span>Diagnostic deliverable</span><span>Stage 01</span></div>
+          <div class="viz-body">
+            <div class="report">
+              <div class="r-doc-bar">
+                <span class="r-doc-dot"></span>
+                <span class="r-doc-dot mid"></span>
+                <span class="r-doc-dot"></span>
+                <span class="r-doc-name">diagnostic-sprint.md</span>
+              </div>
+              <div class="r-h">Executive summary</div>
+              <div class="r-li"><span>&bull;</span><span>8 high-ROI opportunities identified</span></div>
+              <div class="r-li"><span>&bull;</span><span>~240 hr / wk reclaimable</span></div>
+              <div class="r-li"><span>&bull;</span><span>Top 3 ready to deploy</span></div>
+              <div class="r-tag">// Top findings</div>
+              <div class="r-li"><span>1.</span><span>Ad-spend pacing reviews &middot; 87</span></div>
+              <div class="r-li"><span>2.</span><span>Pipeline stage decay &middot; 74</span></div>
+              <div class="r-li"><span>3.</span><span>Vendor reconciliation &middot; 62</span></div>
+              <div class="r-tag">// Readiness</div>
+              <div class="r-kv"><span class="r-kv-k">Data unified</span><span class="r-kv-sep">:</span><span class="r-kv-v">partial</span></div>
+              <div class="r-kv"><span class="r-kv-k">Workflow specs</span><span class="r-kv-sep">:</span><span class="r-kv-v">missing</span></div>
+              <div class="r-kv"><span class="r-kv-k">Eval criteria</span><span class="r-kv-sep">:</span><span class="r-kv-v">none</span></div>
+            </div>
+            <div class="viz-meta">
+              <span>Sample deliverable &middot; markdown</span>
+              <span><b>8 findings</b></span>
+            </div>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Document-style — tangible "this is what you receive." Closest to the prototype's original artifact variant. Static. Trade-off: text-heavy, may compete with the body copy.</p>
+      </div>
+
+    </div>
+
+
+    <h2>Stage 02 · Instrumentation — refined</h2>
+    <p class="sec-lede">Same stack metaphor you liked. Rows now show <em>concrete artifacts and quantities</em> — the substrate being built — instead of the focus-area categories.</p>
+
+    <div class="grid">
+      <div class="panel">
+        <div class="panel-id">A-02 · Refined</div>
+        <div class="panel-name">Substrate build manifest</div>
+        <div class="viz">
+          <div class="viz-head"><span>Building automation substrate</span><span>Stage 02</span></div>
+          <div class="viz-body">
+            <div class="builds">
+              <div class="build-row">
+                <span class="b-name"><b>warehouse-schema.sql</b><span class="b-detail">3 sources joined</span></span>
+                <span class="b-status committed">shipped</span>
+              </div>
+              <div class="build-row">
+                <span class="b-name"><b>workflow-specs/</b><span class="b-detail">12 documented</span></span>
+                <span class="b-status committed">shipped</span>
+              </div>
+              <div class="build-row">
+                <span class="b-name"><b>eval-suite/</b><span class="b-detail">41 cases</span></span>
+                <span class="b-status running">running</span>
+              </div>
+              <div class="build-row">
+                <span class="b-name"><b>guardrails.yml</b><span class="b-detail">6 rules</span></span>
+                <span class="b-status active">active</span>
+              </div>
+              <div class="build-row">
+                <span class="b-name"><b>drift-alerts.cfg</b><span class="b-detail">configuring &middot; 2&sigma;</span></span>
+                <span class="b-status active">active</span>
+              </div>
+            </div>
+            <div class="viz-meta">
+              <span>Substrate components &middot; ready for agents</span>
+              <span><b>5 / 5</b> deployed</span>
+            </div>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Each row is an artifact (file/manifest/config) with a quantity and status — looks like watching a deployment pipeline ship the substrate. Different vocabulary from the focus-area bullets. Loop 14s.</p>
+      </div>
+
+      <div class="panel" style="background:transparent; border-style:dashed; display:flex; align-items:center; justify-content:center; min-height:200px;">
+        <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-3); text-align:center; line-height:1.6;">
+          One option here.<br/>
+          <span style="color:var(--text-4);">A-02 stays — content rephrased.</span>
+        </div>
+      </div>
+    </div>
+
+
+    <h2>Stage 03 · Autonomous Orchestration</h2>
+    <p class="sec-lede">No more abstract agent names or constant motion. Three takes that ground "agentic orchestration" in concrete, plain-language artifacts.</p>
+
+    <div class="grid">
+
+      <!-- ── A-03 / Option 1 — Active rules ── -->
+      <div class="panel">
+        <div class="panel-id">A-03-a · Recommended</div>
+        <div class="panel-name">Active rules · IF / THEN</div>
+        <div class="viz">
+          <div class="viz-head"><span>What the system decides</span><span>Stage 03</span></div>
+          <div class="viz-body">
+            <div class="rules">
+              <div class="rule">
+                <div class="rule-trig"><span class="if">IF</span>support wait &gt; 30 min</div>
+                <div class="rule-act"><span class="arr">&rarr;</span>reroute to backup team</div>
+                <div class="rule-act"><span class="arr">&rarr;</span>notify ops lead</div>
+              </div>
+              <div class="rule">
+                <div class="rule-trig"><span class="if">IF</span>deal idle &gt; 7 days</div>
+                <div class="rule-act"><span class="arr">&rarr;</span>start nurture sequence</div>
+                <div class="rule-act"><span class="arr">&rarr;</span>flag in CRM</div>
+              </div>
+              <div class="rule">
+                <div class="rule-trig"><span class="if">IF</span>spend pacing &lt; 80% target</div>
+                <div class="rule-act"><span class="arr">&rarr;</span>shift budget to top channel</div>
+              </div>
+              <div class="rule">
+                <div class="rule-trig"><span class="if">IF</span>data drift &gt; 2&sigma;</div>
+                <div class="rule-act"><span class="arr">&rarr;</span>pause agent &middot; alert owner</div>
+              </div>
+            </div>
+            <div class="viz-meta">
+              <span>4 active rules &middot; firing autonomously</span>
+              <span><b>142</b> / day</span>
+            </div>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Plain-English logic the prospect can reason about. No abstract names — just real-world triggers and actions. Static, no motion. <em>Reads as documentation of what runs autonomously.</em></p>
+      </div>
+
+      <!-- ── A-03 / Option 2 — Decision log ── -->
+      <div class="panel">
+        <div class="panel-id">A-03-b · Alternative</div>
+        <div class="panel-name">Decision log · today</div>
+        <div class="viz">
+          <div class="viz-head"><span>Decisions made today</span><span>Stage 03</span></div>
+          <div class="viz-body">
+            <div class="log" id="log">
+              <div class="log-row"><span class="log-time">14:32</span><span class="log-cat">budget shift</span><span class="log-detail">$2k &rarr; top channel</span></div>
+              <div class="log-row"><span class="log-time">14:28</span><span class="log-cat">ticket route</span><span class="log-detail">3 &rarr; backup queue</span></div>
+              <div class="log-row"><span class="log-time">14:11</span><span class="log-cat">deal nurture</span><span class="log-detail">2 stale &rarr; re-engaged</span></div>
+              <div class="log-row"><span class="log-time">14:03</span><span class="log-cat">pacing alert</span><span class="log-detail">brand &middot; -18% target</span></div>
+              <div class="log-row"><span class="log-time">13:48</span><span class="log-cat">drift caught</span><span class="log-detail">retention &middot; paused</span></div>
+              <div class="log-row"><span class="log-time">13:31</span><span class="log-cat">budget shift</span><span class="log-detail">$800 &rarr; search</span></div>
+              <div class="log-row"><span class="log-time">13:14</span><span class="log-cat">ticket route</span><span class="log-detail">1 &rarr; backup</span></div>
+            </div>
+            <div class="viz-meta">
+              <span>Recent autonomous decisions</span>
+              <span><b>142</b> today &middot; <b>17</b>/hr</span>
+            </div>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Plain-language record of what the system did, not who did it. New rows quietly appear at the top every ~10s — the only motion. Concrete, unmistakably "the system is working."</p>
+      </div>
+
+      <!-- ── A-03 / Option 3 — Decoupling chart ── -->
+      <div class="panel">
+        <div class="panel-id">A-03-c · Alternative</div>
+        <div class="panel-name">Output vs headcount &middot; decoupled</div>
+        <div class="viz">
+          <div class="viz-head"><span>Output vs headcount</span><span>Stage 03</span></div>
+          <div class="viz-body">
+            <svg class="decouple-svg" viewBox="0 0 304 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- Grid lines (faint, horizontal) -->
+              <line class="grid-line" x1="40" y1="50"  x2="280" y2="50"  />
+              <line class="grid-line" x1="40" y1="100" x2="280" y2="100" />
+              <line class="grid-line" x1="40" y1="150" x2="280" y2="150" />
+
+              <!-- Axes -->
+              <line class="axis" x1="40" y1="20"  x2="40"  y2="190" />
+              <line class="axis" x1="40" y1="190" x2="280" y2="190" />
+
+              <!-- Axis labels -->
+              <text class="axis-label" x="40" y="14">index &uarr;</text>
+              <text class="axis-label" x="280" y="206" text-anchor="end">time &rarr;</text>
+
+              <!-- Filled area under output (shows divergence) -->
+              <path class="line-fill draw-fill"
+                    d="M 40,170 L 80,158 L 120,140 L 160,108 L 200,72 L 240,50 L 280,32 L 280,170 L 40,170 Z" />
+
+              <!-- Headcount line (flat, dashed) -->
+              <path class="line-headcount draw-headcount"
+                    d="M 40,170 L 80,170 L 120,168 L 160,170 L 200,168 L 240,170 L 280,168" />
+
+              <!-- Output line (climbing, solid sage) -->
+              <path class="line-output draw-output"
+                    d="M 40,170 L 80,158 L 120,140 L 160,108 L 200,72 L 240,50 L 280,32" />
+
+              <!-- End-of-line labels -->
+              <text class="label-end label-output"    x="248" y="26"  text-anchor="end">output</text>
+              <text class="label-end label-headcount" x="248" y="184" text-anchor="end">headcount</text>
+            </svg>
+            <div class="viz-meta">
+              <span>Output scales without adding headcount</span>
+              <span><b>decoupled</b></span>
+            </div>
+          </div>
+          <div class="viz-foot"><span class="viz-tag">Sample · illustrative</span></div>
+        </div>
+        <p class="panel-note">Outcome made visible. Headcount stays flat; output climbs. Lines draw in once on viewport entry, then stop. Most abstract of the three but communicates the punchline directly.</p>
+      </div>
+
+    </div>
+
+
+    <div style="margin-top:64px; padding:20px 24px; background:var(--bg); border:1px solid var(--line-2); border-radius:8px; color:var(--text-2); font-size:13px; line-height:1.6;">
+      <strong style="color:var(--text); font-family:var(--display);">Once you've picked, tell me:</strong><br/>
+      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--accent);">stage 01:</span> A-01-a / A-01-b / A-01-c &nbsp;&middot;&nbsp;
+      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--accent);">stage 02:</span> A-02 (refined) &nbsp;&middot;&nbsp;
+      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--accent);">stage 03:</span> A-03-a / A-03-b / A-03-c
+      <br/><br/>
+      <span style="color:var(--text-3);">My picks: <b style="color:var(--accent);">A-01-a · A-02 refined · A-03-a</b> &mdash; all concrete, all light on motion, all read as outputs of the work rather than process.</span>
+    </div>
+  </div>
+
+  <script>
+    // Pause toggle
+    const toggle = () => document.body.classList.toggle('paused');
+    document.getElementById('pause-toggle').addEventListener('click', toggle);
+    document.addEventListener('keydown', (e) => { if (e.key === 'p' || e.key === 'P') toggle(); });
+
+    // Decision log — occasionally insert a new row at the top
+    (function () {
+      const log = document.getElementById('log');
+      if (!log) return;
+      const samples = [
+        { cat: 'budget shift',  detail: '$1.2k &rarr; search' },
+        { cat: 'ticket route',  detail: '2 &rarr; backup queue' },
+        { cat: 'deal nurture',  detail: '1 stale &rarr; re-engaged' },
+        { cat: 'pacing alert',  detail: 'social &middot; -12% target' },
+        { cat: 'drift caught',  detail: 'lifecycle &middot; paused' },
+        { cat: 'budget shift',  detail: '$640 &rarr; top channel' },
+      ];
+      let lastTime = [14, 32];
+      function nextTime() {
+        let [h, m] = lastTime;
+        m += 1 + Math.floor(Math.random() * 3);
+        if (m >= 60) { m -= 60; h = (h + 1) % 24; }
+        lastTime = [h, m];
+        return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+      }
+      function addRow() {
+        const s = samples[Math.floor(Math.random() * samples.length)];
+        const row = document.createElement('div');
+        row.className = 'log-row is-new';
+        row.innerHTML = `<span class="log-time">${nextTime()}</span><span class="log-cat">${s.cat}</span><span class="log-detail">${s.detail}</span>`;
+        log.insertBefore(row, log.firstChild);
+        // Cap at 8 rows
+        while (log.children.length > 8) log.removeChild(log.lastChild);
+      }
+      setInterval(addRow, 9500);
+    })();
+  </script>
+</body>
+</html>

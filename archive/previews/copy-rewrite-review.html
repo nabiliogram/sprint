@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SprintAssembly — Copy Rewrite Review (v2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fafaf7;
+    color: #171717;
+    line-height: 1.55;
+    padding: 40px 24px 80px;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; }
+
+  header.page {
+    padding-bottom: 32px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 40px;
+  }
+  header.page .eyebrow {
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    font-weight: 800; color: #737373; margin-bottom: 14px;
+  }
+  header.page h1 {
+    font-size: 34px; font-weight: 900; letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  header.page p {
+    margin-top: 14px; color: #525252; font-size: 15px; max-width: 720px;
+  }
+  header.page .legend {
+    margin-top: 22px; display: flex; gap: 18px; font-size: 12px; color: #737373;
+    flex-wrap: wrap;
+  }
+  header.page .legend span b { color: #171717; font-weight: 800; }
+
+  .status-bar {
+    margin-top: 22px; padding: 14px 18px;
+    background: #fff; border: 1px solid #e5e5e5; border-radius: 10px;
+    font-size: 13px; color: #525252;
+  }
+  .status-bar b { color: #171717; font-weight: 800; }
+  .status-bar .locked { color: #556021; font-weight: 700; }
+  .status-bar .open { color: #b45309; font-weight: 700; }
+
+  h2.section {
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    font-weight: 900; color: #afb975;
+    margin: 48px 0 18px; padding-bottom: 8px;
+    border-bottom: 2px solid #afb975;
+  }
+
+  .block {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .block.locked { border-color: #dbe3bd; }
+  .block.removed { opacity: 0.55; }
+  .block-head {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 20px;
+    background: #171717;
+    color: #fff;
+  }
+  .block.locked .block-head { background: #556021; }
+  .block.removed .block-head { background: #525252; }
+  .block-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 6px;
+    background: #afb975; color: #171717;
+    font-weight: 900; font-size: 14px; letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .block-label {
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    flex: 1;
+  }
+  .status-tag {
+    font-size: 10px; font-weight: 900; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 8px; border-radius: 4px;
+    background: #afb975; color: #171717;
+  }
+  .status-tag.open-tag { background: #fbbf24; color: #78350f; }
+  .status-tag.removed-tag { background: #737373; color: #fff; }
+
+  .block-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .col {
+    padding: 20px 22px;
+    font-size: 14.5px;
+  }
+  .col.original {
+    background: #fafafa;
+    border-right: 1px solid #e5e5e5;
+    color: #525252;
+  }
+  .col.suggested {
+    background: #fff;
+    color: #171717;
+  }
+  .col.suggested.locked-col { background: #f8faf1; }
+  .col-head {
+    font-size: 10px; font-weight: 900; letter-spacing: 0.26em;
+    text-transform: uppercase; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .col.original .col-head { color: #a3a3a3; }
+  .col.suggested .col-head { color: #8c965e; }
+  .col-head .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor;
+  }
+  .option-group {
+    border: 1px solid #e5e5e5; border-radius: 10px; padding: 14px 16px; margin-top: 12px;
+    background: #fff;
+  }
+  .option-group.lean { border-color: #afb975; background: #f8faf1; }
+  .option-label {
+    font-size: 10px; font-weight: 800; color: #737373;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .option-group.lean .option-label { color: #556021; }
+  .option-label .pill-mini {
+    font-size: 9px; padding: 2px 6px; background: #afb975; color: #171717;
+    border-radius: 3px; letter-spacing: 0.12em;
+  }
+  .mark {
+    background: #fff6d6; padding: 0 3px; border-radius: 2px;
+  }
+  .quote {
+    font-family: 'Lora', serif; font-style: italic;
+    font-size: 15px; color: #525252;
+  }
+  .areas-list {
+    margin-top: 8px; padding-left: 18px;
+  }
+  .areas-list li {
+    margin-bottom: 4px; font-size: 13.5px;
+  }
+  .headline-bold { font-weight: 800; color: #171717; margin-bottom: 8px; }
+  .sub-muted { font-size: 11px; font-weight: 800; text-transform: uppercase;
+               letter-spacing: 0.22em; color: #a3a3a3; margin-bottom: 6px; }
+  .outcome {
+    margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0f0f0;
+    font-size: 13px;
+  }
+  .outcome b { color: #737373; font-weight: 700; }
+  .note {
+    padding: 12px 22px; font-size: 12.5px; color: #737373;
+    background: #fffaea; border-top: 1px solid #f5e9b8;
+    font-style: italic;
+  }
+  .note b { color: #171717; font-style: normal; font-weight: 700; }
+  .removed-body {
+    padding: 18px 22px; font-size: 13px; color: #737373;
+    background: #fafafa; text-align: center;
+  }
+  .removed-body b { color: #171717; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .pill {
+    display: inline-block;
+    padding: 4px 10px; border-radius: 999px;
+    background: #f5f5f5; font-size: 12px; font-weight: 700; color: #525252;
+    border: 1px solid #e5e5e5;
+  }
+  .col.suggested .pill { background: #f3f6e8; border-color: #dbe3bd; color: #556021; }
+
+  @media (max-width: 820px) {
+    .block-grid { grid-template-columns: 1fr; }
+    .col.original { border-right: none; border-bottom: 1px solid #e5e5e5; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page">
+    <div class="eyebrow">Copy Review · Final (v3)</div>
+    <h1>SprintAssembly — Reframe from Performance Marketing toward Agentic Workflow Automation</h1>
+    <p>All copy decisions locked. Ready to cut into <code>src/App.jsx</code>. Green-bordered blocks are final; greyed-out blocks have been removed.</p>
+    <div class="status-bar">
+      <b>Final status:</b>
+      <span class="locked">Locked:</span> 1–8, 13–20 &nbsp;·&nbsp;
+      <span>Removed:</span> 9–12 (calculator) &nbsp;·&nbsp;
+      <b>Step 2 name chosen:</b> <span class="locked">Instrumentation</span>
+    </div>
+  </header>
+
+  <h2 class="section">Hero</h2>
+
+  <!-- BLOCK 1 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">1</span>
+      <span class="block-label">Hero eyebrow</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        The New Standard of Performance
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="headline-bold">The New Standard of Operations</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 2 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">2</span>
+      <span class="block-label">Hero headline</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        From Manual Marketing<br/>to Autonomous Growth
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="headline-bold" style="font-size:20px">From Manual Effort<br/>to Agentic Scale</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 3 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">3</span>
+      <span class="block-label">Hero body paragraph</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        We replace manual marketing with autonomous systems. By aligning data, creative, and media into an automated engine, we remove operational bottlenecks and deliver growth that adapts to performance in real-time.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        We replace manual work with autonomous systems. By aligning data, decisions, and execution into agentic workflows, we remove operational bottlenecks and build a business that adapts to real-time signals — across marketing, operations, and customer workflows.
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 4 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">4</span>
+      <span class="block-label">Hero serif quote</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="quote">"Sprint Assembly is led by senior operators who've scaled growth across global enterprises. We work in focused sprints to move your marketing from manual execution to autonomous scale."</div>
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="quote">"Sprint Assembly is led by senior operators who've scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale — wherever work gets stuck."</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section">The Opportunity</h2>
+
+  <!-- BLOCK 5 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">5</span>
+      <span class="block-label">Opportunity — intro paragraph</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        You can't scale through manual effort alone. We help you transition to an autonomous system that targets the three essentials of modern performance: reclaiming team bandwidth, making the entire customer journey more responsive to data, and improving your bottom line through systematic orchestration.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        You can't scale through manual effort alone. We help you transition to autonomous systems that target the three essentials of modern business: reclaiming team bandwidth, making your operations responsive to real-time signals, and improving your bottom line through intelligent orchestration.
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 6 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">6</span>
+      <span class="block-label">Card 1 — Productivity</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="headline-bold">Scale your business without hiring more people.</div>
+        Eliminate the manual bottlenecks slowing your growth. By automating data integration and repetitive workflows, we build a standardized operating model that scales. This allows your organization to increase total output without the need for linear increases in headcount.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="headline-bold">Scale your business without hiring more people.</div>
+        Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 7 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">7</span>
+      <span class="block-label">Card 2 — Performance</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="headline-bold">Optimize performance across the entire lifecycle.</div>
+        Our autonomous systems respond to performance signals in real-time. We ensure your budget and creative are always directed toward the highest-performing segments, making every interaction across the customer journey more efficient and every dollar of spend more impactful.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="headline-bold">Real-time decisions across every workflow.</div>
+        Our autonomous systems react to operational signals the moment they happen. An underperforming ad set, a support queue backing up, a pipeline stage going cold — the right decision runs automatically, not after a weekly review.
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 8 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">8</span>
+      <span class="block-label">Card 3 — Profit</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="headline-bold">Increase profitability through smart orchestration.</div>
+        Transform customer data into an intelligent orchestration engine. By automating the logic behind growth, we increase lifetime value and protect margins. This delivers a growth model that is both predictable and profitable, ensuring sustainable scale through data-driven precision.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="headline-bold">Increase profitability through smart orchestration.</div>
+        Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves — acquisition, retention, operations, revenue — we increase margin and protect quality. The result is an operating model that is both predictable and profitable.
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section">Calculator</h2>
+
+  <!-- BLOCKS 9-12 REMOVED -->
+  <div class="block removed">
+    <div class="block-head">
+      <span class="block-num">9–12</span>
+      <span class="block-label">Value Calculator — entire section</span>
+      <span class="status-tag removed-tag">Removed</span>
+    </div>
+    <div class="removed-body">
+      <b>Calculator removed per Round 2.</b> The sliders-to-dollar-figure pattern was off-brand for the agentic-workflow positioning and better suited to an agency-era funnel.
+      Consider a short qualitative diagnostic ("Where is work piling up?", "What signals get ignored?") as a future replacement if a lead-gen hook is wanted.
+    </div>
+  </div>
+
+  <h2 class="section">How We Modernize You</h2>
+
+  <!-- BLOCK 13 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">13</span>
+      <span class="block-label">Roadmap — intro paragraph</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        We begin every partnership with a Diagnostic Sprint to map where your performance is leaking and find your biggest wins. Next, we fill operational gaps with rigorous Performance Standards to capture an immediate lift in return on spend. This foundation allows us to transition you to Autonomous Orchestration by building the systems that maximize your bottom line through intelligent scale.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        We begin every partnership with a Diagnostic Sprint to map where your operations are leaking and find your biggest wins. Next, we move to Instrumentation — the unified data, defined workflows, and governance that agentic systems need to run on. This foundation lets us transition you to Autonomous Orchestration, where agents take over day-to-day decisions and actions.
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 14 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">14</span>
+      <span class="block-label">Step 1 — Diagnostic Sprint</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="sub-muted">Analysis before assembly.</div>
+        <div class="headline-bold">Diagnostic Sprint</div>
+        Every partnership begins with a time-capped audit of your growth stack. This 4-to-6 week sprint identifies where performance is leaking and locates your highest-margin opportunities. We don't move to execution until we have a data-led map for your investment.
+        <ul class="areas-list">
+          <li>Growth process and operational efficiency</li>
+          <li>Marketing measurement maturity</li>
+          <li>Budget allocation and channel ROI</li>
+          <li>Customer lifecycle friction</li>
+          <li>AI readiness audit</li>
+        </ul>
+        <div class="outcome"><b>Outcome:</b> A clear, prioritized view of where change will drive the highest return.</div>
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="sub-muted">Analysis before assembly.</div>
+        <div class="headline-bold">Diagnostic Sprint</div>
+        Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking — human effort, missed signals, stalled handoffs — and locates your highest-margin opportunities for automation.
+        <ul class="areas-list">
+          <li>Workflow and process efficiency</li>
+          <li>Data and measurement maturity</li>
+          <li>Automation opportunity ranking</li>
+          <li>Customer and operational lifecycle friction</li>
+          <li>AI and agent readiness</li>
+        </ul>
+        <div class="outcome"><b>Outcome:</b> A clear, prioritized view of where change will drive the highest return.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 15 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">15</span>
+      <span class="block-label">Step 2 — Instrumentation</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="sub-muted">Immediate performance lift.</div>
+        <div class="headline-bold">Performance Standards</div>
+        We fill operational gaps by installing rigorous standards across your marketing engine. By creating a unified source of truth and clear experimentation rules, we remove the drag of manual coordination. This stage drives an immediate lift in return on spend.
+        <ul class="areas-list">
+          <li>Unified data &amp; measurement standards</li>
+          <li>Creative experimentation frameworks</li>
+          <li>Lifecycle communication governance</li>
+          <li>Faster testing &amp; optimization loops</li>
+        </ul>
+        <div class="outcome"><b>Outcome:</b> Immediate acceleration in testing velocity, better creative performance, and significantly sharper budget allocation.</div>
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="sub-muted">Clean data. Clear workflows.</div>
+        <div class="headline-bold">Instrumentation</div>
+        <p>Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top of them without breaking. Unified sources of truth, documented workflows, clear rules of engagement — the unglamorous work that makes automation actually work.</p>
+        <ul class="areas-list">
+          <li>Unified data &amp; measurement infrastructure</li>
+          <li>Workflow definition and documentation</li>
+          <li>Governance, guardrails, and eval criteria</li>
+          <li>Automation-readiness across systems</li>
+        </ul>
+        <div class="outcome"><b>Outcome:</b> Your data, processes, and governance are automation-ready.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 16 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">16</span>
+      <span class="block-label">Step 3 — Autonomous Orchestration</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="sub-muted">Scale independent of headcount.</div>
+        <div class="headline-bold">Autonomous Orchestration</div>
+        Finally, we transition your team from manual execution to system oversight. We design the autonomous workflows that manage media and creative optimization in real-time. This builds a self-optimizing engine that improves your bottom line through intelligent scale.
+        <ul class="areas-list">
+          <li>Automated budget optimization</li>
+          <li>Agentic creative generation</li>
+          <li>Predictive CRM orchestration</li>
+          <li>Real-time measurement loops</li>
+        </ul>
+        <div class="outcome"><b>Outcome:</b> A self-optimizing growth engine that scales predictably while reclaiming up to 40% of your team's strategic capacity.</div>
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="sub-muted">Scale independent of headcount.</div>
+        <div class="headline-bold">Autonomous Orchestration</div>
+        Finally, we transition your team from manual execution to system oversight. We design the agentic workflows that manage day-to-day decisions and actions in real time — across acquisition, operations, customer success, and revenue. This builds a self-optimizing engine that improves your bottom line through intelligent scale.
+        <ul class="areas-list">
+          <li>Agentic workflow orchestration</li>
+          <li>Automated decisioning (budget, routing, prioritization)</li>
+          <li>Predictive operational &amp; CRM orchestration</li>
+          <li>Real-time measurement and feedback loops</li>
+        </ul>
+        <div class="outcome"><b>Outcome:</b> A self-optimizing operating model that scales predictably while reclaiming up to 40% of your team's strategic capacity.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section">Team</h2>
+
+  <!-- BLOCK 17 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">17</span>
+      <span class="block-label">Team — intro paragraph</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        Sprint Assembly is led by growth veterans who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        Sprint Assembly is led by senior operators who prioritize execution over theory. We personally oversee every Diagnostic Sprint and implementation, drawing on a vetted network of specialists to solve your complex operational challenges without the overhead or friction of a traditional agency.
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 18 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">18</span>
+      <span class="block-label">SME Network pills</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="sub-muted" style="margin-bottom:10px">Supported by an SME network in:</div>
+        <div class="pill-row">
+          <span class="pill">Data Science</span>
+          <span class="pill">Web Development</span>
+          <span class="pill">Creative Production</span>
+          <span class="pill">Agentic Workflows</span>
+        </div>
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="sub-muted" style="margin-bottom:10px">Supported by an SME network in:</div>
+        <div class="pill-row">
+          <span class="pill">Data Science &amp; ML</span>
+          <span class="pill">Agentic Workflows</span>
+          <span class="pill">Web Development</span>
+          <span class="pill">Systems Integration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section">Contact</h2>
+
+  <!-- BLOCK 19 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">19</span>
+      <span class="block-label">Contact — section title</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        <div class="headline-bold" style="font-size:22px">Ready to Modernize?</div>
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        <div class="headline-bold" style="font-size:22px">Ready to Modernize?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 20 -->
+  <div class="block locked">
+    <div class="block-head">
+      <span class="block-num">20</span>
+      <span class="block-label">Contact — body paragraph</span>
+      <span class="status-tag">Locked</span>
+    </div>
+    <div class="block-grid">
+      <div class="col original">
+        <div class="col-head"><span class="dot"></span>Current</div>
+        Modernizing your growth engine begins with a conversation. We're available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to autonomous scale. We'll provide an objective assessment of your modernization potential to help you determine the most effective next step for your growth.
+      </div>
+      <div class="col suggested locked-col">
+        <div class="col-head"><span class="dot"></span>Final</div>
+        Modernizing your business begins with a conversation. We're available for a brief, non-committal session to discuss your current bottlenecks and map out a potential path from manual effort to agentic scale. We'll provide an objective assessment of your modernization potential to help you determine the most effective next step.
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:48px; padding-top:24px; border-top:1px solid #e5e5e5; color:#737373; font-size:13px;">
+    <b style="color:#171717;">All copy locked.</b> Ready to cut into <code>src/App.jsx</code>. Say the word and I'll apply the edits to the live source.
+  </footer>
+
+</div>
+</body>
+</html>
