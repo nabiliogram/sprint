@@ -842,9 +842,12 @@
     }
     @media (max-width: 760px) {
       .b-stage-header { grid-template-columns: 1fr; gap: 6px; }
-      .b-stage-header .b-stage-rail { padding: 18px 22px 0; }
-      .b-stage-header .b-stage-head { padding: 8px 22px 18px; }
+      .b-stage-header .b-stage-rail { padding: 16px 12px 0; }
+      .b-stage-header .b-stage-head { padding: 6px 12px 16px; }
       .b-stage-num { font-size: 44px; }
+      /* Faster drift on small viewports — chips traverse the narrow column quicker */
+      .b-drift-row-1 .b-drift-track { animation-duration: 55s; }
+      .b-drift-row-2 .b-drift-track { animation-duration: 65s; }
     }
     @media (max-width: 980px) {
       .b-root { --b-pad-x: 20px; }
@@ -855,6 +858,11 @@
       .b-h1 { white-space: normal; font-size: clamp(44px, 11vw, 72px); }
       .b-hero-bottom { grid-template-columns: 1fr; gap: 24px; }
       .b-fnote-inner { grid-template-columns: 1fr; gap: 16px; }
+      /* Founders' logos: shrink so all 5 + label fit on a single line at 360-768px */
+      .b-fnote-experience { gap: 20px; }
+      .b-fnote-logos { gap: 16px; }
+      .b-logo-img { height: 14px; }
+      .b-logo-img[alt="Google"] { height: 17px; }
       .b-pillars { grid-template-columns: 1fr; }
       .b-pillar { border-right: 0; border-bottom: 1px solid var(--b-line); }
       .b-pillar:last-child { border-bottom: 0; }
