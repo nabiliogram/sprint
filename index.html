@@ -873,6 +873,9 @@
       .b-nav-links { display: none; }
       .b-nav-burger { display: inline-flex; }
       .b-mobile-menu { display: block; }
+      /* Hero — tighter top spacing on mobile (was 64+32=96px above eyebrow on desktop, halved here) */
+      .b-hero { padding-block: 28px 32px; }
+      .b-hero-inner { padding: 16px 0 32px; }
       /* Hero — mobile-only restructure: tight setup + split scream accent */
       .b-h1 { white-space: normal; line-height: 1.0; }
       .b-h1-desktop { display: none; }
@@ -882,14 +885,14 @@
         align-items: flex-start;
         gap: 4px;
       }
-      /* Setup line — small, neutral; sets up the scream */
+      /* Setup line — neutral; sets up the scream. ~30% bigger than original. */
       .b-h1-mobile .b-h1-prefix {
-        font-size: clamp(18px, 5.5vw, 32px);
+        font-size: clamp(24px, 7vw, 42px);
         font-weight: 500;
         color: var(--b-text);
-        letter-spacing: -0.01em;
+        letter-spacing: -0.015em;
         line-height: 1.1;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
       }
       /* "Agentic" and "Scale." each on its own line at hero-scream scale */
       .b-h1-mobile .b-h1-accent {
