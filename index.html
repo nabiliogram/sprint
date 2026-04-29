@@ -951,8 +951,18 @@
       }
       .b-logo-img { height: 14px; }
       .b-logo-img[alt="Google"] { height: 17px; }
-      .b-pillars { grid-template-columns: 1fr; }
-      .b-pillar { border-right: 0; border-bottom: 1px solid var(--b-line); }
+      .b-pillars {
+        grid-template-columns: 1fr;
+        /* Full-bleed: pillar stack spans the full viewport on mobile */
+        max-width: none;
+        width: calc(100% + 2 * var(--b-pad-x));
+        margin-inline: calc(-1 * var(--b-pad-x));
+      }
+      .b-pillar {
+        border-right: 0;
+        border-bottom: 1px solid var(--b-line);
+        padding: 28px 20px;
+      }
       .b-pillar:last-child { border-bottom: 0; }
       .b-stage-list { grid-template-columns: 1fr; }
       .b-members { grid-template-columns: 1fr; gap: 36px; }
