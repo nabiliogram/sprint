@@ -878,7 +878,9 @@
           "body body";
         -moz-column-gap: 14px;
              column-gap: 14px;
-        /* Full-bleed: card extends to viewport edges, minimizes side padding */
+        /* Full-bleed: explicit width + negative margin so the card spans the full viewport */
+        max-width: none;
+        width: calc(100% + 2 * var(--b-pad-x));
         margin-inline: calc(-1 * var(--b-pad-x));
         border-radius: 0;
         border-right: none;
