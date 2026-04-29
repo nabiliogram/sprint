@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process section — anchoring variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --b-bg:      #f5f3ee;
+      --b-bg-2:    #ece9e1;
+      --b-line:    rgba(20, 18, 14, 0.10);
+      --b-line-2:  rgba(20, 18, 14, 0.18);
+      --b-text:    #15130f;
+      --b-text-2:  rgba(21, 19, 15, 0.72);
+      --b-text-3:  rgba(21, 19, 15, 0.5);
+      --b-text-4:  rgba(21, 19, 15, 0.35);
+      --b-accent:  #6f7340;
+      --b-display: "Geist", system-ui, sans-serif;
+      --b-mono:    "Geist Mono", monospace;
+    }
+
+    body { background: var(--b-bg-2); font-family: "Geist", system-ui, sans-serif; color: var(--b-text); -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 56px 40px 96px; }
+    .page > h1 { font-family: var(--b-display); font-weight: 600; font-size: 32px; letter-spacing: -0.018em; margin: 0 0 8px; }
+    .page > .lede { color: var(--b-text-2); max-width: 64ch; line-height: 1.55; margin: 0 0 32px; }
+
+    .variation {
+      margin-bottom: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--b-line-2);
+    }
+    .variation-meta { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+    .variation-id {
+      font-family: var(--b-mono);
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--b-accent);
+    }
+    .variation-name { font-family: var(--b-display); font-weight: 600; font-size: 20px; letter-spacing: -0.012em; }
+    .variation-desc { color: var(--b-text-2); font-size: 14px; line-height: 1.55; max-width: 70ch; margin: 0 0 24px; }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 1100px) { .preview-grid { grid-template-columns: 1fr; max-width: 700px; } }
+
+    .preview-frame {
+      background: var(--b-bg-2);
+      border: 1px solid var(--b-line-2);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .preview-frame-label {
+      font-family: var(--b-mono);
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--b-text-3);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--b-line);
+      background: var(--b-bg);
+    }
+
+    /* Common process tokens — shared across all variations */
+    .stages-host { padding: 40px; }
+    .stages-host-mobile { padding: 24px 20px; }
+
+    .b-stage-num {
+      font-family: var(--b-display);
+      font-weight: 600;
+      font-size: 56px;
+      line-height: 0.9;
+      color: var(--b-accent);
+      letter-spacing: -0.04em;
+    }
+    .b-stage-num-sm { font-size: 44px; }
+    .b-stage-bar { width: 40px; height: 2px; background: var(--b-accent); opacity: 0.5; }
+    .b-stage-title {
+      font-family: var(--b-display);
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .b-stage-title-sm { font-size: 24px; }
+    .b-stage-sub { font-family: var(--b-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--b-text-3); margin-top: 4px; }
+    .b-stage-text { font-size: 15px; line-height: 1.55; color: var(--b-text-2); margin: 0 0 18px; max-width: 60ch; }
+    .b-stage-text-sm { font-size: 14px; }
+    .b-stage-label {
+      font-family: var(--b-mono);
+      font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--b-text-3);
+      margin-bottom: 8px;
+    }
+    .b-stage-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+    .b-stage-list-1 { grid-template-columns: 1fr; }
+    .b-stage-list li { display: grid; grid-template-columns: 24px 1fr; font-size: 13.5px; color: var(--b-text-2); line-height: 1.4; padding: 2px 0; }
+    .b-stage-li-num { font-family: var(--b-mono); font-size: 10.5px; color: var(--b-accent); letter-spacing: 0.06em; padding-top: 3px; }
+    .b-stage-outcome {
+      font-family: var(--b-display);
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 1.35;
+      color: var(--b-text);
+      margin: 16px 0 0;
+      letter-spacing: -0.01em;
+    }
+    .b-stage-grid-block { padding-top: 18px; }
+    .b-stage-divider { height: 1px; background: var(--b-line); margin: 18px 0; }
+
+    /* ════════════════════════════════════════════════════════
+     *  V1 — UNIFIED CARD
+     *  Whole stage in one white card with internal divider.
+     * ════════════════════════════════════════════════════════ */
+    .v1-stages { display: flex; flex-direction: column; gap: 24px; }
+    .v1-stage {
+      background: var(--b-bg);
+      border: 1px solid var(--b-line);
+      border-radius: 10px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      box-shadow: 0 1px 2px rgba(20,18,14,.04);
+    }
+    .v1-stage-rail { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .v1-stage-content { max-width: 720px; }
+    .v1-stage-head { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--b-line); }
+    /* Mobile collapse */
+    .v1-stage-mobile {
+      background: var(--b-bg);
+      border: 1px solid var(--b-line);
+      border-radius: 10px;
+      padding: 22px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 1px 2px rgba(20,18,14,.04);
+    }
+    .v1-stage-mobile-head { display: flex; gap: 14px; align-items: flex-start; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--b-line); }
+    .v1-stage-mobile-rail { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+
+    /* ════════════════════════════════════════════════════════
+     *  V2 — SHADOWED CARD WITH SAGE LEFT BORDER
+     *  Like V1 but with a 3px sage left edge that "ties" the stage to the brand color.
+     * ════════════════════════════════════════════════════════ */
+    .v2-stages { display: flex; flex-direction: column; gap: 24px; }
+    .v2-stage {
+      background: var(--b-bg);
+      border: 1px solid var(--b-line);
+      border-left: 3px solid var(--b-accent);
+      border-radius: 10px;
+      padding: 28px 32px 28px 36px;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      box-shadow: 0 1px 2px rgba(20,18,14,.04);
+    }
+    .v2-stage-mobile {
+      background: var(--b-bg);
+      border: 1px solid var(--b-line);
+      border-left: 3px solid var(--b-accent);
+      border-radius: 10px;
+      padding: 22px 22px 22px 26px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 1px 2px rgba(20,18,14,.04);
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  V3 — TIMELINE RAIL
+     *  Big number in left rail acts as a step marker. Vertical sage line connects stages.
+     *  No card bg — anchoring comes from the timeline structure itself.
+     * ════════════════════════════════════════════════════════ */
+    .v3-stages { position: relative; padding-left: 80px; }
+    .v3-stages::before {
+      content: ""; position: absolute; left: 36px; top: 28px; bottom: 28px;
+      width: 1px; background: var(--b-accent); opacity: 0.4;
+    }
+    .v3-stage {
+      position: relative;
+      padding: 24px 0 36px;
+      border-bottom: 1px dashed var(--b-line);
+    }
+    .v3-stage:last-child { border-bottom: 0; padding-bottom: 0; }
+    .v3-stage-marker {
+      position: absolute;
+      left: -76px;
+      top: 18px;
+      width: 56px; height: 56px;
+      background: var(--b-bg);
+      border: 1.5px solid var(--b-accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--b-display);
+      font-weight: 600;
+      font-size: 22px;
+      color: var(--b-accent);
+      letter-spacing: -0.02em;
+      box-shadow: 0 0 0 6px var(--b-bg-2);
+    }
+    .v3-stage-content { max-width: 720px; }
+    .v3-stages-mobile { position: relative; padding-left: 56px; }
+    .v3-stages-mobile::before {
+      content: ""; position: absolute; left: 22px; top: 24px; bottom: 24px;
+      width: 1px; background: var(--b-accent); opacity: 0.4;
+    }
+    .v3-stage-mobile { position: relative; padding: 12px 0 24px; }
+    .v3-stage-mobile-marker {
+      position: absolute;
+      left: -50px;
+      top: 8px;
+      width: 44px; height: 44px;
+      background: var(--b-bg);
+      border: 1.5px solid var(--b-accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--b-display);
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--b-accent);
+      letter-spacing: -0.02em;
+      box-shadow: 0 0 0 4px var(--b-bg-2);
+    }
+
+    /* ════════════════════════════════════════════════════════
+     *  V4 — TWO-TONE CARD
+     *  Stage is one card, but split into two visual zones:
+     *  pastel-sage band at top with header, white below for body.
+     *  Reads as one unit but with clear narrative pacing.
+     * ════════════════════════════════════════════════════════ */
+    .v4-stages { display: flex; flex-direction: column; gap: 24px; }
+    .v4-stage {
+      background: var(--b-bg);
+      border: 1px solid var(--b-line);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(20,18,14,.04);
+    }
+    .v4-stage-head {
+      background: #e6e8d2;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .v4-stage-body {
+      padding: 28px 32px 28px;
+    }
+    .v4-stage-mobile-head {
+      background: #e6e8d2;
+      padding: 22px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .v4-stage-mobile-rail { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+    .v4-stage-mobile-body { padding: 22px; }
+
+    .commentary {
+      margin-top: 56px;
+      padding: 20px 24px;
+      background: var(--b-bg);
+      border: 1px solid var(--b-line-2);
+      border-radius: 8px;
+      color: var(--b-text-2);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .commentary strong { color: var(--b-text); font-family: var(--b-display); }
+    .commentary code { font-family: var(--b-mono); color: var(--b-accent); font-size: 12px; }
+    .commentary ul { margin: 12px 0 0 18px; padding: 0; }
+    .commentary li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Process section &mdash; anchoring variations</h1>
+    <p class="lede">Four directions to fix the "header floating, body floating" feeling. Each shows desktop (left) + mobile (right) so you can see the full picture.</p>
+
+
+    <!-- ═════════ V1 — Unified card ═════════ -->
+    <div class="variation">
+      <div class="variation-meta">
+        <span class="variation-id">A</span>
+        <span class="variation-name">Unified card</span>
+      </div>
+      <p class="variation-desc">Each stage is a single white card containing everything &mdash; number, title, body, focus areas, outcome. Internal divider line separates the head row from the body. Solid container that anchors all the stage content as one piece.</p>
+
+      <div class="preview-grid">
+        <div class="preview-frame">
+          <div class="preview-frame-label">Desktop &middot; ~1000px content</div>
+          <div class="stages-host">
+            <div class="v1-stages">
+              <div class="v1-stage">
+                <div class="v1-stage-rail">
+                  <div class="b-stage-num">01</div>
+                  <div class="b-stage-bar"></div>
+                </div>
+                <div class="v1-stage-content">
+                  <div class="v1-stage-head">
+                    <h3 class="b-stage-title">Diagnostic Sprint</h3>
+                    <div class="b-stage-sub">&mdash; Analysis before assembly</div>
+                  </div>
+                  <p class="b-stage-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+                  <div class="b-stage-grid-block">
+                    <div class="b-stage-label">Focus Areas</div>
+                    <ul class="b-stage-list">
+                      <li><span class="b-stage-li-num">01</span><span>Workflow and process efficiency</span></li>
+                      <li><span class="b-stage-li-num">02</span><span>Data and measurement maturity</span></li>
+                      <li><span class="b-stage-li-num">03</span><span>Automation opportunity ranking</span></li>
+                      <li><span class="b-stage-li-num">04</span><span>AI and agent readiness</span></li>
+                    </ul>
+                    <div class="b-stage-label" style="margin-top: 18px;">Outcome</div>
+                    <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="v1-stage">
+                <div class="v1-stage-rail">
+                  <div class="b-stage-num">02</div>
+                  <div class="b-stage-bar"></div>
+                </div>
+                <div class="v1-stage-content">
+                  <div class="v1-stage-head">
+                    <h3 class="b-stage-title">Instrumentation</h3>
+                    <div class="b-stage-sub">&mdash; Clean data. Clear workflows.</div>
+                  </div>
+                  <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top without breaking.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-frame">
+          <div class="preview-frame-label">Mobile &middot; 390px</div>
+          <div class="stages-host-mobile">
+            <div class="v1-stage-mobile">
+              <div class="v1-stage-mobile-head">
+                <div class="v1-stage-mobile-rail">
+                  <div class="b-stage-num b-stage-num-sm">01</div>
+                  <div class="b-stage-bar"></div>
+                </div>
+                <div>
+                  <h3 class="b-stage-title b-stage-title-sm">Diagnostic Sprint</h3>
+                  <div class="b-stage-sub">&mdash; Analysis before assembly</div>
+                </div>
+              </div>
+              <p class="b-stage-text b-stage-text-sm">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs.</p>
+              <div class="b-stage-divider"></div>
+              <div class="b-stage-label">Focus Areas</div>
+              <ul class="b-stage-list b-stage-list-1">
+                <li><span class="b-stage-li-num">01</span><span>Workflow and process efficiency</span></li>
+                <li><span class="b-stage-li-num">02</span><span>Data and measurement maturity</span></li>
+              </ul>
+              <div class="b-stage-label" style="margin-top: 14px;">Outcome</div>
+              <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═════════ V2 — Sage left border ═════════ -->
+    <div class="variation">
+      <div class="variation-meta">
+        <span class="variation-id">B</span>
+        <span class="variation-name">Unified card + sage left border</span>
+      </div>
+      <p class="variation-desc">Same unified card as A, but with a 3px sage line on the left edge of every stage. Acts as a brand color anchor &mdash; the green is the visual through-line that ties stages together vertically.</p>
+
+      <div class="preview-grid">
+        <div class="preview-frame">
+          <div class="preview-frame-label">Desktop</div>
+          <div class="stages-host">
+            <div class="v2-stages">
+              <div class="v2-stage">
+                <div class="v1-stage-rail">
+                  <div class="b-stage-num">01</div>
+                  <div class="b-stage-bar"></div>
+                </div>
+                <div class="v1-stage-content">
+                  <div class="v1-stage-head">
+                    <h3 class="b-stage-title">Diagnostic Sprint</h3>
+                    <div class="b-stage-sub">&mdash; Analysis before assembly</div>
+                  </div>
+                  <p class="b-stage-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking and locates your highest-margin opportunities for automation.</p>
+                  <div class="b-stage-grid-block">
+                    <div class="b-stage-label">Focus Areas</div>
+                    <ul class="b-stage-list">
+                      <li><span class="b-stage-li-num">01</span><span>Workflow and process efficiency</span></li>
+                      <li><span class="b-stage-li-num">02</span><span>Data and measurement maturity</span></li>
+                    </ul>
+                    <div class="b-stage-label" style="margin-top: 18px;">Outcome</div>
+                    <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="v2-stage">
+                <div class="v1-stage-rail">
+                  <div class="b-stage-num">02</div>
+                  <div class="b-stage-bar"></div>
+                </div>
+                <div class="v1-stage-content">
+                  <div class="v1-stage-head">
+                    <h3 class="b-stage-title">Instrumentation</h3>
+                    <div class="b-stage-sub">&mdash; Clean data. Clear workflows.</div>
+                  </div>
+                  <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-frame">
+          <div class="preview-frame-label">Mobile &middot; 390px</div>
+          <div class="stages-host-mobile">
+            <div class="v2-stage-mobile">
+              <div class="v1-stage-mobile-head">
+                <div class="v1-stage-mobile-rail">
+                  <div class="b-stage-num b-stage-num-sm">01</div>
+                  <div class="b-stage-bar"></div>
+                </div>
+                <div>
+                  <h3 class="b-stage-title b-stage-title-sm">Diagnostic Sprint</h3>
+                  <div class="b-stage-sub">&mdash; Analysis before assembly</div>
+                </div>
+              </div>
+              <p class="b-stage-text b-stage-text-sm">Every partnership begins with a time-capped audit of your growth and operations stack.</p>
+              <div class="b-stage-divider"></div>
+              <div class="b-stage-label">Focus Areas</div>
+              <ul class="b-stage-list b-stage-list-1">
+                <li><span class="b-stage-li-num">01</span><span>Workflow and process efficiency</span></li>
+              </ul>
+              <div class="b-stage-label" style="margin-top: 14px;">Outcome</div>
+              <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═════════ V3 — Timeline rail ═════════ -->
+    <div class="variation">
+      <div class="variation-meta">
+        <span class="variation-id">C</span>
+        <span class="variation-name">Timeline rail</span>
+      </div>
+      <p class="variation-desc">No cards. Stage numbers sit in numbered circles in a left rail, connected by a thin sage vertical line that runs through the whole section. Anchoring comes from the timeline structure itself rather than a container. Reads as a real "process" with sequential steps.</p>
+
+      <div class="preview-grid">
+        <div class="preview-frame">
+          <div class="preview-frame-label">Desktop</div>
+          <div class="stages-host">
+            <div class="v3-stages">
+              <div class="v3-stage">
+                <div class="v3-stage-marker">01</div>
+                <div class="v3-stage-content">
+                  <h3 class="b-stage-title" style="margin-bottom: 4px;">Diagnostic Sprint</h3>
+                  <div class="b-stage-sub" style="margin-bottom: 18px;">&mdash; Analysis before assembly</div>
+                  <p class="b-stage-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking and locates your highest-margin opportunities for automation.</p>
+                  <div class="b-stage-grid-block">
+                    <div class="b-stage-label">Focus Areas</div>
+                    <ul class="b-stage-list">
+                      <li><span class="b-stage-li-num">01</span><span>Workflow and process efficiency</span></li>
+                      <li><span class="b-stage-li-num">02</span><span>Data and measurement maturity</span></li>
+                    </ul>
+                    <div class="b-stage-label" style="margin-top: 18px;">Outcome</div>
+                    <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="v3-stage">
+                <div class="v3-stage-marker">02</div>
+                <div class="v3-stage-content">
+                  <h3 class="b-stage-title" style="margin-bottom: 4px;">Instrumentation</h3>
+                  <div class="b-stage-sub" style="margin-bottom: 18px;">&mdash; Clean data. Clear workflows.</div>
+                  <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-frame">
+          <div class="preview-frame-label">Mobile &middot; 390px</div>
+          <div class="stages-host-mobile">
+            <div class="v3-stages-mobile">
+              <div class="v3-stage-mobile">
+                <div class="v3-stage-mobile-marker">01</div>
+                <h3 class="b-stage-title b-stage-title-sm" style="margin-bottom: 4px;">Diagnostic Sprint</h3>
+                <div class="b-stage-sub" style="margin-bottom: 14px;">&mdash; Analysis before assembly</div>
+                <p class="b-stage-text b-stage-text-sm">Every partnership begins with a time-capped audit of your growth and operations stack.</p>
+                <div class="b-stage-label">Focus Areas</div>
+                <ul class="b-stage-list b-stage-list-1">
+                  <li><span class="b-stage-li-num">01</span><span>Workflow efficiency</span></li>
+                </ul>
+              </div>
+              <div class="v3-stage-mobile">
+                <div class="v3-stage-mobile-marker">02</div>
+                <h3 class="b-stage-title b-stage-title-sm" style="margin-bottom: 4px;">Instrumentation</h3>
+                <div class="b-stage-sub">&mdash; Clean data. Clear workflows.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═════════ V4 — Two-tone card ═════════ -->
+    <div class="variation">
+      <div class="variation-meta">
+        <span class="variation-id">D</span>
+        <span class="variation-name">Two-tone card</span>
+      </div>
+      <p class="variation-desc">Each stage is one card, but the head section has a pastel-sage band (matching the founders' note color) and the body has the warm bone background. Reads as one unit, but the color shift inside paces the narrative &mdash; "this is what the stage is" then "here's what it looks like."</p>
+
+      <div class="preview-grid">
+        <div class="preview-frame">
+          <div class="preview-frame-label">Desktop</div>
+          <div class="stages-host">
+            <div class="v4-stages">
+              <div class="v4-stage">
+                <div class="v4-stage-head">
+                  <div class="v1-stage-rail">
+                    <div class="b-stage-num">01</div>
+                    <div class="b-stage-bar"></div>
+                  </div>
+                  <div>
+                    <h3 class="b-stage-title">Diagnostic Sprint</h3>
+                    <div class="b-stage-sub">&mdash; Analysis before assembly</div>
+                  </div>
+                </div>
+                <div class="v4-stage-body">
+                  <p class="b-stage-text" style="margin-left: 192px; max-width: 720px;">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking and locates your highest-margin opportunities for automation.</p>
+                  <div style="margin-left: 192px; max-width: 720px;" class="b-stage-grid-block">
+                    <div class="b-stage-label">Focus Areas</div>
+                    <ul class="b-stage-list">
+                      <li><span class="b-stage-li-num">01</span><span>Workflow and process efficiency</span></li>
+                      <li><span class="b-stage-li-num">02</span><span>Data and measurement maturity</span></li>
+                    </ul>
+                    <div class="b-stage-label" style="margin-top: 18px;">Outcome</div>
+                    <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="v4-stage">
+                <div class="v4-stage-head">
+                  <div class="v1-stage-rail">
+                    <div class="b-stage-num">02</div>
+                    <div class="b-stage-bar"></div>
+                  </div>
+                  <div>
+                    <h3 class="b-stage-title">Instrumentation</h3>
+                    <div class="b-stage-sub">&mdash; Clean data. Clear workflows.</div>
+                  </div>
+                </div>
+                <div class="v4-stage-body">
+                  <p class="b-stage-text" style="margin-left: 192px; max-width: 720px;">Agentic systems are only as reliable as the substrate beneath them.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-frame">
+          <div class="preview-frame-label">Mobile &middot; 390px</div>
+          <div class="stages-host-mobile">
+            <div class="v4-stage" style="margin-bottom: 16px;">
+              <div class="v4-stage-mobile-head">
+                <div class="v4-stage-mobile-rail">
+                  <div class="b-stage-num b-stage-num-sm">01</div>
+                  <div class="b-stage-bar"></div>
+                </div>
+                <div>
+                  <h3 class="b-stage-title b-stage-title-sm">Diagnostic Sprint</h3>
+                  <div class="b-stage-sub">&mdash; Analysis before assembly</div>
+                </div>
+              </div>
+              <div class="v4-stage-mobile-body">
+                <p class="b-stage-text b-stage-text-sm">Every partnership begins with a time-capped audit of your growth and operations stack.</p>
+                <div class="b-stage-divider"></div>
+                <div class="b-stage-label">Focus Areas</div>
+                <ul class="b-stage-list b-stage-list-1">
+                  <li><span class="b-stage-li-num">01</span><span>Workflow and process efficiency</span></li>
+                </ul>
+                <div class="b-stage-label" style="margin-top: 14px;">Outcome</div>
+                <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="commentary">
+      <strong>My read:</strong>
+      <ul>
+        <li><code>A · Unified card</code> &mdash; the most direct fix. Everything's in one container, so there's no "floating" feeling. Safe and clean. Trade-off: the white card is a strong visual element repeated 3 times in a row.</li>
+        <li><code>B · Sage left border</code> &mdash; same as A but with the brand color anchoring the left edge. The green stripe gives the section a rhythmic vertical heartbeat. <strong style="color: var(--b-text);">My pick.</strong></li>
+        <li><code>C · Timeline rail</code> &mdash; most distinctive. Reads as a real process timeline with circular markers and a connecting line. Trade-off: bigger structural change, more "designed."</li>
+        <li><code>D · Two-tone card</code> &mdash; combines the unified container with a sage band at the top to pace each stage. Most editorial. Trade-off: introduces a 4th surface tone (pastel sage on the stage head).</li>
+      </ul>
+      <strong>Reply with</strong> <code>go A</code> / <code>go B</code> / <code>go C</code> / <code>go D</code>, or describe a hybrid.
+    </div>
+  </div>
+</body>
+</html>
