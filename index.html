@@ -610,10 +610,7 @@
     }
     .b-member-photo {
       width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; -o-object-position: center 30%; object-position: center 30%;
-      filter: grayscale(1) contrast(1.05) brightness(0.95);
-      transition: filter .6s ease;
     }
-    .b-member:hover .b-member-photo { filter: grayscale(0) contrast(1) brightness(1); }
     .b-member-content { display: flex; flex-direction: column; gap: 14px; }
     .b-member-headrow {
       display: flex; justify-content: space-between; align-items: center;
@@ -881,7 +878,11 @@
           "body body";
         -moz-column-gap: 14px;
              column-gap: 14px;
-        padding: 22px 22px 22px 24px;
+        /* Full-bleed: card extends to viewport edges, minimizes side padding */
+        margin-inline: calc(-1 * var(--b-pad-x));
+        border-radius: 0;
+        border-right: none;
+        padding: 22px 18px 22px 18px;
       }
       .b-stage-num { font-size: 36px; }
       .b-stage-bar { width: 28px; }
