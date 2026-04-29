@@ -507,12 +507,17 @@
       padding: 28px 32px;
       display: grid;
       grid-template-columns: 160px 1fr;
-      gap: 32px;
+      grid-template-areas:
+        "rail head"
+        "rail body";
+      -moz-column-gap: 32px;
+           column-gap: 32px;
       align-items: start;
       box-shadow: 0 1px 2px rgba(20, 18, 14, 0.04);
       max-width: 928px;
     }
     .b-stage-rail {
+      grid-area: rail;
       display: flex; flex-direction: column; gap: 8px;
       align-items: flex-start;
     }
@@ -525,12 +530,17 @@
       letter-spacing: -0.04em;
     }
     .b-stage-bar { width: 40px; height: 2px; background: var(--b-accent); opacity: 0.5; }
-    .b-stage-content { max-width: 720px; }
     .b-stage-head {
+      grid-area: head;
       display: flex; flex-direction: column; gap: 4px;
       padding-bottom: 18px;
       margin-bottom: 18px;
       border-bottom: 1px solid var(--b-line);
+      max-width: 720px;
+    }
+    .b-stage-body {
+      grid-area: body;
+      max-width: 720px;
     }
     .b-stage-title {
       font-family: var(--b-display);
@@ -860,18 +870,35 @@
 
     /* Responsive */
     @media (max-width: 1100px) {
-      .b-stage { max-width: 100%; gap: 28px; }
+      .b-stage { max-width: 100%; -moz-column-gap: 28px; column-gap: 28px; }
       .b-stage-num { font-size: 48px; }
     }
     @media (max-width: 760px) {
       .b-stage {
-        grid-template-columns: 56px 1fr;
-        gap: 14px;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "rail head"
+          "body body";
+        -moz-column-gap: 14px;
+             column-gap: 14px;
         padding: 22px 22px 22px 24px;
       }
       .b-stage-num { font-size: 36px; }
       .b-stage-bar { width: 28px; }
-      .b-stage-head { padding-bottom: 14px; margin-bottom: 14px; }
+      /* On mobile the body spans both columns, so the divider moves from the head's bottom to the body's top */
+      .b-stage-head {
+        align-self: center;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+        max-width: 100%;
+      }
+      .b-stage-body {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--b-line);
+        max-width: 100%;
+      }
       /* Faster drift on small viewports — chips traverse the narrow column quicker */
       .b-drift-row-1 .b-drift-track { animation-duration: 55s; }
       .b-drift-row-2 .b-drift-track { animation-duration: 65s; }
@@ -913,9 +940,14 @@
       }
       .b-hero-bottom { grid-template-columns: 1fr; gap: 24px; }
       .b-fnote-inner { grid-template-columns: 1fr; gap: 16px; }
-      /* Founders' logos: shrink so all 5 + label fit on a single line at 360-768px */
-      .b-fnote-experience { gap: 20px; }
-      .b-fnote-logos { gap: 16px; }
+      /* Founders' logos: spread evenly across full width with equal gaps */
+      .b-fnote-experience { gap: 16px; }
+      .b-fnote-logos {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 8px;
+      }
       .b-logo-img { height: 14px; }
       .b-logo-img[alt="Google"] { height: 17px; }
       .b-pillars { grid-template-columns: 1fr; }
@@ -1108,27 +1140,25 @@
             <div class="b-stage-num">01</div>
             <div class="b-stage-bar"></div>
           </div>
-          <div class="b-stage-content">
-            <div class="b-stage-head">
-              <h3 class="b-stage-title">Diagnostic Sprint</h3>
-              <div class="b-stage-sub">&mdash; Analysis before assembly</div>
-            </div>
-            <div class="b-stage-body">
-              <p class="b-stage-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
-              <div class="b-stage-grid">
-                <div class="b-stage-block">
-                  <div class="b-stage-label">Focus Areas</div>
-                  <ul class="b-stage-list">
-                    <li>Workflow and process efficiency</li>
-                    <li>Data and measurement maturity</li>
-                    <li>Automation opportunity ranking</li>
-                    <li>AI and agent readiness</li>
-                  </ul>
-                </div>
-                <div class="b-stage-block">
-                  <div class="b-stage-label">Outcome</div>
-                  <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
-                </div>
+          <div class="b-stage-head">
+            <h3 class="b-stage-title">Diagnostic Sprint</h3>
+            <div class="b-stage-sub">&mdash; Analysis before assembly</div>
+          </div>
+          <div class="b-stage-body">
+            <p class="b-stage-text">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+            <div class="b-stage-grid">
+              <div class="b-stage-block">
+                <div class="b-stage-label">Focus Areas</div>
+                <ul class="b-stage-list">
+                  <li>Workflow and process efficiency</li>
+                  <li>Data and measurement maturity</li>
+                  <li>Automation opportunity ranking</li>
+                  <li>AI and agent readiness</li>
+                </ul>
+              </div>
+              <div class="b-stage-block">
+                <div class="b-stage-label">Outcome</div>
+                <p class="b-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
               </div>
             </div>
           </div>
@@ -1140,27 +1170,25 @@
             <div class="b-stage-num">02</div>
             <div class="b-stage-bar"></div>
           </div>
-          <div class="b-stage-content">
-            <div class="b-stage-head">
-              <h3 class="b-stage-title">Instrumentation</h3>
-              <div class="b-stage-sub">&mdash; Clean data. Clear workflows.</div>
-            </div>
-            <div class="b-stage-body">
-              <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top without breaking &mdash; the unglamorous groundwork that makes automation actually work.</p>
-              <div class="b-stage-grid">
-                <div class="b-stage-block">
-                  <div class="b-stage-label">Focus Areas</div>
-                  <ul class="b-stage-list">
-                    <li>Unified data &amp; measurement infrastructure</li>
-                    <li>Workflow definition and documentation</li>
-                    <li>Governance, guardrails, and eval criteria</li>
-                    <li>Automation-readiness across systems</li>
-                  </ul>
-                </div>
-                <div class="b-stage-block">
-                  <div class="b-stage-label">Outcome</div>
-                  <p class="b-stage-outcome">Your data, processes, and governance are automation-ready.</p>
-                </div>
+          <div class="b-stage-head">
+            <h3 class="b-stage-title">Instrumentation</h3>
+            <div class="b-stage-sub">&mdash; Clean data. Clear workflows.</div>
+          </div>
+          <div class="b-stage-body">
+            <p class="b-stage-text">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top without breaking &mdash; the unglamorous groundwork that makes automation actually work.</p>
+            <div class="b-stage-grid">
+              <div class="b-stage-block">
+                <div class="b-stage-label">Focus Areas</div>
+                <ul class="b-stage-list">
+                  <li>Unified data &amp; measurement infrastructure</li>
+                  <li>Workflow definition and documentation</li>
+                  <li>Governance, guardrails, and eval criteria</li>
+                  <li>Automation-readiness across systems</li>
+                </ul>
+              </div>
+              <div class="b-stage-block">
+                <div class="b-stage-label">Outcome</div>
+                <p class="b-stage-outcome">Your data, processes, and governance are automation-ready.</p>
               </div>
             </div>
           </div>
@@ -1172,27 +1200,25 @@
             <div class="b-stage-num">03</div>
             <div class="b-stage-bar"></div>
           </div>
-          <div class="b-stage-content">
-            <div class="b-stage-head">
-              <h3 class="b-stage-title">Autonomous Orchestration</h3>
-              <div class="b-stage-sub">&mdash; Scale independent of headcount</div>
-            </div>
-            <div class="b-stage-body">
-              <p class="b-stage-text">Finally, we transition your team from manual execution to system oversight. We design agentic workflows that manage day-to-day decisions across acquisition, operations, customer success, and revenue &mdash; an operating layer that scales without adding headcount.</p>
-              <div class="b-stage-grid">
-                <div class="b-stage-block">
-                  <div class="b-stage-label">Focus Areas</div>
-                  <ul class="b-stage-list">
-                    <li>Agentic workflow orchestration</li>
-                    <li>Automated decisioning (budget, routing, prioritization)</li>
-                    <li>Predictive operational &amp; CRM orchestration</li>
-                    <li>Real-time measurement and feedback loops</li>
-                  </ul>
-                </div>
-                <div class="b-stage-block">
-                  <div class="b-stage-label">Outcome</div>
-                  <p class="b-stage-outcome">Your business runs on agentic workflows, not manual effort.</p>
-                </div>
+          <div class="b-stage-head">
+            <h3 class="b-stage-title">Autonomous Orchestration</h3>
+            <div class="b-stage-sub">&mdash; Scale independent of headcount</div>
+          </div>
+          <div class="b-stage-body">
+            <p class="b-stage-text">Finally, we transition your team from manual execution to system oversight. We design agentic workflows that manage day-to-day decisions across acquisition, operations, customer success, and revenue &mdash; an operating layer that scales without adding headcount.</p>
+            <div class="b-stage-grid">
+              <div class="b-stage-block">
+                <div class="b-stage-label">Focus Areas</div>
+                <ul class="b-stage-list">
+                  <li>Agentic workflow orchestration</li>
+                  <li>Automated decisioning (budget, routing, prioritization)</li>
+                  <li>Predictive operational &amp; CRM orchestration</li>
+                  <li>Real-time measurement and feedback loops</li>
+                </ul>
+              </div>
+              <div class="b-stage-block">
+                <div class="b-stage-label">Outcome</div>
+                <p class="b-stage-outcome">Your business runs on agentic workflows, not manual effort.</p>
               </div>
             </div>
           </div>
