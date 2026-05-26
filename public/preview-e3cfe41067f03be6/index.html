@@ -286,6 +286,7 @@
         background: var(--accent-2);
         padding: 0 0.12em;
         letter-spacing: -0.02em;
+        font-size: 1.15em;            /* scaled up so AGENTIC SCALE pops vs the surrounding type */
         white-space: nowrap;          /* Agentic Scale stays together */
       }
       /* Two-line H1 variants — desktop puts <br/> after Effort, mobile puts it after To */
@@ -1018,46 +1019,113 @@
         .d4-carousel {
           padding-inline: 24px;
           scroll-padding-inline: 24px;
-          mask-image: none;            /* #4: drop edge fades on mobile — viewport is too narrow */
+          mask-image: none;
           -webkit-mask-image: none;
         }
-        .d4-opp-row { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
-        .d4-opp-num { font-size: 64px; }
 
-        /* #2 (revised): Process — image sits inline at top of section on mobile.
-           Sticky doesn't work here without overlapping copy: the viz lives in the
-           center of the viewport and stage text flows full-width below/around it,
-           so any sticky position blocks the title and body. Inline lets copy flow
-           cleanly below the image, in natural reading order. */
-        .d4-process-grid { grid-template-columns: 1fr; gap: 28px; }
+        /* #2: Founders' note — label above paragraph so paragraph gets full width */
+        .d4-fnote {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 14px 18px;
+        }
+
+        /* #3: Logos — stack label above and put all 5 logos on one row */
+        .d4-hero-bar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 14px;
+        }
+        .d4-exp-logos {
+          width: 100%;
+          gap: 14px;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+        }
+        .d4-exp-logos img { height: 14px; }
+
+        /* #4: Opportunity rows — each pillar a discrete block (card) on mobile */
+        .d4-opp-row {
+          grid-template-columns: 1fr;
+          gap: 14px;
+          padding: 22px 20px;
+          border: 2px solid var(--text);
+          background: var(--paper);
+          margin-bottom: 14px;
+        }
+        .d4-opp-row:last-child {
+          border-bottom-width: 2px;
+          margin-bottom: 0;
+        }
+        .d4-opp-num { font-size: 54px; }
+
+        /* #5: Process — sticky banner at top, content scrolls cleanly under it.
+           Edge-to-edge (negative inline margins to clear the 24px section padding)
+           with a solid ochre background + black bottom border so stage content
+           passes behind it without bleeding through. */
+        .d4-process-grid { grid-template-columns: 1fr; gap: 24px; }
         .d4-sticky-col {
-          display: flex;                /* keep flex column from base rule */
-          position: relative;           /* not sticky */
-          top: auto;
+          display: contents;                /* children become direct grid items so viz sticks across all stages */
         }
         .d4-sticky-viz {
-          position: relative;
-          top: auto;
-          width: 60%;
-          max-width: 280px;
-          margin: 0 auto;
-          background: transparent;
+          position: sticky;
+          top: 64px;                        /* below sticky nav */
+          width: calc(100% + 48px);
+          max-width: none;
+          margin-left: -24px;
+          margin-right: -24px;
+          padding: 12px 0;
+          aspect-ratio: auto;
+          background: var(--bg-2);          /* matches the process band, blocks content beneath */
           border: 0;
           border-radius: 0;
-          padding: 0;
-          z-index: auto;
+          border-bottom: 2px solid var(--text);
+          z-index: 10;
         }
-        .d4-sticky-viz::before { display: block; }     /* restore the desktop circle outline */
-        .d4-sticky-stage-meta { display: none; }       /* still hide — duplicates the stage badge that follows */
+        .d4-sticky-viz::before {
+          /* keep the desktop circle outline, but recentre it inside the banner */
+          display: block;
+          inset: auto;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          width: 108px; height: 108px;
+        }
+        .d4-sticky-viz svg {
+          width: auto;
+          height: 96px;
+          margin: 0 auto;
+          display: block;
+        }
+        .d4-sticky-stage-meta { display: none; }   /* redundant with the stage badge */
 
-        /* #3: Team — photo above bio so the bio doesn't get squeezed into a narrow column */
-        .d4-members { grid-template-columns: 1fr; gap: 16px; }
-        .d4-member { grid-template-columns: 1fr; gap: 14px; padding: 18px; }
+        /* #7: Team — photo above bio AND drop outer card chrome so the bio reads full width.
+           A bottom rule separates members instead of full borders. */
+        .d4-members { grid-template-columns: 1fr; gap: 0; }
+        .d4-member {
+          grid-template-columns: 1fr;
+          gap: 14px;
+          padding: 24px 0;
+          border: 0;
+          border-bottom: 2px solid var(--text);
+        }
+        .d4-member:last-child { border-bottom: 0; padding-bottom: 0; }
+        .d4-members > .d4-member:nth-child(1),
+        .d4-members > .d4-member:nth-child(2) { background: transparent; }
         .d4-member-photo { width: 80px; height: 80px; }
 
+        /* #6: Process stage — hide Focus Areas + separator; body → outcome with no extra line */
+        .d4-stage-focus-card { display: none; }
         .d4-stage-block { min-height: auto; opacity: 1; padding: 20px 0; }
-        .d4-stage-cols { grid-template-columns: 1fr; border-top: 0; }
-        .d4-stage-outcome-card { padding-left: 0; border-left: 0; padding-top: 14px; border-top: 2px solid var(--text); }
+        .d4-stage-cols {
+          grid-template-columns: 1fr;
+          border-top: 0;
+          margin-top: 14px;
+        }
+        .d4-stage-outcome-card {
+          padding: 0;
+          border: 0;
+        }
+
         .d4-hero { padding-top: 24px; padding-bottom: 48px; min-height: auto; }
         .d4-hero-corner { width: 36px; height: 36px; border-width: 3px; }
         .d4-hero-corner.tl { top: 10px; left: 12px; }
