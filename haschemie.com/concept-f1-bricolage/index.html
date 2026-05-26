@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concept F1 — Bricolage · Nabil Haschemie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0805;
+    --bg-elev: #14110d;
+    --ink: #f5ede0;
+    --muted: #8a8278;
+    --amber: #ffaa3a;
+    --coral: #ff6347;
+    --green: #6bff8a;
+    --rule: rgba(245, 237, 224, 0.12);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    position: relative;
+    padding: 0 0 100px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% -10% -10%;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 30%, rgba(255, 170, 58, 0.28), transparent 65%),
+      radial-gradient(ellipse 50% 40% at 12% 85%, rgba(255, 99, 71, 0.16), transparent 70%);
+    filter: blur(8px);
+    animation: bloom 22s ease-in-out infinite alternate;
+  }
+  @keyframes bloom {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(2%, -2%) scale(1.04); }
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 80px;
+  }
+  .wordmark {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--ink);
+  }
+  .wordmark::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.3); opacity: 0.55; }
+  }
+  .location { color: var(--amber); }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 60px;
+    padding: 0 40px;
+    align-items: end;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0 0 28px;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before {
+    content: ""; width: 24px; height: 1px; background: var(--amber);
+  }
+
+  /* Name: identity wordmark, modest scale */
+  h1.name {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-variation-settings: "wdth" 95, "opsz" 36;
+    font-weight: 500;
+    font-size: clamp(28px, 3.5vw, 48px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 36px;
+    color: var(--ink);
+  }
+
+  /* Tagline: this is the actual headline of the page */
+  .tagline {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-variation-settings: "wdth" 92, "opsz" 96;
+    font-weight: 400;
+    font-size: clamp(38px, 5.4vw, 76px);
+    line-height: 1.04;
+    letter-spacing: -0.028em;
+    margin: 0;
+    color: var(--ink);
+    max-width: 760px;
+  }
+  .tagline em {
+    font-style: normal;
+    font-weight: 600;
+    background: linear-gradient(120deg, var(--amber), var(--coral));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .photo {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--rule);
+  }
+  .photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(0.95) brightness(0.92);
+  }
+  .photo::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, transparent 55%, rgba(10, 8, 5, 0.45) 100%),
+      linear-gradient(135deg, rgba(255, 170, 58, 0.1), transparent 38%);
+    pointer-events: none;
+  }
+
+  /* Path ribbon */
+  .arc {
+    margin: 0 auto;
+    padding: 22px 40px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    align-items: center;
+    max-width: 1320px;
+  }
+  .arc-label { color: var(--muted); font-size: 11px; }
+  .arc-stop .city { color: var(--ink); font-weight: 500; }
+  .arc-sep { color: var(--amber); font-size: 16px; }
+
+  /* Pull quote */
+  .pull {
+    padding: 90px 40px;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .pull-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin: 0 0 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pull-eyebrow::before {
+    content: ""; width: 28px; height: 1px; background: var(--coral);
+  }
+  .pull blockquote {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-variation-settings: "wdth" 90, "opsz" 96;
+    font-weight: 400;
+    font-size: clamp(32px, 4.8vw, 64px);
+    line-height: 1.04;
+    letter-spacing: -0.028em;
+    margin: 0;
+    color: var(--ink);
+    max-width: 1100px;
+  }
+  .pull blockquote em {
+    font-style: normal;
+    font-weight: 600;
+    background: linear-gradient(120deg, var(--amber), var(--coral));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .pull blockquote a {
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 4px solid var(--amber);
+    transition: border-color .2s, color .2s;
+  }
+  .pull blockquote a:hover { color: var(--coral); border-bottom-color: var(--coral); }
+
+  .pull-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 44px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 28px;
+    background: var(--amber);
+    color: var(--bg);
+    border-radius: 999px;
+    font-weight: 500;
+    transition: transform .18s, box-shadow .18s;
+  }
+  .pull-cta::after { content: "→"; transition: transform .18s; }
+  .pull-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px -10px rgba(255, 170, 58, 0.45);
+  }
+  .pull-cta:hover::after { transform: translateX(4px); }
+
+  .lower {
+    padding: 60px 40px 80px;
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    border-top: 1px solid var(--rule);
+  }
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 18px;
+    display: block;
+  }
+  .bio p {
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 560px;
+    color: var(--ink);
+  }
+  .contact {
+    display: flex; flex-direction: column; gap: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .contact a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+    width: max-content;
+    transition: color .15s, border-color .15s;
+  }
+  .contact a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+  @media (max-width: 900px) {
+    .topbar { padding: 14px 22px; margin-bottom: 50px; }
+    .hero-grid { grid-template-columns: 1fr; padding: 0 22px; gap: 40px; }
+    .photo { max-width: 320px; }
+    h1.name { font-size: clamp(24px, 5vw, 36px); margin-bottom: 24px; }
+    .tagline { font-size: clamp(32px, 8vw, 48px); }
+    .arc { padding: 18px 22px; gap: 8px 14px; }
+    .pull { padding: 60px 22px; }
+    .pull blockquote { font-size: clamp(26px, 7vw, 38px); }
+    .lower { grid-template-columns: 1fr; padding: 40px 22px 60px; gap: 36px; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wordmark">Haschemie</div>
+    <div class="location">Miami · 25.76°N · 80.19°W</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Operator · Builder · Co-founder</p>
+        <h1 class="name">Nabil Haschemie</h1>
+        <p class="tagline">Twenty years inside Google taught me how growth machines really work. Now I'm building <em>the next generation of them.</em></p>
+      </div>
+      <div class="photo">
+        <img src="https://haschemie.com/assets/pic1.jpg" alt="Nabil Haschemie">
+      </div>
+    </div>
+  </section>
+
+  <div class="arc">
+    <span class="arc-label">Path</span>
+    <span class="arc-stop"><span class="city">Dublin</span></span>
+    <span class="arc-sep">→</span>
+    <span class="arc-stop"><span class="city">EMEA · LATAM · US</span></span>
+    <span class="arc-sep">→</span>
+    <span class="arc-stop"><span class="city">New York</span></span>
+    <span class="arc-sep">→</span>
+    <span class="arc-stop"><span class="city">Miami</span></span>
+  </div>
+
+  <section class="pull">
+    <span class="pull-eyebrow">What I'm building now</span>
+    <blockquote>
+      I co-founded <a href="https://sprintassembly.com">Sprint Assembly</a> to install <em>agentic workflows</em> across marketing, operations, and revenue.
+    </blockquote>
+    <a class="pull-cta" href="https://sprintassembly.com">See the work</a>
+  </section>
+
+  <footer class="lower">
+    <div class="bio">
+      <span class="label">Background</span>
+      <p>Founding member of Google's EMEA HQ in Dublin. Led marketing strategy across Europe, LATAM, and the United States. Now based in Miami, building Sprint Assembly with Daniel Besquin.</p>
+    </div>
+    <div class="contact">
+      <span class="label">Reach me</span>
+      <a href="mailto:hello@haschemie.com">hello@haschemie.com</a>
+      <a href="https://www.linkedin.com/in/haschemie/">LinkedIn</a>
+      <a href="https://sprintassembly.com">sprintassembly.com</a>
+    </div>
+  </footer>
+</body>
+</html>
