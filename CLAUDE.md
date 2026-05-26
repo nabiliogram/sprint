@@ -30,8 +30,6 @@
 | `public/CNAME` | (used by Pages) | Sets custom domain to `sprintassembly.com`. |
 | `index.pre-bauhaus-backup.html`, `index.pre-redesign-backup.html` | (not served) | One-command rollback snapshots. Keep them. |
 
-`public/preview-b.html` and `public/cf9af3b42f4d66dd.html` are stale Apr 7 leftovers, untouched by current work — ignore unless explicitly asked to clean up.
-
 ## LinkedIn carousel — adding a new post
 
 When Nabil drops a LinkedIn post URL to add to the Insights carousel:
