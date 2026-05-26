@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Sprint Assembly — The New Standard of Operations</title>
+    <meta name="description" content="We replace manual work with autonomous systems. Agentic workflows that align data, decisions, and execution across your business.">
+    <link rel="canonical" href="https://sprintassembly.com/">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sprintassembly.com/">
+    <meta property="og:title" content="Sprint Assembly | The New Standard of Operations">
+    <meta property="og:description" content="From manual effort to agentic scale. We design autonomous workflows that align data, decisions, and execution across your business.">
+    <meta property="og:image" content="https://haschemie.com/sprint/meta.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sprintassembly.com/">
+    <meta property="twitter:title" content="Sprint Assembly | The New Standard of Operations">
+    <meta property="twitter:description" content="From manual effort to agentic scale. We design autonomous workflows that align data, decisions, and execution across your business.">
+    <meta property="twitter:image" content="https://haschemie.com/sprint/meta.png">
+
+    <!-- Schema.org Person markup -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nabil Haschemie",
+        "jobTitle": "Co-founder",
+        "url": "https://sprintassembly.com",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Sprint Assembly",
+          "url": "https://sprintassembly.com"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/nabilhaschemie"
+        ],
+        "description": "Nabil is a growth and marketing strategist with nearly two decades of experience at Google, specializing in performance marketing and scalable acquisition systems."
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Daniel Besquin",
+        "jobTitle": "Co-founder",
+        "url": "https://sprintassembly.com",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Sprint Assembly",
+          "url": "https://sprintassembly.com"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/danielbesquin"
+        ],
+        "description": "Daniel is a growth leader with a background at P&G, Google, and BCG, focusing on brand execution, data-driven measurement, and team alignment."
+      }
+    ]
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWFWHB9QT6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JWFWHB9QT6');
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* ────────────────────────────────────────────────────────────────────
+       * Sprint Assembly — Dispatch / Bauhaus skin
+       * Hand-authored static port of d4-dispatch.css + the .skin-bauhaus
+       * overrides from d4-skins.css. No React, no Babel runtime.
+       * ──────────────────────────────────────────────────────────────────── */
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: #efece2;
+        color: #111;
+        font-family: "Archivo", "Inter", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* ─── Design tokens (Bauhaus skin) ─── */
+      .d4-root {
+        --bg:        #efece2;            /* warm off-white */
+        --bg-2:      #e8b922;            /* deeper ochre — process band */
+        --paper:     #ffffff;
+        --line:      rgba(15,15,15,0.18);
+        --line-2:    rgba(15,15,15,0.45);
+        --text:      #111;
+        --text-2:    rgba(17,17,17,0.78);
+        --text-3:    rgba(17,17,17,0.55);
+        --text-4:    rgba(17,17,17,0.32);
+        --accent:    #d4322d;            /* primary red */
+        --accent-2:  #1a4fbf;            /* primary blue */
+        --accent-3:  #e8b922;            /* yellow accent */
+        --display:   "Archivo Black", "Archivo", "Inter", system-ui, sans-serif;
+        --sans:      "Archivo", "Inter", system-ui, sans-serif;
+        --mono:      "Space Mono", ui-monospace, Menlo, monospace;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+      }
+
+      .d4-skip {
+        position: absolute; left: -9999px; top: auto;
+        width: 1px; height: 1px; overflow: hidden;
+      }
+      .d4-skip:focus {
+        left: 16px; top: 16px; width: auto; height: auto;
+        padding: 8px 14px; background: var(--text); color: #fff;
+        z-index: 200; border-radius: 0;
+      }
+
+      /* ─── Nav ─── */
+      .d4-nav {
+        position: sticky; top: 0; z-index: 55;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding-block: 12px;
+        padding-inline: max(40px, calc((100% - 1000px) / 2));
+        gap: 32px;
+        background: color-mix(in oklab, var(--bg) 92%, transparent);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        border-bottom: 3px solid var(--text);
+      }
+      .d4-brand {
+        display: inline-flex; align-items: center; gap: 12px;
+        text-decoration: none; color: var(--text);
+        font-family: var(--display);
+        font-weight: 400;
+      }
+      .d4-brand-mark {
+        display: inline-flex;
+        align-items: center; justify-content: center;
+        width: 32px; height: 32px;
+        border: 4px solid var(--text);    /* 2x the original 2px */
+        color: #fff;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 12px;                  /* fits cleanly in the 12px content cells */
+        letter-spacing: 0;
+        line-height: 1;
+        overflow: hidden;
+      }
+      .d4-brand-mark-s,
+      .d4-brand-mark-a {
+        width: 50%; height: 100%;
+        display: inline-flex;
+        align-items: center; justify-content: center;
+      }
+      .d4-brand-mark-s { background: var(--accent); }
+      .d4-brand-mark-a { background: var(--accent-2); }
+      .d4-brand-name {
+        font-size: 14px;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        font-family: var(--display);
+      }
+
+      .d4-nav-links {
+        display: flex; align-items: center; gap: 4px;
+        justify-self: center;
+      }
+      .d4-nav-link {
+        appearance: none; border: 0; background: transparent;
+        font: inherit;
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 12px;
+        border-radius: 0;
+        font-size: 13px;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-family: var(--sans);
+        font-weight: 500;
+        color: var(--text-3);
+        cursor: pointer;
+        transition: color .2s, background .2s;
+      }
+      .d4-nav-link:hover { color: var(--text); }
+      .d4-nav-link.on { color: var(--text); }
+      .d4-nav-link.on::after {
+        content: ""; display: inline-block;
+        width: 8px; height: 8px;
+        background: var(--accent);
+        margin-left: 2px;
+      }
+
+      .d4-cta {
+        appearance: none; border: 0;
+        display: inline-flex; align-items: center; gap: 8px;
+        background: var(--accent); color: #fff;
+        padding: 11px 18px;
+        border-radius: 0;
+        font: 500 13px/1 var(--sans);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform .25s, background .25s;
+      }
+      .d4-cta:hover { background: var(--accent-2); transform: translateY(-1px); }
+      .d4-cta-arrow { transition: transform .25s; }
+      .d4-cta:hover .d4-cta-arrow { transform: translateX(3px); }
+
+      /* Mobile burger */
+      .d4-nav-burger {
+        display: none;
+        appearance: none; border: 2px solid var(--text); background: transparent;
+        width: 38px; height: 38px;
+        align-items: center; justify-content: center;
+        cursor: pointer; color: var(--text);
+      }
+      .d4-nav-burger .open { display: block; }
+      .d4-nav-burger .close { display: none; }
+      .d4-mobile-menu {
+        display: none;
+        position: fixed;
+        top: 64px; left: 0; right: 0; bottom: 0;
+        z-index: 50;
+        background: var(--bg);
+        padding: 32px 24px;
+        flex-direction: column; gap: 18px;
+        border-top: 3px solid var(--text);
+      }
+      .d4-mobile-menu a {
+        font-family: var(--display);
+        font-size: 28px;
+        color: var(--text);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--text);
+      }
+      .d4-mobile-menu[data-open="true"] { display: flex; }
+
+      /* ─── Sections ─── */
+      .d4-section {
+        position: relative;
+        padding-block: 56px;
+        padding-inline: max(56px, calc((100% - 1000px) / 2));
+        scroll-margin-top: 88px;
+      }
+      .d4-eyebrow {
+        display: inline-flex; align-items: center; gap: 10px;
+        font-family: var(--mono);
+        font-size: 11px; letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-3);
+      }
+      .d4-eb-bar { width: 28px; height: 3px; background: var(--accent); }
+      .d4-eb-id  { color: var(--accent); }
+
+      .d4-h1 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(40px, 5.2vw, 72px);   /* sized so the longest line ("TO AGENTIC SCALE.") fits in the 1000px column */
+        line-height: 0.96;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        margin: 18px 0 0;
+      }
+      .d4-h1 em {
+        font-family: var(--display);
+        font-style: normal;
+        font-weight: 400;
+        color: var(--bg);
+        background: var(--accent-2);
+        padding: 0 0.12em;
+        letter-spacing: -0.02em;
+        white-space: nowrap;          /* Agentic Scale stays together */
+      }
+      /* Two-line H1 variants — desktop puts <br/> after Effort, mobile puts it after To */
+      .d4-h1-mobile { display: none; }
+      /* Force "to <em>Agentic Scale.</em>" to stay together as one unbreakable unit.
+         More robust than nbsp + nowrap on the em alone — browsers can treat a padded
+         inline element as a separate measurement and break before it. */
+      .d4-h1-line { white-space: nowrap; }
+      @media (max-width: 600px) {
+        .d4-h1-desktop { display: none; }
+        .d4-h1-mobile { display: inline; }
+        .d4-h1-line { white-space: normal; }  /* let it wrap if the viewport is truly narrow */
+        .d4-h1 em { white-space: normal; }
+      }
+      .d4-h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(32px, 4.2vw, 60px);
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        margin: 12px 0 0;
+        text-wrap: balance;
+        max-width: 14ch;
+      }
+      .d4-h2 em {
+        font-family: var(--display);
+        font-style: normal;
+        font-weight: 400;
+        color: var(--text);
+        background: var(--accent-3);
+        padding: 0 0.12em;
+        letter-spacing: -0.02em;
+      }
+
+      /* ─── Hero ─── */
+      .d4-hero {
+        padding-block: 40px 64px;
+        min-height: calc(100vh - 70px);
+        display: flex; flex-direction: column; justify-content: center;
+        position: relative;
+      }
+      .d4-hero-grid {
+        position: absolute; inset: 0;
+        pointer-events: none; z-index: 0;
+        background-image:
+          linear-gradient(to right, rgba(0,0,0,0.10) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0,0,0,0.10) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(ellipse 70% 50% at 70% 50%, black, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 50% at 70% 50%, black, transparent 75%);
+        opacity: 0.7;
+      }
+      .d4-hero-corner {
+        position: absolute; z-index: 1;
+        width: 50px; height: 50px;
+        border-width: 4px; border-style: solid;
+      }
+      /* Anchored OUTSIDE the 1000px content column on wide screens, near the
+         viewport edge on narrow ones — so the L-brackets never cut into the
+         H1 text or the experience-across separator. */
+      .d4-hero-corner.tl {
+        top: 16px;
+        left: max(16px, calc((100% - 1000px) / 2 - 50px));
+        border-color: var(--accent);
+        border-right: 0; border-bottom: 0;
+      }
+      .d4-hero-corner.br {
+        bottom: 16px;
+        right: max(16px, calc((100% - 1000px) / 2 - 50px));
+        border-color: var(--accent-2);
+        border-left: 0; border-top: 0;
+      }
+      .d4-hero-body { position: relative; z-index: 2; max-width: 1500px; }
+      .d4-hero-bottom { margin-top: 32px; max-width: 720px; }
+      .d4-lede {
+        font-size: clamp(16px, 1.2vw, 19px);
+        line-height: 1.55; color: var(--text-2);
+        margin: 0;
+        text-wrap: pretty;
+        font-family: var(--sans);
+      }
+      .d4-fnote {
+        margin-top: 28px;
+        max-width: 640px;
+        padding: 16px 20px;
+        background: var(--paper);
+        border-left: 6px solid var(--accent);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 18px;
+        align-items: start;
+      }
+      .d4-fnote-label {
+        font-family: var(--mono);
+        font-size: 9.5px; letter-spacing: 0.16em;
+        text-transform: uppercase; color: var(--accent);
+        white-space: nowrap;
+        padding-top: 3px;
+      }
+      .d4-fnote-quote {
+        font-family: var(--sans);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px; line-height: 1.55;
+        margin: 0; color: var(--text-2);
+        text-wrap: pretty;
+      }
+      .d4-hero-bar {
+        display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
+        margin-top: 36px; padding-top: 18px;
+        border-top: 2px solid var(--text);
+        max-width: 980px;
+      }
+      .d4-exp-label {
+        font-family: var(--mono);
+        font-size: 10.5px; letter-spacing: 0.16em;
+        text-transform: uppercase; color: var(--text);
+      }
+      .d4-exp-logos { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+      .d4-exp-logos img {
+        height: 18px; width: auto;
+        filter: grayscale(1) opacity(0.65);
+        transition: filter .35s, transform .35s;
+      }
+      .d4-exp-logos img:hover { filter: grayscale(0) opacity(1); transform: translateY(-1px); }
+
+      .d4-scroll-cue {
+        position: absolute;
+        bottom: 22px;
+        right: max(56px, calc((100% - 1000px) / 2));
+        z-index: 3;
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
+        font-family: var(--mono);
+        font-size: 10px; letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-3);
+      }
+      .d4-scroll-cue .line {
+        width: 2px; height: 36px;
+        background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+        background-size: 100% 200%;
+        animation: d4ScrollLine 2.2s linear infinite;
+      }
+      @keyframes d4ScrollLine {
+        from { background-position: 0 100%; }
+        to   { background-position: 0 -100%; }
+      }
+
+      /* ─── Opportunity ─── */
+      .d4-opp { padding-top: 64px; padding-bottom: 72px; }
+      .d4-opp-head { max-width: 880px; margin-bottom: 40px; }
+      .d4-opp-intro {
+        font-size: clamp(14px, 1vw, 16px);
+        line-height: 1.55; color: var(--text-2);
+        max-width: 60ch; margin: 14px 0 0;
+        text-wrap: pretty;
+      }
+      .d4-opp-stack { display: flex; flex-direction: column; gap: 0; }
+      .d4-opp-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 110px 1fr 1.3fr;
+        gap: 40px;
+        align-items: start;
+        padding: 36px 0;
+        border-top: 3px solid var(--text);
+      }
+      .d4-opp-row:last-child { border-bottom: 3px solid var(--text); }
+      .d4-opp-num {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(56px, 6vw, 80px);
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+        color: var(--text);
+        margin: 0;
+        position: relative;
+      }
+      .d4-opp-num::after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: 0.18em;
+        width: 0.7em; height: 8px;
+        background: var(--accent);
+      }
+      .d4-opp-row:nth-child(1) .d4-opp-num::after { background: var(--accent); }
+      .d4-opp-row:nth-child(2) .d4-opp-num::after { background: var(--accent-2); }
+      .d4-opp-row:nth-child(3) .d4-opp-num::after { background: var(--accent-3); }
+      .d4-opp-mid h3 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(20px, 1.8vw, 26px);
+        line-height: 1.15;
+        letter-spacing: -0.018em;
+        margin: 6px 0 0;
+        text-wrap: balance;
+        /* keep natural sentence case — the pillar titles read as statements */
+      }
+      .d4-opp-kicker {
+        font-family: var(--mono);
+        font-size: 10px; letter-spacing: 0.18em;
+        text-transform: uppercase; color: var(--text);
+        background: var(--accent-3);
+        padding: 3px 8px;
+        display: inline-block;
+      }
+      .d4-opp-body {
+        font-size: 14.5px; line-height: 1.6;
+        color: var(--text-2); margin: 0;
+        text-wrap: pretty;
+      }
+
+      /* ─── Process ─── */
+      .d4-process {
+        padding-block: 64px;
+        padding-inline: max(56px, calc((100% - 1000px) / 2));
+        background: var(--bg-2);            /* ochre band */
+        border-top: 3px solid var(--text);
+        border-bottom: 3px solid var(--text);
+      }
+      .d4-process-head { max-width: 880px; margin-bottom: 0; }
+      /* Headline now lives inside the sticky col — adapt for narrower width */
+      .d4-sticky-col .d4-process-head { max-width: none; }
+      .d4-sticky-col .d4-h2 {
+        font-size: clamp(28px, 3.2vw, 40px);
+        max-width: none;
+      }
+      .d4-sticky-col .d4-opp-intro { max-width: none; }
+      .d4-process-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+        gap: 56px;
+        align-items: start;
+      }
+      .d4-sticky-col {
+        position: sticky; top: 100px;
+        align-self: start;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .d4-sticky-viz {
+        position: relative;
+        width: 78%;
+        margin: 0 auto;
+        aspect-ratio: 1;
+      }
+      .d4-sticky-viz::before {
+        content: "";
+        position: absolute; inset: 8%;
+        border: 2px solid var(--text);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .d4-sticky-viz svg { width: 100%; height: 100%; display: block; }
+      .d4-sticky-stage-meta {
+        margin-top: 18px;
+        display: flex; justify-content: space-between; align-items: baseline;
+        padding-top: 18px;
+        border-top: 2px solid var(--text);
+        font-family: var(--mono);
+        font-size: 10.5px; letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        gap: 12px;
+      }
+      .d4-sticky-stage-id { color: var(--accent); }
+      .d4-sticky-stage-name {
+        color: var(--text);
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 14px;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        flex: 1;
+        text-align: center;
+      }
+
+      /* Stage panels */
+      .d4-stage-block {
+        min-height: 70vh;
+        display: flex; flex-direction: column;
+        justify-content: center;
+        padding: 28px 0;
+        border-bottom: 2px dashed rgba(0,0,0,0.30);
+        opacity: 0.55;
+        transition: opacity .6s ease;
+      }
+      .d4-stage-block:last-child { border-bottom: 0; }
+      .d4-stage-block.in { opacity: 1; }
+      .d4-stage-head {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 18px;
+        align-items: end;
+        padding-bottom: 14px;
+        border-bottom: 2px solid var(--text);
+      }
+      .d4-stage-badge {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        padding: 10px 14px 9px;
+        background: var(--accent);
+        color: #fff;
+        min-width: 76px;
+        position: relative;
+        overflow: hidden;
+      }
+      .d4-stage-badge::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 3px;
+        background: var(--text);
+      }
+      .d4-stage-badge-n {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .d4-stage-badge-of {
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.7);
+        margin-top: 4px;
+      }
+      .d4-stage-head-text { padding-bottom: 2px; }
+      .d4-stage-title {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(22px, 2.2vw, 28px);   /* trimmed max so AUTONOMOUS ORCHESTRATION fits */
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin: 0;
+        text-transform: uppercase;
+        white-space: nowrap;                   /* no mid-title break */
+      }
+      @media (max-width: 920px) {
+        .d4-stage-title { white-space: normal; font-size: clamp(20px, 5vw, 24px); }
+      }
+      .d4-stage-sub {
+        font-family: var(--sans);
+        font-weight: 500;
+        font-style: normal;
+        font-size: clamp(13px, 1vw, 15px);
+        color: var(--text-2);
+        margin: 4px 0 0;
+      }
+      .d4-stage-body {
+        margin-top: 16px;
+        font-size: 14.5px; line-height: 1.6;
+        color: var(--text-2);
+        max-width: 60ch;
+        text-wrap: pretty;
+      }
+      .d4-stage-cols {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 0;
+        margin-top: 22px;
+        border-top: 2px solid var(--text);
+      }
+      .d4-stage-focus-card,
+      .d4-stage-outcome-card {
+        background: transparent;
+        border: 0;
+        padding: 14px 18px 4px 0;
+      }
+      .d4-stage-outcome-card {
+        padding-left: 22px;
+        border-left: 2px solid var(--text);
+      }
+      .d4-stage-label {
+        font-family: var(--mono);
+        font-size: 9.5px; letter-spacing: 0.18em;
+        text-transform: uppercase; color: var(--text);
+        margin-bottom: 10px;
+        display: inline-flex; align-items: center; gap: 7px;
+      }
+      .d4-stage-label::before {
+        content: "";
+        width: 7px; height: 7px;
+        background: var(--accent);
+      }
+      .d4-stage-outcome-card .d4-stage-label { color: var(--accent-2); }
+      .d4-stage-focus { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+      .d4-stage-focus li {
+        position: relative;
+        padding-left: 18px;
+        font-size: 13.5px; color: var(--text);
+        line-height: 1.5;
+      }
+      .d4-stage-focus li::before {
+        content: "\2192";
+        position: absolute;
+        left: 0; top: 0;
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 13.5px;
+      }
+      .d4-stage-outcome {
+        font-family: var(--sans);
+        font-weight: 700;          /* takeaway weight */
+        font-size: 16px;           /* up from 13.5px */
+        line-height: 1.7;          /* more breathing room */
+        color: var(--text);
+        margin: 0;
+        letter-spacing: -0.005em;
+      }
+
+      /* Sticky viz visualizations */
+      .d4-viz-stage { transition: opacity .6s; }
+      .d4-viz-fill-text   { fill: var(--text); }
+      .d4-viz-fill-accent { fill: var(--accent); }
+      .d4-viz-stroke-text { stroke: var(--text); fill: none; }
+      .d4-viz-stroke-accent { stroke: var(--accent); fill: none; }
+
+      .d4-orbit-rotate-1 { animation: d4Spin 16s linear infinite; transform-origin: 100px 100px; }
+      .d4-orbit-rotate-2 { animation: d4Spin 24s linear infinite reverse; transform-origin: 100px 100px; }
+      .d4-orbit-rotate-3 { animation: d4Spin 30s linear infinite; transform-origin: 100px 100px; }
+      @keyframes d4Spin { to { transform: rotate(360deg); } }
+      .d4-orbit-glow { animation: d4OrbitGlow 3s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+      @keyframes d4OrbitGlow {
+        0%, 100% { opacity: 0.16; transform: scale(1); }
+        50%      { opacity: 0.34; transform: scale(1.6); }
+      }
+
+      /* ─── Team ─── */
+      .d4-team {
+        padding-block: 64px;
+        padding-inline: max(56px, calc((100% - 1000px) / 2));
+      }
+      .d4-team-head { max-width: 880px; margin-bottom: 32px; }
+      .d4-team-intro {
+        font-size: clamp(14px, 1vw, 16px);
+        line-height: 1.55; color: var(--text-2);
+        max-width: 60ch; margin: 14px 0 0;
+      }
+      .d4-members {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .d4-member {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 18px;
+        align-items: start;
+        border: 2px solid var(--text);
+        padding: 20px;
+        position: relative;
+      }
+      .d4-members > .d4-member:nth-child(1) { background: var(--accent-3); }
+      .d4-members > .d4-member:nth-child(2) { background: var(--paper); }
+      .d4-member-photo {
+        position: relative;
+        width: 96px; height: 96px;
+        border: 2px solid var(--text);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .d4-member-photo img {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center 25%;
+        filter: grayscale(0.4) contrast(1.05);
+        transition: filter .6s, transform .8s;
+        display: block;
+      }
+      .d4-member:hover .d4-member-photo img {
+        filter: grayscale(0) contrast(1);
+        transform: scale(1.06);
+      }
+      .d4-member-tag {
+        display: inline-block;
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 10px; letter-spacing: 0.16em;
+        margin-bottom: 4px;
+      }
+      .d4-member-role {
+        font-family: var(--mono);
+        font-size: 10.5px; letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .d4-member-name {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(18px, 1.5vw, 22px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin: 4px 0 8px;
+        text-transform: uppercase;
+      }
+      .d4-member-bio {
+        font-size: 13.5px; line-height: 1.55;
+        color: var(--text-2); margin: 0;
+        text-wrap: pretty;
+      }
+      .d4-member-actions {
+        display: flex; gap: 14px; margin-top: 12px;
+        align-items: center;
+      }
+      .d4-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: var(--text); text-decoration: none;
+        font-size: 13px;
+        font-family: var(--mono);
+        letter-spacing: 0.04em;
+        padding-bottom: 2px;
+        border-bottom: 2px solid var(--text);
+        transition: color .25s, border-color .25s;
+      }
+      .d4-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+      .d4-network {
+        margin-top: 32px; padding-top: 20px;
+        border-top: 2px solid var(--text);
+        display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      }
+      .d4-network-label {
+        font-family: var(--mono);
+        font-size: 11px; letter-spacing: 0.14em;
+        color: var(--text-3);
+      }
+      .d4-network-row { display: flex; gap: 10px; flex-wrap: wrap; }
+      .d4-chip {
+        padding: 6px 12px;
+        border: 2px solid var(--text);
+        border-radius: 0;
+        font: 500 12px/1 var(--mono);
+        color: var(--text);
+        background: transparent;
+        transition: background .3s, color .3s;
+      }
+      .d4-chip:hover { background: var(--text); color: var(--bg); }
+
+      /* ─── Insights — dark band ─── */
+      .d4-insights {
+        padding: 64px 0;
+        background: var(--text);
+        color: var(--bg);
+        position: relative;
+        overflow: hidden;
+      }
+      .d4-insights-head {
+        padding-inline: max(56px, calc((100% - 1000px) / 2));
+        display: flex; justify-content: space-between; align-items: end;
+        gap: 24px; flex-wrap: wrap;
+        margin-bottom: 32px;
+      }
+      .d4-insights .d4-eyebrow { color: rgba(244,241,233,0.6); }
+      .d4-insights .d4-eyebrow .d4-eb-bar { background: var(--accent); }
+      .d4-insights .d4-eyebrow .d4-eb-id  { color: var(--accent); }
+      .d4-insights .d4-h2 { color: var(--bg); }
+      .d4-insights .d4-h2 em { background: var(--accent); color: #fff; }
+
+      .d4-carousel-nav { display: inline-flex; gap: 8px; align-items: center; }
+      .d4-carousel-btn {
+        appearance: none;
+        width: 44px; height: 44px;
+        border-radius: 0;
+        border: 2px solid var(--bg);
+        background: transparent;
+        color: var(--bg);
+        display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        transition: background .2s, border-color .2s, color .2s, opacity .2s;
+      }
+      .d4-carousel-btn:hover:not(:disabled) {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .d4-carousel-btn:disabled { opacity: 0.28; cursor: not-allowed; }
+      .d4-carousel-btn svg { width: 18px; height: 18px; }
+
+      .d4-carousel {
+        display: flex;
+        gap: 16px;
+        padding-block: 4px;
+        padding-inline: max(56px, calc((100% - 1000px) / 2));
+        scroll-padding-inline: max(56px, calc((100% - 1000px) / 2));
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+      }
+      .d4-carousel::-webkit-scrollbar { display: none; }
+      .d4-carousel .d4-post { scroll-snap-align: start; }
+
+      .d4-post {
+        flex: 0 0 360px;
+        display: flex; flex-direction: column; gap: 10px;
+        padding: 22px;
+        background: var(--paper);
+        color: var(--text);
+        border: 2px solid var(--accent-2);
+        text-decoration: none;
+        transition: background .35s, border-color .35s, transform .35s;
+      }
+      .d4-post:hover {
+        background: var(--accent-3);
+        border-color: var(--text);
+        transform: translateY(-3px);
+      }
+      .d4-post-meta {
+        display: flex; justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 10.5px; letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-3);
+      }
+      .d4-post-id { color: var(--accent); }
+      .d4-post-title {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.22;
+        letter-spacing: -0.012em;
+        margin: 0;
+        text-wrap: balance;
+        text-transform: uppercase;
+      }
+      .d4-post-body {
+        font-size: 13px; line-height: 1.5;
+        color: var(--text-2);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .d4-post-link {
+        margin-top: auto;
+        font-family: var(--mono); font-size: 12px;
+        color: var(--accent);
+        letter-spacing: 0.04em;
+      }
+
+      /* ─── Contact ─── */
+      .d4-contact {
+        padding-block: 72px 56px;
+        padding-inline: max(56px, calc((100% - 1000px) / 2));
+        position: relative;
+        min-height: 60vh;
+        display: flex; flex-direction: column; justify-content: center;
+      }
+      .d4-contact-body {
+        font-size: clamp(15px, 1.1vw, 17px);
+        line-height: 1.55; color: var(--text-2);
+        margin: 18px 0 0; max-width: 60ch;
+        text-wrap: pretty;
+      }
+      .d4-contact-direct {
+        margin: 28px 0 20px;
+        padding: 14px 0;
+        border-top: 3px solid var(--text);
+        border-bottom: 3px solid var(--text);
+        display: flex; justify-content: space-between; align-items: baseline;
+        gap: 14px; flex-wrap: wrap;
+      }
+      .d4-contact-direct-label {
+        font-family: var(--mono); font-size: 11px;
+        letter-spacing: 0.14em; color: var(--text-3);
+      }
+      .d4-contact-email {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(20px, 1.6vw, 28px);
+        color: var(--text); text-decoration: none;
+        letter-spacing: -0.01em;
+        text-transform: lowercase;
+        transition: color .25s;
+      }
+      .d4-contact-email:hover { color: var(--accent); }
+      .d4-contact-actions { margin-top: 8px; }
+      .d4-contact-actions .d4-cta { padding: 16px 26px; font-size: 14px; }
+      .d4-contact-footer {
+        margin-top: 48px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 10.5px; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--text-4);
+        display: flex; justify-content: space-between; gap: 16px;
+      }
+
+      /* ─── Reveal-on-scroll ─── */
+      .d4-reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity .7s ease-out, transform .7s ease-out;
+        will-change: opacity, transform;
+      }
+      .d4-reveal.is-shown {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .d4-reveal, .d4-reveal.is-shown {
+          opacity: 1; transform: none; transition: none;
+        }
+        .d4-orbit-rotate-1, .d4-orbit-rotate-2, .d4-orbit-rotate-3,
+        .d4-orbit-glow, .d4-scroll-cue .line {
+          animation: none;
+        }
+        html { scroll-behavior: auto; }
+      }
+
+      /* ─── Responsive ─── */
+      @media (max-width: 1000px) {
+        .d4-nav { padding: 12px 24px; gap: 16px; }
+      }
+      @media (max-width: 920px) {
+        .d4-nav-links, .d4-nav .d4-cta { display: none; }
+        .d4-nav-burger { display: inline-flex; }
+        .d4-section { padding-inline: 24px; padding-block: 56px; }
+        .d4-process, .d4-team { padding-inline: 24px; padding-block: 56px; }
+        .d4-contact { padding-inline: 24px; padding-block: 64px 48px; }
+        .d4-insights-head { padding-inline: 24px; margin-bottom: 24px; }
+        .d4-carousel {
+          padding-inline: 24px;
+          scroll-padding-inline: 24px;
+          mask-image: none;            /* #4: drop edge fades on mobile — viewport is too narrow */
+          -webkit-mask-image: none;
+        }
+        .d4-opp-row { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+        .d4-opp-num { font-size: 64px; }
+
+        /* #2 (revised): Process — image sits inline at top of section on mobile.
+           Sticky doesn't work here without overlapping copy: the viz lives in the
+           center of the viewport and stage text flows full-width below/around it,
+           so any sticky position blocks the title and body. Inline lets copy flow
+           cleanly below the image, in natural reading order. */
+        .d4-process-grid { grid-template-columns: 1fr; gap: 28px; }
+        .d4-sticky-col {
+          display: flex;                /* keep flex column from base rule */
+          position: relative;           /* not sticky */
+          top: auto;
+        }
+        .d4-sticky-viz {
+          position: relative;
+          top: auto;
+          width: 60%;
+          max-width: 280px;
+          margin: 0 auto;
+          background: transparent;
+          border: 0;
+          border-radius: 0;
+          padding: 0;
+          z-index: auto;
+        }
+        .d4-sticky-viz::before { display: block; }     /* restore the desktop circle outline */
+        .d4-sticky-stage-meta { display: none; }       /* still hide — duplicates the stage badge that follows */
+
+        /* #3: Team — photo above bio so the bio doesn't get squeezed into a narrow column */
+        .d4-members { grid-template-columns: 1fr; gap: 16px; }
+        .d4-member { grid-template-columns: 1fr; gap: 14px; padding: 18px; }
+        .d4-member-photo { width: 80px; height: 80px; }
+
+        .d4-stage-block { min-height: auto; opacity: 1; padding: 20px 0; }
+        .d4-stage-cols { grid-template-columns: 1fr; border-top: 0; }
+        .d4-stage-outcome-card { padding-left: 0; border-left: 0; padding-top: 14px; border-top: 2px solid var(--text); }
+        .d4-hero { padding-top: 24px; padding-bottom: 48px; min-height: auto; }
+        .d4-hero-corner { width: 36px; height: 36px; border-width: 3px; }
+        .d4-hero-corner.tl { top: 10px; left: 12px; }
+        .d4-hero-corner.br { bottom: 10px; right: 12px; }
+        .d4-scroll-cue { display: none; }
+        .d4-post { flex-basis: 280px; }
+        .d4-contact-direct { flex-direction: column; align-items: flex-start; gap: 8px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="d4-root skin-bauhaus">
+
+      <a href="#hero" class="d4-skip">Skip to content</a>
+
+      <!-- ─── Nav ─── -->
+      <nav class="d4-nav">
+        <a href="#hero" class="d4-brand" aria-label="Sprint Assembly home">
+          <span class="d4-brand-mark" aria-hidden="true">
+            <span class="d4-brand-mark-s">S</span><span class="d4-brand-mark-a">A</span>
+          </span>
+          <span class="d4-brand-name">Sprint Assembly</span>
+        </a>
+        <div class="d4-nav-links">
+          <a class="d4-nav-link" href="#opportunity" data-nav="opportunity"><span>Opportunity</span></a>
+          <a class="d4-nav-link" href="#process" data-nav="process"><span>Process</span></a>
+          <a class="d4-nav-link" href="#team" data-nav="team"><span>Team</span></a>
+          <a class="d4-nav-link" href="#insights" data-nav="insights"><span>Insights</span></a>
+          <a class="d4-nav-link" href="#contact" data-nav="contact"><span>Contact</span></a>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; justify-self:end;">
+          <a href="#contact" class="d4-cta">
+            <span>Book Call</span>
+            <span class="d4-cta-arrow">&rarr;</span>
+          </a>
+          <button type="button" class="d4-nav-burger" id="nav-burger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-menu">
+            <svg class="open" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+              <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+            </svg>
+            <svg class="close" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+              <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- ─── Mobile menu ─── -->
+      <div class="d4-mobile-menu" id="mobile-menu" data-open="false">
+        <a href="#opportunity">Opportunity</a>
+        <a href="#process">Process</a>
+        <a href="#team">Team</a>
+        <a href="#insights">Insights</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <!-- ─── Hero ─── -->
+      <section id="hero" class="d4-section d4-hero">
+        <div class="d4-hero-grid" aria-hidden="true"></div>
+        <div class="d4-hero-corner tl" aria-hidden="true"></div>
+        <div class="d4-hero-corner br" aria-hidden="true"></div>
+        <div class="d4-hero-body">
+          <div class="d4-eyebrow d4-reveal">
+            <span class="d4-eb-bar"></span>
+            <span class="d4-eb-id">The New Standard of Operations</span>
+          </div>
+          <h1 class="d4-h1 d4-reveal">
+            <span class="d4-h1-desktop">From Manual Effort<br/><span class="d4-h1-line">to <em>Agentic Scale.</em></span></span>
+            <span class="d4-h1-mobile">From Manual Effort to<br/><em>Agentic Scale.</em></span>
+          </h1>
+          <div class="d4-hero-bottom d4-reveal">
+            <p class="d4-lede">We replace your manual operational work with AI agents that make decisions and act in real time &mdash; across marketing, customer success, and revenue. The result: a business that scales on systems, not headcount.</p>
+          </div>
+          <aside class="d4-fnote d4-reveal">
+            <span class="d4-fnote-label">Founders&rsquo; Note</span>
+            <p class="d4-fnote-quote">Sprint Assembly is led by senior operators who&rsquo;ve scaled growth across global enterprises. We work in focused sprints to move your business from manual execution to agentic scale &mdash; wherever work gets stuck.</p>
+          </aside>
+          <div class="d4-hero-bar d4-reveal">
+            <span class="d4-exp-label">Experience across</span>
+            <div class="d4-exp-logos">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg" alt="BCG" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/P%26G_logo.svg" alt="P&amp;G" />
+            </div>
+          </div>
+        </div>
+        <div class="d4-scroll-cue" aria-hidden="true">
+          <span>Scroll</span>
+          <span class="line"></span>
+          <span>&darr;</span>
+        </div>
+      </section>
+
+      <!-- ─── Opportunity ─── -->
+      <section id="opportunity" class="d4-section d4-opp">
+        <header class="d4-opp-head d4-reveal">
+          <div class="d4-eyebrow">
+            <span class="d4-eb-bar"></span>
+            <span class="d4-eb-id">Business Impact</span>
+          </div>
+          <h2 class="d4-h2">The <em>opportunity.</em></h2>
+          <p class="d4-opp-intro">You can&rsquo;t scale through manual effort alone. Autonomous systems change the math &mdash; across output, decision speed, and margin.</p>
+        </header>
+        <div class="d4-opp-stack">
+          <article class="d4-opp-row d4-reveal">
+            <div class="d4-opp-num">01</div>
+            <div class="d4-opp-mid">
+              <div class="d4-opp-kicker">Productivity</div>
+              <h3>Scale your business without hiring more people.</h3>
+            </div>
+            <p class="d4-opp-body">Eliminate the manual bottlenecks slowing you down. By automating data integration and deploying agents across repetitive workflows, we build a standardized operating model that scales. Your organization increases total output without linear increases in headcount.</p>
+          </article>
+          <article class="d4-opp-row d4-reveal">
+            <div class="d4-opp-num">02</div>
+            <div class="d4-opp-mid">
+              <div class="d4-opp-kicker">Performance</div>
+              <h3>Real-time decisions across every workflow.</h3>
+            </div>
+            <p class="d4-opp-body">Our autonomous systems react to operational signals the moment they happen. An underperforming ad set, a support queue backing up, a pipeline stage going cold &mdash; the right decision runs automatically, not after a weekly review.</p>
+          </article>
+          <article class="d4-opp-row d4-reveal">
+            <div class="d4-opp-num">03</div>
+            <div class="d4-opp-mid">
+              <div class="d4-opp-kicker">Profit</div>
+              <h3>Increase profitability through smart orchestration.</h3>
+            </div>
+            <p class="d4-opp-body">Turn your business data into an intelligent orchestration layer. By automating the logic behind how work moves &mdash; acquisition, retention, operations, revenue &mdash; we increase margin and protect quality. The result is an operating model that is both predictable and profitable.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ─── Process ─── -->
+      <section id="process" class="d4-section d4-process">
+        <div class="d4-process-grid">
+          <div class="d4-sticky-col">
+            <header class="d4-process-head d4-reveal">
+              <div class="d4-eyebrow">
+                <span class="d4-eb-bar"></span>
+                <span class="d4-eb-id">Process</span>
+              </div>
+              <h2 class="d4-h2">How we <em>modernize</em> you.</h2>
+              <p class="d4-opp-intro">Three stages, each with standalone value. Together they move your operations from manual effort to agentic scale.</p>
+            </header>
+            <div class="d4-sticky-viz" aria-hidden="true">
+              <svg viewBox="0 0 200 200">
+                <!-- CHAOS — scattered blobs that converge as stage advances -->
+                <g class="d4-viz-stage" data-viz-stage="0" style="opacity: 1;">
+                  <circle cx="48"  cy="58"  r="16" class="d4-viz-fill-text" opacity="0.78" />
+                  <circle cx="32"  cy="130" r="11" class="d4-viz-fill-text" opacity="0.6" />
+                  <ellipse cx="108" cy="86" rx="22" ry="18" class="d4-viz-fill-text" opacity="0.85" />
+                  <circle cx="162" cy="50"  r="7"  class="d4-viz-fill-accent" opacity="0.85" />
+                  <ellipse cx="120" cy="148" rx="14" ry="10" class="d4-viz-fill-text" opacity="0.7" />
+                  <circle cx="74"  cy="108" r="5"  class="d4-viz-fill-accent" opacity="0.7" />
+                  <circle cx="148" cy="158" r="6"  class="d4-viz-fill-text" opacity="0.5" />
+                  <circle cx="138" cy="68"  r="4"  class="d4-viz-fill-text" opacity="0.55" />
+                </g>
+                <!-- RINGS — concentric, focused -->
+                <g class="d4-viz-stage" data-viz-stage="1" style="opacity: 0;">
+                  <circle cx="100" cy="100" r="86" class="d4-viz-stroke-text" stroke-width="1.2" opacity="0.6" />
+                  <circle cx="100" cy="100" r="68" class="d4-viz-stroke-text" stroke-width="1.2" opacity="0.7" />
+                  <circle cx="100" cy="100" r="50" class="d4-viz-stroke-text" stroke-width="1.2" opacity="0.8" />
+                  <circle cx="100" cy="100" r="32" class="d4-viz-stroke-text" stroke-width="1.2" opacity="0.9" />
+                  <circle cx="100" cy="100" r="16" class="d4-viz-stroke-accent" stroke-width="1.8" />
+                  <circle cx="100" cy="100" r="5"  class="d4-viz-fill-accent" />
+                </g>
+                <!-- ORBIT — autonomous, self-organizing -->
+                <g class="d4-viz-stage" data-viz-stage="2" style="opacity: 0;">
+                  <circle cx="100" cy="100" r="86" class="d4-viz-stroke-text" opacity="0.35" />
+                  <circle cx="100" cy="100" r="60" class="d4-viz-stroke-text" opacity="0.35" />
+                  <circle cx="100" cy="100" r="32" class="d4-viz-stroke-accent" opacity="0.5" />
+                  <circle cx="100" cy="100" r="14" class="d4-viz-fill-accent d4-orbit-glow" />
+                  <circle cx="100" cy="100" r="6"  class="d4-viz-fill-accent" />
+                  <g class="d4-orbit-rotate-1">
+                    <circle cx="186" cy="100" r="4.5" class="d4-viz-fill-accent" />
+                  </g>
+                  <g class="d4-orbit-rotate-2">
+                    <circle cx="160" cy="100" r="3.8" class="d4-viz-fill-accent" />
+                    <circle cx="40"  cy="100" r="3.8" class="d4-viz-fill-accent" />
+                  </g>
+                  <g class="d4-orbit-rotate-3">
+                    <circle cx="132" cy="100" r="3" class="d4-viz-fill-accent" />
+                    <circle cx="100" cy="68"  r="3" class="d4-viz-fill-accent" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="d4-sticky-stage-meta">
+              <span class="d4-sticky-stage-id" id="sticky-stage-id">01</span>
+              <span class="d4-sticky-stage-name" id="sticky-stage-name">Diagnostic Sprint</span>
+            </div>
+          </div>
+
+          <div class="d4-stages-col">
+            <article class="d4-stage-block in" data-stage-idx="0">
+              <div class="d4-stage-head">
+                <div class="d4-stage-badge">
+                  <span class="d4-stage-badge-n">01</span>
+                  <span class="d4-stage-badge-of">of 03</span>
+                </div>
+                <div class="d4-stage-head-text">
+                  <h3 class="d4-stage-title">Diagnostic Sprint</h3>
+                  <div class="d4-stage-sub">Analysis before assembly</div>
+                </div>
+              </div>
+              <p class="d4-stage-body">Every partnership begins with a time-capped audit of your growth and operations stack. This sprint identifies where work is leaking &mdash; human effort, missed signals, stalled handoffs &mdash; and locates your highest-margin opportunities for automation.</p>
+              <div class="d4-stage-cols">
+                <div class="d4-stage-focus-card">
+                  <div class="d4-stage-label">Focus areas</div>
+                  <ul class="d4-stage-focus">
+                    <li>Workflow and process efficiency</li>
+                    <li>Data and measurement maturity</li>
+                    <li>Automation opportunity ranking</li>
+                    <li>AI and agent readiness</li>
+                  </ul>
+                </div>
+                <div class="d4-stage-outcome-card">
+                  <div class="d4-stage-label">Outcome</div>
+                  <p class="d4-stage-outcome">A clear, prioritized view of where change will drive the highest return.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="d4-stage-block" data-stage-idx="1">
+              <div class="d4-stage-head">
+                <div class="d4-stage-badge">
+                  <span class="d4-stage-badge-n">02</span>
+                  <span class="d4-stage-badge-of">of 03</span>
+                </div>
+                <div class="d4-stage-head-text">
+                  <h3 class="d4-stage-title">Instrumentation</h3>
+                  <div class="d4-stage-sub">Clean data. Clear workflows.</div>
+                </div>
+              </div>
+              <p class="d4-stage-body">Agentic systems are only as reliable as the substrate beneath them. We get your data, processes, and tooling to a state where agents can run on top without breaking &mdash; the unglamorous groundwork that makes automation actually work.</p>
+              <div class="d4-stage-cols">
+                <div class="d4-stage-focus-card">
+                  <div class="d4-stage-label">Focus areas</div>
+                  <ul class="d4-stage-focus">
+                    <li>Unified data &amp; measurement infrastructure</li>
+                    <li>Workflow definition and documentation</li>
+                    <li>Governance, guardrails, and eval criteria</li>
+                    <li>Automation-readiness across systems</li>
+                  </ul>
+                </div>
+                <div class="d4-stage-outcome-card">
+                  <div class="d4-stage-label">Outcome</div>
+                  <p class="d4-stage-outcome">Your data, processes, and governance are automation-ready.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="d4-stage-block" data-stage-idx="2">
+              <div class="d4-stage-head">
+                <div class="d4-stage-badge">
+                  <span class="d4-stage-badge-n">03</span>
+                  <span class="d4-stage-badge-of">of 03</span>
+                </div>
+                <div class="d4-stage-head-text">
+                  <h3 class="d4-stage-title">Autonomous Orchestration</h3>
+                  <div class="d4-stage-sub">Scale independent of headcount</div>
+                </div>
+              </div>
+              <p class="d4-stage-body">Finally, we transition your team from manual execution to system oversight. We design agentic workflows that manage day-to-day decisions across acquisition, operations, customer success, and revenue &mdash; an operating layer that scales without adding headcount.</p>
+              <div class="d4-stage-cols">
+                <div class="d4-stage-focus-card">
+                  <div class="d4-stage-label">Focus areas</div>
+                  <ul class="d4-stage-focus">
+                    <li>Agentic workflow orchestration</li>
+                    <li>Automated decisioning (budget, routing, prioritization)</li>
+                    <li>Predictive operational &amp; CRM orchestration</li>
+                    <li>Real-time measurement and feedback loops</li>
+                  </ul>
+                </div>
+                <div class="d4-stage-outcome-card">
+                  <div class="d4-stage-label">Outcome</div>
+                  <p class="d4-stage-outcome">Your business runs on agentic workflows, not manual effort.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Team ─── -->
+      <section id="team" class="d4-section d4-team">
+        <header class="d4-team-head d4-reveal">
+          <div class="d4-eyebrow">
+            <span class="d4-eb-bar"></span>
+            <span class="d4-eb-id">Team</span>
+          </div>
+          <h2 class="d4-h2">Built by <em>operators.</em></h2>
+          <p class="d4-team-intro">Co-founder-led from kickoff to ship, backed by a vetted specialist network &mdash; without the overhead of a traditional agency.</p>
+        </header>
+
+        <div class="d4-members">
+          <article class="d4-member d4-reveal">
+            <div class="d4-member-photo">
+              <img src="./team/nabil.jpg" alt="Nabil Haschemie" />
+            </div>
+            <div>
+              <div class="d4-member-role">Co-founder</div>
+              <h3 class="d4-member-name">Nabil Haschemie</h3>
+              <p class="d4-member-bio">Nabil is a growth and marketing strategist who brings big-tech rigor to practical execution. As a founding member of Google&rsquo;s EMEA headquarters, he spent nearly two decades shaping how Google and its clients approached growth, performance marketing, and customer engagement across Europe, Latin America, and the U.S. He led new market launches, built scalable acquisition systems, and helped organizations connect data directly to performance. More recently, he has worked hands-on with startups and growth-stage companies, turning experiments into repeatable growth. His approach is simple: clear strategy, fast execution, and honest measurement.</p>
+              <div class="d4-member-actions">
+                <a href="https://www.linkedin.com/in/haschemie/" target="_blank" rel="noreferrer" class="d4-link">
+                  LinkedIn <span aria-hidden="true">&#8599;</span>
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="d4-member d4-reveal">
+            <div class="d4-member-photo">
+              <img src="./team/daniel.jpg" alt="Daniel Besquin" />
+            </div>
+            <div>
+              <div class="d4-member-role">Co-founder</div>
+              <h3 class="d4-member-name">Daniel Besquin</h3>
+              <p class="d4-member-bio">Daniel is a practical growth leader with experience across brand, data, and execution. He began his career at Procter &amp; Gamble, where he developed a strong foundation in consumer insight and disciplined messaging. At Google, he deepened his expertise in acquisition and measurement. In startups, he built small, fast teams that moved quickly from idea to impact. And at BCG, he advised senior leaders on priorities and performance tracking. Today, Daniel leads focused engagements that align teams, define simple success metrics, and install tools to test and scale what works. Fluent in English and Spanish, he works across the U.S. and Latin America.</p>
+              <div class="d4-member-actions">
+                <a href="https://www.linkedin.com/in/danielbesquin/" target="_blank" rel="noreferrer" class="d4-link">
+                  LinkedIn <span aria-hidden="true">&#8599;</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="d4-network">
+          <span class="d4-network-label">// Supported by specialist network in</span>
+          <div class="d4-network-row">
+            <span class="d4-chip">Data Science &amp; ML</span>
+            <span class="d4-chip">Agentic Workflows</span>
+            <span class="d4-chip">Web Development</span>
+            <span class="d4-chip">Systems Integration</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Insights (carousel) ─── -->
+      <section id="insights" class="d4-insights">
+        <header class="d4-insights-head">
+          <div>
+            <div class="d4-eyebrow">
+              <span class="d4-eb-bar"></span>
+              <span class="d4-eb-id">Insights</span>
+            </div>
+            <h2 class="d4-h2">Industry <em>signals.</em></h2>
+          </div>
+          <div class="d4-carousel-nav" role="group" aria-label="Insights navigation">
+            <button type="button" class="d4-carousel-btn" id="carousel-prev" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+                <path d="M15 5 L8 12 L15 19"/>
+              </svg>
+            </button>
+            <button type="button" class="d4-carousel-btn" id="carousel-next" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+                <path d="M9 5 L16 12 L9 19"/>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!--
+          Insights cards. To add a new card: copy one <a class="d4-post">…</a>
+          block and insert it as the FIRST child of .d4-carousel (newest first).
+          Bump the L-NNN id. Body target ~200-280 chars, end with &hellip;.
+        -->
+        <div class="d4-carousel" id="carousel" aria-label="Insights">
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7463315039328923648" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>May 2026</span><span class="d4-post-id">L-016</span></div>
+            <h3 class="d4-post-title">Claude agents just learned to dream.</h3>
+            <p class="d4-post-body">On May 6, Anthropic shipped dreaming for Claude Managed Agents &mdash; a scheduled background process that reviews past runs, extracts patterns, and curates the agent&rsquo;s memory. Harvey ran it in beta. Task completion rose roughly 6x&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7461808256206843904" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>May 2026</span><span class="d4-post-id">L-015</span></div>
+            <h3 class="d4-post-title">The GTM engineer is replacing 4 to 5 people on growth teams.</h3>
+            <p class="d4-post-body">Marketing ops, sales ops, demand gen &mdash; one operator with the right AI stack now runs all three. Tools commoditised this year; the architecture between them is the lever. The smaller teams running this way are out-shipping the big ones&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7461824128044576768" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>May 2026</span><span class="d4-post-id">L-014</span></div>
+            <h3 class="d4-post-title">AI search doesn&rsquo;t want your long-form post.</h3>
+            <p class="d4-post-body">Google AI Mode runs at 93% zero-click. 51% of B2B buyers start research in ChatGPT before reaching your site. The editorial brief flipped: SEO rewarded the answer buried in paragraph 14; answer engines reward short, sourced, scannable claims&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7461825240214495232" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>May 2026</span><span class="d4-post-id">L-013</span></div>
+            <h3 class="d4-post-title">Rebuild the workflow first. Then add the AI.</h3>
+            <p class="d4-post-body">Thomson Reuters&rsquo; 2026 report puts a number on it: top-quartile organisations are 3x more likely to have rebuilt workflows around AI than to have layered AI on top. The gap isn&rsquo;t model quality &mdash; it&rsquo;s process&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7461807619368841218" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>May 2026</span><span class="d4-post-id">L-012</span></div>
+            <h3 class="d4-post-title">Your enterprise software is getting an agent layer. This year.</h3>
+            <p class="d4-post-body">Gartner&rsquo;s March 2026 forecast: 40% of enterprise applications will integrate task-specific AI agents by end of 2026, up from under 5% in 2025. Your CRM, marketing automation, and analytics tools are likely to gain autonomous capabilities before Q4&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7461808095380443136" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>Apr 2026</span><span class="d4-post-id">L-010</span></div>
+            <h3 class="d4-post-title">MCP just crossed 97 million installs. The agent plumbing war is over.</h3>
+            <p class="d4-post-body">Up from 2M at launch 16 months ago. OpenAI, Google, Microsoft, HubSpot, and Salesforce have all standardised on it. MCP is the plumbing that finally makes AI agents production-ready across the martech stack&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7461807923590176768" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>Mar 2026</span><span class="d4-post-id">L-008</span></div>
+            <h3 class="d4-post-title">ChatGPT just started running ads. Here&rsquo;s what $60 CPM actually means.</h3>
+            <p class="d4-post-body">Criteo became the first programmatic platform to open ChatGPT ad inventory &mdash; giving 17,000 advertisers access to a channel that didn&rsquo;t exist last month. The price: $60 CPM. Three times Meta&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7461807764898611200" target="_blank" rel="noreferrer" class="d4-post">
+            <div class="d4-post-meta"><span>Feb 2026</span><span class="d4-post-id">L-006</span></div>
+            <h3 class="d4-post-title">The most important marketing role doesn&rsquo;t exist yet</h3>
+            <p class="d4-post-body">AI agents are absorbing the tactical execution layer of marketing ops &mdash; research, scheduling, sequencing, reporting. Companies running agentic workflows report 44% higher productivity and 37% cost reductions&hellip;</p>
+            <div class="d4-post-link">Read post &rarr;</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ─── Contact ─── -->
+      <section id="contact" class="d4-section d4-contact">
+        <div class="d4-eyebrow d4-reveal">
+          <span class="d4-eb-bar"></span>
+          <span class="d4-eb-id">Contact</span>
+        </div>
+        <h2 class="d4-h2 d4-reveal">Ready to <em>modernize?</em></h2>
+        <p class="d4-contact-body d4-reveal">Book a 30-minute diagnostic call. We&rsquo;ll map your highest-ROI automation opportunities, recommend the one to build first, and tell you what it would take to ship. No deck, no obligation.</p>
+        <div class="d4-contact-direct d4-reveal">
+          <span class="d4-contact-direct-label">// Direct line</span>
+          <a href="mailto:grow@sprintassembly.com" class="d4-contact-email">grow@sprintassembly.com</a>
+        </div>
+        <div class="d4-contact-actions d4-reveal">
+          <a href="mailto:grow@sprintassembly.com" class="d4-cta">
+            <span>Contact via Email</span>
+            <span class="d4-cta-arrow">&rarr;</span>
+          </a>
+        </div>
+        <div class="d4-contact-footer">
+          <span>&copy; 2026 Sprint Assembly</span>
+        </div>
+      </section>
+
+    </div>
+
+    <script>
+      (function () {
+        'use strict';
+
+        var SECTION_IDS = ['hero', 'opportunity', 'process', 'team', 'insights', 'contact'];
+        var STAGE_NAMES = ['Diagnostic Sprint', 'Instrumentation', 'Autonomous Orchestration'];
+        var STAGE_IDS   = ['01', '02', '03'];
+
+        /* ─── Reveal-on-scroll ─── */
+        (function reveal() {
+          var els = document.querySelectorAll('.d4-reveal');
+          if (!('IntersectionObserver' in window)) {
+            els.forEach(function (el) { el.classList.add('is-shown'); });
+            return;
+          }
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-shown');
+                io.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+          els.forEach(function (el) { io.observe(el); });
+        })();
+
+        /* ─── Nav active section (scroll-position based) ─── */
+        (function activeSection() {
+          var navLinks = document.querySelectorAll('.d4-nav-link');
+          var sections = SECTION_IDS
+            .map(function (id) { return document.getElementById(id); })
+            .filter(Boolean);
+          if (!sections.length) return;
+
+          var currentActive = null;
+          var lockedId = null;
+          var lockUntil = 0;
+
+          var setActive = function (id) {
+            if (id === currentActive) return;
+            currentActive = id;
+            navLinks.forEach(function (el) {
+              el.classList.toggle('on', el.getAttribute('data-nav') === id);
+            });
+          };
+
+          var compute = function () {
+            // Honour click-lock while smooth-scroll lands
+            if (lockedId && Date.now() < lockUntil) {
+              setActive(lockedId);
+              return;
+            }
+            if (lockedId && Date.now() >= lockUntil) {
+              lockedId = null;
+            }
+
+            // Pick the section whose top is the most recent one above the focal line.
+            var focal = window.innerHeight * 0.30;
+            var best = sections[0].id;
+            var bestTop = -Infinity;
+            sections.forEach(function (sec) {
+              var top = sec.getBoundingClientRect().top;
+              if (top <= focal && top > bestTop) {
+                bestTop = top;
+                best = sec.id;
+              }
+            });
+            setActive(best);
+          };
+
+          var raf = 0;
+          var onScroll = function () {
+            if (!raf) raf = requestAnimationFrame(function () {
+              raf = 0;
+              compute();
+            });
+          };
+
+          compute();
+          window.addEventListener('scroll', onScroll, { passive: true });
+          window.addEventListener('resize', onScroll);
+
+          // Click → set active immediately, lock for 900ms while smooth scroll lands
+          navLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+              var id = link.getAttribute('data-nav');
+              if (!id) return;
+              lockedId = id;
+              lockUntil = Date.now() + 900;
+              setActive(id);
+            });
+          });
+        })();
+
+        /* ─── Process scroll-driven active stage ─── */
+        (function processScroll() {
+          var stageBlocks = document.querySelectorAll('.d4-stage-block');
+          var vizStages   = document.querySelectorAll('.d4-viz-stage');
+          var stageId     = document.getElementById('sticky-stage-id');
+          var stageName   = document.getElementById('sticky-stage-name');
+          if (!stageBlocks.length || !vizStages.length) return;
+
+          var raf = 0;
+          var lastActive = -1;
+
+          var setActive = function (idx) {
+            if (idx === lastActive) return;
+            lastActive = idx;
+            stageBlocks.forEach(function (block, i) {
+              block.classList.toggle('in', i === idx);
+            });
+            vizStages.forEach(function (g, i) {
+              g.style.opacity = (i === idx) ? '1' : '0';
+            });
+            if (stageId)   stageId.textContent   = STAGE_IDS[idx];
+            if (stageName) stageName.textContent = STAGE_NAMES[idx];
+          };
+
+          var compute = function () {
+            raf = 0;
+            var focal = window.innerHeight * 0.45;
+            var best = 0, bestDist = Infinity;
+            stageBlocks.forEach(function (block, i) {
+              var r = block.getBoundingClientRect();
+              var center = r.top + r.height / 2;
+              var dist = Math.abs(center - focal);
+              if (dist < bestDist) { bestDist = dist; best = i; }
+            });
+            setActive(best);
+          };
+
+          var onScroll = function () {
+            if (!raf) raf = requestAnimationFrame(compute);
+          };
+
+          compute();
+          window.addEventListener('scroll', onScroll, { passive: true });
+          window.addEventListener('resize', onScroll);
+        })();
+
+        /* ─── Insights carousel ─── */
+        (function carousel() {
+          var track  = document.getElementById('carousel');
+          var prev   = document.getElementById('carousel-prev');
+          var next   = document.getElementById('carousel-next');
+          if (!track || !prev || !next) return;
+
+          var updateButtons = function () {
+            prev.disabled = track.scrollLeft <= 8;
+            next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+          };
+
+          var scrollByOne = function (dir) {
+            var card = track.querySelector('.d4-post');
+            var gap = 16;
+            var step = card
+              ? card.getBoundingClientRect().width + gap
+              : track.clientWidth * 0.8;
+            track.scrollBy({ left: dir * step, behavior: 'smooth' });
+          };
+
+          prev.addEventListener('click', function () { scrollByOne(-1); });
+          next.addEventListener('click', function () { scrollByOne(1); });
+          track.addEventListener('scroll', updateButtons, { passive: true });
+          window.addEventListener('resize', updateButtons);
+          updateButtons();
+        })();
+
+        /* ─── Mobile menu ─── */
+        (function mobileMenu() {
+          var burger = document.getElementById('nav-burger');
+          var menu   = document.getElementById('mobile-menu');
+          if (!burger || !menu) return;
+
+          var setOpen = function (open) {
+            menu.dataset.open = open ? 'true' : 'false';
+            burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+            burger.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+            burger.querySelector('.open').style.display = open ? 'none' : 'block';
+            burger.querySelector('.close').style.display = open ? 'block' : 'none';
+            document.body.style.overflow = open ? 'hidden' : '';
+          };
+
+          burger.addEventListener('click', function () {
+            setOpen(menu.dataset.open !== 'true');
+          });
+
+          menu.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () { setOpen(false); });
+          });
+
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && menu.dataset.open === 'true') setOpen(false);
+          });
+
+          window.addEventListener('resize', function () {
+            if (window.innerWidth > 920 && menu.dataset.open === 'true') setOpen(false);
+          });
+        })();
+
+      })();
+    </script>
+  </body>
+</html>
