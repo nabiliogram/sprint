@@ -496,7 +496,9 @@
       .d4-opp-body {
         font-size: 14.5px; line-height: 1.6;
         color: var(--text-2); margin: 0;
+        text-align: justify;
         text-wrap: pretty;
+        hyphens: auto;
       }
 
       /* ─── Process ─── */
@@ -539,9 +541,15 @@
         position: absolute; inset: 8%;
         border: 2px solid var(--text);
         border-radius: 50%;
+        background: var(--paper);
         pointer-events: none;
+        z-index: 0;
       }
-      .d4-sticky-viz svg { width: 100%; height: 100%; display: block; }
+      .d4-sticky-viz svg {
+        position: relative;
+        z-index: 1;
+        width: 100%; height: 100%; display: block;
+      }
       .d4-sticky-stage-meta {
         margin-top: 18px;
         display: flex; justify-content: space-between; align-items: baseline;
@@ -1110,7 +1118,7 @@
         .d4-member:last-child { border-bottom: 0; padding-bottom: 0; }
         .d4-members > .d4-member:nth-child(1),
         .d4-members > .d4-member:nth-child(2) { background: transparent; }
-        .d4-member-photo { width: 80px; height: 80px; }
+        .d4-member-photo { width: 160px; height: 160px; }
 
         /* #6: Process stage — hide Focus Areas + separator; body → outcome with no extra line */
         .d4-stage-focus-card { display: none; }
