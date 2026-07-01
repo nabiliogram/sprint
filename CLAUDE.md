@@ -44,7 +44,7 @@ When Nabil drops a LinkedIn post URL to add to the Insights carousel:
      <div class="d4-post-link">Read post &rarr;</div>
    </a>
    ```
-4. Bump the `L-NNN` id by one. **Last shipped is `L-016`** as of 2026-05-26.
+4. Bump the `L-NNN` id by one. **Last shipped is `L-020`** as of 2026-06-30.
 5. Use HTML entities (`&mdash;`, `&rsquo;`, `&hellip;`) consistently with neighbours.
 6. Image support is not wired into the schema — cards stay text-only (decision 2026-04-22).
 7. Don't push; instruct Nabil to run the terminal push command from `~/Desktop/SPRINT\ ASSEMBLY\ WEBSITE`.
