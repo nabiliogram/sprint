@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="en" class="f-archivo">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>The AI Operating Playbook · by Sprint Assembly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Mono:wght@0,400;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ===== SA palette (sprintassembly.com + the 3-pager) on the playbook-mock layout ===== */
+  :root{
+    --red:#D4322D; --blue:#1A4FBF; --yellow:#E8B922;
+    --bg:#EFECE2; --bg-deep:#E7E3D5; --paper:#FFFFFF; --ink:#111111;
+    --t2:rgba(17,17,17,.80); --t3:rgba(17,17,17,.55); --t4:rgba(17,17,17,.34);
+    --line:rgba(15,15,15,.14); --line2:rgba(15,15,15,.38);
+    --red-soft:#F9E9E8; --blue-soft:#E9EEF8; --yellow-soft:#FBF4DC; --yellow-deep:#9a7a10;
+    --sans:'Archivo',system-ui,sans-serif;
+    --mono:'Space Mono',monospace;
+    --content-w:1020px;
+  }
+  html.f-archivo  { --body-font:'Archivo',system-ui,sans-serif;  --body-size:15px; --body-lh:1.65; }
+  html.f-serif    { --body-font:'Source Serif 4',Georgia,serif;  --body-size:16px; --body-lh:1.62; }
+  html.f-garamond { --body-font:'EB Garamond',Georgia,serif;     --body-size:17px; --body-lh:1.56; }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+  body{font-family:var(--body-font);background:var(--bg);color:var(--ink);font-size:var(--body-size);line-height:var(--body-lh);}
+  .container{max-width:var(--content-w);margin:0 auto;padding:0 28px;}
+  .mlab{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-size:10px;color:var(--t3);}
+  .ph{display:inline-block;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);border:1px dashed var(--line2);padding:2px 7px;vertical-align:2px;white-space:nowrap;}
+  @media(max-width:640px){.ph{white-space:normal;}}
+
+  /* ===== top nav ===== */
+  .topnav{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line2);font-family:var(--sans);}
+  .navrow{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:20px;}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
+  .brand svg{width:30px;height:30px;flex:none;display:block;}
+  .brand .b1{font-size:15px;font-weight:800;letter-spacing:-0.01em;line-height:1.1;display:block;}
+  .brand .b2{font-family:var(--mono);display:block;font-size:8px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-top:2px;}
+  .navlinks{display:flex;gap:20px;align-items:center;font-size:13px;font-weight:600;color:var(--t2);}
+  .navlinks a{color:inherit;text-decoration:none;}
+  .navlinks a:hover{color:var(--blue);}
+  .navcta{background:var(--yellow);color:var(--ink)!important;padding:8px 15px;border-radius:7px;font-weight:700;font-size:12.5px;}
+  .navcta:hover{filter:brightness(1.05);}
+
+  /* ===== hero / front door ===== */
+  .hero{background:var(--paper);border-bottom:1px solid var(--line);padding:26px 0 20px;font-family:var(--sans);}
+  .hero .kick{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+  .hero h1{font-size:clamp(21px,2.6vw,29px);font-weight:800;letter-spacing:-0.02em;line-height:1.15;max-width:640px;}
+  .hero .lede{font-family:var(--body-font);font-size:calc(var(--body-size) + 1px);line-height:1.55;color:var(--t3);max-width:640px;margin-top:9px;}
+  .hero .locate-note{font-size:13px;color:var(--t3);margin-top:24px;display:inline-flex;align-items:center;gap:9px;}
+  .hero .locate-note b{color:var(--blue);font-weight:700;}
+  .arrow-down{font-size:15px;color:var(--blue);}
+
+  /* ===== the ladder ===== */
+  .ladder{padding:44px 0 12px;scroll-margin-top:66px;}
+  .ladder-head{font-family:var(--sans);text-align:center;margin-bottom:28px;}
+  .ladder-head .lbl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);}
+  .ladder-head h2{font-size:clamp(30px,4.2vw,44px);font-weight:800;letter-spacing:-0.025em;line-height:1.08;margin-top:9px;}
+  .ladder-head p{font-family:var(--body-font);font-size:calc(var(--body-size));color:var(--t3);margin-top:7px;}
+  .rungs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media(max-width:880px){.rungs{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:540px){.rungs{grid-template-columns:1fr;}}
+  .rung{background:var(--paper);border:1px solid var(--line2);border-top:4px solid var(--ink);border-radius:12px;padding:18px 17px 16px;display:flex;flex-direction:column;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;position:relative;text-align:left;font-family:var(--sans);}
+  .rung:hover{transform:translateY(-4px);box-shadow:0 18px 30px -20px rgba(17,17,17,.45);}
+  .rung.c1{border-top-color:var(--red);} .rung.c2{border-top-color:var(--blue);} .rung.c3{border-top-color:var(--yellow);} .rung.c4{border-top-color:var(--ink);}
+  .rung .rn{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+  .rung.c1 .rn{color:var(--red);} .rung.c2 .rn{color:var(--blue);} .rung.c3 .rn{color:var(--yellow-deep);} .rung.c4 .rn{color:var(--ink);}
+  .rung .rname{font-size:18px;font-weight:800;letter-spacing:-0.01em;margin-top:6px;line-height:1.12;}
+  .rung .rtag{font-family:var(--body-font);font-style:italic;font-size:14px;color:var(--t3);margin-top:6px;line-height:1.35;}
+  .rung .rhr{height:1px;background:var(--line);margin:14px 0 11px;}
+  .rung .rlbl{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow-deep);margin-bottom:8px;}
+  .rung ul{list-style:none;}
+  .rung li{font-size:12.5px;line-height:1.4;color:var(--t2);padding-left:16px;position:relative;margin-bottom:7px;}
+  .rung li::before{content:"›";position:absolute;left:2px;color:var(--yellow-deep);font-weight:700;}
+  .rung ul{margin-bottom:16px;}
+  .rung .go{margin-top:auto;font-family:var(--sans);font-size:13px;font-weight:700;text-align:center;padding:10px 12px;border-radius:8px;transition:filter .12s ease,transform .12s ease;}
+  .rung.c1 .go{background:var(--red);color:#fff;}
+  .rung.c2 .go{background:var(--blue);color:#fff;}
+  .rung.c3 .go{background:var(--yellow);color:var(--ink);}
+  .rung.c4 .go{background:var(--ink);color:#fff;}
+  .rung:hover .go{filter:brightness(1.08);transform:translateY(-1px);}
+  .rung.selected{box-shadow:0 0 0 2px var(--ink);}
+  .quiet{font-family:var(--sans);font-size:12.5px;color:var(--t3);text-align:center;margin-top:18px;}
+  .mview{display:none;}
+  .mview.on{display:block;}
+  .mview-row{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+
+  /* ===== stage detail shell ===== */
+  .stage-detail{padding:6px 0 60px;}
+  .chpanel{display:none;scroll-margin-top:66px;}
+  .chpanel.on{display:block;}
+  .stage-shell{background:var(--paper);border:1px solid var(--line2);border-radius:15px;overflow:hidden;margin-top:26px;}
+  .stage-top{padding:28px 32px 24px;border-bottom:1px solid var(--line);}
+  .st-1 .stage-shell{border-top:5px solid var(--red);}
+  .st-2 .stage-shell{border-top:5px solid var(--blue);}
+  .st-3 .stage-shell{border-top:5px solid var(--yellow);}
+  .st-4 .stage-shell{border-top:5px solid var(--ink);}
+  .stage-top .row1{display:flex;align-items:baseline;gap:14px;}
+  .stage-top .sd-num{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+  .st-1 .sd-num{color:var(--red);} .st-2 .sd-num{color:var(--blue);} .st-3 .sd-num{color:var(--yellow-deep);} .st-4 .sd-num{color:var(--ink);}
+  .ch-close{margin-left:auto;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);background:var(--paper);border:1px solid var(--line2);border-radius:6px;padding:5px 10px;cursor:pointer;}
+  .ch-close:hover{color:var(--ink);border-color:var(--ink);}
+  .stage-top h2{font-family:var(--sans);font-size:29px;font-weight:800;letter-spacing:-0.02em;margin-top:6px;}
+  .stage-top .promise{font-family:var(--body-font);font-size:calc(var(--body-size) + 2px);color:var(--t2);margin-top:8px;max-width:640px;line-height:1.5;}
+  .stage-body{padding:8px 32px 30px;}
+
+  /* outcome card (yellow, per SA CTA color) */
+  @media(max-width:880px){.outcome{grid-template-columns:1fr;}}
+
+  /* loop strip pills */
+
+  /* accordion */
+  .arts{margin-top:32px;}
+  .arts-lbl{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:4px;}
+  .arts-sub{font-family:var(--sans);font-size:12.5px;color:var(--t3);margin-bottom:13px;}
+  .acc{border-top:1px solid var(--line);}
+  .acc{display:flex;flex-direction:column;gap:10px;}
+  .acc-item{border:1px solid var(--line2);border-radius:11px;background:var(--paper);scroll-margin-top:76px;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease;}
+  .acc-item:not(.open):hover{border-color:var(--blue);box-shadow:0 12px 24px -20px rgba(17,17,17,.55);transform:translateY(-1px);}
+  .acc-head{display:flex;align-items:flex-start;gap:15px;padding:14px 16px;cursor:pointer;}
+  .acc-n{font-family:var(--sans);font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-soft);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .acc-main{flex:1;min-width:0;}
+  .acc-title{font-family:var(--sans);font-size:16.5px;font-weight:700;letter-spacing:-0.01em;line-height:1.25;}
+  .acc-beats{font-family:var(--body-font);font-size:calc(var(--body-size) - 2px);color:var(--t3);margin-top:4px;line-height:1.5;}
+  .acc-move{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);background:var(--blue-soft);border-radius:5px;padding:4px 8px;flex-shrink:0;margin-top:2px;white-space:nowrap;}
+  .acc-tog{width:27px;height:27px;border:1.5px solid var(--line2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--t3);flex-shrink:0;transition:transform .2s ease;font-family:var(--sans);background:var(--paper);}
+  .acc-item:hover .acc-tog{border-color:var(--blue);color:var(--blue);}
+  .acc-item.open .acc-tog{transform:rotate(45deg);}
+  .acc-item.open{box-shadow:inset 3px 0 0 var(--blue);}
+  .st-1 .acc-item.open{box-shadow:inset 3px 0 0 var(--red);}
+  .st-3 .acc-item.open{box-shadow:inset 3px 0 0 var(--yellow);}
+  .st-4 .acc-item.open{box-shadow:inset 3px 0 0 var(--ink);}
+  .acc-item.open .acc-head{background:linear-gradient(180deg,rgba(26,79,191,.04),transparent);}
+  .acc-head:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:6px;}
+  .rung:focus-visible{outline:2.5px solid var(--ink);outline-offset:2px;}
+  .acc-panel{display:none;}
+  .acc-item.open .acc-panel{display:block;}
+  .acc-inner{padding:2px 12px 24px 56px;}
+  @media(max-width:640px){.acc-inner{padding-left:10px;padding-right:6px;}}
+  .acc-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;}
+  .anchor-btn{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);background:none;border:1px solid var(--line);border-radius:5px;padding:4px 9px;cursor:pointer;}
+  .anchor-btn:hover{color:var(--blue);border-color:var(--blue);}
+  .beat{display:flex;gap:10px;margin-bottom:11px;max-width:72ch;}
+  .beat i{color:var(--yellow-deep);font-style:normal;font-weight:800;flex-shrink:0;font-family:var(--sans);}
+  .beat span{font-family:var(--body-font);font-size:calc(var(--body-size) - 1px);color:var(--t2);line-height:1.55;}
+  .beat b{font-family:var(--sans);font-size:13.5px;font-weight:700;color:var(--ink);}
+  .fulltext{margin:16px 0 0;max-width:70ch;}
+  .fulltext p{font-family:var(--body-font);font-size:var(--body-size);line-height:var(--body-lh);color:var(--t2);margin-bottom:12px;}
+  .takeaway{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:8px;padding:12px 16px;margin-top:14px;max-width:70ch;}
+  .takeaway .tlbl{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:5px;}
+  .takeaway p{font-family:var(--body-font);font-size:calc(var(--body-size) - 1.5px);color:var(--t2);line-height:1.5;}
+  .closer{margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;max-width:70ch;}
+  .closer button{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);background:var(--bg);border:1px solid var(--line2);border-radius:6px;padding:6px 11px;cursor:pointer;}
+  .closer button:hover{color:var(--ink);}
+  .closer .nextsec{margin-left:auto;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:0;text-transform:none;text-align:left;color:var(--blue);background:var(--blue-soft);border:1px solid var(--blue);border-radius:7px;padding:7px 13px;cursor:pointer;}
+  .closer .nextsec:hover{background:var(--blue);color:#fff;}
+  .closer .nextsec .nk{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:block;opacity:.65;margin-bottom:1px;}
+
+  /* drawer pulls */
+  .pulls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:14px 0;padding:11px 13px;background:var(--bg);border:1px solid var(--line2);border-radius:9px;max-width:70ch;}
+  .pulls .pl{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-right:2px;}
+  .pullbtn{font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line2);border-radius:7px;padding:6px 11px;cursor:pointer;}
+  .pullbtn:hover{border-color:var(--blue);color:var(--blue);}
+  .pullbtn::after{content:" ↗";color:var(--blue);font-size:11px;}
+
+  /* section body — real copy, per the locked P2 template (lead → concept blocks → clarifier → rule box → checks → handoff → takeaway) */
+  .sbody{max-width:70ch;}
+  .sbody p{font-family:var(--body-font);font-size:var(--body-size);line-height:var(--body-lh);color:var(--t2);margin:0 0 13px;}
+  .sbody h3{font-family:var(--sans);font-size:16.5px;font-weight:700;letter-spacing:-0.008em;color:var(--ink);margin:26px 0 12px;}
+  .sbody h3:first-child{margin-top:18px;}
+  .sbody ol{margin:0 0 14px;list-style:none;counter-reset:sli;}
+  .sbody ol li{font-family:var(--body-font);font-size:var(--body-size);line-height:var(--body-lh);color:var(--t2);margin-bottom:11px;counter-increment:sli;position:relative;padding-left:32px;}
+  .sbody ol li::before{content:counter(sli);position:absolute;left:0;top:3px;width:21px;height:21px;border-radius:50%;background:var(--blue-soft);color:var(--blue);font-family:var(--sans);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .sbody ol li b{font-family:var(--sans);font-size:calc(var(--body-size) - 1.5px);color:var(--ink);}
+  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px;}
+  @media(max-width:640px){.cards2{grid-template-columns:1fr;}}
+  .ccard{background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:14px 16px;}
+  .ccard.ca{border-top:3px solid var(--ink);}
+  .ccard.cb{border-top:3px solid var(--blue);}
+  .ccard .ck{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;}
+  .ccard.cb .ck{color:var(--blue);}
+  .ccard h4{font-family:var(--sans);font-size:14px;font-weight:700;line-height:1.35;margin-bottom:6px;color:var(--ink);}
+  .ccard p{font-family:var(--body-font);font-size:calc(var(--body-size) - 1.5px);color:var(--t2);line-height:1.5;margin:0;}
+  .ccard .ex{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line2);}
+  .ccard .ex .exl{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t4);margin-bottom:3px;}
+  .ccard .ex p{font-family:var(--body-font);font-size:calc(var(--body-size) - 1.5px);color:var(--t2);line-height:1.5;margin:0;}
+  .clarify{background:var(--paper);border:1px solid var(--line2);border-left:3px solid var(--yellow);border-radius:0 9px 9px 0;padding:12px 16px;margin:0 0 14px;font-family:var(--body-font);font-size:calc(var(--body-size) - .5px);color:var(--t2);line-height:1.55;}
+  .rulebox{background:var(--bg);border-radius:9px;padding:13px 17px;margin:0 0 14px;font-family:var(--body-font);font-size:calc(var(--body-size) - .5px);color:var(--t2);line-height:1.55;}
+  .rulebox b{font-family:var(--sans);color:var(--ink);}
+  .callout{background:var(--yellow-soft);border:1px solid #DFC96A;border-radius:11px;padding:16px 19px;margin:0 0 14px;}
+  .callout .co-k{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow-deep);margin-bottom:6px;}
+  .callout h4{font-family:var(--sans);font-size:14.5px;font-weight:800;margin-bottom:6px;color:var(--ink);}
+  .callout p{font-family:var(--body-font);font-size:calc(var(--body-size) - 1px);color:var(--t2);line-height:1.55;margin:0;}
+
+  /* worked example */
+  .worked{margin:38px 0 0;background:var(--bg);border:1px solid var(--line2);border-radius:13px;padding:23px 25px;}
+  .worked .wk-lbl{display:flex;gap:9px;align-items:center;flex-wrap:wrap;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+  .tag-ill{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);background:var(--paper);border-radius:4px;padding:2px 7px;}
+  .worked h3{font-family:var(--sans);font-size:18px;font-weight:800;letter-spacing:-0.01em;}
+  .worked p{font-family:var(--body-font);font-size:calc(var(--body-size) - .5px);line-height:1.6;color:var(--t2);margin-top:9px;max-width:74ch;}
+  .worked .vig{margin-top:15px;padding-top:13px;border-top:1px dashed var(--line2);}
+  .worked h4{font-family:var(--sans);font-size:13.5px;font-weight:800;}
+
+  /* altitude close */
+  .alt-close{margin:38px 0 6px;padding-top:22px;border-top:2px solid var(--ink);}
+  .alt-close .ac-lbl{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t4);margin-bottom:8px;}
+  .alt-close p{font-family:var(--body-font);font-size:calc(var(--body-size) - .5px);color:var(--t2);line-height:1.65;max-width:66ch;}
+  .alt-close b{font-family:var(--sans);font-size:14px;color:var(--ink);}
+
+  /* bridge */
+  .btn-ghost{border:1px solid rgba(255,255,255,.35);color:rgba(239,236,226,.9);font-family:var(--sans);font-weight:600;font-size:13px;padding:11px 22px;border-radius:8px;text-align:center;cursor:pointer;}
+
+  .stub-note{font-family:var(--sans);font-size:12.5px;color:var(--t3);background:var(--bg);border:1px dashed var(--line2);border-radius:9px;padding:11px 14px;margin:22px 0 0;}
+  .stublist .acc-head{cursor:default;}
+  .stublist .acc-head:hover{background:none;}
+  .mini{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--t4);margin:-6px 0 12px 45px;}
+
+  /* ===== lower sections ===== */
+  .lower{padding:44px 0 8px;scroll-margin-top:66px;}
+  .lower .kick{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);}
+  .lower h2.big{font-family:var(--sans);font-size:25px;font-weight:800;letter-spacing:-0.02em;margin-top:8px;}
+  .lower .lede{font-family:var(--body-font);font-size:var(--body-size);line-height:var(--body-lh);color:var(--t2);max-width:70ch;margin-top:10px;}
+  .seclab{font-family:var(--mono);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--t4);margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line2);}
+  /* method: loop panel + principles grid */
+  .mblock{background:var(--paper);border:1px solid var(--line2);border-radius:14px;padding:20px 20px 18px;margin-top:22px;}
+  .mblock-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);}
+  .mblock-head .t{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);}
+  .mblock-head .c{font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--t4);}
+  .loopgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+  @media(max-width:880px){.loopgrid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:540px){.loopgrid{grid-template-columns:1fr;}}
+  .mvc{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:14px 15px 13px;}
+  .mvc .n{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:800;font-size:13px;color:#fff;background:var(--blue);}
+  .mvc h3{font-family:var(--sans);font-size:15px;font-weight:800;letter-spacing:-0.01em;margin-top:9px;}
+  .mvc p{font-family:var(--body-font);font-size:13px;line-height:1.5;color:var(--t2);margin-top:5px;}
+  .mvc::after{content:"→";display:none;position:absolute;top:16px;right:-14px;z-index:2;font-family:var(--sans);font-weight:800;color:var(--t3);font-size:14px;background:var(--paper);padding:0 2px;}
+  @media(min-width:881px){.mvc:not(:nth-child(3n)):not(:last-child)::after{display:block;}}
+  @media(min-width:541px) and (max-width:880px){.mvc:not(:nth-child(2n)):not(:last-child)::after{display:block;}}
+  .loop-return{display:flex;align-items:center;gap:9px;margin-top:14px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);}
+  .loop-return .ret{color:var(--blue);font-size:15px;font-weight:400;}
+  .prgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+  @media(max-width:880px){.prgrid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:540px){.prgrid{grid-template-columns:1fr;}}
+  .prc{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:14px 15px 13px;}
+  .prc h3{font-family:var(--sans);font-size:14.5px;font-weight:800;letter-spacing:-0.01em;position:relative;padding-left:16px;}
+  .prc h3::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:var(--red);}
+  .prc p{font-family:var(--body-font);font-size:13px;line-height:1.5;color:var(--t2);margin-top:6px;}
+
+  .ixgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;}
+  @media(max-width:700px){.ixgrid{grid-template-columns:1fr;}}
+  .ix{background:var(--paper);border:1px solid var(--line2);border-top:4px solid var(--ink);border-radius:11px;padding:15px 17px;}
+  .ix.r{border-top-color:var(--red);} .ix.b{border-top-color:var(--blue);} .ix.y{border-top-color:var(--yellow);}
+  .ix h3{font-family:var(--sans);font-size:14.5px;font-weight:800;margin-bottom:4px;}
+  .ix .q{font-family:var(--body-font);font-size:calc(var(--body-size) - 2px);color:var(--t2);line-height:1.5;}
+  .ix .where{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-top:9px;}
+  .ix .where b,.ix .where a{color:var(--blue);}
+
+  .cta-block{background:var(--yellow);color:var(--ink);border-radius:14px;padding:26px 28px;margin-top:22px;}
+  .cta-block .lab{font-family:var(--mono);text-transform:uppercase;letter-spacing:.2em;font-size:9.5px;opacity:.7;margin-bottom:8px;}
+  .cta-block h2{font-family:var(--sans);font-size:23px;font-weight:800;letter-spacing:-0.01em;line-height:1.12;margin-bottom:8px;}
+  .cta-block p{font-family:var(--body-font);font-size:var(--body-size);line-height:1.55;max-width:64ch;}
+  .cta-block .contact{margin-top:14px;padding-top:12px;border-top:1.5px solid rgba(17,17,17,.3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-weight:700;}
+  .cta-block .contact .sep{opacity:.45;padding:0 8px;}
+
+  /* ===== drawer ===== */
+  .scrim{position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:70;opacity:0;pointer-events:none;transition:opacity .2s;}
+  .scrim.on{opacity:1;pointer-events:auto;}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(540px,94vw);background:var(--bg);border-left:2px solid var(--ink);z-index:71;transform:translateX(104%);transition:transform .22s ease;display:flex;flex-direction:column;}
+  .drawer.on{transform:translateX(0);}
+  .dr-h{padding:18px 24px 13px;border-bottom:1px solid var(--line2);display:flex;align-items:flex-start;gap:14px;}
+  .dr-h .dk{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red);}
+  .dr-h h3{font-family:var(--sans);font-size:17px;font-weight:800;line-height:1.15;margin-top:5px;}
+  .dr-x{margin-left:auto;flex:none;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--line2);border-radius:6px;padding:6px 10px;cursor:pointer;}
+  .dr-x:hover{border-color:var(--ink);}
+  .dr-b{padding:18px 24px 28px;overflow-y:auto;font-family:var(--sans);font-size:13.5px;color:var(--t2);line-height:1.55;}
+  .dr-b p{margin-bottom:11px;}
+  .dr-b table{width:100%;border-collapse:collapse;font-size:12px;margin:13px 0;background:var(--paper);border-radius:8px;overflow:hidden;}
+  .dr-b th{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);text-align:left;padding:7px 9px;border-bottom:1.5px solid var(--ink);}
+  .dr-b td{padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .dr-b td:first-child{font-weight:700;color:var(--ink);white-space:nowrap;}
+  .dr-f{margin-top:auto;padding:12px 24px;border-top:1px solid var(--line2);font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4);}
+
+  /* ===== font control + specimen ===== */
+  .fontctl{position:fixed;bottom:16px;right:16px;z-index:65;background:var(--paper);border:1px solid var(--line2);border-radius:10px;box-shadow:0 8px 24px rgba(17,17,17,.18);padding:8px 11px;display:flex;align-items:center;gap:8px;font-size:12px;font-family:var(--sans);}
+  .fontctl .fl{font-family:var(--mono);font-weight:700;color:var(--t3);letter-spacing:.1em;font-size:8px;text-transform:uppercase;}
+  .fbtn{font-family:var(--sans);font-size:11.5px;font-weight:700;color:var(--t2);background:var(--bg);border:1px solid var(--line2);border-radius:6px;padding:5px 9px;cursor:pointer;}
+  .fbtn.on{background:var(--ink);border-color:var(--ink);color:var(--bg);}
+  .fontctl a{font-size:11px;font-weight:700;color:var(--blue);text-decoration:none;}
+  .spec{background:var(--paper);border:1px solid var(--line2);border-radius:12px;padding:20px 24px;margin-bottom:14px;max-width:880px;}
+  .spec.cur{box-shadow:0 0 0 2px var(--ink);}
+  .spec .sp-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:5px;}
+  .spec h3{font-family:var(--sans);font-size:15px;font-weight:800;}
+  .spec .sp-meta{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);}
+  .spec .sp-note{font-family:var(--sans);font-size:12.5px;color:var(--t3);max-width:76ch;margin:4px 0 15px;}
+  .spec .sample h4{font-family:var(--sans);font-size:16px;font-weight:700;margin-bottom:8px;}
+  .spec .sample .sb{padding-left:16px;position:relative;margin-bottom:7px;line-height:1.5;color:var(--t3);}
+  .spec .sample .sb::before{content:"›";position:absolute;left:0;color:var(--yellow-deep);font-weight:800;font-family:var(--sans);}
+  .spec .sample .sb b{color:var(--ink);}
+  .spec .sample p{margin:12px 0 0;max-width:70ch;color:var(--t2);}
+  .spec .use{margin-top:15px;}
+  .spec .use button{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--ink);background:var(--bg);border:1px solid var(--ink);border-radius:7px;padding:8px 13px;cursor:pointer;}
+  .spec .use button:hover{background:var(--yellow);}
+  .sample-archivo {font-family:'Archivo',system-ui,sans-serif;font-size:15px;line-height:1.65;}
+  .sample-serif   {font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.62;}
+  .sample-garamond{font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.56;}
+
+  .toast{position:fixed;bottom:66px;right:16px;z-index:75;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 13px;border-radius:7px;opacity:0;transform:translateY(6px);transition:all .2s;pointer-events:none;}
+  .toast.on{opacity:1;transform:translateY(0);}
+  .foot{border-top:1px solid var(--line2);margin-top:60px;padding:16px 0 42px;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--t4);}
+</style>
+</head>
+<body>
+
+<!-- ================= nav ================= -->
+<nav class="topnav"><div class="container navrow">
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sprint Assembly">
+      <rect x="0" y="0" width="100" height="100" rx="14" fill="#111111"/>
+      <rect x="11" y="11" width="39" height="78" fill="#D4322D"/>
+      <rect x="50" y="11" width="39" height="78" fill="#1A4FBF"/>
+      <text x="30.5" y="66" fill="#FFFFFF" text-anchor="middle" font-family="'Archivo',Arial,sans-serif" font-weight="800" font-size="46">S</text>
+      <text x="69.5" y="66" fill="#FFFFFF" text-anchor="middle" font-family="'Archivo',Arial,sans-serif" font-weight="800" font-size="46">A</text>
+    </svg>
+    <span><span class="b1">The AI Operating Playbook</span><span class="b2">by Sprint Assembly</span></span>
+  </a>
+  <div class="navlinks">
+    <a href="#method">How it works</a>
+    <a href="#door">The four stages</a>
+    <a href="#teardown" class="navcta">Book a teardown</a>
+  </div>
+</div></nav>
+
+<!-- ================= hero ================= -->
+<header class="hero" id="top">
+  <div class="container">
+    <div class="kick">The playbook</div>
+    <h1>Most firms don't have an AI problem. They have an AI operating problem.</h1>
+    <p class="lede">A field guide that takes your firm from scattered personal use to AI running real work reliably. One method, taught once, applied at four rising altitudes. You don't read it front to back: you find where you actually are and start there.</p>
+  </div>
+</header>
+
+<!-- ================= the ladder ================= -->
+<section class="ladder" id="door">
+  <div class="container">
+    <div class="ladder-head">
+      <div class="lbl">The maturity ladder</div>
+      <h2>Where is your firm today?</h2>
+    </div>
+    <div class="rungs" id="rungs">
+
+      <div class="rung c1" data-stage="stage-1" role="button" tabindex="0">
+        <div class="rn">Stage 1</div>
+        <div class="rname">Personal leverage</div>
+        <div class="rtag">Win back hours, starting this week.</div>
+        <div class="rhr"></div>
+        <div class="rlbl">You're here if…</div>
+        <ul>
+          <li>A few people use AI, in their own way, when they remember to</li>
+          <li>Nothing is written down or shared</li>
+          <li>The value is real but scattered and personal</li>
+        </ul>
+        <div class="go">Read Stage 1 ↓</div>
+      </div>
+
+      <div class="rung c2" data-stage="stage-2" role="button" tabindex="0">
+        <div class="rn">Stage 2</div>
+        <div class="rname">First business win</div>
+        <div class="rtag">Bring AI into one real workflow.</div>
+        <div class="rhr"></div>
+        <div class="rlbl">You're here if…</div>
+        <ul>
+          <li>Individuals are fluent, but no <em>process</em> runs on AI yet</li>
+          <li>You want a shared quality bar, not personal hacks</li>
+          <li>You're asking "what should we automate first?"</li>
+        </ul>
+        <div class="go">Read Stage 2 ↓</div>
+      </div>
+
+      <div class="rung c3" data-stage="stage-3" role="button" tabindex="0">
+        <div class="rn">Stage 3</div>
+        <div class="rname">Expansion</div>
+        <div class="rtag">Let automation and agents carry more.</div>
+        <div class="rhr"></div>
+        <div class="rlbl">You're here if…</div>
+        <ul>
+          <li>One workflow works; you want the next five</li>
+          <li>You're weighing your first agent, and want it done safely</li>
+          <li>Things run unattended and you need guardrails</li>
+        </ul>
+        <div class="go">Read Stage 3 ↓</div>
+      </div>
+
+      <div class="rung c4" data-stage="stage-4" role="button" tabindex="0">
+        <div class="rn">Stage 4</div>
+        <div class="rname">Operating engine</div>
+        <div class="rtag">Make AI a dependable part of how the firm runs.</div>
+        <div class="rhr"></div>
+        <div class="rlbl">You're here if…</div>
+        <ul>
+          <li>AI is in several workflows but nobody owns the whole picture</li>
+          <li>Clients, insurers, or regulators are starting to ask</li>
+          <li>You want it to compound, not sprawl</li>
+        </ul>
+        <div class="go">Read Stage 4 ↓</div>
+      </div>
+
+    </div>
+    <div class="quiet">This is not a ladder you owe anyone a climb. Many firms operate well at Stage 2 or 3 indefinitely, and each stage says so at its close.</div>
+  </div>
+</section>
+
+<!-- ================= stage detail (inline disclosure) ================= -->
+<section class="stage-detail">
+  <div class="container">
+
+    <!-- STAGE 1 -->
+    <div class="chpanel st-1" id="ch-stage-1"><div class="stage-shell">
+      <div class="stage-top">
+        <div class="row1"><span class="sd-num">Stage 1 · Personal leverage</span><button class="ch-close" data-chclose>Close ✕</button></div>
+        <h2>Win back hours, starting this week</h2>
+        <p class="promise">Which recurring tasks actually drain your week? You have the basics; the value so far is real but scattered. That is the norm, not a failing, and this altitude is where it stops being scattered.</p>
+      </div>
+      <div class="stage-body">
+
+
+
+
+        <div class="arts">
+          <div class="arts-lbl">The reading</div>
+          <div class="acc">
+
+            <div class="acc-item" id="sec-what-ai-can-take-off-your-plate" data-slug="what-ai-can-take-off-your-plate">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">1</div>
+                <div class="acc-main">
+                  <div class="acc-title">What AI can take off your plate</div>
+                  <div class="acc-beats">If the work is made of language, part of it can be handed over, starting with one task this week.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="what-ai-can-take-off-your-plate"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Most people meet AI as a curiosity: a poem on demand, a recipe from leftovers, a quick answer to a trivia question. The working version is less flashy and far more valuable. This section shows the shape of the opportunity, with one rule of thumb: if the work is made of language, a model can carry part of it today.</p>
+
+      <h3>What it can carry, and what stays yours</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">Work made of language</div>
+          <h4>Work made of language is reading, drafting, comparing, extracting, and summarizing.</h4>
+          <p>This is where a model is strong today: it does in minutes what costs a person hours, and it does not tire on page two hundred.</p>
+          <div class="ex"><div class="exl">Example</div><p>Reading forty contracts and returning every notice period and renewal date in one table.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">Work made of judgment</div>
+          <h4>Work made of judgment is decisions, advice, and the final word.</h4>
+          <p>This stays yours. The model prepares the decision: it gathers, drafts, and compares, so you decide with better material in less time.</p>
+          <div class="ex"><div class="exl">Example</div><p>The model summarizes the settlement options overnight; which one to recommend is still your call.</p></div>
+        </div>
+      </div>
+
+      <p>Most professional jobs are a braid of the two, which is why the gains land everywhere once you look for them.</p>
+
+      <h3>The same tool, across one firm</h3>
+      <ol>
+        <li><b>The core work.</b> A lawyer hands over a stack of agreements and gets back every deadline, obligation, and unusual clause, matched and tabled for checking.</li>
+        <li><b>Intake and admin.</b> Messy inquiry emails become clean, structured entries for the case or project system, drafted and ready to file.</li>
+        <li><b>Finance.</b> Two exports that never quite agree get reconciled line by line, with the variances explained in plain language.</li>
+        <li><b>Communications.</b> One announcement gets drafted in the firm's tone, then reshaped for the newsletter, the website, and a client email.</li>
+        <li><b>Analysis.</b> A raw spreadsheet export comes back as the finding: what moved, what did not, and what is worth a closer look.</li>
+        <li><b>Research.</b> A week of industry and regulatory news becomes a briefing note, with the two developments that matter on top.</li>
+      </ol>
+
+      <div class="clarify">These are patterns, not products. None of them needs special software: the mainstream AI tools can do a version of all six today, in a browser, from a plain-language instruction. The examples are conceptual on purpose; your own week supplies the real ones.</div>
+
+      <div class="rulebox"><b>If the work is made of language, part of it can be handed over.</b> The rest of this stage teaches how: talking to the model like a colleague, giving it your context, and delegating whole tasks instead of asking small questions.</div>
+
+      <h3>Your first automation, this week</h3>
+      <ol>
+        <li><b>Pick a small recurring task.</b> The weekly update email is a good one: gather your notes and sent messages from the week.</li>
+        <li><b>Hand it over with a real instruction.</b> Summarize what was achieved, in your voice, addressed to the person who actually reads it.</li>
+        <li><b>Review, fix, send.</b> The first draft will be close; your corrections make next week's better.</li>
+      </ol>
+
+      <p>This needs no setup, no connected systems, and no permission from anyone: the account you already have is enough, and free plans are enough to feel the gain. One honest caveat before you rely on it: the model is weakest where a single exact fact or figure must be right without checking, which is why the working habits in the next section matter.</p>
+
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>If the work is made of language, a model can carry part of it today, across every desk in the firm. Start with one recurring task this week; the account you already have is enough.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-work-like-a-colleague" data-slug="work-like-a-colleague">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">2</div>
+                <div class="acc-main">
+                  <div class="acc-title">Work with AI like a colleague</div>
+                  <div class="acc-beats">Brief it like a colleague, review it like a junior's draft, and verify what matters.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="work-like-a-colleague"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>The difference between a party trick and a working tool is how you talk to it. Getting access takes minutes: any of the mainstream tools, in a browser, and a free account is enough to learn on. This section teaches the working habit, with one rule of thumb: brief it like a colleague, review it like a junior's draft.</p>
+
+      <h3>A question is not a brief</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">A question</div>
+          <h4>A question asks the model to produce an answer from what it already knows.</h4>
+          <p>You get something generic, because it knows nothing about your situation beyond the sentence you typed.</p>
+          <div class="ex"><div class="exl">Example</div><p>Write a follow-up email to a client.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">A brief</div>
+          <h4>A brief gives the model the situation, the material, and the standard to hit.</h4>
+          <p>You get something usable, because the model works from your facts and your constraints instead of guessing them.</p>
+          <div class="ex"><div class="exl">Example</div><p>Here is the thread and our proposal; draft a follow-up that answers their two objections, in my tone, under 150 words.</p></div>
+        </div>
+      </div>
+
+      <p>Most disappointing first experiences with AI are questions that should have been briefs.</p>
+
+      <h3>The working loop: instruct, review, improve</h3>
+      <ol>
+        <li><b>Instruct.</b> State the task, hand over the material, name the audience and the standard to hit.</li>
+        <li><b>Review.</b> Read the draft the way you would a junior colleague's: the structure is usually sound, and the specific facts, names, and numbers are where you check.</li>
+        <li><b>Improve.</b> Say what is wrong and ask for the revision; the second pass with real feedback is where the quality jumps. Keep the briefs that worked, because a later section turns them into assets.</li>
+      </ol>
+
+      <div class="clarify">Make "look it up" your reflex instead of "what is". When a fact matters, have the model search and cite its source rather than answer from memory, and open the source yourself when the stakes are real. You stay accountable for what you send.</div>
+
+      <div class="rulebox"><b>AI executes, you certify.</b> Nothing the model produces goes to a client, a colleague, or a decision without your read. That rule is what makes delegating safe, here and at every later altitude.</div>
+
+      <h3>Two session habits</h3>
+      <ol>
+        <li><b>Give it your context deliberately.</b> Within a chat it knows only what you put there, so paste the relevant background instead of assuming it remembers your business. The next section makes this permanent.</li>
+        <li><b>Start fresh when a thread drifts.</b> A long chat full of corrections drags old misunderstandings forward; take the good output and open a clean session.</li>
+      </ol>
+
+      <p>The loop gets far more useful once the model stops being a stranger to your work, which is the next section.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Brief it like a colleague, review it like a junior's draft, and make "look it up" your reflex. The loop is the skill; the tool is just where you run it.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-give-ai-your-world" data-slug="give-ai-your-world">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">3</div>
+                <div class="acc-main">
+                  <div class="acc-title">Give AI your context and your systems</div>
+                  <div class="acc-beats">Give it standing instructions, project spaces, and the narrowest connections that do the job.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="give-ai-your-world"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>A model that knows nothing about your business starts every chat as a stranger. This section shows you how to give it your world once, with one rule of thumb: set up what it should always know, connect what it may see, and keep both under your control.</p>
+
+      <h3>What it knows, and what it can reach</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">Persistent context</div>
+          <h4>Persistent context is what the model knows about you before the chat starts.</h4>
+          <p>Standing instructions, project spaces, and memory carry your background from session to session, and you can read and edit what is stored.</p>
+          <div class="ex"><div class="exl">Example</div><p>It knows your firm's services and your tone rules without being told again every morning.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">Connections</div>
+          <h4>A connection lets the model reach into a system you use, live.</h4>
+          <p>Through connectors it can read or act in your calendar, files, or inbox, always inside the access you granted.</p>
+          <div class="ex"><div class="exl">Example</div><p>It reads this week's calendar and drafts the Friday summary from what actually happened.</p></div>
+        </div>
+      </div>
+
+      <p>Context is what it knows; connections are what it can see and do. With both set up, whole categories of asking disappear.</p>
+
+      <h3>Set it up in three layers</h3>
+      <ol>
+        <li><b>Standing instructions.</b> Who you are, what the firm does, how you like output. Written once, applied everywhere.</li>
+        <li><b>Project spaces.</b> One space per ongoing matter, loaded with its documents, so every chat inside it starts informed.</li>
+        <li><b>Connections, narrowest first.</b> Connect the systems the work needs, one at a time, each with the smallest access that does the job.</li>
+      </ol>
+
+      <div class="clarify">Grant access the way you would hand over a key card: to named rooms, not the whole building. Approve actions per use rather than choosing "always allow", and disconnect what you stop using. The model works for you; the access decisions stay yours.</div>
+
+      <div class="rulebox"><b>You stay accountable for what the system reads and does.</b> Narrow scopes, per-use approvals, and an occasional look at what memory has stored keep that accountability real rather than theoretical.</div>
+
+      <h3>Three checks on your setup</h3>
+      <ol>
+        <li><b>What does it know?</b> Read the stored memory and standing instructions; fix what has gone stale.</li>
+        <li><b>What can it reach?</b> List the connections; disconnect what the work no longer needs.</li>
+        <li><b>What can it do alone?</b> At this altitude, nothing irreversible without your approval.</li>
+      </ol>
+
+      <p>With your world attached, you can stop asking questions and start handing over whole tasks, which is the next section.</p>
+
+      <div class="pulls"><span class="pl">Look aside</span><button class="pullbtn" data-drawer="data-access">How AI gets your data</button></div>
+
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Give it your world once: standing instructions, project spaces, and the narrowest connections that do the job. What it knows and what it may touch stay decisions you make, not defaults you inherit.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-delegate-whole-tasks" data-slug="delegate-whole-tasks">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">4</div>
+                <div class="acc-main">
+                  <div class="acc-title">Delegate whole tasks, not questions</div>
+                  <div class="acc-beats">Hand over whole tasks with a real brief; keep the judgment and the sign-off.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="delegate-whole-tasks"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Questions save minutes; delegated tasks save hours. This section shows you how to hand over a whole piece of work, with one rule of thumb: delegate the task, keep the judgment.</p>
+
+      <h3>The dividing line: dabbling or delegating</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">Dabbling</div>
+          <h4>Dabbling uses the model for fragments of work you are already doing.</h4>
+          <p>You ask for a sentence here and an idea there, so the task's shape and its hours stay yours.</p>
+          <div class="ex"><div class="exl">Example</div><p>Polishing one paragraph of the proposal you spent the afternoon writing.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">Delegating</div>
+          <h4>Delegating hands the model a whole task with a brief, and makes you the reviewer.</h4>
+          <p>The model produces the full first version; your time moves from producing to directing and certifying.</p>
+          <div class="ex"><div class="exl">Example</div><p>Handing over the whole proposal first draft: the brief, the client notes, the outline, then reviewing what comes back.</p></div>
+        </div>
+      </div>
+
+      <p>The real hours live on the delegating side of that line.</p>
+
+      <h3>What to hand over first</h3>
+      <ol>
+        <li><b>Work with a known good shape.</b> Proposals, summaries, reports, first-pass reviews: you can describe what good looks like, so you can check what comes back.</li>
+        <li><b>First versions, not final calls.</b> Drafts, options, and analyses to react to; decisions stay with you.</li>
+        <li><b>Inside its strengths.</b> Language-shaped work first; hold back the tasks where you cannot verify the output until your verification habits are solid.</li>
+      </ol>
+
+      <div class="clarify">Delegation changes where your time goes, not how much care the work gets. A short, real brief plus a serious review still puts your judgment on the page; what disappears is the hours of production in between.</div>
+
+      <div class="rulebox"><b>Brief, review, iterate: the same loop, on a bigger unit.</b> The habits from the earlier sections carry over unchanged; what grows is the size of what you hand over.</div>
+
+      <h3>A good first delegation has three parts</h3>
+      <ol>
+        <li><b>The brief holds the standard.</b> Material, audience, tone, and what good looks like, stated up front.</li>
+        <li><b>The review is real.</b> Facts, names, and numbers checked; structure judged; nothing forwarded unread.</li>
+        <li><b>The second round is planned.</b> One revision with pointed feedback is part of the job, not a failure of the tool.</li>
+      </ol>
+
+      <p>Tasks you delegate well once are worth making repeatable, which is the last section of this stage.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Delegate whole tasks with a real brief, and review like the work still carries your name, because it does. The hours come back on the delegating side of the line.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-make-work-repeatable" data-slug="make-work-repeatable">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">5</div>
+                <div class="acc-main">
+                  <div class="acc-title">Make good work repeatable</div>
+                  <div class="acc-beats">When it works twice, capture it: templates, skills, and scheduled tasks.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="make-work-repeatable"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>The first delegation is an experiment; the fifth should be a routine. This section shows you how to keep what works, with one rule of thumb: when something works twice, capture it so it works every time.</p>
+
+      <h3>A result is not an asset until it is captured</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">A one-off prompt</div>
+          <h4>A one-off prompt gets a good result and then disappears into the chat history.</h4>
+          <p>Next month someone rebuilds it from memory, a little differently, with a little less of what made it work.</p>
+          <div class="ex"><div class="exl">Example</div><p>The brief that produced the best proposal draft so far, somewhere in March's chats.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">A captured asset</div>
+          <h4>A captured asset is the working brief saved as a reusable instruction.</h4>
+          <p>Saved as a skill or a template, it runs the same way every time and can be handed to a colleague.</p>
+          <div class="ex"><div class="exl">Example</div><p>A saved "proposal first draft" instruction that anyone at the firm can run on a new client brief.</p></div>
+        </div>
+      </div>
+
+      <p>Capture is the difference between being personally faster and building something the firm keeps.</p>
+
+      <h3>Three assets worth building</h3>
+      <ol>
+        <li><b>Templates and standing briefs.</b> Your best instructions, kept where you can rerun them, named so you can find them.</li>
+        <li><b>Skills.</b> Multi-step instructions the model applies on demand: how your firm writes summaries, structures reviews, formats deliverables. Reusable, versionable, and shareable.</li>
+        <li><b>Scheduled tasks.</b> Recurring work set to run on a rhythm, like a Monday pipeline summary that now arrives instead of being produced. Review what arrives; improve the instruction, not each output.</li>
+      </ol>
+
+      <p>This is also the point where paying for the tool earns its keep. A free plan carries you through the working loop; the machinery of capture and context, project spaces, connections, saved skills, and scheduled tasks, mostly lives on the paid plans, from about twenty dollars a month per person. You are not paying for a smarter chatbot; you are paying for the features that turn a chatbot into a delegation system.</p>
+
+      <div class="clarify">Treat these assets the way developers treat code: kept in one agreed place, improved in the master copy rather than in scattered private variants, and reviewed now and then for what has gone stale.</div>
+
+      <div class="rulebox"><b>Every asset you capture makes the next delegation cheaper.</b> This library is also the seed of something larger: Stage 4 turns it into a firm-wide asset, but it starts here, personal and small.</div>
+
+      <h3>The starter library, concretely</h3>
+      <ol>
+        <li><b>Five briefs that work.</b> Your most-repeated tasks, captured and named.</li>
+        <li><b>One skill.</b> The task you delegate most, written as a reusable instruction.</li>
+        <li><b>One scheduled task.</b> A piece of recurring work that now arrives on its own.</li>
+      </ol>
+
+      <p>That library completes this altitude's outcome; the altitude close below says what operating well here looks like.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>When it works twice, capture it: templates, skills, scheduled tasks. Personal speed fades with the person; a library compounds.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+          </div>
+        </div>
+
+        
+
+        <div class="alt-close">
+          <div class="ac-lbl">Before you paste client work</div>
+          <p>One professional habit as the library grows: know what your tool does with what you paste. Two minutes in the data settings tells you whether conversations are used for training and how long they are kept; check once, choose deliberately, and the question is settled. Client material deserves the same care in an AI tool as in any other system, and when colleagues start following you onto the tool, business terms are the natural next step. The later stages pick that up.</p>
+        </div>
+
+        <div class="alt-close">
+          <div class="ac-lbl">Operating well at this altitude</div>
+          <p><b>Most readers should run at this altitude for a while, and staying here is fine.</b> Operating well at Stage 1 looks like: the setup is trusted, the delegation habit is real, and the starter library grows on its own. Stage 2 is there for the day a shared workflow needs more than personal leverage, not because a next stage exists.</p>
+        </div>
+
+
+      </div>
+    </div></div>
+
+    <!-- STAGE 2 — reference chapter -->
+    <div class="chpanel st-2" id="ch-stage-2"><div class="stage-shell">
+      <div class="stage-top">
+        <div class="row1"><span class="sd-num">Stage 2 · First business win</span><button class="ch-close" data-chclose>Close ✕</button></div>
+        <h2>Bring AI into one real workflow</h2>
+        <p class="promise">This is where AI stops being a personal trick and becomes something the firm does: one shared workflow, with a quality bar that survives the enthusiast leaving.</p>
+      </div>
+      <div class="stage-body">
+
+        <!-- outcome first -->
+
+
+
+        <!-- the reading -->
+        <div class="arts">
+          <div class="arts-lbl">The reading</div>
+
+          <div class="acc">
+
+            <div class="acc-item" id="sec-find-the-workflow" data-slug="find-the-workflow">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">1</div>
+                <div class="acc-main">
+                  <div class="acc-title">Find the workflow worth winning</div>
+                  <div class="acc-beats">Find the step where work piles up, then pick one bounded task inside it.</div>
+                </div>
+                <div class="acc-move">Move 1</div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="find-the-workflow"># Copy link</button></div>
+                <div class="sbody">
+                  <p>Stage 2 starts with a choice: which workflow gets your firm's first real AI effort. This section shows you how to make that choice, with one rule of thumb: pick the workflow where work already piles up, not the one where AI would look most impressive.</p>
+                  <h3>Two questions find the constraint</h3>
+                  <ol>
+                    <li><b>What breaks first when volume rises?</b> If twice the usual work arrived next month, one step would clog before all the others: quotes wait to be written, tickets wait to be answered, invoices wait to be checked. That step is your constraint.</li>
+                    <li><b>What drains the most qualified hours?</b> Some steps never clog, but they quietly consume the week of the people you can least spare, like a partner who spends every Friday assembling the same client report.</li>
+                  </ol>
+                  <p>Both questions point at the same place: the step where an improvement is worth the most. Start there, not from a list of what AI can do.</p>
+                  <h3>One task, not a whole function</h3>
+                  <div class="cards2">
+                    <div class="ccard ca">
+                      <div class="ck">A task</div>
+                      <h4>A task is one bounded piece of work with a clear start and a clear finish.</h4>
+                      <p>You can say what goes in, what comes out, and what a good result looks like.</p>
+                      <div class="ex"><div class="exl">Example</div><p>Drafting the first version of a proposal is a task.</p></div>
+                    </div>
+                    <div class="ccard cb">
+                      <div class="ck">A function</div>
+                      <h4>A function is a whole area of responsibility made up of many tasks.</h4>
+                      <p>It has no single finish line, so there is no one result to check and no clean way to tell whether a change worked.</p>
+                      <div class="ex"><div class="exl">Example</div><p>Handling sales is a function; it contains dozens of tasks, from drafting quotes to updating the pipeline.</p></div>
+                    </div>
+                  </div>
+                  <p>Your first workflow is a task inside the constraint, not the constraint's whole department. If proposals are the clog, the first workflow is drafting the first version of one, not reinventing how the firm sells.</p>
+                  <div class="clarify">The constraint is where work waits, which is not always where people complain. A step everyone grumbles about may cost the firm little, while a quiet step nobody mentions holds up every job that passes through it. Follow the waiting work, not the noise.</div>
+                  <div class="rulebox"><b>The workflow worth winning sits at the constraint and passes the six tests below.</b> If a candidate fails two or more, it is not your first workflow; it may well be your third.</div>
+                  <h3>Six tests before you commit</h3>
+                  <ol>
+                    <li><b>Frequent.</b> The task happens daily or weekly, so there is enough volume to judge the result and the win pays back quickly.</li>
+                    <li><b>Bounded.</b> It has a clear start and finish, with defined inputs and outputs.</li>
+                    <li><b>Painful.</b> It costs real hours or real delay today, so winning it is worth something.</li>
+                    <li><b>Measurable.</b> You can put a number on how it runs today; the next section captures that number as your baseline.</li>
+                    <li><b>Low error-stakes.</b> A mistake is cheap to catch and cheap to fix, because early versions will make some.</li>
+                    <li><b>Mature.</b> The process is stable and understood, not something the firm is still redesigning.</li>
+                  </ol>
+                  <p>Typical first picks include proposal drafting at an agency, first-line support replies at a software business, the seasonal crunch at an accounting practice, and after-hours enquiries at a local service firm. Treat these as places to look, and test whatever you find against the six tests.</p>
+                  <p>Once the workflow is chosen, the next move is to map it as it really happens.</p>
+                </div>
+                <div class="takeaway"><div class="tlbl">Takeaway</div><p>The right first workflow is chosen by diagnosis, not enthusiasm: one frequent, bounded task at the step where work piles up, with mistakes cheap to catch.</p></div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-map-the-work" data-slug="map-the-work">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">2</div>
+                <div class="acc-main">
+                  <div class="acc-title">Map the work as it really happens</div>
+                  <div class="acc-beats">Record the real process once, count one real week, and name one owner.</div>
+                </div>
+                <div class="acc-move">Move 2</div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="map-the-work"># Copy link</button></div>
+                <div class="sbody">
+                  <p>You have chosen the workflow; before anything gets built, it needs a map. This section shows you how to make one in a week, with one rule of thumb: capture the work as it actually happens, together with the number it actually costs.</p>
+                  <h3>Every workflow exists twice</h3>
+                  <div class="cards2">
+                    <div class="ccard ca">
+                      <div class="ck">The official process</div>
+                      <h4>The official process is how the workflow is supposed to run.</h4>
+                      <p>It lives in handbooks and job descriptions, written from memory, often by someone who no longer does the work.</p>
+                      <div class="ex"><div class="exl">Example</div><p>The handbook says every enquiry is logged in the system before anyone replies.</p></div>
+                    </div>
+                    <div class="ccard cb">
+                      <div class="ck">The real process</div>
+                      <h4>The real process is how the work actually gets done this week.</h4>
+                      <p>It includes the workarounds, exceptions, and shortcuts people have built over time, and those are exactly what an automation trips over.</p>
+                      <div class="ex"><div class="exl">Example</div><p>In practice, urgent enquiries go straight to a senior's inbox and get logged afterwards, when there is time.</p></div>
+                    </div>
+                  </div>
+                  <p>Map the real one. The gap between the two is where the surprises live.</p>
+                  <h3>Record the work, don't write it from memory</h3>
+                  <ol>
+                    <li><b>Record one full pass.</b> The person who does the work records their screen and talks through what they are doing, once, the way they would show a new colleague. If several people touch the workflow, each records their part; the handoffs between them are the most important footage.</li>
+                    <li><b>Let a model draft the map.</b> Hand the transcript to a model with your instructions and it returns a step-by-step description in minutes instead of an afternoon.</li>
+                    <li><b>The person corrects the draft.</b> They fix what the recording missed and mark the exceptions. A person certifies the map, not the model.</li>
+                  </ol>
+                  <p>Writing a process down from memory produces the official version. Recording it produces the real one, including the steps nobody thinks to mention.</p>
+                  <h3>Attach the before-number</h3>
+                  <p>The baseline is one real week of the workflow, counted, not estimated. A tally in a shared sheet is enough; the point is that the week is counted while it happens, not remembered afterwards.</p>
+                  <ol>
+                    <li><b>How often it runs.</b> The actual number of passes that week, not the average anyone remembers.</li>
+                    <li><b>How long a pass takes.</b> From the moment work arrives to the moment it is finished, including the waiting.</li>
+                    <li><b>Where it waits.</b> The handoffs and queues, because delay often hides in the waiting, not in the doing.</li>
+                  </ol>
+                  <div class="clarify">The baseline is not paperwork for its own sake. It is the number the pilot in move four will be judged against; without it, nobody can say whether the new way is better, including you. People's sense of time saved is not a reliable measure, so count the week rather than asking about it.</div>
+                  <div class="rulebox"><b>No baseline, no build.</b> The map says what to build; the baseline is what proves, later, whether it worked.</div>
+                  <h3>Three things the finished map contains</h3>
+                  <ol>
+                    <li><b>The steps as they really happen.</b> Including the exceptions and workarounds, marked as such.</li>
+                    <li><b>The before-number.</b> Passes per week, time per pass, and where the work waits.</li>
+                    <li><b>One named owner.</b> A single person who owns this workflow from here on: the map, the baseline, and the decisions the next moves ask for. Named now, not after something goes wrong.</li>
+                  </ol>
+                  <p>With the map and its baseline in hand, the next move is choosing the simplest way to automate what you just mapped.</p>
+                </div>
+                <div class="takeaway"><div class="tlbl">Takeaway</div><p>The map is an asset, not admin. Record the real process, count a real week, name one owner; everything you build next stands on it.</p></div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-choose-the-route" data-slug="choose-the-route">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">3</div>
+                <div class="acc-main">
+                  <div class="acc-title">Choose the simplest way to automate</div>
+                  <div class="acc-beats">Rules for the steps that never change, AI for the judgment steps, an agent for the stretches that vary.</div>
+                </div>
+                <div class="acc-move">Move 3</div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="choose-the-route"># Copy link</button></div>
+                <div class="sbody">
+                  <p>Your map from the last section lists the workflow step by step. This section shows you how to pick the right amount of automation for it, with one rule of thumb: give every step the simplest tool that can handle it.</p>
+                  <h3>Look at your map: two kinds of steps</h3>
+                  <div class="cards2">
+                    <div class="ccard ca">
+                      <div class="ck">Mechanical steps</div>
+                      <h4>The same situation always gets the same action.</h4>
+                      <p>These steps run identically every time, so the rule can be written down and handed over.</p>
+                      <div class="ex"><div class="exl">Example</div><p>When an invoice arrives, it goes into the client folder and the amount is entered in the sheet, the same way every time.</p></div>
+                    </div>
+                    <div class="ccard cb">
+                      <div class="ck">Judgment steps</div>
+                      <h4>The right action depends on what is in front of you.</h4>
+                      <p>Something has to be read, weighed, or worded before the step can happen.</p>
+                      <div class="ex"><div class="exl">Example</div><p>Answering a customer complaint, summarizing a call, or deciding whether a request is urgent.</p></div>
+                    </div>
+                  </div>
+                  <p>Mark each step as one or the other. That split does most of the choosing for you.</p>
+                  <h3>Match the work to the simplest tool</h3>
+                  <ol>
+                    <li><b>Fixed rules for the mechanical steps.</b> If this happens, do that, every time. Rules are predictable and fast, and they should carry as much of the workflow as possible.</li>
+                    <li><b>An AI step for a single judgment step.</b> You hand it one task with your instructions and guidelines: draft the reply in your tone, summarize the report, pull the key figures from the contract. It does that task and stops; what happens before and after stays with you.</li>
+                    <li><b>An agent for a stretch that varies.</b> You give it a goal, boundaries, and sign-off points; it carries out several steps in a row, choosing the order to fit the case in front of it. The big automation platforms now offer agents as a built-in option, so getting one is not the hard part; deciding how much of the route to hand over is.</li>
+                  </ol>
+                  <div class="clarify">An automated workflow runs the exact route you laid, every time. An agent follows your instructions but chooses the turns as it goes. You still decide which systems it may use, which rules it follows, and where it pauses for your sign-off.</div>
+                  <p>When is the agent right? If the steps in your map hold for nearly every case, automate them as written. If the rules keep sprouting exceptions until nobody can hold them all, that stretch is agent territory, as in a support inbox where the right response depends on who is writing and what has already happened.</p>
+                  <div class="rulebox"><b>Most well-automated workflows are a combination:</b> fixed steps carry the process, AI handles the judgment steps inside it, an agent runs the stretches that vary. The simplest combination that covers your map is the right one.</div>
+                  <h3>Two ways to get it</h3>
+                  <ol>
+                    <li><b>Ready-made.</b> A vendor has already built the workflow as a finished product, the way bookkeeping tools read receipts on their own. A product has one shape, so the adapting is done by your process, not by the software; that trade is worth it when your workflow looks like everyone else's.</li>
+                    <li><b>Custom-made.</b> Built around your workflow as you actually run it: from clicking it together yourself on a platform such as Zapier, Make, or n8n, to having a specialist build and harden it for you. Here the map you drew stays the map.</li>
+                  </ol>
+                  <p>The choice follows the map. Where a step works the way every firm works, a finished product is the fast route; where the workflow is part of how you win and keep clients, build to fit.</p>
+                  <p>Where it runs is a separate choice: a vendor's cloud, or systems you run yourself. Data sensitivity, what you already run on, cost at your volume, and who can maintain it all weigh in.</p>
+                  <div class="pulls">
+                    <span class="pl">Look aside</span>
+                    <button class="pullbtn" data-drawer="model-runs">Where the model runs</button>
+                    <button class="pullbtn" data-drawer="agents-run">Where agents run</button>
+                  </div>
+                  <h3>Three checks before you build</h3>
+                  <ol>
+                    <li><b>What it may see.</b> Access to the data the workflow needs, and nothing beyond it.</li>
+                    <li><b>What it may do alone.</b> Which results a person approves before they count; anything a client sees stays behind that line.</li>
+                    <li><b>Who owns it.</b> An alert when it fails, and one named person who responds.</li>
+                  </ol>
+                  <p>How you prove the new setup beats the old one is the next move: the pilot.</p>
+                </div>
+                <div class="takeaway"><div class="tlbl">Takeaway</div><p>Rules for the steps that never change, AI for the judgment steps, an agent for the stretches that vary. The simplest combination that covers your map is the right one.</p></div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-pilot-against-baseline" data-slug="pilot-against-baseline">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">4</div>
+                <div class="acc-main">
+                  <div class="acc-title">Pilot against your baseline</div>
+                  <div class="acc-beats">Run the new way beside the old for a fixed stretch, with the pass mark set before you start.</div>
+                </div>
+                <div class="acc-move">Move 4</div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="pilot-against-baseline"># Copy link</button></div>
+                <div class="sbody">
+
+
+      <p>The new setup exists; now it has to prove itself against the baseline from move two. This section shows you how to run that proof, with one rule of thumb: run the new way beside the old way, and decide before you start what result means go.</p>
+
+      <h3>Run it beside, not instead</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">A parallel run</div>
+          <h4>A parallel run tries the new way while the old way keeps working as before.</h4>
+          <p>Nothing breaks while you learn, because the old route still produces the real output.</p>
+          <div class="ex"><div class="exl">Example</div><p>The model drafts the reply, and this month someone still writes theirs as usual; you compare the two.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">A hard switch</div>
+          <h4>A hard switch replaces the old way on day one.</h4>
+          <p>Everything now depends on a setup nobody has watched under real load, and the way back is improvised.</p>
+          <div class="ex"><div class="exl">Example</div><p>The old drafting routine is dropped the same week the automation goes live.</p></div>
+        </div>
+      </div>
+
+      <p>Pilot in parallel; switch only after the pilot has passed. The comparison is the whole point of the exercise.</p>
+
+      <h3>Set the pilot up in three decisions</h3>
+      <ol>
+        <li><b>The pass mark, decided in advance.</b> Write down what result means go before the first run: the time a pass may take, the share of outputs accepted without rework, whatever your baseline measures. A pass mark chosen afterwards will bend toward whatever result you got.</li>
+        <li><b>The time box.</b> Give the pilot a fixed end date: long enough for the workflow to run often enough to judge, short enough that a verdict must come. For most weekly workflows that is about a month; a fixed date beats an open-ended trial that nobody ever closes.</li>
+        <li><b>The judges.</b> The people who do the work daily run the pilot, not the person who built the setup. A demo run by the builder always looks good; the real test is a normal Tuesday under real load.</li>
+      </ol>
+
+      <div class="clarify">The baseline from move two is the referee. The pilot's numbers are compared against the counted week, not against how the old way felt; the map told you what to build, and the baseline now tells you whether it worked.</div>
+
+      <div class="rulebox"><b>Stopping is a result, not a failure.</b> A pilot that ends in a clean no after five weeks has done its job; it cost you weeks, where a workflow kept alive on hope costs quarters.</div>
+
+      <h3>Three questions the pilot must answer</h3>
+      <ol>
+        <li><b>Did it beat the baseline?</b> The counted result against move two's number, not an impression.</li>
+        <li><b>Did the team accept it?</b> Outputs used as they came out count; outputs quietly redone do not.</li>
+        <li><b>What broke, and why?</b> The pilot's exception list is the work order for the rollout. If nothing broke, the pilot was probably too gentle; feed it the awkward cases on purpose.</li>
+      </ol>
+
+      <p>A pilot that passes earns the rollout: making the new way the default is the next move.</p>
+                </div>
+                <div class="takeaway"><div class="tlbl">Takeaway</div><p>Run the new way beside the old, judged by the people who do the work against the counted baseline, with the pass mark set before you start. Stopping is a legitimate result.</p></div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-roll-out-and-own" data-slug="roll-out-and-own">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">5</div>
+                <div class="acc-main">
+                  <div class="acc-title">Roll out the new way and own it</div>
+                  <div class="acc-beats">Make the new way the default, give it a champion and a watchful owner, and keep the way back.</div>
+                </div>
+                <div class="acc-move">Move 5</div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="roll-out-and-own"># Copy link</button></div>
+                <div class="sbody">
+
+
+      <p>The pilot passed; now the new way has to become the way the work is done. This section covers the rollout, with one rule of thumb: a workflow is rolled out when it is the default, not when it is available.</p>
+
+      <h3>Rebuild the routine, don't decorate it</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">Bolted on</div>
+          <h4>A bolted-on rollout adds the new tool on top of the old routine.</h4>
+          <p>Every old step survives and new ones are added around the tool, so the workflow ends up with more steps than before.</p>
+          <div class="ex"><div class="exl">Example</div><p>The model drafts the reply, and the draft then passes through every step the manual version had, plus a new review of the draft itself.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">Rebuilt</div>
+          <h4>A rebuilt rollout redesigns the steps around what now runs on its own.</h4>
+          <p>Steps that existed only because a person had to do the work by hand are removed rather than preserved.</p>
+          <div class="ex"><div class="exl">Example</div><p>The meeting where drafts used to be assigned disappears, because the drafts now exist before it would have started.</p></div>
+        </div>
+      </div>
+
+      <p>Rebuild rather than bolt on. If the old process survives untouched beside the new one, the gains stay cosmetic.</p>
+
+      <h3>Three things that make it stick</h3>
+      <ol>
+        <li><b>A default, not an option.</b> From a named date, the new way is how the workflow runs; the old way remains only as the documented fallback. As long as both routes are open, the busy week picks the familiar one.</li>
+        <li><b>A champion beside the owner.</b> One person on the team who uses the workflow daily, answers colleagues' questions, and collects what annoys them. It is a lighter job than it sounds, and it is how new routines survive contact with a busy week.</li>
+        <li><b>A measure that rewards the new way.</b> If people are still judged by numbers that reward the old way of working, the old way returns quietly. Judge the workflow by its measured outcome, the number move six tracks.</li>
+      </ol>
+
+      <div class="clarify">The first weeks after rollout run slower than the pilot suggested, because the whole team is now learning what the pilot group already knew. Budget for that dip instead of reading it as failure; it is the cost of the last mile, not a verdict on the workflow.</div>
+
+      <div class="rulebox"><b>Watch it, and keep the way back.</b> Someone checks the workflow's output on a schedule, and the owner can switch to the documented old way at any time, without a meeting. Automated work drifts as inputs, tools, and models change; unwatched, it degrades quietly.</div>
+
+      <h3>Three checks before you call it rolled out</h3>
+      <ol>
+        <li><b>The default test.</b> A new case entering the workflow today goes down the new route without anyone deciding that it should.</li>
+        <li><b>The absence test.</b> The workflow still runs when the champion is on holiday, because the written runbook, not one person's memory, carries it.</li>
+        <li><b>The rollback test.</b> The owner knows exactly how to switch back, and the old way is documented well enough that switching back actually works.</li>
+      </ol>
+
+      <p>Whether the rolled-out workflow keeps earning its place is the last move: measuring the win.</p>
+                </div>
+                <div class="takeaway"><div class="tlbl">Takeaway</div><p>Rolled out means the new way is the default, someone owns its health, and the way back exists. Rebuild the workflow around what runs on its own; don't bolt the new tool onto the old routine.</p></div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-measure-the-win" data-slug="measure-the-win">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">6</div>
+                <div class="acc-main">
+                  <div class="acc-title">Measure the win, then keep or retire</div>
+                  <div class="acc-beats">Count what an accepted result costs against the baseline, then keep, revise, or retire.</div>
+                </div>
+                <div class="acc-move">Move 6</div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="measure-the-win"># Copy link</button></div>
+                <div class="sbody">
+
+
+      <p>The workflow runs; the last move decides what it earned. This section shows you how to measure one workflow's return, with one rule of thumb: count verified outcomes against the baseline, and let that number make the keep, revise, or retire call.</p>
+
+      <h3>Count outcomes, not activity</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">Adoption</div>
+          <h4>Adoption measures how much the new way is used.</h4>
+          <p>It is easy to count and comfortable to report, but a busy tool and a better workflow are not the same thing.</p>
+          <div class="ex"><div class="exl">Example</div><p>The team runs the drafting step on almost every proposal now.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">Verified outcomes</div>
+          <h4>A verified outcome is a result that was accepted and used.</h4>
+          <p>It counts only when the work product passed the person who signs off on it, at the quality the firm actually ships.</p>
+          <div class="ex"><div class="exl">Example</div><p>Most drafts go to clients with light edits; the ones rewritten from scratch are counted separately.</p></div>
+        </div>
+      </div>
+
+      <p>Report outcomes. Adoption tells you the tool is alive; outcomes tell you whether the workflow won.</p>
+
+      <h3>Put one number on it: cost per success</h3>
+      <ol>
+        <li><b>Count the successes.</b> Verified outcomes over a set period, taken from the workflow's own records, not from memory.</li>
+        <li><b>Count the full cost.</b> The tool's price for the period, plus the human minutes still inside the workflow: preparing, reviewing, correcting.</li>
+        <li><b>Divide, then compare.</b> Cost divided by successes, set against the same number computed from the baseline week. The workflow wins if a good result now costs less, in money or in scarce hours.</li>
+      </ol>
+
+      <div class="clarify">Ask the team how it feels and you will get an answer; it just will not be a measurement. People's sense of saved time is unreliable in both directions, so the verdict comes from the counted numbers, with the team's experience kept as context for the revise decision.</div>
+
+      <div class="rulebox"><b>Keep, revise, or retire: decided on a date.</b> Put the review in the calendar when the rollout ends. Keep what beats its baseline; revise what almost does, the exception list usually says how; retire what does not. A retired workflow is not a loss: it taught you what the next one needs.</div>
+
+      <h3>What goes in the dossier</h3>
+      <ol>
+        <li><b>The before and after.</b> The baseline week and the measured period, side by side.</li>
+        <li><b>The verdict and its date.</b> Keep, revise, or retire, signed by the owner, with the next review date already set.</li>
+        <li><b>What you would do differently.</b> Two or three lines, written while it is fresh. This is what makes the second workflow cheaper than the first.</li>
+      </ol>
+
+      <p>With the dossier complete you have run the whole loop once; operating well at this altitude is a destination in itself, and the next constraint is where the loop runs again.</p>
+                </div>
+                <div class="takeaway"><div class="tlbl">Takeaway</div><p>Count verified outcomes, not usage, and price them against the baseline. The number, not the mood, makes the keep, revise, or retire call.</p></div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- worked example (hybrid, D2 — no serialized firm) -->
+        
+
+        <!-- altitude close -->
+        <div class="alt-close">
+          <div class="ac-lbl">Operating well at this altitude</div>
+          <p><b>Many firms should operate here, and some should stay.</b> Operating well at Stage 2 looks like: the workflow runs as the default, its dossier is current, its number gets checked monthly, and no heroics are involved. Stage 3 is there when the next constraint genuinely needs machines acting unattended, not because a next stage exists.</p>
+        </div>
+
+
+      </div>
+    </div></div>
+
+    <!-- STAGE 3 -->
+    <div class="chpanel st-3" id="ch-stage-3"><div class="stage-shell">
+      <div class="stage-top">
+        <div class="row1"><span class="sd-num">Stage 3 · Expansion</span><button class="ch-close" data-chclose>Close ✕</button></div>
+        <h2>Let automation and agents carry more of each workflow</h2>
+        <p class="promise">You have won once. Now the loop runs again and again, and the route ladder extends up into automation and agents, with the rule that saves the most pain: rules before agents.</p>
+      </div>
+      <div class="stage-body">
+
+
+
+
+        <div class="arts">
+          <div class="arts-lbl">The reading</div>
+          <div class="acc">
+
+            <div class="acc-item" id="sec-ready-systems-and-data" data-slug="ready-systems-and-data">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">1</div>
+                <div class="acc-main">
+                  <div class="acc-title">Ready your systems and data</div>
+                  <div class="acc-beats">Grant the least access that does the job, give each build its own identity, and never build on unfit data.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="ready-systems-and-data"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Stage 3 lets machines act without someone watching each run, and what they act on is your systems and your data. This section gets both ready, with one rule of thumb: grant the least access that does the job, and fix unfit data before you build on it.</p>
+
+      <h3>Connections grow up at this altitude</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">A personal connection</div>
+          <h4>A personal connection acts as you, inside your own accounts.</h4>
+          <p>Fine at Stage 1: the blast radius is your own inbox, and you see everything it does.</p>
+          <div class="ex"><div class="exl">Example</div><p>The assistant that reads your calendar to draft your week's plan.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">A business connection</div>
+          <h4>A business connection acts on shared systems, often with nobody watching the run.</h4>
+          <p>It gets its own login and its own narrow permissions, so what it can touch is decided, recorded, and revocable.</p>
+          <div class="ex"><div class="exl">Example</div><p>The invoice automation reads the accounting system every night under its own account, with invoice access only.</p></div>
+        </div>
+      </div>
+
+      <p>The difference is not the tool; it is the accountability around it. Stage 3 runs on business connections.</p>
+
+      <h3>Grant access like it will be audited</h3>
+      <ol>
+        <li><b>Least privilege.</b> The data the workflow needs and nothing beyond it. Over-broad access is a named, ranked risk with a plain fix: scope it down.</li>
+        <li><b>Its own identity.</b> Automations connect under their own credentials, not under whoever built them, so access survives people leaving and can be revoked on its own.</li>
+        <li><b>One dangerous combination avoided.</b> Never give one system all three of: access to private data, exposure to content outsiders can write, and a way to send data out. Drop any one leg and the worst case collapses.</li>
+      </ol>
+
+      <h3>Triage your data before you build</h3>
+      <ol>
+        <li><b>Clean.</b> Accurate, current, consistently structured. Build on it now.</li>
+        <li><b>Improvable.</b> The right data in a messy shape, like client records where half the phone numbers carry country codes and half do not. Standardize it as part of the build.</li>
+        <li><b>Unfit.</b> Wrong, stale, or contradictory, like two systems that disagree about which contact is current. Fix it first.</li>
+      </ol>
+
+      <div class="clarify">Automation does not clean data; it industrializes it. A person running the workflow quietly corrects bad records as they pass; a machine repeats the error faithfully, at speed, in every run. That is why unfit data blocks the build instead of being fixed later.</div>
+
+      <div class="rulebox"><b>Ready means: least access, its own identity, triaged data.</b> An afternoon spent here saves the weeks that follow a build on sand.</div>
+
+      <h3>Three questions before any build in this stage</h3>
+      <ol>
+        <li><b>What can it see?</b> The scopes are listed and no wider than the workflow needs.</li>
+        <li><b>Who is it?</b> Its own credentials, revocable without touching anyone's personal account.</li>
+        <li><b>What is it standing on?</b> A triage verdict exists for the data it touches, and nothing runs on unfit.</li>
+      </ol>
+
+      <p>With access scoped and data triaged, start automating, and start with the predictable work: the next section.</p>
+
+      <div class="pulls"><span class="pl">Look aside</span><button class="pullbtn" data-drawer="data-readiness">Data readiness and the security surface</button></div>
+
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Least access that does the job, an identity of its own, and no builds on unfit data. Machines act at machine speed; readiness is what makes that a feature.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-automate-the-predictable" data-slug="automate-the-predictable">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">2</div>
+                <div class="acc-main">
+                  <div class="acc-title">Automate the predictable first</div>
+                  <div class="acc-beats">Automate the steps that never change first, and know your billing unit.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="automate-the-predictable"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>The fastest wins in this stage are not the cleverest ones. This section is about the predictable work, with one rule of thumb: automate the steps that never change before the ones that think.</p>
+
+      <h3>Three reasons the boring steps go first</h3>
+      <ol>
+        <li><b>They are already specified.</b> The rule exists in someone's head or on a checklist; automating it is transcription, not invention.</li>
+        <li><b>They fail loudly and fix cheaply.</b> A file in the wrong folder or a missed field is visible and reversible, unlike a wrong judgment.</li>
+        <li><b>They free the budget for judgment.</b> A step handled by a plain rule costs almost nothing per run, which starts to matter once the platforms below meter your volume.</li>
+      </ol>
+
+      <h3>Know your billing unit</h3>
+      <ol>
+        <li><b>Per task.</b> Some platforms charge for each step executed: cheap for short workflows, adds up on long ones. Built-in helper steps are often free.</li>
+        <li><b>Per credit.</b> Others charge in credits, where a standard step costs one credit but AI steps consume by size and complexity, so the bill tracks what the AI actually does.</li>
+        <li><b>Per execution.</b> Others charge per workflow run, however many steps it contains: predictable for long workflows.</li>
+      </ol>
+
+      <p>The unit matters more than the sticker price: the same workflow can be cheap on one meter and expensive on another. Model a month of your real volume on each before committing.</p>
+
+      <div class="clarify">You have outgrown a platform when you spend more time working around it than in it: workflows split in two to fit its limits, exception handling that fights the tool, costs that climb faster than volume. That is a normal milestone, not a mistake, and the map you keep from Stage 2 moves with you.</div>
+
+      <div class="callout">
+        <div class="co-k">Named callout · Generative production</div>
+        <h4>One brief, many executions, one brand gate.</h4>
+        <p>The safe first taste of generative AI inside automation is production work: one approved brief becomes many drafts, variants, or formats, produced by a model inside the workflow. What makes it safe is the brand gate: a person or a hard checklist that everything passes before it leaves the building. The shape is predictable even though the content varies, which is why it belongs in this section; the full marketing-creative treatment lives in the worked-examples layer.</p>
+      </div>
+
+      <div class="rulebox"><b>Automate the predictable first.</b> It pays back immediately, it teaches you the platform cheaply, and it leaves a clean skeleton for the judgment steps and agents that come next.</div>
+
+      <h3>Three checks before scaling an automation</h3>
+      <ol>
+        <li><b>The volume is real.</b> It runs often enough that the build pays back.</li>
+        <li><b>The meter is understood.</b> You know what unit you pay in and roughly what a month costs at your volume.</li>
+        <li><b>Failure is visible.</b> When it breaks, something tells someone. Silent failure is the expensive kind.</li>
+      </ol>
+
+      <p>Once the predictable work runs itself, the interesting question is the varying stretch in the middle: your first agent, next section.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Automate the steps that never change first: they are specified, cheap to run, and cheap to fix. Know your billing unit before the bill teaches it to you.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-your-first-agent" data-slug="your-first-agent">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">3</div>
+                <div class="acc-main">
+                  <div class="acc-title">Give your first agent one narrow job</div>
+                  <div class="acc-beats">Start with one narrow, frequent, checkable job, launched in suggest mode with its rules written first.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="your-first-agent"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>An agent is the first thing you will run that chooses its own path through the work. This section is about the first one, with one rule of thumb: give it a narrow job, real boundaries, and a suggest mode to prove itself in.</p>
+
+      <p>As in Stage 2: an automation runs the exact route you laid, while an agent works toward a goal you set, choosing the order of steps within your rules. What is new at this altitude is that it runs without you watching each pass.</p>
+
+      <h3>What a good first agent job looks like</h3>
+      <ol>
+        <li><b>Narrow.</b> One kind of work in one place: triaging the support inbox, not "handling support". Agents with sprawling toolkits choose badly; small and focused wins.</li>
+        <li><b>Frequent and checkable.</b> It runs daily, and a person can tell at a glance whether a given decision was right.</li>
+        <li><b>Low-stakes on error.</b> A mislabeled ticket costs a correction, not a client.</li>
+      </ol>
+
+      <p>Inbox and ticket triage is the classic first agent for exactly these reasons: constant volume, quick to check, cheap to correct.</p>
+
+      <h3>Two modes, one promotion path</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">Suggest mode</div>
+          <h4>In suggest mode the agent drafts the decision and a person confirms it.</h4>
+          <p>It does the reading and the routing work, while every outcome still passes a human hand.</p>
+          <div class="ex"><div class="exl">Example</div><p>The agent labels each ticket and proposes a reply; the team sends it or fixes it.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">Act mode</div>
+          <h4>In act mode the agent carries out the decision itself, inside its boundaries.</h4>
+          <p>Act mode is earned, not assumed: a category moves up when its suggestions have stopped needing correction.</p>
+          <div class="ex"><div class="exl">Example</div><p>Routine password-reset tickets route themselves and get the standard reply; anything unusual still goes to a person.</p></div>
+        </div>
+      </div>
+
+      <p>Start every agent in suggest mode. The path from suggest to act is the whole subject of the next two sections.</p>
+
+      <div class="clarify">You no longer need to build much to get an agent; the platforms you already use offer them as a built-in option. The real work is the definition: the goal, the boundaries, the sign-off points, and examples of right answers. An agent is a job description, not a science project.</div>
+
+      <div class="rulebox"><b>Write the job description before the agent exists:</b> what it may read, what it may decide, what it must hand to a person, and what a right answer looks like, with real examples attached.</div>
+
+      <h3>Three things in place before the first run</h3>
+      <ol>
+        <li><b>Boundaries.</b> The systems it may use and the data it may see, scoped in the platform itself, not just described in the prompt.</li>
+        <li><b>Sign-off points.</b> The decisions that always go to a person, however confident the agent is.</li>
+        <li><b>A scorecard.</b> A simple tally of right, wrong, and escalated, because the promotion decisions ahead will need it.</li>
+      </ol>
+
+      <p>The harness that makes this safe to leave running is the next section.</p>
+
+      <div class="pulls"><span class="pl">Look aside</span><button class="pullbtn" data-drawer="agents-run">Where agents run</button></div>
+
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>First agent: one narrow, frequent, checkable, low-stakes job, launched in suggest mode with its job description written first. Capability is easy to get; the definition is the work.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-harden-what-you-build" data-slug="harden-what-you-build">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">4</div>
+                <div class="acc-main">
+                  <div class="acc-title">Harden what you build</div>
+                  <div class="acc-beats">Every build gets ceilings, an off-switch, a logbook, a runbook, and a scheduled health check.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="harden-what-you-build"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Everything in this stage that runs unattended needs a structure that keeps it dependable. This section builds that structure, with one rule of thumb: give every unattended run a ceiling, a logbook, and an off-switch.</p>
+
+      <h3>The harness, in four parts</h3>
+      <ol>
+        <li><b>Ceilings.</b> A spend it cannot exceed, a time limit per run, a cap on steps and retries. Errors in autonomous runs compound, and ceilings turn a bad night into a bounded cost instead of an open one.</li>
+        <li><b>An off-switch.</b> One known way to stop it now, that works, that more than one person can reach.</li>
+        <li><b>A logbook.</b> Every run recorded: what it read, what it decided, what it did, attributed to the automation that did it. When something looks wrong, the log answers instead of memory.</li>
+        <li><b>A runbook.</b> One page: what this is, what normal looks like, what to do when it is not, who owns it. Written for the colleague who is not you.</li>
+      </ol>
+
+      <div class="clarify">A health check is a habit, not a system. On a schedule, a person reads a sample of runs and the week's log and asks one question: is this still doing what we meant? Drift arrives quietly, as inputs, tools, and models change underneath the workflow.</div>
+
+      <h3>Decide who operates it</h3>
+      <ol>
+        <li><b>Managed for you.</b> The platform runs it; you own the definitions and the checks. The practical answer when volume is modest and nobody wants server duties.</li>
+        <li><b>Run by you.</b> Self-hosted, with full control of data and of cost at volume, in exchange for real operating duties: updates, backups, monitoring. Data sensitivity, existing systems, volume, and who maintains it all weigh in.</li>
+      </ol>
+
+      <div class="rulebox"><b>The harness is the product.</b> Ceilings, logs, a runbook, and an off-switch are what turn something that works in a demo into something the firm can lean on.</div>
+
+      <h3>Three tests of a hardened build</h3>
+      <ol>
+        <li><b>The overnight test.</b> If it misbehaves at 2 a.m., the ceilings cap the cost and the log shows what happened.</li>
+        <li><b>The absence test.</b> Someone other than the builder can read the runbook and act, including switching it off.</li>
+        <li><b>The drift test.</b> The next health check is in a calendar, and the last one actually happened.</li>
+      </ol>
+
+      <p>Hardened, an automation can start earning more autonomy, one step at a time: the next section.</p>
+
+      <div class="pulls"><span class="pl">Look aside</span><button class="pullbtn" data-drawer="agents-run">Where agents run</button></div>
+
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Ceilings, off-switch, logbook, runbook, and a scheduled look at what it is actually doing. The harness is what makes unattended work dependable.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-earn-autonomy" data-slug="earn-autonomy">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">5</div>
+                <div class="acc-main">
+                  <div class="acc-title">Promote autonomy as it is earned</div>
+                  <div class="acc-beats">Promote by measured performance, category by category; some doors stay human.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="earn-autonomy"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Autonomy is not a setting you switch on; it is trust the system earns, category by category. This section builds the ladder, with one rule of thumb: promote on measured performance, and keep some doors permanently human.</p>
+
+      <h3>The promotion ladder</h3>
+      <ol>
+        <li><b>Suggest.</b> The agent proposes; a person decides. Every new capability starts here, however good the demo looked.</li>
+        <li><b>Act with review.</b> The agent acts inside its boundaries; a person reviews shortly after, and undoing is easy.</li>
+        <li><b>Act and report.</b> The agent acts on its own and the log says what it did; scheduled spot checks replace per-case review.</li>
+      </ol>
+
+      <p>Promote one category at a time, when its correction rate has been low and stable for long enough to mean something, against a bar you set before you started. If corrections rise after a promotion, the category moves back down; demotion is maintenance, not drama.</p>
+
+      <h3>Doors that stay human, permanently</h3>
+      <ol>
+        <li><b>Anything a client sees.</b> Sent under your name means certified by a person, at every rung of this ladder.</li>
+        <li><b>Money.</b> Payments, refunds, pricing: a person approves, whatever the system's confidence.</li>
+        <li><b>The irreversible.</b> Deletions, contracts, and commitments that cannot be walked back.</li>
+      </ol>
+
+      <p>These gates are not training wheels that come off later; they are the design.</p>
+
+      <div class="clarify">A designed handoff is not a compromise. An agent that resolves what it can and routes the rest to a person, on purpose, is the mature shape of automated work, and the same idea scales from one inbox to a zone model for the whole firm.</div>
+
+      <div class="rulebox"><b>Trust is per category, earned by numbers, and revocable.</b> The scorecard from your first agent is the promotion file; without it, every autonomy decision is a mood.</div>
+
+      <h3>Before any promotion</h3>
+      <ol>
+        <li><b>The scorecard says so.</b> A low, stable correction rate over a real period, for that category specifically.</li>
+        <li><b>The harness held.</b> No ceiling breaches or silent failures in the period.</li>
+        <li><b>The gates stand.</b> The permanent doors are untouched by the promotion.</li>
+      </ol>
+
+      <p>With trust building workflow by workflow, the remaining question is how the portfolio grows: the last section.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Autonomy is earned per category, against a correction-rate bar set in advance, and some doors stay human by design. Demotion is maintenance, not drama.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-grow-workflow-by-workflow" data-slug="grow-workflow-by-workflow">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">6</div>
+                <div class="acc-main">
+                  <div class="acc-title">Grow workflow by workflow</div>
+                  <div class="acc-beats">Run the whole loop on each new workflow, and watch everything you leave running.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="grow-workflow-by-workflow"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Expansion is not one big program; it is the same loop, run again on the next constraint. This section is about growing well, with one rule of thumb: every workflow gets the full loop, and everything that runs gets watched.</p>
+
+      <p>The map from Stage 2 is the brief for every build in this stage: watch the work as it really happens, count a real week, name one owner. Two sentences of that method carry the whole discipline: map the real process, and no baseline, no build.</p>
+
+      <h3>The growth discipline</h3>
+      <ol>
+        <li><b>One constraint at a time.</b> The next workflow is chosen like the first: where work waits now. Wins compound; scattershot builds compound maintenance instead.</li>
+        <li><b>The loop, uncut.</b> Route, pilot against the baseline, harden, measure. The steps that feel skippable on workflow five are the ones that fail on workflow six.</li>
+        <li><b>Build, buy, or hire, per workflow.</b> Some workflows you click together yourself, some arrive as finished products, and for some the right answer is a specialist who builds and hardens it for you. The fit heuristic from Stage 2 decides, workflow by workflow, never as a firm-wide policy.</li>
+      </ol>
+
+      <div class="clarify">Growth changes the failure mode. One workflow that breaks is an incident; ten automations without monitoring are ten quiet degradations racing to be discovered by a client. The monitoring habit from the harness section is what makes ten manageable.</div>
+
+      <div class="rulebox"><b>Monitoring on everything, with no exception for the small ones.</b> Unmonitored automations degrade quietly, and the cheap ones degrade quietest, because nobody is looking.</div>
+
+      <h3>The portfolio checks</h3>
+      <ol>
+        <li><b>Every automation has an owner and a runbook.</b> No orphans; the list of what runs exists and is current.</li>
+        <li><b>Everything is watched.</b> An alert or a scheduled look, sized to its stakes.</li>
+        <li><b>Everything paid for itself or was retired.</b> The measuring move keeps running per workflow; the portfolio version of the discipline is Stage 4's job.</li>
+      </ol>
+
+      <p>When enough runs that keeping the list current is itself a job, you have arrived at the operating engine: Stage 4.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Grow one constraint at a time, run the whole loop each time, and watch everything you leave running. The current, owned list of what runs is the door into Stage 4.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+          </div>
+        </div>
+
+        
+
+        <div class="alt-close">
+          <div class="ac-lbl">Operating well at this altitude</div>
+          <p><b>Operating well here is a complete destination.</b> It looks like: several workflows running under real harnesses, an autonomy log that says what earned trust, and monitoring that catches drift before clients do. Stage 4 is there when keeping the whole picture current becomes its own job, not because a next stage exists.</p>
+        </div>
+
+
+      </div>
+    </div></div>
+
+    <!-- STAGE 4 -->
+    <div class="chpanel st-4" id="ch-stage-4"><div class="stage-shell">
+      <div class="stage-top">
+        <div class="row1"><span class="sd-num">Stage 4 · Operating engine</span><button class="ch-close" data-chclose>Close ✕</button></div>
+        <h2>Make AI a dependable part of how the firm runs</h2>
+        <p class="promise">What changes when AI stops being a project and becomes something you rely on. The artifacts are light: documents and routines, not platforms, and far lighter than the governance genre implies. Most firms have none of this, which is exactly the opportunity.</p>
+      </div>
+      <div class="stage-body">
+
+
+        <div class="pulls"><span class="pl">Horizon note</span><button class="pullbtn" data-drawer="orchestration">Orchestration and multi-agent: warranted vs hype</button></div>
+        <div class="sbody" style="margin-top:14px;"><p>If you self-located straight to this stage, here is what the engine consolidates: personal libraries become a shared library, per-automation runbooks become one register, per-automation guardrails become a one-page policy, and per-workflow measurement becomes portfolio measurement. Each earlier stage teaches its input in full; the engine only assumes they exist somewhere, however informally.</p></div>
+
+
+
+        <div class="arts">
+          <div class="arts-lbl">The reading</div>
+          <div class="acc">
+
+            <div class="acc-item" id="sec-rules-and-register" data-slug="rules-and-register">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">1</div>
+                <div class="acc-main">
+                  <div class="acc-title">Set the rules, know what runs</div>
+                  <div class="acc-beats">One page sets the rules; a live register tracks every automation that runs, each with an owner and a last-checked date.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="rules-and-register"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>The operating engine starts with two documents: a page and a spreadsheet. This section builds both, with one rule of thumb: write down what is allowed and what is running, and keep both current enough to trust.</p>
+
+      <h3>The policy and the register</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">The one-page policy</div>
+          <h4>The policy says what your firm does and does not do with AI.</h4>
+          <p>Six short sections cover it: scope, approved tools, data that never gets pasted, where a person signs off, who fields questions, and when this page is reviewed next.</p>
+          <div class="ex"><div class="exl">Example</div><p>Client financials never go into consumer tools; the approved tools are listed below; the operations lead fields questions.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">The register</div>
+          <h4>The register is the list of everything that runs, in a spreadsheet.</h4>
+          <p>One row per automation: what it is, who owns it, what data it touches, where its runbook lives, its sign-off points, and its status, including retired.</p>
+          <div class="ex"><div class="exl">Example</div><p>Anyone can open it and know what runs, who owns each row, and which rows were retired.</p></div>
+        </div>
+      </div>
+
+      <p>The policy is the rules; the register is the reality. Together they answer the two questions every serious client, insurer, or regulator asks: what do you allow, and what actually runs?</p>
+
+      <h3>Why a spreadsheet is enough</h3>
+      <ol>
+        <li><b>It is the same primitive the largest platforms now ship.</b> Agent registries and inventories have become first-class governance features at the biggest vendors; your register is that pattern at firm scale, and a spreadsheet carries it fine.</li>
+        <li><b>It is the evidence base you will be asked for.</b> Insurance renewals and client data questionnaires stop being archaeology when the register already says what touches what.</li>
+        <li><b>It closes the upgrade loop.</b> When a model or platform updates, the register is the checklist of what to re-test.</li>
+      </ol>
+
+      <div class="clarify">Most firms have none of this, and the governance literature makes it sound like a program with a steering committee. It is an afternoon: six sections on one page, one spreadsheet, one review date. Light is the point, because heavy governance dies of neglect.</div>
+
+      <div class="rulebox"><b>If it runs, it has a row.</b> The register is the keystone artifact of the engine: no orphan automations, and nothing running that nobody remembers owning.</div>
+
+      <h3>Three signs the page and the list are real</h3>
+      <ol>
+        <li><b>Someone owns them.</b> The policy's review date has been honored at least once.</li>
+        <li><b>The register matches reality.</b> Pick a row, find the automation; pick an automation, find its row.</li>
+        <li><b>They get used.</b> Questions actually reach the named person, and new builds start by adding a row.</li>
+      </ol>
+
+      <p>With the list current, the next section puts numbers on it: what the portfolio returns.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>One page of rules, one list of what runs, both owned and current. Governance at firm scale is an afternoon to build, and the register is the keystone of everything in this stage.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-measure-and-retire" data-slug="measure-and-retire">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">2</div>
+                <div class="acc-main">
+                  <div class="acc-title">Measure the return, retire the losers</div>
+                  <div class="acc-beats">Every register row gets a review on a fixed rhythm: the number, the decay check, the verdict.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="measure-and-retire"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Stage 2 measured one workflow; the engine measures the portfolio. This section sets the cadence, with one rule of thumb: every row in the register shows its number on a fixed rhythm it cannot skip.</p>
+
+      <p>The discipline is the one from the first business win, recurring: verified outcomes against a baseline, cost per success, keep, revise, or retire. What changes at this altitude is the unit: the portfolio, not the workflow.</p>
+
+      <h3>The review pass, per row</h3>
+      <ol>
+        <li><b>The number, refreshed.</b> Outcomes and cost since the last review, from the workflow's own records; the row's owner brings it, the meeting does not reconstruct it.</li>
+        <li><b>The decay check.</b> Compare against the row's best period, not only its original baseline. Automations degrade as inputs, tools, and models shift, and the register is where degradation gets caught on a schedule instead of by accident.</li>
+        <li><b>The verdict, recorded.</b> Keep, revise, or retire, written into the row with a date. Retirement is a normal verdict; a portfolio that never retires anything is not being measured, it is being admired.</li>
+      </ol>
+
+      <h3>What the verdicts feed</h3>
+      <ol>
+        <li><b>Keep feeds the next build.</b> A row that beats its baseline is the argument for taking on the next constraint, with numbers attached.</li>
+        <li><b>Revise feeds the exception list.</b> The row's own log usually says what to fix; the owner leaves the review with a work order, not a feeling.</li>
+        <li><b>Retire feeds the library.</b> What the workflow taught goes into the shared library before the row closes, so even a retirement leaves the firm faster than it found it.</li>
+      </ol>
+
+      <div class="clarify">Portfolio numbers are what earn the engine its budget. The measured wins argue for the next build better than any enthusiasm, and the retired rows are what make the numbers credible; a register showing only green convinces nobody.</div>
+
+      <div class="rulebox"><b>Simple formula, standing cadence.</b> Cost per success per row, reviewed on a fixed rhythm, verdicts recorded in the register. Quarterly suits most portfolios. A new or high-volume automation earns a monthly look; a stable, low-volume one can hold half a year. What matters is that the date is set in advance and no row skips its turn. If the review takes more than a morning, the formula has grown too clever.</div>
+
+      <h3>The review, done right</h3>
+      <ol>
+        <li><b>Nothing skipped.</b> Every active row shows a fresh number.</li>
+        <li><b>Decay checked.</b> Flat or drifting rows compared against their best period.</li>
+        <li><b>Verdicts written.</b> In the register, dated, retirements included.</li>
+      </ol>
+
+      <p>Numbers keep the engine honest; the next section keeps its answers ready for the people who ask.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>On its rhythm, per row: verified outcomes, cost per success, verdict in the register. A portfolio that never retires anything is being admired, not measured.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-keep-answers-ready" data-slug="keep-answers-ready">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">3</div>
+                <div class="acc-main">
+                  <div class="acc-title">Know what you owe clients, insurers, and regulators</div>
+                  <div class="acc-beats">Know what you owe when clients, insurers, or regulators ask about your AI use, and have it ready in an afternoon.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="keep-answers-ready"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Somebody will ask what your firm does with AI: a client, an insurer, eventually a rule. This section keeps the answers ready, with one rule of thumb: compliance at this size is an afternoon of preparation, not a program.</p>
+
+      <h3>What a typical services firm actually owes</h3>
+      <ol>
+        <li><b>Now: staff who understand the tools.</b> An AI-literacy duty has applied to firms whose staff use AI at work since February 2025. A short internal training plus the one-page policy goes most of the way.</li>
+        <li><b>From August 2026: say when it is AI.</b> Client-facing chatbots are disclosed as such, and AI-generated content is labeled, including in machine-readable form.</li>
+        <li><b>From December 2027: high-risk duties, if they are yours at all.</b> The heavy obligations attach to uses like hiring and HR screening, and were deferred to late 2027 under the 2026 amendment. A typical professional-services firm deploying general-purpose tools carries the light end.</li>
+      </ol>
+
+      <p>The heavy load sits with the vendors who provide the models, not with firms that deploy general-purpose tools. Knowing which side of that line you are on is most of the calm.</p>
+
+      <h3>The two jobs worth doing properly</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">The engagement-letter line</div>
+          <h4>Clients are told, in the letter, which tools touch their work.</h4>
+          <p>Name the tools and what they are used for; a vague "we may use AI" line protects nobody and reads like it is hiding something.</p>
+          <div class="ex"><div class="exl">Example</div><p>Drafting and document review are assisted by [named tool] under our review; your data is not used to train it.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">The questionnaire pack</div>
+          <h4>The privacy and insurance answers exist before anyone asks.</h4>
+          <p>The register already says what touches personal data; the pack turns it into ready answers for renewals and client questionnaires.</p>
+          <div class="ex"><div class="exl">Example</div><p>The insurer's AI question gets last quarter's register extract, not a week of archaeology.</p></div>
+        </div>
+      </div>
+
+      <div class="clarify">This is the one part of the playbook that touches law, and law moves. The dates here follow the official texts as of mid-2026; your counsel has the final word for your firm.</div>
+
+      <div class="rulebox"><b>Ready means: trained staff, labeled AI touchpoints, an honest letter, and the register extract.</b> All four exist by the end of one afternoon, and the policy's review date keeps them current.</div>
+
+      <h3>The afternoon, concretely</h3>
+      <ol>
+        <li><b>The policy page</b> already carries the approved tools and the never-paste list, from the first section of this stage.</li>
+        <li><b>The engagement letter</b> names the tools, adapted from the template line above.</li>
+        <li><b>The register extract</b> for data questions exists and refreshes whenever the register does.</li>
+      </ol>
+
+      <p>The last section turns everything the firm has learned into its most compounding asset: the shared library.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Trained staff, labeled AI touchpoints, an honest engagement letter, and a register extract for the questionnaires. An afternoon of standing readiness beats any amount of dread.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+            <div class="acc-item" id="sec-shared-library" data-slug="shared-library">
+              <div class="acc-head" role="button" aria-expanded="false">
+                <div class="acc-n">4</div>
+                <div class="acc-main">
+                  <div class="acc-title">Build the shared library</div>
+                  <div class="acc-beats">Promote proven prompts and skills into one shared, owned library.</div>
+                </div>
+                <div class="acc-tog">+</div>
+              </div>
+              <div class="acc-panel"><div class="acc-inner">
+                <div class="acc-meta"><button class="anchor-btn" data-copy="shared-library"># Copy link</button></div>
+                <div class="sbody">
+
+      <p>Stage 1 ended with a personal library; the engine's last piece makes it the firm's. This section builds the shared library, with one rule of thumb: treat working prompts and skills like any other firm asset, owned, versioned, and shared.</p>
+
+      <h3>Personal speed vs firm speed</h3>
+      <div class="cards2">
+        <div class="ccard ca">
+          <div class="ck">Personal libraries</div>
+          <h4>A personal library makes one person faster.</h4>
+          <p>It lives in someone's account, improves when they remember, and leaves when they do.</p>
+          <div class="ex"><div class="exl">Example</div><p>The best proposal brief in the firm, known to exactly one senior.</p></div>
+        </div>
+        <div class="ccard cb">
+          <div class="ck">The shared library</div>
+          <h4>The shared library makes the firm faster, permanently.</h4>
+          <p>The proven assets live in one agreed place, each with an owner, a version, and a note on what it is for.</p>
+          <div class="ex"><div class="exl">Example</div><p>A new hire runs the firm's proposal skill in week one and produces a house-standard draft.</p></div>
+        </div>
+      </div>
+
+      <p>Promotion is the habit: when a personal asset proves itself, it moves to the shared shelf, with credit.</p>
+
+      <h3>Run it like code, lightly</h3>
+      <ol>
+        <li><b>One master copy.</b> Improvements happen in the shared version, not in private variants, because variants are how quality quietly forks.</li>
+        <li><b>Versions with reasons.</b> When a skill changes, one line says what changed and why, so a bad change can be walked back.</li>
+        <li><b>An owner and a review pass.</b> Someone curates: retires the stale, merges the duplicates, and re-tests the important ones when models change; the register's upgrade list says when.</li>
+      </ol>
+
+      <div class="clarify">The library is why the fifth workflow costs a fraction of the first. Every mapped process, proven brief, and runbook is a head start on the next build. Firms that keep them compound; firms that keep starting over do not.</div>
+
+      <div class="rulebox"><b>Codify and delegate, at firm scale.</b> Once something works, capture it so someone else can run it without its inventor. That principle built the Stage 1 library; here it becomes how the firm keeps what it learns.</div>
+
+      <h3>The shared shelf, concretely</h3>
+      <ol>
+        <li><b>One agreed home.</b> Wherever the firm already keeps shared documents; the place matters less than there being exactly one.</li>
+        <li><b>A promotion habit.</b> Personal wins get moved, named, and credited.</li>
+        <li><b>A curator.</b> One owner who prunes and re-tests. A small standing job, not a committee.</li>
+      </ol>
+
+      <p>That closes the engine: rules, numbers, ready answers, and a library that compounds; the altitude close below is the steady state.</p>
+                </div>
+                <div class="takeaway">
+        <div class="tlbl">Takeaway</div>
+        <p>Promote what works from personal to shared, keep one master copy, and give the library a curator. Documented work compounds; undocumented work retires with its owner.</p>
+      </div>
+                <div class="closer"><button data-close>Close section ↑</button></div>
+              </div></div>
+            </div>
+
+          </div>
+        </div>
+
+        
+
+        <div class="alt-close">
+          <div class="ac-lbl">Operating well at this altitude</div>
+          <p><b>The engine is a steady state, and it is deliberately light.</b> Operating well here looks like: the register current, the return numbers honest, the answers ready, the library compounding, and no governance theater anywhere. This is the destination for firms with enough running; there is nothing above it to climb to.</p>
+        </div>
+
+
+      </div>
+    </div></div>
+
+
+  </div>
+</section>
+
+<!-- ================= method ================= -->
+<section class="lower mview" id="method"><div class="container">
+  <div class="mview-row"><div class="kick">How it works</div><button class="ch-close" id="mclose">Close ✕</button></div>
+  <h2 class="big">One method, run at rising scale</h2>
+  <p class="lede">The first three stages run the same six-move loop at rising scale: on your own recurring work, then on one shared workflow, then across many workflows with automation and agents. The fourth stage is different in kind: the operating engine, the light set of standing rules and shared artifacts that keeps everything you've built running and compounding. Six principles sit underneath all of it.</p>
+
+  <div class="mblock">
+    <div class="mblock-head"><span class="t">The loop · six moves</span><span class="c">Run in order, one workflow at a time</span></div>
+    <div class="loopgrid">
+      <div class="mvc"><span class="n">1</span><h3>Find the constraint</h3><p>What actually breaks first, or drains the most hours. One bounded task, not a whole function.</p></div>
+      <div class="mvc"><span class="n">2</span><h3>Map the work</h3><p>Watch the process as it really happens, capture a baseline, and name one owner. You can't improve or prove anything without the before-number.</p></div>
+      <div class="mvc"><span class="n">3</span><h3>Choose the route</h3><p>Pick the simplest option that clears the bar: a fixed rule, a single model call, a set-up assistant, an automation platform, or an agent. Move up a rung only when the one below genuinely runs out.</p></div>
+      <div class="mvc"><span class="n">4</span><h3>Run the pilot</h3><p>Run it beside the current way, decide the go/no-go rule in advance, put a time limit on it, and treat "stop" as a legitimate result.</p></div>
+      <div class="mvc"><span class="n">5</span><h3>Harden and own</h3><p>Add the guardrails, name the owner, and make it the default way the work gets done.</p></div>
+      <div class="mvc"><span class="n">6</span><h3>Measure the return</h3><p>Track verified outcomes, not how many people are using it. Retire whatever stops paying its way.</p></div>
+    </div>
+    <div class="loop-return"><span class="ret">↻</span> Move 6 hands back to move 1, pointed at the next constraint.</div>
+  </div>
+
+  <div class="mblock">
+    <div class="mblock-head"><span class="t">The six principles</span><span class="c">Underneath every stage</span></div>
+    <div class="prgrid">
+      <div class="prc"><h3>Problem before tool</h3><p>Start with the bottleneck you actually want to clear, and let that choose the tool, not the other way around.</p></div>
+      <div class="prc"><h3>Rules before agents</h3><p>An AI that runs on its own is only as reliable as the process behind it, so define the workflow as clear steps and rules first, then let it take over.</p></div>
+      <div class="prc"><h3>AI executes, humans certify</h3><p>Let the system do the work, but a person reviews and signs off on anything a client sees or that would be costly to get wrong.</p></div>
+      <div class="prc"><h3>The harness is the product</h3><p>What makes an automation safe to trust is the structure around it: spending limits, clear boundaries, an off-switch, and a record of what it did.</p></div>
+      <div class="prc"><h3>Ground every answer</h3><p>When a model gives you an answer, make it cite and check its sources, because you stay accountable for the result.</p></div>
+      <div class="prc"><h3>Codify and delegate</h3><p>Once something works, capture it as a repeatable process, so the next time is faster and someone else can run it without you.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================= teardown ================= -->
+<section class="lower" id="teardown"><div class="container">
+  <div class="cta-block">
+    <div class="lab">Book a teardown</div>
+    <h2>Forty-five minutes on one of your workflows</h2>
+    <p>Bring the workflow that bothers you most. We map where the work leaks, tell you what we would run the loop on first, and you keep the notes either way. No deck, no obligation.</p>
+    <div class="contact">grow@sprintassembly.com<span class="sep">/</span>sprintassembly.com</div>
+  </div>
+  
+</div></section>
+
+<!-- ================= footer ================= -->
+<section class="lower" id="colophon"><div class="container">
+  <div class="foot">The AI Operating Playbook, by Sprint Assembly</div>
+</div></section>
+
+<!-- ================= drawer ================= -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dr-title">
+  <div class="dr-h">
+    <div>
+      <div class="dk">Technical foundations · drawer</div>
+      <h3 id="dr-title">—</h3>
+    </div>
+    <button class="dr-x" id="dr-close">Close ✕</button>
+  </div>
+  <div class="dr-b" id="dr-body"></div>
+  <div class="dr-f">Read and close · you have not left the section</div>
+</aside>
+
+<div class="toast" id="toast">Link copied</div>
+
+<script>
+(function(){
+  var drawers = {
+    "model-runs": {
+      title: "Where the model runs",
+      body: '<p>The question underneath every setup choice: does someone run the model for you, or do you run it yourself? Neither is the grown-up answer. They are different tradeoffs, and firms of every size legitimately land on both.</p>' +
+        '<table><tr><th></th><th>Managed (a vendor runs it)</th><th>Self-hosted / open-source</th></tr>' +
+        '<tr><td>Getting started</td><td>Minutes; an account and a card</td><td>Days; hardware or a cloud box, and someone who enjoys this</td></tr>' +
+        '<tr><td>Data control</td><td>Contractual (check training defaults on individual plans)</td><td>Physical: nothing leaves your machine</td></tr>' +
+        '<tr><td>Cost shape</td><td>Subscription or per-use, scales with volume</td><td>Up-front + upkeep, flat with volume</td></tr>' +
+        '<tr><td>Capability ceiling</td><td>Frontier models, always current</td><td>Open-weight models, a step behind on the hardest work, often plenty</td></tr>' +
+        '<tr><td>Fits when</td><td>Convenience and top capability matter most</td><td>Privacy, regulatory, or cost-at-volume constraints dominate</td></tr></table>' +
+        '<p>The playbook default: choose by the tradeoff you actually face, not by what is fashionable. The full explainer (with the decision walk-through) lives in Technical foundations.</p>'
+    },
+    "agents-run": {
+      title: "Where agents run",
+      body: '<p>Three homes for an agent, in rising order of ownership: a tool you already pay for that ships agent features, an automation platform that hosts the agent next to your workflows, or a framework you operate yourself.</p>' +
+        '<table><tr><th></th><th>Inside an owned tool</th><th>On a platform</th><th>Your own framework</th></tr>' +
+        '<tr><td>Effort</td><td>Lowest</td><td>Moderate</td><td>Highest</td></tr>' +
+        '<tr><td>Control</td><td>Vendor rails</td><td>Platform rails</td><td>Yours, all of it</td></tr>' +
+        '<tr><td>Who operates it</td><td>The vendor</td><td>Shared</td><td>You, including 3am</td></tr>' +
+        '<tr><td>Fits when</td><td>The task lives in that tool</td><td>Workflows span systems</td><td>The agent is core to the business</td></tr></table>' +
+        '<p>The "who operates this?" question returns in Stage 3’s harden section; the answer belongs in the runbook, not in someone’s head.</p>'
+    },
+    "data-access": {
+      title: "How AI gets your data",
+      body: '<p>Retrieval, RAG, and connectors: the ways a model comes to know your work, what each means for freshness and privacy, and the buying-grade questions to ask. The full explainer lives in the Technical foundations layer.</p>'
+    },
+    "data-readiness": {
+      title: "Data readiness and the security surface",
+      body: '<p>What has to be true about your data before machines act on it, and what connecting systems exposes: scopes, identities, and the surface that grows with each connection. The full explainer lives in the Technical foundations layer.</p>'
+    },
+    "orchestration": {
+      title: "Orchestration and multi-agent: warranted vs hype",
+      body: '<p>The horizon note behind Stage 4: when a fleet of agents coordinating each other is a real operating pattern, and when it is a demo with a privilege-escalation problem. The full explainer separates the warranted cases from the hype and gives the readiness tests that must pass first.</p>'
+    }
+  };
+
+  var scrim = document.getElementById('scrim'), drawer = document.getElementById('drawer');
+  var lastFocus = null;
+  function openDrawer(key){
+    var d = drawers[key]; if(!d) return;
+    document.getElementById('dr-title').textContent = d.title;
+    document.getElementById('dr-body').innerHTML = d.body;
+    lastFocus = document.activeElement;
+    scrim.classList.add('on'); drawer.classList.add('on');
+    document.getElementById('dr-close').focus();
+  }
+  function closeDrawer(){
+    scrim.classList.remove('on'); drawer.classList.remove('on');
+    if(lastFocus){ lastFocus.focus(); lastFocus = null; }
+  }
+  document.getElementById('dr-close').addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+  document.querySelectorAll('[data-drawer]').forEach(function(b){
+    b.addEventListener('click', function(e){ e.stopPropagation(); openDrawer(b.getAttribute('data-drawer')); });
+  });
+
+  /* ---------- stage panels (progressive disclosure below the ladder) ---------- */
+  var STAGES = ['stage-1','stage-2','stage-3','stage-4'];
+  function openStage(id, scroll){
+    if(STAGES.indexOf(id) < 0) return;
+    STAGES.forEach(function(s){ document.getElementById('ch-' + s).classList.toggle('on', s === id); });
+    document.querySelectorAll('#rungs .rung').forEach(function(t){
+      t.classList.toggle('selected', t.getAttribute('data-stage') === id);
+    });
+    if(scroll) setTimeout(function(){ document.getElementById('ch-' + id).scrollIntoView({behavior:'smooth', block:'start'}); }, 30);
+  }
+  function closeStages(){
+    STAGES.forEach(function(s){ document.getElementById('ch-' + s).classList.remove('on'); });
+    document.querySelectorAll('#rungs .rung').forEach(function(t){ t.classList.remove('selected'); });
+  }
+  document.querySelectorAll('#rungs .rung').forEach(function(t){
+    function act(){
+      var id = t.getAttribute('data-stage');
+      var panel = document.getElementById('ch-' + id);
+      if(panel.classList.contains('on')){
+        closeStages();
+        history.replaceState(null,'','#door');
+      } else {
+        openStage(id, true);
+        history.replaceState(null,'','#' + id);
+      }
+    }
+    t.addEventListener('click', act);
+    t.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); act(); } });
+  });
+  document.querySelectorAll('[data-chclose]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      closeStages();
+      history.replaceState(null,'','#door');
+      document.getElementById('door').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  /* ---------- accordions (all stages) ---------- */
+  var toast = document.getElementById('toast'), toastTimer = null;
+  function stageOf(el){ var p = el.closest('.chpanel'); return p ? p.id.replace('ch-','') : null; }
+  function closeSecsIn(panel){
+    panel.querySelectorAll('.acc-item.open').forEach(function(s){
+      s.classList.remove('open');
+      var h = s.querySelector('.acc-head'); if(h) h.setAttribute('aria-expanded','false');
+    });
+  }
+  function openSection(slug, scroll){
+    var sec = document.getElementById('sec-' + slug); if(!sec) return;
+    var panel = sec.closest('.chpanel'); if(!panel) return;
+    openStage(panel.id.replace('ch-',''), false);
+    closeSecsIn(panel);
+    sec.classList.add('open');
+    var h = sec.querySelector('.acc-head'); if(h) h.setAttribute('aria-expanded','true');
+    if(scroll) setTimeout(function(){ sec.scrollIntoView({behavior:'smooth', block:'start'}); }, 40);
+  }
+  document.querySelectorAll('.chpanel .acc-item[data-slug] .acc-head').forEach(function(h){
+    h.addEventListener('click', function(){
+      var sec = h.closest('.acc-item'), slug = sec.getAttribute('data-slug'), st = stageOf(sec);
+      if(sec.classList.contains('open')){
+        closeSecsIn(sec.closest('.chpanel'));
+        history.replaceState(null,'','#' + st);
+      } else {
+        openSection(slug, false);
+        history.replaceState(null,'','#' + st + '/' + slug);
+      }
+    });
+  });
+  document.querySelectorAll('.chpanel [data-close]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var sec = b.closest('.acc-item'), st = stageOf(sec);
+      closeSecsIn(sec.closest('.chpanel'));
+      history.replaceState(null,'','#' + st);
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+  /* continue-reading link: generated so titles stay single-sourced */
+  document.querySelectorAll('.chpanel .acc-item[data-slug]').forEach(function(sec){
+    var next = sec.nextElementSibling;
+    if(!next || !next.getAttribute || !next.getAttribute('data-slug')) return;
+    var closer = sec.querySelector('.closer'); if(!closer) return;
+    var t = next.querySelector('.acc-title'); if(!t) return;
+    var btn = document.createElement('button');
+    btn.className = 'nextsec';
+    btn.innerHTML = '<span class="nk">Next section</span>' + t.textContent + ' →';
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var slug = next.getAttribute('data-slug'), st = stageOf(next);
+      openSection(slug, true);
+      history.replaceState(null,'','#' + st + '/' + slug);
+    });
+    closer.appendChild(btn);
+  });
+
+  document.querySelectorAll('.chpanel .loop-moves [data-open]').forEach(function(c){
+    c.addEventListener('click', function(){
+      var slug = c.getAttribute('data-open'), st = stageOf(c);
+      openSection(slug, true);
+      history.replaceState(null,'','#' + st + '/' + slug);
+    });
+  });
+  document.querySelectorAll('.chpanel [data-copy]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var st = stageOf(b);
+      var url = location.origin + location.pathname + '#' + st + '/' + b.getAttribute('data-copy');
+      function done(){
+        toast.classList.add('on');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function(){ toast.classList.remove('on'); }, 1600);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(done, done); } else { done(); }
+    });
+  });
+
+  /* ---------- deep links ---------- */
+  function route(){
+    var h = location.hash.replace(/^#\/?/, '');
+    var mv = document.getElementById('method');
+    if(h === 'method'){
+      if(mv){ mv.classList.add('on'); mv.scrollIntoView(); }
+      return;
+    }
+    if(mv){ mv.classList.remove('on'); }
+    if(!h) return;
+    var parts = h.split('/');
+    if(STAGES.indexOf(parts[0]) >= 0){
+      if(parts[1]){ openSection(parts[1], true); }
+      else { openStage(parts[0], true); }
+    }
+  }
+  var mcl = document.getElementById('mclose');
+  if(mcl){ mcl.addEventListener('click', function(){ location.hash = '#door'; }); }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body>
+</html>

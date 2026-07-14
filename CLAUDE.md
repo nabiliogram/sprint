@@ -6,7 +6,7 @@
 - **Stack**: hand-authored static HTML + inline CSS in `index.html` at repo root (~1770 lines). Class system is the Dispatch/Bauhaus naming: every selector is prefixed `.d4-*` (`.d4-nav`, `.d4-h1`, `.d4-post`, `.d4-carousel`, …). No Tailwind, no React runtime. The React code in `src/` is abandoned (since commit `aa7aae1`, 2026-04-19) — do not edit `src/App.jsx`, it ships nothing.
 - **Fonts**: Archivo Black (display, all H1/H2/H3 and brand mark), Archivo (body), Space Mono (mono eyebrow labels). All loaded from Google Fonts via `<link>` in `index.html`.
 - **Branch**: `main`. Default; `master` does not exist.
-- **Push**: only from Nabil's Mac terminal — sandbox has no GitHub credentials. Standard command: `cd ~/Desktop/SPRINT\ ASSEMBLY\ WEBSITE && git push origin main`.
+- **Push**: from Nabil's Mac terminal, or directly from a cloud Cowork session (those have repo-scoped GitHub credentials via git protocol; the REST API proxy is locked, plain `git push` works). Standard command: `cd ~/Desktop/SPRINT\ ASSEMBLY\ WEBSITE && git push origin main`.
 - **Positioning (post-2026-04-17)**: agentic workflow automation; marketing is a proof point, not the frame. Eyebrow "The New Standard of Operations", hero "From Manual Effort to Agentic Scale" with "Agentic Scale" in `<em>` (red highlight).
 
 ## Deploy + infrastructure
@@ -28,6 +28,7 @@
 | `public/meta.png` | `/meta.png` | Social share image (1200×630, Bauhaus). Referenced by both `og:image` and `twitter:image`. |
 | `public/team/nabil.jpg`, `public/team/daniel.jpg` | `/team/*.jpg` | Founder photos in the Team section. |
 | `public/CNAME` | (used by Pages) | Sets custom domain to `sprintassembly.com`. |
+| `public/playbook/index.html` | `/playbook/` | The AI Operating Playbook (Project Ted). Canonical source: `PLAYBOOK.html` in the `SA EDUCATION` Cowork project — edit THERE, then copy here; never edit this deployed copy directly. Carries `<meta name="robots" content="noindex">` until launch — REMOVE at launch (Nabil's standing instruction, Jul 14 2026). |
 | `index.pre-bauhaus-backup.html`, `index.pre-redesign-backup.html` | (not served) | One-command rollback snapshots. Keep them. |
 
 ## LinkedIn carousel — adding a new post
