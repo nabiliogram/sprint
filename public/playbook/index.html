@@ -314,7 +314,7 @@
   /* ===== phone: declutter nav + reader masthead ===== */
   @media(max-width:600px){
     .container{padding:0 16px;}
-    .navrow{gap:12px;}
+    .navrow{gap:12px;padding-top:16px;padding-bottom:16px;}
     .navlinks a:not(.navcta){display:none;}
     .navcta{font-size:11.5px;padding:7px 12px;white-space:nowrap;}
     .navcta .cta-long{display:none;}
@@ -324,13 +324,8 @@
     .brand .b2{font-size:7px;}
     /* stage cards: trim side padding so content isn't squeezed */
     .rung{padding:20px 15px 18px;}
-    /* booking block: keep heading, copy and email inside the card */
-    .cta-block{padding:26px 18px;gap:22px;}
-    .cta-block .cta-text{min-width:0;flex:1 1 100%;}
-    .cta-block h2{font-size:22px;}
-    .cta-block p{max-width:none;}
-    .cta-block .cta-side{width:100%;}
-    .cta-block .cta-email{font-size:clamp(14px,5vw,21px);}
+    /* NOTE: booking-card (.cta-block) mobile fixes live AFTER its base rule
+       (see the media block by .cta-block) so source order lets them win. */
     body.mode-read .acc-item.open .rd-ghost{display:none;}
     body.mode-read .acc-item.open .rd-eyebrow{padding-right:42px;}
     body.mode-read .acc-item.open .acc-title{font-size:clamp(30px,8vw,40px);}
@@ -517,6 +512,16 @@
   .cta-block .cta-email:hover{text-decoration:underline;text-underline-offset:4px;}
   .cta-block .cta-url{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.04em;color:#B7B0A0;text-decoration:none;}
   .cta-block .cta-url:hover{color:#EFECE2;}
+  /* booking card on phones — placed after the base rule so these win on source order:
+     symmetric padding, no forced min-width, email allowed to size down (was shoved right). */
+  @media(max-width:600px){
+    .cta-block{padding:26px 20px;gap:20px;}
+    .cta-block .cta-text{min-width:0;flex:1 1 100%;}
+    .cta-block h2{font-size:22px;}
+    .cta-block p{max-width:none;}
+    .cta-block .cta-side{width:100%;}
+    .cta-block .cta-email{font-size:clamp(14px,5.2vw,21px);white-space:normal;}
+  }
 
   /* ===== drawer ===== */
   .scrim{position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:70;opacity:0;pointer-events:none;transition:opacity .2s;}
