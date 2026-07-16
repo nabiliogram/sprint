@@ -284,7 +284,9 @@
   .rr-cta p{font-family:var(--sans);font-size:14px;line-height:1.45;color:#C9C3B2;margin:0 0 12px;}
   .rr-cta a{display:inline-block;font-family:var(--sans);font-weight:700;font-size:13px;background:var(--yellow);color:#14110E;padding:9px 15px;border-radius:7px;text-decoration:none;}
   .rr-back{display:block;margin-top:14px;font-family:var(--sans);font-weight:700;font-size:14px;background:#14110E;color:#F6EFE0;border:0;border-radius:8px;padding:12px 22px;cursor:pointer;}
-  @media(max-width:860px){body.mode-read .acc-item.open .acc-inner{display:block;}body.mode-read .reader-rail{display:none;}}
+  /* tablet + mobile: single-column reader, hide the rail (its locator/TOC is redundant when it
+     stacks at the end of the article). Two-column reader is desktop-only (>1024px). */
+  @media(max-width:1024px){body.mode-read .acc-item.open .acc-inner{display:block;}body.mode-read .acc-item.open .reader-rail{display:none;}}
 
   /* ===== fix: stop stage-level content leaking into the reader ===== */
   body.mode-read .chpanel.on .stage-body > .sbody,
@@ -324,9 +326,6 @@
     body.mode-read .acc-item.open .acc-meta{padding:14px 16px 0 !important;}
     body.mode-read .acc-item.open .acc-head{padding:32px 16px 24px;}
     body.mode-read .acc-item.open .rd-ghost{font-size:118px;top:-14px;}
-    /* rail: drop its own card chrome on mobile so the comparison cards aren't a box-in-a-box.
-       The inner cards2 keeps its border and becomes the single visible card. */
-    body.mode-read .acc-item.open .reader-rail{position:static;grid-column:auto;grid-row:auto;align-self:auto;margin:0 16px 8px;padding:0;background:transparent;border:0;border-radius:0;gap:12px;max-width:none;}
     body.mode-read .acc-item.open .takeaway{padding:24px 16px;flex-direction:column;align-items:stretch;gap:12px;}
     body.mode-read .acc-item.open .takeaway .tk-actions{margin-top:4px;}
     body.mode-read .acc-item.open .takeaway .rr-back,
@@ -358,7 +357,6 @@
     body.mode-read .acc-item.open .sbody{padding:16px 14px 24px !important;}
     body.mode-read .acc-item.open .acc-meta{padding:12px 14px 0 !important;}
     body.mode-read .acc-item.open .acc-head{padding:28px 14px 22px;}
-    body.mode-read .acc-item.open .reader-rail{margin:0 14px 8px;}
     body.mode-read .acc-item.open .takeaway{padding:22px 14px;}
   }
 
