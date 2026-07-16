@@ -246,6 +246,17 @@
   body.mode-read .reader-rail .ccard{background:#FAF7EF;border:0;border-radius:0;border-left:3px solid var(--ink);}
   body.mode-read .reader-rail .ccard.cb{border-top:1px solid var(--line2);border-left-color:var(--blue);}
   body.mode-read .reader-rail .callout,body.mode-read .reader-rail .clarify{margin:0;}
+  /* repurposed reader rail (Jul 16): spine locator + in-reading contents (content now flows inline) */
+  body.mode-read .reader-rail .rr-loc{padding-bottom:16px;border-bottom:1px solid #D2CBB8;}
+  body.mode-read .reader-rail .rr-loc-k{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rc);line-height:1.35;}
+  body.mode-read .st-3 .reader-rail .rr-loc-k{color:var(--yellow-deep);}
+  body.mode-read .reader-rail .rr-loc-n{font-family:var(--sans);font-size:13px;color:var(--t3);margin-top:5px;}
+  body.mode-read .reader-rail .rr-loc-n b{font-weight:800;color:var(--ink);}
+  body.mode-read .reader-rail .rr-toc{display:flex;flex-direction:column;gap:1px;}
+  body.mode-read .reader-rail .rr-toc .rr-h{margin-bottom:9px;}
+  body.mode-read .reader-rail .rr-toc-link{display:block;font-family:var(--sans);font-size:13.5px;line-height:1.34;color:var(--t3);text-decoration:none;padding:6px 0 6px 13px;border-left:2px solid transparent;transition:color .14s ease,border-color .14s ease;}
+  body.mode-read .reader-rail .rr-toc-link:hover{color:var(--ink);}
+  body.mode-read .reader-rail .rr-toc-link.active{color:var(--ink);font-weight:700;border-left-color:var(--rc);}
   body.mode-read .acc-item.open .takeaway{grid-column:1 / -1;grid-row:3;margin:0;border:0;border-top:1px solid #CFC7B2;border-radius:0;background:#DED8C7;padding:30px 52px;display:flex;flex-direction:column;align-items:stretch;gap:14px;max-width:none;}
   body.mode-read .acc-item.open .takeaway .tlbl{font-size:11px;letter-spacing:.16em;margin:0;color:var(--rc);}
   body.mode-read .acc-item.open .takeaway p{font-size:19px;color:#1C1913;margin:0;max-width:74ch;}
@@ -278,6 +289,7 @@
   /* ===== fix: stop stage-level content leaking into the reader ===== */
   body.mode-read .chpanel.on .stage-body > .sbody,
   body.mode-read .chpanel.on .stage-body > .alt-close,
+  body.mode-read .chpanel.on .stage-body > .close-head,
   body.mode-read .chpanel.on .arts-lbl{display:none;}
 
   /* focus rings for reader controls */
@@ -294,6 +306,16 @@
   body.mode-stage .alt-close + .alt-close{margin-top:14px;}
   body.mode-stage .st-3 .alt-close{border-left-color:var(--yellow);}
   body.mode-stage .st-3 .alt-close .ac-lbl{color:var(--yellow-deep);}
+  /* "Closing this stage" signpost above the stage-close card(s) */
+  body.mode-stage .close-head{margin:44px 0 0;position:relative;}
+  body.mode-stage .close-head::before{content:"";position:absolute;left:0;right:0;top:-24px;height:1px;background:var(--line2);}
+  body.mode-stage .close-lbl{display:block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rc);}
+  body.mode-stage .st-3 .close-lbl{color:var(--yellow-deep);}
+  body.mode-stage .close-head + .alt-close{margin-top:12px;}
+  /* "Before you paste client work" note relocated into Reading 3 body — card style, not a section terminator */
+  body.mode-read .acc-item.open .sbody .alt-close{margin:8px 0 18px;padding:20px 22px;background:#FBF7EE;border:1px solid var(--line2);border-left:4px solid var(--rc);border-top:0;border-radius:11px;max-width:none;}
+  body.mode-read .acc-item.open .sbody .alt-close .ac-lbl{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rc);margin-bottom:9px;}
+  body.mode-read .acc-item.open .sbody .alt-close p{font-family:var(--body-font);font-size:16px;line-height:1.6;color:var(--t2);margin:0;}
 
   /* ===== mobile: collapse the reader to a single column ===== */
   @media(max-width:860px){
@@ -866,6 +888,11 @@
         <li><b>What can it do alone?</b> At this altitude, nothing irreversible without your approval.</li>
       </ol>
 
+      <div class="alt-close">
+        <div class="ac-lbl">Before you paste client work</div>
+        <p>One professional habit as the library grows: know what your tool does with what you paste. Two minutes in the data settings tells you whether conversations are used for training and how long they are kept; check once, choose deliberately, and the question is settled. Client material deserves the same care in an AI tool as in any other system, and when colleagues start following you onto the tool, business terms are the natural next step. The later stages pick that up.</p>
+      </div>
+
       <p>With your world attached, you can stop asking questions and start handing over whole tasks, which is the next section.</p>
 
                 </div>
@@ -1006,10 +1033,7 @@
 
         
 
-        <div class="alt-close">
-          <div class="ac-lbl">Before you paste client work</div>
-          <p>One professional habit as the library grows: know what your tool does with what you paste. Two minutes in the data settings tells you whether conversations are used for training and how long they are kept; check once, choose deliberately, and the question is settled. Client material deserves the same care in an AI tool as in any other system, and when colleagues start following you onto the tool, business terms are the natural next step. The later stages pick that up.</p>
-        </div>
+        <div class="close-head"><span class="close-lbl">Closing this stage</span></div>
 
         <div class="alt-close">
           <div class="ac-lbl">Operating well at this altitude</div>
@@ -1411,6 +1435,8 @@
         
 
         <!-- altitude close -->
+        <div class="close-head"><span class="close-lbl">Closing this stage</span></div>
+
         <div class="alt-close">
           <div class="ac-lbl">Operating well at this altitude</div>
           <p><b>Many firms should operate here, and some should stay.</b> Operating well at Stage 2 looks like: the workflow runs as the default, its dossier is current, its number gets checked monthly, and no heroics are involved. Stage 3 is there when the next constraint genuinely needs machines acting unattended, not because a next stage exists.</p>
@@ -1801,6 +1827,8 @@
 
         
 
+        <div class="close-head"><span class="close-lbl">Closing this stage</span></div>
+
         <div class="alt-close">
           <div class="ac-lbl">Operating well at this altitude</div>
           <p><b>Operating well here is a complete destination.</b> It looks like: several workflows running under real harnesses, an autonomy log that says what earned trust, and monitoring that catches drift before clients do. Stage 4 is there when keeping the whole picture current becomes its own job, not because a next stage exists.</p>
@@ -2179,6 +2207,8 @@
 
 
 
+        <div class="close-head"><span class="close-lbl">Closing this stage</span></div>
+
         <div class="alt-close">
           <div class="ac-lbl">Operating well at this altitude</div>
           <p><b>The engine is a steady state, and it is deliberately light.</b> Operating well here looks like: the list of what runs is current, the numbers are honest, the answers are ready, the library keeps growing, and none of it needs a committee. This is the destination for firms with enough running; there is nothing above it to climb to.</p>
@@ -2551,21 +2581,38 @@
           var g = document.createElement('span'); g.className = 'rd-ghost'; g.textContent = num; g.setAttribute('aria-hidden','true');
           head.appendChild(g);
         }
-        /* reader body: the single v2 template \u2014 right rail with the comparison cards */
+        /* reader rail (Jul 16 rework): body content STAYS INLINE in authored order. The old
+           template pulled the first heading+cards and first note out to the rail, which broke the
+           reading flow ("the two", "all six" lost their antecedents). The rail now carries a spine
+           locator + an "On this page" contents nav built from the reading's own sub-headings. */
         var inner = sec.querySelector('.acc-inner'), sbody = sec.querySelector('.sbody');
         if(inner && sbody && !sec.classList.contains('rd-built')){
           sec.classList.add('rd-built');
           var rr = document.createElement('aside'); rr.className = 'reader-rail';
-          inner.insertBefore(rr, sbody.nextSibling);
-          var cards = sbody.querySelector('.cards2');
-          if(cards){
-            var ph = cards.previousElementSibling;
-            if(ph && ph.tagName === 'H3'){ var hh = document.createElement('div'); hh.className = 'rr-h'; hh.textContent = ph.textContent; rr.appendChild(hh); ph.parentNode.removeChild(ph); }
-            rr.appendChild(cards);
+          var loc = document.createElement('div'); loc.className = 'rr-loc';
+          loc.innerHTML = '<div class="rr-loc-k">Stage '+(si+1)+' &middot; '+(rungs[id]||'')+'</div>'
+                        + '<div class="rr-loc-n"><b>Reading '+num+'</b> of '+('0'+secs.length).slice(-2)+'</div>';
+          rr.appendChild(loc);
+          var hs = [].slice.call(sbody.querySelectorAll('h3'));
+          if(hs.length){
+            var toc = document.createElement('nav'); toc.className = 'rr-toc';
+            var th = document.createElement('div'); th.className = 'rr-h'; th.textContent = 'On this page'; toc.appendChild(th);
+            var links = [];
+            hs.forEach(function(h, hi){
+              var hid = sec.getAttribute('data-slug')+'-h'+(hi+1); h.id = hid;
+              var a = document.createElement('a'); a.className = 'rr-toc-link'; a.href = '#'+hid; a.textContent = h.textContent;
+              a.addEventListener('click', (function(t){ return function(e){ e.preventDefault(); var el=document.getElementById(t); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }; })(hid));
+              toc.appendChild(a); links.push(a);
+            });
+            rr.appendChild(toc);
+            if('IntersectionObserver' in window){
+              var spy = new IntersectionObserver(function(ents){
+                ents.forEach(function(en){ if(en.isIntersecting){ var ix = hs.indexOf(en.target); links.forEach(function(l, li){ l.classList.toggle('active', li===ix); }); } });
+              }, {rootMargin:'-42% 0px -52% 0px', threshold:0});
+              hs.forEach(function(h){ spy.observe(h); });
+            }
           }
-          var call = sbody.querySelector('.callout') || sbody.querySelector('.clarify');
-          if(call) rr.appendChild(call);
-          /* sidebar booking CTA removed per Nabil (Jul 16) — no rr-cta card in the reader rail */
+          inner.insertBefore(rr, sbody.nextSibling);
         }
         /* takeaway footer actions: back-to-overview + read-next-reading, on their own row */
         var tk = sec.querySelector('.takeaway');
