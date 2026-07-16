@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="f-serif">
+<html lang="en" class="f-archivo">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,6 +81,7 @@
   .navlinks a:hover{color:var(--blue);}
   .navcta{background:var(--yellow);color:var(--ink)!important;padding:8px 15px;border-radius:7px;font-weight:700;font-size:12.5px;}
   .navcta:hover{filter:brightness(1.05);}
+  .navcta .cta-short{display:none;}
 
   /* ===== hero / front door ===== */
   .hero{background:var(--bg);border-bottom:1px solid var(--line);padding:22px 0 16px;font-family:var(--sans);}
@@ -105,11 +106,11 @@
   .rung .rn{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
   .rung.c1 .rn{color:var(--red);} .rung.c2 .rn{color:var(--blue);} .rung.c3 .rn{color:var(--yellow-deep);} .rung.c4 .rn{color:var(--ink);}
   .rung .rname{font-size:25px;font-weight:800;letter-spacing:-0.015em;margin-top:6px;line-height:1.08;}
-  .rung .rtag{font-family:'Source Serif 4',serif;font-style:italic;font-weight:600;font-size:20.5px;color:#2A251C;margin-top:9px;line-height:1.32;letter-spacing:-0.01em;}
+  .rung .rtag{font-family:var(--sans);font-style:italic;font-weight:600;font-size:20.5px;color:#2A251C;margin-top:9px;line-height:1.32;letter-spacing:-0.01em;}
   .rung .rhr{height:1px;background:var(--line);margin:16px 0 13px;}
   .rung .rlbl{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:10px;}
   .rung ul{list-style:none;}
-  .rung li{font-family:'Source Serif 4',serif;font-size:16.5px;line-height:1.45;color:#3E3A32;padding-left:18px;position:relative;margin-bottom:8px;}
+  .rung li{font-family:var(--sans);font-size:16.5px;line-height:1.45;color:#3E3A32;padding-left:18px;position:relative;margin-bottom:8px;}
   .rung li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--ink);}
   .rung.c1 li::before{background:var(--red);} .rung.c2 li::before{background:var(--blue);} .rung.c3 li::before{background:var(--yellow);} .rung.c4 li::before{background:var(--ink);}
   .rung ul{margin-bottom:16px;}
@@ -157,7 +158,7 @@
   .sr-stage.active .sr-here{display:block;}
   .sr-name{display:block;font-size:15px;font-weight:800;letter-spacing:-0.01em;line-height:1.15;color:var(--t3);}
   .sr-stage.active .sr-name{color:var(--ink);}
-  .sr-tag{display:block;font-family:'Source Serif 4',serif;font-size:13px;color:var(--t3);margin-top:2px;}
+  .sr-tag{display:block;font-family:var(--sans);font-size:13px;color:var(--t3);margin-top:2px;}
 
   .sv-main{min-width:0;}
   body.mode-stage .stage-shell{background:transparent;border:0;border-radius:0;overflow:visible;margin:0;border-top:4px solid var(--rc);padding:38px 46px 34px;}
@@ -171,8 +172,8 @@
   .st-3 .be-name{color:var(--yellow-deep);}
   .band-title{font-family:var(--sans);font-weight:900;letter-spacing:-0.02em;line-height:1.03;color:var(--ink);font-size:34px;max-width:640px;margin:0 0 12px;}
   body.mode-stage .chpanel:not(.on) .band-title{font-size:28px;margin-bottom:8px;}
-  .band-blurb{font-family:'Source Serif 4',serif;font-size:17px;line-height:1.5;color:var(--t2);max-width:600px;margin:0;}
-  .band-teaser{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.5;color:var(--t3);margin:6px 0 0;max-width:600px;}
+  .band-blurb{font-family:var(--sans);font-size:17px;line-height:1.5;color:var(--t2);max-width:600px;margin:0;}
+  .band-teaser{font-family:var(--sans);font-size:15px;line-height:1.5;color:var(--t3);margin:6px 0 0;max-width:600px;}
   .chpanel.on .band-teaser{display:none;}
   .chpanel:not(.on) .band-blurb{display:none;}
   body.mode-stage .chpanel:not(.on) .stage-body{display:none;}
@@ -201,13 +202,13 @@
   .acc-item.open .rd-eyebrow{display:block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rc);margin-bottom:12px;}
   .st-3 .acc-item.open .rd-eyebrow{color:var(--yellow-deep);}
   .acc-item.open .acc-title{font-family:var(--sans);font-size:clamp(28px,3.4vw,38px);font-weight:900;letter-spacing:-0.025em;line-height:1.02;}
-  .acc-item.open .acc-beats{font-family:'Source Serif 4',serif;font-style:italic;font-size:18px;line-height:1.4;color:var(--t2);margin-top:13px;max-width:52ch;}
+  .acc-item.open .acc-beats{font-family:var(--sans);font-style:italic;font-size:18px;line-height:1.4;color:var(--t2);margin-top:13px;max-width:52ch;}
   .rd-ghost{display:none;}
   .acc-item.open .rd-ghost{display:block;position:absolute;right:14px;top:-30px;z-index:0;font-family:var(--sans);font-weight:900;font-size:150px;line-height:1;color:color-mix(in srgb,var(--rc) 11%,transparent);letter-spacing:-0.04em;pointer-events:none;}
   .acc-item.open .acc-tog{position:absolute;right:20px;top:24px;align-self:auto;z-index:3;}
   .acc-item.open .acc-inner{padding:28px 36px 30px;}
   .acc-item.open .sbody{max-width:68ch;}
-  .acc-item.open .sbody p,.acc-item.open .sbody ol li{font-family:'Source Serif 4',serif;font-size:18px;line-height:1.62;color:#2A2620;}
+  .acc-item.open .sbody p,.acc-item.open .sbody ol li{font-family:var(--sans);font-size:18px;line-height:1.62;color:#2A2620;}
   .acc-item.open .sbody h3{font-family:var(--sans);font-size:20px;margin-top:32px;}
 
   /* ===== full-screen reader (mode-read) — the agreed 6C template ===== */
@@ -245,11 +246,18 @@
   body.mode-read .reader-rail .ccard{background:#FAF7EF;border:0;border-radius:0;border-left:3px solid var(--ink);}
   body.mode-read .reader-rail .ccard.cb{border-top:1px solid var(--line2);border-left-color:var(--blue);}
   body.mode-read .reader-rail .callout,body.mode-read .reader-rail .clarify{margin:0;}
-  body.mode-read .acc-item.open .takeaway{grid-column:1 / -1;grid-row:3;margin:0;border:0;border-top:1px solid #CFC7B2;border-radius:0;background:#DED8C7;padding:26px 52px;display:flex;gap:22px;align-items:center;max-width:none;}
-  body.mode-read .acc-item.open .takeaway .tlbl{white-space:nowrap;font-size:11px;letter-spacing:.16em;margin:0;color:var(--rc);}
-  body.mode-read .acc-item.open .takeaway p{font-size:19px;color:#1C1913;flex:1;margin:0;}
-  body.mode-read .acc-item.open .takeaway .rr-back{margin:0 0 0 auto;}
+  body.mode-read .acc-item.open .takeaway{grid-column:1 / -1;grid-row:3;margin:0;border:0;border-top:1px solid #CFC7B2;border-radius:0;background:#DED8C7;padding:30px 52px;display:flex;flex-direction:column;align-items:stretch;gap:14px;max-width:none;}
+  body.mode-read .acc-item.open .takeaway .tlbl{font-size:11px;letter-spacing:.16em;margin:0;color:var(--rc);}
+  body.mode-read .acc-item.open .takeaway p{font-size:19px;color:#1C1913;margin:0;max-width:74ch;}
+  body.mode-read .acc-item.open .takeaway .tk-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;}
+  body.mode-read .acc-item.open .takeaway .rr-back{margin:0;}
   body.mode-read .acc-item.open .closer{display:none;}
+  /* forward action: "read next reading" — filled with the stage accent */
+  .rr-next{display:inline-flex;flex-direction:column;align-items:flex-start;gap:1px;font-family:var(--sans);text-align:left;background:var(--rc,#14110E);color:#fff;border:0;border-radius:8px;padding:9px 20px 10px;cursor:pointer;max-width:100%;}
+  .rr-next .rn-k{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.72;}
+  .rr-next .rn-t{font-weight:700;font-size:14px;line-height:1.25;}
+  .st-3 .rr-next{color:#14110E;} .st-3 .rr-next .rn-k{opacity:.85;}
+  .rr-next:hover{filter:brightness(1.08);}
   .reader-rail{display:none;}
   .rr-lbl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);}
   .rr-list{display:flex;flex-direction:column;gap:2px;margin-top:-10px;}
@@ -262,7 +270,7 @@
   .rr-item.current .rit{color:var(--ink);}
   .rr-cta{margin-top:auto;background:#17140F;border-radius:10px;padding:18px 18px 16px;}
   .rr-cta .rk{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:7px;}
-  .rr-cta p{font-family:'Source Serif 4',serif;font-size:14px;line-height:1.45;color:#C9C3B2;margin:0 0 12px;}
+  .rr-cta p{font-family:var(--sans);font-size:14px;line-height:1.45;color:#C9C3B2;margin:0 0 12px;}
   .rr-cta a{display:inline-block;font-family:var(--sans);font-weight:700;font-size:13px;background:var(--yellow);color:#14110E;padding:9px 15px;border-radius:7px;text-decoration:none;}
   .rr-back{display:block;margin-top:14px;font-family:var(--sans);font-weight:700;font-size:14px;background:#14110E;color:#F6EFE0;border:0;border-radius:8px;padding:12px 22px;cursor:pointer;}
   @media(max-width:860px){body.mode-read .acc-item.open .acc-inner{display:block;}body.mode-read .reader-rail{display:none;}}
@@ -289,24 +297,52 @@
 
   /* ===== mobile: collapse the reader to a single column ===== */
   @media(max-width:860px){
-    body.mode-read .acc-item.open .acc-inner{display:block;max-width:none;padding:4px 6px 34px;margin:0;}
-    body.mode-read .acc-item.open .sbody{padding:20px 14px 30px !important;}
-    body.mode-read .acc-item.open .acc-head{padding:34px 18px 26px 22px;}
+    body.mode-read .acc-item.open .acc-inner{display:block;max-width:none;padding:2px 0 30px;margin:0;}
+    body.mode-read .acc-item.open .sbody{padding:18px 16px 26px !important;}
+    body.mode-read .acc-item.open .acc-meta{padding:14px 16px 0 !important;}
+    body.mode-read .acc-item.open .acc-head{padding:32px 16px 24px;}
     body.mode-read .acc-item.open .rd-ghost{font-size:118px;top:-14px;}
-    /* rail becomes a full-width stacked panel (never hidden — the comparison cards live here) */
-    body.mode-read .acc-item.open .reader-rail{position:static;grid-column:auto;grid-row:auto;align-self:auto;margin:0 14px 6px;max-width:none;}
-    body.mode-read .acc-item.open .takeaway{padding:20px 16px;flex-direction:column;align-items:flex-start;gap:12px;}
+    /* rail: drop its own card chrome on mobile so the comparison cards aren't a box-in-a-box.
+       The inner cards2 keeps its border and becomes the single visible card. */
+    body.mode-read .acc-item.open .reader-rail{position:static;grid-column:auto;grid-row:auto;align-self:auto;margin:0 16px 8px;padding:0;background:transparent;border:0;border-radius:0;gap:12px;max-width:none;}
+    body.mode-read .acc-item.open .takeaway{padding:24px 16px;flex-direction:column;align-items:stretch;gap:12px;}
+    body.mode-read .acc-item.open .takeaway .tk-actions{margin-top:4px;}
+    body.mode-read .acc-item.open .takeaway .rr-back,
+    body.mode-read .acc-item.open .takeaway .rr-next{width:100%;}
   }
 
   /* ===== phone: declutter nav + reader masthead ===== */
   @media(max-width:600px){
+    .container{padding:0 16px;}
+    .navrow{gap:12px;}
     .navlinks a:not(.navcta){display:none;}
-    .navcta{font-size:11.5px;padding:7px 12px;}
-    .brand .b1{font-size:13.5px;}
+    .navcta{font-size:11.5px;padding:7px 12px;white-space:nowrap;}
+    .navcta .cta-long{display:none;}
+    .navcta .cta-short{display:inline;}
+    .brand{gap:8px;}
+    .brand .b1{font-size:12.5px;white-space:nowrap;}
     .brand .b2{font-size:7px;}
+    /* stage cards: trim side padding so content isn't squeezed */
+    .rung{padding:20px 15px 18px;}
+    /* booking block: keep heading, copy and email inside the card */
+    .cta-block{padding:26px 18px;gap:22px;}
+    .cta-block .cta-text{min-width:0;flex:1 1 100%;}
+    .cta-block h2{font-size:22px;}
+    .cta-block p{max-width:none;}
+    .cta-block .cta-side{width:100%;}
+    .cta-block .cta-email{font-size:clamp(14px,5vw,21px);}
     body.mode-read .acc-item.open .rd-ghost{display:none;}
     body.mode-read .acc-item.open .rd-eyebrow{padding-right:42px;}
     body.mode-read .acc-item.open .acc-title{font-size:clamp(30px,8vw,40px);}
+    /* reader goes edge-to-edge on phones: no page gutter, no card side-frame,
+       so the prose gets the widest column possible */
+    body.mode-read .stage-detail .container{padding:0;}
+    body.mode-read .acc-item.open{border-left:0;border-right:0;border-radius:0;}
+    body.mode-read .acc-item.open .sbody{padding:16px 14px 24px !important;}
+    body.mode-read .acc-item.open .acc-meta{padding:12px 14px 0 !important;}
+    body.mode-read .acc-item.open .acc-head{padding:28px 14px 22px;}
+    body.mode-read .acc-item.open .reader-rail{margin:0 14px 8px;}
+    body.mode-read .acc-item.open .takeaway{padding:22px 14px;}
   }
 
   .acc-item.open .takeaway{border:0;border-radius:10px;background:var(--bg);border-left:5px solid var(--rc);padding:18px 22px;margin-top:22px;max-width:74ch;}
@@ -474,7 +510,7 @@
   .cta-block .cta-text{flex:1;min-width:320px;}
   .cta-block .lab{font-family:var(--mono);text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:700;color:var(--yellow);margin-bottom:12px;}
   .cta-block h2{font-family:var(--sans);font-size:26px;font-weight:800;letter-spacing:-0.01em;line-height:1.1;margin-bottom:10px;color:#F6EFE0;}
-  .cta-block p{font-family:'Source Serif 4',serif;font-size:16px;line-height:1.55;max-width:60ch;color:#C9C3B2;}
+  .cta-block p{font-family:var(--sans);font-size:16px;line-height:1.55;max-width:60ch;color:#C9C3B2;}
   .cta-block .cta-side{display:flex;flex-direction:column;gap:7px;align-items:flex-start;}
   .cta-block .cta-reach{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em;font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px;}
   .cta-block .cta-email{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:-0.01em;color:var(--yellow);text-decoration:none;white-space:nowrap;line-height:1.2;}
@@ -546,7 +582,7 @@
   <div class="navlinks">
     <a href="#method">How it works</a>
     <a href="#door">The four stages</a>
-    <a href="#working-session" class="navcta">Book a working session</a>
+    <a href="#working-session" class="navcta"><span class="cta-long">Book a working session</span><span class="cta-short">Book a session</span></a>
   </div>
 </div></nav>
 
@@ -2439,6 +2475,21 @@
     });
     STAGES.forEach(function(id){ var p = document.getElementById('ch-'+id); counts[id] = p ? p.querySelectorAll('.arts .acc-item[data-slug]').length : 0; });
 
+    /* flat reading order across every stage, so "read next" can carry on past a stage boundary */
+    var ORDER = [];
+    STAGES.forEach(function(id){
+      var p = document.getElementById('ch-'+id);
+      if(!p) return;
+      [].slice.call(p.querySelectorAll('.arts .acc-item[data-slug]')).forEach(function(s){
+        var t = s.querySelector('.acc-title');
+        ORDER.push({slug:s.getAttribute('data-slug'), title:t?t.textContent:'', stage:id});
+      });
+    });
+    function nextReading(slug){
+      for(var i=0;i<ORDER.length-1;i++){ if(ORDER[i].slug===slug) return ORDER[i+1]; }
+      return null;
+    }
+
     /* wrapper: rail + main */
     var view = document.createElement('div'); view.className = 'stage-view';
     var rail = document.createElement('aside'); rail.className = 'stage-rail';
@@ -2511,12 +2562,21 @@
           if(call) rr.appendChild(call);
           /* sidebar booking CTA removed per Nabil (Jul 16) — no rr-cta card in the reader rail */
         }
-        /* back-to-overview button in the takeaway footer: returns to this stage's reading list, not the ladder */
+        /* takeaway footer actions: back-to-overview + read-next-reading, on their own row */
         var tk = sec.querySelector('.takeaway');
-        if(tk && !tk.querySelector('.rr-back')){
+        if(tk && !tk.querySelector('.tk-actions')){
+          var acts = document.createElement('div'); acts.className = 'tk-actions';
           var bb = document.createElement('button'); bb.className = 'rr-back'; bb.innerHTML = '&larr; Back to Stage '+(si+1)+' overview';
           bb.addEventListener('click', function(e){ e.stopPropagation(); closeSecsIn(panel); history.replaceState(null,'','#'+id); window.scrollTo({top:0, behavior:'smooth'}); });
-          tk.appendChild(bb);
+          acts.appendChild(bb);
+          var nx = nextReading(sec.getAttribute('data-slug'));
+          if(nx){
+            var nb = document.createElement('button'); nb.className = 'rr-next';
+            nb.innerHTML = '<span class="rn-k">Read next</span><span class="rn-t">'+nx.title+' &rarr;</span>';
+            nb.addEventListener('click', (function(n){ return function(e){ e.stopPropagation(); openSection(n.slug, true); history.replaceState(null,'','#'+n.stage+'/'+n.slug); }; })(nx));
+            acts.appendChild(nb);
+          }
+          tk.appendChild(acts);
         }
       });
     });
