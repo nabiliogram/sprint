@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Operating Playbook · by Sprint Assembly</title>
 
 <!-- ===== Google Analytics (GA4) — reports into the same property as sprintassembly.com ===== -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C45NV9W9CM"></script>
@@ -44,7 +45,7 @@
 <meta name="twitter:image:alt" content="The AI Operating Playbook by Sprint Assembly">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Mono:wght@0,400;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Space+Mono:wght@0,400;0,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   /* ===== SA palette (sprintassembly.com + the 3-pager) on the playbook-mock layout ===== */
   :root{
@@ -98,33 +99,29 @@
   .ladder-head .lbl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);}
   .ladder-head h2{font-size:clamp(30px,4.2vw,44px);font-weight:800;letter-spacing:-0.025em;line-height:1.08;margin-top:9px;}
   .ladder-head p{font-family:var(--body-font);font-size:calc(var(--body-size));color:var(--t3);margin-top:7px;}
-  .rungs{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:22px;max-width:none;margin:0 auto;}
+  .rungs{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:20px;max-width:none;margin:0 auto;}
   @media(max-width:640px){.rungs{grid-template-columns:1fr;grid-auto-rows:auto;}}
-  .rung{background:var(--paper);border:1px solid var(--line2);border-top:5px solid var(--ink);border-radius:13px;padding:24px 26px 22px;display:flex;flex-direction:column;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;position:relative;text-align:left;font-family:var(--sans);}
-  .rung:hover{transform:translateY(-4px);box-shadow:0 18px 30px -20px rgba(17,17,17,.45);}
-  .rung.c1{border-top-color:var(--red);} .rung.c2{border-top-color:var(--blue);} .rung.c3{border-top-color:var(--yellow);} .rung.c4{border-top-color:var(--ink);}
-  .rung .rn{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
-  .rung.c1 .rn{color:var(--red);} .rung.c2 .rn{color:var(--blue);} .rung.c3 .rn{color:var(--yellow-deep);} .rung.c4 .rn{color:var(--ink);}
-  .rung .rname{font-size:25px;font-weight:800;letter-spacing:-0.015em;margin-top:6px;line-height:1.08;}
-  .rung .rtag{font-family:var(--sans);font-style:italic;font-weight:600;font-size:20.5px;color:#2A251C;margin-top:9px;line-height:1.32;letter-spacing:-0.01em;}
-  .rung .rhr{height:1px;background:var(--line);margin:16px 0 13px;}
-  .rung .rlbl{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:10px;}
-  .rung ul{list-style:none;}
-  .rung li{font-family:var(--sans);font-size:16.5px;line-height:1.45;color:#3E3A32;padding-left:18px;position:relative;margin-bottom:8px;}
-  .rung li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--ink);}
-  .rung.c1 li::before{background:var(--red);} .rung.c2 li::before{background:var(--blue);} .rung.c3 li::before{background:var(--yellow);} .rung.c4 li::before{background:var(--ink);}
-  .rung ul{margin-bottom:16px;}
-  .rung .go{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--sans);font-size:15.5px;font-weight:700;text-align:left;padding:13px 17px;border-radius:10px;border:1.5px solid transparent;transition:background .16s ease,color .16s ease,border-color .16s ease;}
-  .rung .go::after{content:"→";font-weight:700;opacity:.85;transition:transform .16s ease;}
-  .rung.c1 .go{background:var(--red-soft);color:var(--red);border-color:color-mix(in srgb,var(--red) 38%,transparent);}
-  .rung.c2 .go{background:var(--blue-soft);color:var(--blue);border-color:color-mix(in srgb,var(--blue) 38%,transparent);}
-  .rung.c3 .go{background:var(--yellow-soft);color:var(--yellow-deep);border-color:color-mix(in srgb,var(--yellow) 60%,transparent);}
-  .rung.c4 .go{background:#EFEDE6;color:var(--ink);border-color:color-mix(in srgb,var(--ink) 26%,transparent);}
-  .rung.c1:hover .go{background:color-mix(in srgb,var(--red) 90%,#160a08);color:#fff;border-color:transparent;}
-  .rung.c2:hover .go{background:color-mix(in srgb,var(--blue) 90%,#050a1c);color:#fff;border-color:transparent;}
-  .rung.c3:hover .go{background:color-mix(in srgb,var(--yellow) 88%,#3a2a05);color:var(--ink);border-color:transparent;}
-  .rung.c4:hover .go{background:var(--ink);color:#fff;border-color:transparent;}
-  .rung:hover .go::after{transform:translateX(3px);}
+  /* ladder cards: compact poster tile (approved Jul 17) */
+  .rung{--ac:var(--ink);--ac-text:#fff;--ac-deep:var(--ink);position:relative;background:#FBF7EE;border:1px solid var(--line2);border-radius:13px;padding:20px 22px 18px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;text-align:left;font-family:var(--sans);}
+  .rung.c1{--ac:var(--red);--ac-deep:var(--red);}
+  .rung.c2{--ac:var(--blue);--ac-deep:var(--blue);}
+  .rung.c3{--ac:var(--yellow);--ac-text:#171307;--ac-deep:var(--yellow-deep);}
+  .rung.c4{--ac:#161310;--ac-deep:#161310;}
+  .rung:hover{border-color:var(--ac-deep);transform:translateY(-3px);box-shadow:0 14px 34px rgba(17,17,17,.10);}
+  .rung .gh{position:absolute;top:-18px;right:0;font-weight:900;font-size:112px;line-height:1;letter-spacing:-0.05em;color:color-mix(in srgb,var(--ac) 11%,transparent);pointer-events:none;}
+  .rung.c4 .gh{color:rgba(17,17,17,.07);}
+  .rung .toprow{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;}
+  .rung .chip{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--ac);color:var(--ac-text);padding:4px 8px;border-radius:4px;}
+  .rung .meta{font-family:var(--mono);font-size:9.5px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;}
+  .rung .rname{position:relative;z-index:1;font-size:29px;font-weight:900;letter-spacing:-0.028em;line-height:1.0;margin-top:12px;}
+  .rung .rtag{position:relative;z-index:1;font-family:var(--sans);font-size:15.5px;font-weight:700;font-style:italic;color:#2A2620;margin-top:6px;line-height:1.35;}
+  .rung .rlbl{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-top:13px;padding-top:11px;border-top:1px solid var(--line);margin-bottom:8px;}
+  .rung ul{list-style:none;margin-bottom:14px;}
+  .rung li{position:relative;font-family:var(--sans);font-size:14px;line-height:1.45;color:var(--t2);padding-left:17px;margin-bottom:5px;}
+  .rung li::before{content:"";position:absolute;left:1px;top:7px;width:6px;height:6px;border-radius:50%;background:var(--ac);}
+  .rung .go{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:var(--ac);color:var(--ac-text);font-weight:800;font-size:13px;padding:8px 14px;border-radius:7px;position:relative;z-index:1;}
+  .rung .go::after{content:"\2192";font-weight:800;transition:transform .15s ease;}
+  .rung:hover .go::after{transform:translateX(4px);}
   .rung.selected{box-shadow:0 0 0 2px var(--ink);}
   .quiet{font-family:var(--sans);font-size:12.5px;color:var(--t3);text-align:center;margin-top:18px;}
   .mview{display:none;}
@@ -141,12 +138,12 @@
   /* ===== stage view: one sticky rail + all four color-coded bands ===== */
   .stage-view{display:none;}
   body.mode-stage .hero,body.mode-stage .ladder,body.mode-stage .lower,body.mode-stage .mview{display:none!important;}
-  body.mode-stage .stage-view{display:grid;grid-template-columns:250px minmax(0,1fr);gap:0;align-items:start;margin-top:6px;}
+  body.mode-stage .stage-view{display:grid;grid-template-columns:322px minmax(0,1fr);gap:0;align-items:start;margin-top:6px;}
   body.mode-stage .chpanel{display:block;}
-  .stage-view .stage-rail{position:sticky;top:70px;align-self:start;padding:32px 26px 30px 2px;}
-  .sr-back{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);background:none;border:0;padding:0;cursor:pointer;margin-bottom:24px;}
-  .sr-back:hover{color:var(--ink);}
-  .sr-lbl{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:20px;}
+  .stage-view .stage-rail{position:sticky;top:70px;align-self:start;padding:32px 8px 30px 2px;max-height:calc(100vh - 90px);overflow-y:auto;overscroll-behavior:contain;}
+  .sr-back{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);background:#FBF7EE;border:1px solid var(--line2);border-radius:7px;padding:8px 12px;cursor:pointer;margin-bottom:26px;}
+  .sr-back:hover{color:var(--ink);border-color:var(--ink);}
+  .sr-lbl{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);padding-bottom:11px;border-bottom:1px solid var(--line2);margin-bottom:20px;}
   .sr-track{position:relative;display:flex;flex-direction:column;}
   .sr-track::before{content:"";position:absolute;left:9px;top:12px;bottom:16px;width:2px;background:var(--line2);}
   .sr-stage{--ac:var(--ink);position:relative;display:flex;gap:13px;align-items:flex-start;background:none;border:0;padding:0 0 24px;text-align:left;cursor:pointer;font-family:var(--sans);width:100%;}
@@ -159,6 +156,21 @@
   .sr-name{display:block;font-size:15px;font-weight:800;letter-spacing:-0.01em;line-height:1.15;color:var(--t3);}
   .sr-stage.active .sr-name{color:var(--ink);}
   .sr-tag{display:block;font-family:var(--sans);font-size:13px;color:var(--t3);margin-top:2px;}
+  /* ===== MOCK: readings listed under each stage in the rail ===== */
+  .sr-grp{--ac:var(--ink);display:flex;flex-direction:column;}
+  .sr-grp.g1{--ac:#D4322D;} .sr-grp.g2{--ac:#1A4FBF;} .sr-grp.g3{--ac:#9a7a10;} .sr-grp.g4{--ac:#111111;}
+  .sr-reads{display:none;flex-direction:column;gap:1px;margin:-12px 0 26px 9px;}
+  .sr-grp.exp .sr-reads{display:flex;}
+  .sr-grp.exp .sr-stage .sr-tag{display:none;}
+  .sr-read{display:block;background:none;border:0;border-left:2px solid var(--line2);text-align:left;cursor:pointer;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:-0.01em;line-height:1.35;color:var(--t2);padding:7px 4px 7px 13px;width:100%;border-radius:0 6px 6px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sr-read:hover{color:var(--ink);border-left-color:var(--ac);}
+  .sr-read.active{color:var(--ink);font-weight:800;border-left-color:var(--ac);background:color-mix(in srgb,var(--ac) 8%,transparent);}
+  .sr-read .srr-n{font-family:var(--mono);font-size:10px;font-weight:400;color:var(--t3);margin-right:6px;}
+  .sr-toc{display:none;flex-direction:column;}
+  .sr-read.active + .sr-toc{display:flex;}
+  .sr-toc a{font-family:var(--sans);font-size:12px;line-height:1.35;color:var(--t3);text-decoration:none;padding:4px 8px 4px 32px;border-left:2px solid var(--line2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sr-toc a:hover{color:var(--ink);}
+  .sr-toc a.active{color:var(--ink);font-weight:700;border-left-color:var(--ac);}
 
   .sv-main{min-width:0;}
   body.mode-stage .stage-shell{background:transparent;border:0;border-radius:0;overflow:visible;margin:0;border-top:4px solid var(--rc);padding:38px 46px 34px;}
@@ -181,14 +193,14 @@
   body.mode-stage .arts{margin-top:22px;}
   body.mode-stage .arts-lbl,body.mode-stage .arts-sub{display:none;}
   body.mode-stage .acc{border-top:0;gap:9px;}
-  body.mode-stage .acc-item:not(.open){border:1px solid var(--line2);border-radius:9px;background:#FBF7EE;max-width:640px;}
+  body.mode-stage .acc-item:not(.open){border:1px solid var(--line2);border-radius:9px;background:#FBF7EE;max-width:660px;}
   body.mode-stage .acc-item:not(.open):hover{border-color:var(--rc);box-shadow:none;transform:none;}
-  body.mode-stage .acc-item:not(.open) .acc-head{align-items:center;gap:16px;padding:15px 19px;}
-  body.mode-stage .acc-item:not(.open) .acc-n{background:none;width:auto;height:auto;border-radius:0;font-family:var(--mono);font-size:13px;font-weight:400;color:var(--t3);margin-top:0;}
+  body.mode-stage .acc-item:not(.open) .acc-head{align-items:flex-start;gap:16px;padding:16px 19px;}
+  body.mode-stage .acc-item:not(.open) .acc-n{background:none;width:auto;height:auto;border-radius:0;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--t3);margin-top:3px;}
   body.mode-stage .acc-item:not(.open) .acc-title{font-size:16px;font-weight:800;}
-  body.mode-stage .acc-item:not(.open) .acc-beats{display:none;}
+  body.mode-stage .acc-item:not(.open) .acc-beats{display:block;font-size:13.5px;font-style:italic;font-weight:400;color:var(--t3);line-height:1.45;margin-top:3px;max-width:56ch;}
   body.mode-stage .acc-item:not(.open) .acc-tog{display:none;}
-  @media(max-width:860px){body.mode-stage .stage-view{display:block;}.stage-view .stage-rail{display:none;}body.mode-stage .stage-shell{padding:30px 6px;}}
+  @media(max-width:860px){body.mode-stage .stage-view,body.mode-read .stage-view{display:block;}.stage-view .stage-rail{display:none;}body.mode-stage .stage-shell{padding:30px 6px;}}
 
   /* ===== 6C reader treatment: the open reading becomes a masthead + article ===== */
   .acc-item.open{--rc:var(--blue);}
@@ -211,10 +223,10 @@
   .acc-item.open .sbody p,.acc-item.open .sbody ol li{font-family:var(--sans);font-size:18px;line-height:1.62;color:#2A2620;}
   .acc-item.open .sbody h3{font-family:var(--sans);font-size:20px;margin-top:32px;}
 
-  /* ===== full-screen reader (mode-read) — the agreed 6C template ===== */
-  body.mode-read .stage-view{display:block;}
-  body.mode-read .stage-rail{display:none;}
-  body.mode-read .stage-detail .container{max-width:1180px;}
+  /* ===== reader (mode-read) — MOCK: renders in the main panel, rail stays ===== */
+  body.mode-read .hero,body.mode-read .ladder,body.mode-read .lower,body.mode-read .mview{display:none!important;}
+  body.mode-read .stage-view{display:grid;grid-template-columns:322px minmax(0,1fr);gap:0;align-items:start;margin-top:6px;}
+  body.mode-read .stage-detail .container{max-width:var(--content-w);}
   body.mode-read .chpanel:not(.on){display:none;}
   body.mode-read .chpanel.on .band-head{display:none;}
   body.mode-read .chpanel.on .arts{margin-top:0;}
@@ -227,12 +239,13 @@
   body.mode-read .acc-item.open .rd-eyebrow{font-size:12px;letter-spacing:.22em;margin-bottom:18px;}
   body.mode-read .acc-item.open .acc-title{font-size:clamp(38px,4.6vw,54px);line-height:0.99;letter-spacing:-0.03em;}
   body.mode-read .acc-item.open .acc-beats{font-size:22px;line-height:1.35;max-width:600px;margin-top:18px;color:#5B554A;}
-  body.mode-read .acc-item.open .rd-ghost{font-size:230px;top:-30px;right:12px;}
+  body.mode-read .acc-item.open .rd-ghost{font-size:185px;top:-22px;right:12px;}
   body.mode-read .acc-item.open .acc-tog{top:28px;right:28px;}
-  /* two-column body: article + right rail */
-  body.mode-read .acc-item.open .acc-inner{display:grid;grid-template-columns:minmax(0,1fr) 340px;padding:0;}
-  body.mode-read .acc-item.open .acc-meta{grid-column:1 / -1;grid-row:1;padding:18px 52px 0;margin:0;}
-  body.mode-read .acc-item.open .sbody{grid-column:1;grid-row:2;padding:22px 52px 46px;max-width:none;counter-reset:rh;}
+  /* MOCK: single-column body — the left rail carries locator + "On this page" now */
+  body.mode-read .acc-item.open .acc-inner{display:block;padding:0;}
+  body.mode-read .reader-rail{display:none!important;}
+  body.mode-read .acc-item.open .acc-meta{padding:18px 52px 0;margin:0;}
+  body.mode-read .acc-item.open .sbody{padding:22px 52px 46px;max-width:830px;counter-reset:rh;}
   body.mode-read .acc-item.open .sbody > p:first-child{font-size:21px;line-height:1.6;color:#1C1913;margin-bottom:30px;}
   body.mode-read .acc-item.open .sbody p,body.mode-read .acc-item.open .sbody ol li{font-size:18px;line-height:1.62;}
   body.mode-read .acc-item.open .sbody h3{display:flex;gap:14px;align-items:baseline;font-size:26px;letter-spacing:-0.015em;border-bottom:2px solid #17140F;padding-bottom:10px;margin:38px 0 16px;}
@@ -492,25 +505,27 @@
   .mblock-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);}
   .mblock-head .t{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);}
   .mblock-head .c{font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--t4);}
-  .loopgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
-  @media(max-width:880px){.loopgrid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:540px){.loopgrid{grid-template-columns:1fr;}}
-  .mvc{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:14px 15px 13px;}
-  .mvc .n{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:800;font-size:13px;color:#fff;background:var(--blue);}
-  .mvc h3{font-family:var(--sans);font-size:15px;font-weight:800;letter-spacing:-0.01em;margin-top:9px;}
-  .mvc p{font-family:var(--body-font);font-size:13px;line-height:1.5;color:var(--t2);margin-top:5px;}
-  .mvc::after{content:"→";display:none;position:absolute;top:16px;right:-14px;z-index:2;font-family:var(--sans);font-weight:800;color:var(--t3);font-size:14px;background:var(--paper);padding:0 2px;}
-  @media(min-width:881px){.mvc:not(:nth-child(3n)):not(:last-child)::after{display:block;}}
-  @media(min-width:541px) and (max-width:880px){.mvc:not(:nth-child(2n)):not(:last-child)::after{display:block;}}
-  .loop-return{display:flex;align-items:center;gap:9px;margin-top:14px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);}
-  .loop-return .ret{color:var(--blue);font-size:15px;font-weight:400;}
-  .prgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
-  @media(max-width:880px){.prgrid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:540px){.prgrid{grid-template-columns:1fr;}}
-  .prc{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:14px 15px 13px;}
-  .prc h3{font-family:var(--sans);font-size:14.5px;font-weight:800;letter-spacing:-0.01em;position:relative;padding-left:16px;}
-  .prc h3::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:var(--red);}
-  .prc p{font-family:var(--body-font);font-size:13px;line-height:1.5;color:var(--t2);margin-top:6px;}
+  /* the loop: arrow ribbon, red tint (approved Jul 17) */
+  .rib{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;}
+  .seg{position:relative;background:color-mix(in srgb,var(--red) 8%,var(--bg));clip-path:polygon(0 0,calc(100% - 13px) 0,100% 50%,calc(100% - 13px) 100%,0 100%,13px 50%);padding:15px 18px 14px 26px;}
+  .seg:nth-child(even){background:color-mix(in srgb,var(--red) 15%,var(--bg));}
+  .seg .n{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--red);}
+  .seg h3{font-family:var(--sans);font-size:13.5px;font-weight:800;letter-spacing:-0.01em;line-height:1.2;margin-top:3px;}
+  .ribtxt{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-top:12px;}
+  .ribtxt p{font-family:var(--sans);font-size:12px;line-height:1.5;color:var(--t2);padding:0 8px 0 12px;}
+  .ribret{margin-top:18px;display:flex;align-items:center;gap:12px;}
+  .ribret::before{content:"\2190";font-weight:900;color:var(--red);}
+  .ribret .dash{flex:1;height:0;border-top:2.5px dashed color-mix(in srgb,var(--red) 55%,transparent);}
+  .ribret .cap{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);}
+  /* the principles: foundation wall (approved Jul 17) */
+  .wall .wrow{display:grid;grid-template-columns:repeat(3,1fr);}
+  .wall .blk{border:2px solid var(--ink);margin:-1px 0 0 -1px;padding:20px 22px 18px;background:#FBF7EE;}
+  .wall .wrow:nth-child(2) .blk{background:#F3EEDD;}
+  .wall .blk .pix{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--red);}
+  .wall .blk h3{font-family:var(--sans);font-size:16.5px;font-weight:800;letter-spacing:-0.015em;margin-top:5px;}
+  .wall .blk p{font-family:var(--sans);font-size:13.5px;line-height:1.55;color:var(--t2);margin-top:6px;}
+  .wall .ground{background:var(--ink);color:#F2EDE0;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-align:center;padding:11px 0;margin-top:-1px;border-radius:0 0 10px 10px;}
+  @media(max-width:920px){.rib,.ribtxt{grid-template-columns:1fr 1fr;}.wall .wrow{grid-template-columns:1fr;}}
 
   .ixgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;}
   @media(max-width:700px){.ixgrid{grid-template-columns:1fr;}}
@@ -630,10 +645,10 @@
     <div class="rungs" id="rungs">
 
       <div class="rung c1" data-stage="stage-1" role="button" tabindex="0">
-        <div class="rn">Stage 1</div>
+        <span class="gh" aria-hidden="true">01</span>
+        <div class="toprow"><span class="chip">Stage 1</span><span class="meta">5 articles</span></div>
         <div class="rname">Personal leverage</div>
         <div class="rtag">Win back hours, starting this week.</div>
-        <div class="rhr"></div>
         <div class="rlbl">You're here if…</div>
         <ul>
           <li>A few people use AI, in their own way, when they remember to</li>
@@ -644,10 +659,10 @@
       </div>
 
       <div class="rung c2" data-stage="stage-2" role="button" tabindex="0">
-        <div class="rn">Stage 2</div>
+        <span class="gh" aria-hidden="true">02</span>
+        <div class="toprow"><span class="chip">Stage 2</span><span class="meta">6 articles</span></div>
         <div class="rname">First business win</div>
         <div class="rtag">Bring AI into one real workflow.</div>
-        <div class="rhr"></div>
         <div class="rlbl">You're here if…</div>
         <ul>
           <li>Individuals are fluent, but no <em>process</em> runs on AI yet</li>
@@ -658,10 +673,10 @@
       </div>
 
       <div class="rung c3" data-stage="stage-3" role="button" tabindex="0">
-        <div class="rn">Stage 3</div>
+        <span class="gh" aria-hidden="true">03</span>
+        <div class="toprow"><span class="chip">Stage 3</span><span class="meta">6 articles</span></div>
         <div class="rname">Expansion</div>
         <div class="rtag">Let automation and agents carry more.</div>
-        <div class="rhr"></div>
         <div class="rlbl">You're here if…</div>
         <ul>
           <li>One workflow works; you want the next five</li>
@@ -672,10 +687,10 @@
       </div>
 
       <div class="rung c4" data-stage="stage-4" role="button" tabindex="0">
-        <div class="rn">Stage 4</div>
+        <span class="gh" aria-hidden="true">04</span>
+        <div class="toprow"><span class="chip">Stage 4</span><span class="meta">6 articles</span></div>
         <div class="rname">Operating engine</div>
         <div class="rtag">Make AI a dependable part of how the firm runs.</div>
-        <div class="rhr"></div>
         <div class="rlbl">You're here if…</div>
         <ul>
           <li>AI is in several workflows but nobody owns the whole picture</li>
@@ -707,7 +722,7 @@
 
 
         <div class="arts">
-          <div class="arts-lbl">The reading</div>
+          <div class="arts-lbl">The articles</div>
           <div class="acc">
 
             <div class="acc-item" id="sec-what-ai-can-take-off-your-plate" data-slug="what-ai-can-take-off-your-plate">
@@ -1057,7 +1072,7 @@
 
         <!-- the reading -->
         <div class="arts">
-          <div class="arts-lbl">The reading</div>
+          <div class="arts-lbl">The articles</div>
 
           <div class="acc">
 
@@ -1457,7 +1472,7 @@
 
 
         <div class="arts">
-          <div class="arts-lbl">The reading</div>
+          <div class="arts-lbl">The articles</div>
           <div class="acc">
 
             <div class="acc-item" id="sec-ready-systems-and-data" data-slug="ready-systems-and-data">
@@ -1851,7 +1866,7 @@
 
 
         <div class="arts">
-          <div class="arts-lbl">The reading</div>
+          <div class="arts-lbl">The articles</div>
           <div class="acc">
 
             <div class="acc-item" id="sec-rules-and-register" data-slug="rules-and-register">
@@ -2228,26 +2243,39 @@
 
   <div class="mblock">
     <div class="mblock-head"><span class="t">The loop · six moves</span><span class="c">Run in order, one workflow at a time</span></div>
-    <div class="loopgrid">
-      <div class="mvc"><span class="n">1</span><h3>Find the constraint</h3><p>What actually breaks first, or drains the most hours. One bounded task, not a whole function.</p></div>
-      <div class="mvc"><span class="n">2</span><h3>Map the work</h3><p>Watch the process as it really happens, capture a baseline, and name one owner. You can't improve or prove anything without the before-number.</p></div>
-      <div class="mvc"><span class="n">3</span><h3>Choose the route</h3><p>Pick the simplest option that clears the bar: a fixed rule, a single model call, a set-up assistant, an automation platform, or an agent. Move up a rung only when the one below genuinely runs out.</p></div>
-      <div class="mvc"><span class="n">4</span><h3>Run the pilot</h3><p>Run it beside the current way, decide the go/no-go rule in advance, put a time limit on it, and treat "stop" as a legitimate result.</p></div>
-      <div class="mvc"><span class="n">5</span><h3>Harden and own</h3><p>Add the guardrails, name the owner, and make it the default way the work gets done.</p></div>
-      <div class="mvc"><span class="n">6</span><h3>Measure the return</h3><p>Track verified outcomes, not how many people are using it. Retire whatever stops paying its way.</p></div>
+    <div class="rib">
+      <div class="seg"><span class="n">1</span><h3>Find the constraint</h3></div>
+      <div class="seg"><span class="n">2</span><h3>Map the work</h3></div>
+      <div class="seg"><span class="n">3</span><h3>Choose the route</h3></div>
+      <div class="seg"><span class="n">4</span><h3>Run the pilot</h3></div>
+      <div class="seg"><span class="n">5</span><h3>Harden and own</h3></div>
+      <div class="seg"><span class="n">6</span><h3>Measure the return</h3></div>
     </div>
-    <div class="loop-return"><span class="ret">↻</span> Move 6 hands back to move 1, pointed at the next constraint.</div>
+    <div class="ribtxt">
+      <p>What actually breaks first, or drains the most hours. One bounded task, not a whole function.</p>
+      <p>Watch the process as it really happens, capture a baseline, and name one owner.</p>
+      <p>Pick the simplest option that clears the bar; move up a rung only when the one below runs out.</p>
+      <p>Run it beside the current way, with the go/no-go rule decided in advance and a time limit.</p>
+      <p>Add the guardrails, name the owner, and make it the default way the work gets done.</p>
+      <p>Track verified outcomes, not usage. Retire whatever stops paying its way.</p>
+    </div>
+    <div class="ribret"><span class="dash"></span><span class="cap">Move 6 hands back to move 1, pointed at the next constraint</span></div>
   </div>
 
   <div class="mblock">
     <div class="mblock-head"><span class="t">The six principles</span><span class="c">Underneath every stage</span></div>
-    <div class="prgrid">
-      <div class="prc"><h3>Problem before tool</h3><p>Start with the bottleneck you actually want to clear, and let that choose the tool, not the other way around.</p></div>
-      <div class="prc"><h3>Rules before agents</h3><p>An AI that runs on its own is only as reliable as the process behind it, so define the workflow as clear steps and rules first, then let it take over.</p></div>
-      <div class="prc"><h3>AI executes, humans certify</h3><p>Let the system do the work, but a person reviews and signs off on anything a client sees or that would be costly to get wrong.</p></div>
-      <div class="prc"><h3>The harness is the product</h3><p>What makes an automation safe to trust is the structure around it: spending limits, clear boundaries, an off-switch, and a record of what it did.</p></div>
-      <div class="prc"><h3>Ground every answer</h3><p>When a model gives you an answer, make it cite and check its sources, because you stay accountable for the result.</p></div>
-      <div class="prc"><h3>Codify and delegate</h3><p>Once something works, capture it as a repeatable process, so the next time is faster and someone else can run it without you.</p></div>
+    <div class="wall">
+      <div class="wrow">
+        <div class="blk"><div class="pix">01</div><h3>Problem before tool</h3><p>Start with the bottleneck you actually want to clear, and let that choose the tool, not the other way around.</p></div>
+        <div class="blk"><div class="pix">02</div><h3>Rules before agents</h3><p>An AI that runs on its own is only as reliable as the process behind it, so define the workflow as clear steps and rules first, then let it take over.</p></div>
+        <div class="blk"><div class="pix">03</div><h3>AI executes, humans certify</h3><p>Let the system do the work, but a person reviews and signs off on anything a client sees or that would be costly to get wrong.</p></div>
+      </div>
+      <div class="wrow">
+        <div class="blk"><div class="pix">04</div><h3>The harness is the product</h3><p>What makes an automation safe to trust is the structure around it: spending limits, clear boundaries, an off-switch, and a record of what it did.</p></div>
+        <div class="blk"><div class="pix">05</div><h3>Ground every answer</h3><p>When a model gives you an answer, make it cite and check its sources, because you stay accountable for the result.</p></div>
+        <div class="blk"><div class="pix">06</div><h3>Codify and delegate</h3><p>Once something works, capture it as a repeatable process, so the next time is faster and someone else can run it without you.</p></div>
+      </div>
+      <div class="ground">Underneath every stage</div>
     </div>
   </div>
 </div></section>
@@ -2351,6 +2379,8 @@
 
   /* ---------- stage panels (progressive disclosure below the ladder) ---------- */
   var STAGES = ['stage-1','stage-2','stage-3','stage-4'];
+  /* FIX (back-button): real history entries for in-page nav, deduped so a repeat click doesn't stack */
+  function nav(h){ if(location.hash !== h) history.pushState(null,'',h); }
   function openStage(id, scroll){
     if(STAGES.indexOf(id) < 0) return;
     document.body.classList.add('mode-stage');
@@ -2386,10 +2416,10 @@
       var panel = document.getElementById('ch-' + id);
       if(panel.classList.contains('on')){
         closeStages();
-        history.replaceState(null,'','#door');
+        nav('#door');
       } else {
         openStage(id, true);
-        history.replaceState(null,'','#' + id);
+        nav('#' + id);
       }
     }
     t.addEventListener('click', act);
@@ -2399,7 +2429,7 @@
     b.addEventListener('click', function(e){
       e.stopPropagation();
       closeStages();
-      history.replaceState(null,'','#door');
+      nav('#door');
       document.getElementById('door').scrollIntoView({behavior:'smooth', block:'start'});
     });
   });
@@ -2413,6 +2443,7 @@
       var h = s.querySelector('.acc-head'); if(h) h.setAttribute('aria-expanded','false');
     });
     document.body.classList.remove('mode-read');
+    if(window.__svRefresh) window.__svRefresh();
   }
   function openSection(slug, scroll){
     var sec = document.getElementById('sec-' + slug); if(!sec) return;
@@ -2422,6 +2453,7 @@
     sec.classList.add('open');
     document.body.classList.add('mode-read');
     var h = sec.querySelector('.acc-head'); if(h) h.setAttribute('aria-expanded','true');
+    if(window.__svRefresh) window.__svRefresh();
     setTimeout(function(){ window.scrollTo({top:0, behavior: scroll ? 'smooth' : 'auto'}); }, 40);
   }
   document.querySelectorAll('.chpanel .acc-item[data-slug] .acc-head').forEach(function(h){
@@ -2430,10 +2462,10 @@
       var sec = h.closest('.acc-item'), slug = sec.getAttribute('data-slug'), st = stageOf(sec);
       if(sec.classList.contains('open')){
         closeSecsIn(sec.closest('.chpanel'));
-        history.replaceState(null,'','#' + st);
+        nav('#' + st);
       } else {
         openSection(slug, false);
-        history.replaceState(null,'','#' + st + '/' + slug);
+        nav('#' + st + '/' + slug);
       }
     }
     h.addEventListener('click', toggle);
@@ -2446,7 +2478,7 @@
       e.stopPropagation();
       var sec = b.closest('.acc-item'), st = stageOf(sec);
       closeSecsIn(sec.closest('.chpanel'));
-      history.replaceState(null,'','#' + st);
+      nav('#' + st);
       sec.scrollIntoView({behavior:'smooth', block:'start'});
     });
   });
@@ -2463,7 +2495,7 @@
       e.stopPropagation();
       var slug = next.getAttribute('data-slug'), st = stageOf(next);
       openSection(slug, true);
-      history.replaceState(null,'','#' + st + '/' + slug);
+      nav('#' + st + '/' + slug);
     });
     closer.appendChild(btn);
   });
@@ -2472,7 +2504,7 @@
     c.addEventListener('click', function(){
       var slug = c.getAttribute('data-open'), st = stageOf(c);
       openSection(slug, true);
-      history.replaceState(null,'','#' + st + '/' + slug);
+      nav('#' + st + '/' + slug);
     });
   });
   document.querySelectorAll('.chpanel [data-copy]').forEach(function(b){
@@ -2496,7 +2528,7 @@
     if(!container) return;
 
     var HEAD = {
-      'stage-1':{h:'Win back hours of your own week, first.', b:'Before you change how the team works, get fluent yourself \u2014 the readings below turn AI from a novelty into a daily tool.'},
+      'stage-1':{h:'Win back hours of your own week, first.', b:'Before you change how the team works, get fluent yourself \u2014 the articles below turn AI from a novelty into a daily tool.'},
       'stage-2':{h:'Turn your fluency into one workflow the team trusts.', b:'Pick a single high-value workflow and make it dependable enough that the whole team leans on it.'},
       'stage-3':{h:'From one workflow to five \u2014 and your first agent.', b:'Multiply what works and take the first careful step into agents that run on their own.'},
       'stage-4':{h:'Run the whole organization as one engine.', b:'Bring every workflow and agent under one operating model \u2014 governed, measured, compounding.'}
@@ -2528,11 +2560,14 @@
     var rail = document.createElement('aside'); rail.className = 'stage-rail';
     var rh = '<div class="stage-rail-inner"><button type="button" class="sr-back" data-back>&larr; All four stages</button><div class="sr-lbl">Your path</div><div class="sr-track">';
     STAGES.forEach(function(sid, i){
-      rh += '<button type="button" class="sr-stage sr-c'+(i+1)+'" data-goto="'+sid+'">'
+      rh += '<div class="sr-grp g'+(i+1)+'" data-grp="'+sid+'">'
+          + '<button type="button" class="sr-stage sr-c'+(i+1)+'" data-goto="'+sid+'">'
           + '<span class="sr-dot"></span><span class="sr-txt">'
           + '<span class="sr-here">You are here</span>'
           + '<span class="sr-name">0'+(i+1)+' &middot; '+(rungs[sid]||sid)+'</span>'
-          + '<span class="sr-tag">'+counts[sid]+' readings</span></span></button>';
+          + '<span class="sr-tag">'+counts[sid]+' articles</span></span></button>'
+          + '<div class="sr-reads" data-reads="'+sid+'"></div>'
+          + '</div>';
     });
     rh += '</div></div>';
     rail.innerHTML = rh;
@@ -2551,13 +2586,13 @@
       hdr.innerHTML = '<div class="band-eyebrow"><span class="be-num">0'+(si+1)+'</span><span class="be-name">'+(rungs[id]||'')+'</span></div>'
         + '<h2 class="band-title">'+(HEAD[id]?HEAD[id].h:'')+'</h2>'
         + '<p class="band-blurb">'+(HEAD[id]?HEAD[id].b:'')+'</p>'
-        + '<p class="band-teaser">'+counts[id]+' readings &middot; open any time &mdash; unlocks as you go</p>';
+        + '<p class="band-teaser">'+counts[id]+' articles &middot; open any time &mdash; unlocks as you go</p>';
       shell.insertBefore(hdr, shell.firstChild);
 
       panel.addEventListener('click', function(e){
         if(panel.classList.contains('on')) return;
         openStage(id, true);
-        history.replaceState(null,'','#'+id);
+        nav('#'+id);
       });
 
       var secs = [].slice.call(panel.querySelectorAll('.arts .acc-item[data-slug]'));
@@ -2565,6 +2600,9 @@
       secs.forEach(function(sec, ri){
         var head = sec.querySelector('.acc-head'), amain = sec.querySelector('.acc-main');
         var num = '0'+(ri+1);
+        /* MOCK: dotted stage.article numbering — 01–04 for stages, 1.1 / 1.2 … for articles */
+        var dnum = (si+1)+'.'+(ri+1);
+        var an = sec.querySelector('.acc-n'); if(an) an.textContent = dnum;
         var CTA = ([
           {k:'Book a working session', p:'Forty-five minutes on one of your workflows — no deck, no obligation.', a:'Book a session'},
           {k:'Turn this into one workflow', p:'Bring one real process and we’ll scope the first automation with you.', a:'Scope a workflow'},
@@ -2574,35 +2612,40 @@
         function ctaHTML(cls){ return '<div class="'+(cls||'rr-cta')+'"><div class="rk">'+CTA.k+'</div><p>'+CTA.p+'</p><a href="mailto:grow@sprintassembly.com">'+CTA.a+' →</a></div>'; }
         if(amain && !amain.querySelector('.rd-eyebrow')){
           var eb = document.createElement('div'); eb.className = 'rd-eyebrow';
-          eb.innerHTML = 'Stage '+(si+1)+' &middot; '+(rungs[id]||'')+' &mdash; Reading '+num;
+          eb.innerHTML = 'Article '+dnum+' &middot; '+(rungs[id]||'');
           amain.insertBefore(eb, amain.firstChild);
-          var g = document.createElement('span'); g.className = 'rd-ghost'; g.textContent = num; g.setAttribute('aria-hidden','true');
+          var g = document.createElement('span'); g.className = 'rd-ghost'; g.textContent = dnum; g.setAttribute('aria-hidden','true');
           head.appendChild(g);
         }
-        /* reader rail (Jul 16 rework): body content STAYS INLINE in authored order. The old
-           template pulled the first heading+cards and first note out to the rail, which broke the
-           reading flow ("the two", "all six" lost their antecedents). The rail now carries a spine
-           locator + an "On this page" contents nav built from the reading's own sub-headings. */
-        var inner = sec.querySelector('.acc-inner'), sbody = sec.querySelector('.sbody');
-        if(inner && sbody && !sec.classList.contains('rd-built')){
+        /* MOCK: the left rail now lists this reading under its stage, and carries the
+           "On this page" contents nav (scroll-spy) for whichever reading is open.
+           Body content stays inline in authored order — no extraction. */
+        var sbody = sec.querySelector('.sbody');
+        if(sbody && !sec.classList.contains('rd-built')){
           sec.classList.add('rd-built');
-          var rr = document.createElement('aside'); rr.className = 'reader-rail';
-          var loc = document.createElement('div'); loc.className = 'rr-loc';
-          loc.innerHTML = '<div class="rr-loc-k">Stage '+(si+1)+' &middot; '+(rungs[id]||'')+'</div>'
-                        + '<div class="rr-loc-n"><b>Reading '+num+'</b> of '+('0'+secs.length).slice(-2)+'</div>';
-          rr.appendChild(loc);
+          var readsEl = rail.querySelector('[data-reads="'+id+'"]');
+          var slug = sec.getAttribute('data-slug');
+          var rb = document.createElement('button'); rb.type = 'button'; rb.className = 'sr-read';
+          rb.setAttribute('data-read', slug);
+          rb.innerHTML = '<span class="srr-n">'+dnum+'</span>'+reads[ri].title;
+          rb.title = reads[ri].title;
+          rb.addEventListener('click', function(e){
+            e.stopPropagation();
+            openSection(slug, true);
+            nav('#'+id+'/'+slug);
+          });
+          readsEl.appendChild(rb);
           var hs = [].slice.call(sbody.querySelectorAll('h3'));
           if(hs.length){
-            var toc = document.createElement('nav'); toc.className = 'rr-toc';
-            var th = document.createElement('div'); th.className = 'rr-h'; th.textContent = 'On this page'; toc.appendChild(th);
+            var toc = document.createElement('nav'); toc.className = 'sr-toc';
             var links = [];
             hs.forEach(function(h, hi){
-              var hid = sec.getAttribute('data-slug')+'-h'+(hi+1); h.id = hid;
-              var a = document.createElement('a'); a.className = 'rr-toc-link'; a.href = '#'+hid; a.textContent = h.textContent;
-              a.addEventListener('click', (function(t){ return function(e){ e.preventDefault(); var el=document.getElementById(t); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }; })(hid));
+              var hid = slug+'-h'+(hi+1); h.id = hid;
+              var a = document.createElement('a'); a.href = '#'+hid; a.textContent = h.textContent; a.title = h.textContent;
+              a.addEventListener('click', (function(t){ return function(e){ e.preventDefault(); e.stopPropagation(); var el=document.getElementById(t); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }; })(hid));
               toc.appendChild(a); links.push(a);
             });
-            rr.appendChild(toc);
+            readsEl.appendChild(toc);
             if('IntersectionObserver' in window){
               var spy = new IntersectionObserver(function(ents){
                 ents.forEach(function(en){ if(en.isIntersecting){ var ix = hs.indexOf(en.target); links.forEach(function(l, li){ l.classList.toggle('active', li===ix); }); } });
@@ -2610,20 +2653,19 @@
               hs.forEach(function(h){ spy.observe(h); });
             }
           }
-          inner.insertBefore(rr, sbody.nextSibling);
         }
         /* takeaway footer actions: back-to-overview + read-next-reading, on their own row */
         var tk = sec.querySelector('.takeaway');
         if(tk && !tk.querySelector('.tk-actions')){
           var acts = document.createElement('div'); acts.className = 'tk-actions';
           var bb = document.createElement('button'); bb.className = 'rr-back'; bb.innerHTML = '&larr; Back to Stage '+(si+1)+' overview';
-          bb.addEventListener('click', function(e){ e.stopPropagation(); closeSecsIn(panel); history.replaceState(null,'','#'+id); window.scrollTo({top:0, behavior:'smooth'}); });
+          bb.addEventListener('click', function(e){ e.stopPropagation(); closeSecsIn(panel); nav('#'+id); window.scrollTo({top:0, behavior:'smooth'}); });
           acts.appendChild(bb);
           var nx = nextReading(sec.getAttribute('data-slug'));
           if(nx){
             var nb = document.createElement('button'); nb.className = 'rr-next';
             nb.innerHTML = '<span class="rn-k">Read next</span><span class="rn-t">'+nx.title+' &rarr;</span>';
-            nb.addEventListener('click', (function(n){ return function(e){ e.stopPropagation(); openSection(n.slug, true); history.replaceState(null,'','#'+n.stage+'/'+n.slug); }; })(nx));
+            nb.addEventListener('click', (function(n){ return function(e){ e.stopPropagation(); openSection(n.slug, true); nav('#'+n.stage+'/'+n.slug); }; })(nx));
             acts.appendChild(nb);
           }
           tk.appendChild(acts);
@@ -2633,15 +2675,17 @@
 
     rail.querySelector('[data-back]').addEventListener('click', function(e){
       e.stopPropagation(); closeStages();
-      history.replaceState(null,'','#door');
+      nav('#door');
       var d = document.getElementById('door'); if(d) d.scrollIntoView({behavior:'smooth', block:'start'});
     });
     rail.querySelectorAll('[data-goto]').forEach(function(b){
       b.addEventListener('click', function(e){
         e.stopPropagation();
         var t = b.getAttribute('data-goto');
+        /* MOCK: a stage click always lands on the stage overview, even from a reading */
+        var p = document.getElementById('ch-'+t); if(p) closeSecsIn(p);
         openStage(t, true);
-        history.replaceState(null,'','#'+t);
+        nav('#'+t);
       });
     });
 
@@ -2649,6 +2693,12 @@
       var activeId = null;
       STAGES.forEach(function(id){ if(document.getElementById('ch-'+id).classList.contains('on')) activeId = id; });
       rail.querySelectorAll('.sr-stage').forEach(function(n){ n.classList.toggle('active', n.getAttribute('data-goto') === activeId); });
+      /* MOCK: expand the active stage's reading list; highlight the open reading */
+      rail.querySelectorAll('.sr-grp').forEach(function(g){ g.classList.toggle('exp', g.getAttribute('data-grp') === activeId); });
+      var openSec = document.body.classList.contains('mode-read') && activeId
+        ? document.querySelector('#ch-'+activeId+' .acc-item.open') : null;
+      var openSlug = openSec ? openSec.getAttribute('data-slug') : null;
+      rail.querySelectorAll('.sr-read').forEach(function(r){ r.classList.toggle('active', r.getAttribute('data-read') === openSlug); });
     };
     window.__svRefresh();
   })();
@@ -2667,7 +2717,13 @@
     var parts = h.split('/');
     if(STAGES.indexOf(parts[0]) >= 0){
       if(parts[1]){ openSection(parts[1], true); }
-      else { openStage(parts[0], true); }
+      else {
+        /* FIX (back-button): a bare stage hash means the OVERVIEW — close any article
+           still open in that stage, or its masthead renders above the chips. */
+        var p = document.getElementById('ch-' + parts[0]);
+        if(p) closeSecsIn(p);
+        openStage(parts[0], true);
+      }
     } else {
       closeStages();
     }
